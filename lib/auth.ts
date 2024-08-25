@@ -6,6 +6,11 @@ import bcrypt from 'bcryptjs';
 
 // The authOptions object is used to configure the authentication provider
 export const authOptions: NextAuthOptions = {
+  pages: {
+    signIn: '/login',
+    signOut: '/logout',
+    error: '/login',
+  },
   providers: [
     credentials({
       name: 'Credentials',
@@ -35,3 +40,4 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
 };
+

@@ -1,12 +1,29 @@
 'use client';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 export default function Login() {
   const [error, setError] = useState('');
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      // Si el usuario está autenticado, redirige a la página deseada
+      router.push("/dashboard"); // Ajusta esta ruta según tu aplicación
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return <p>Cargando...</p>; // Mostrar un indicador de carga mientras se verifica la sesión
+  }
+
+  if (status === "authenticated") {
+    return null; // No mostrar nada mientras redirige
+  }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -20,7 +37,7 @@ export default function Login() {
       setError(res.error as string);
     }
     if (res?.ok) {
-      return router.push('/');
+      return router.push('/dashboard/edit-profile');
     }
   };
 
@@ -45,6 +62,7 @@ export default function Login() {
           <input
             type="password"
             placeholder="Password"
+            autoComplete='current-password'
             className="w-full h-8 border border-solid border-black rounded p-2"
             name="password"
           />

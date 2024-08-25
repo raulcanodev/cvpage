@@ -5,10 +5,13 @@ export interface UserDocument {
   email: string;
   password: string;
   name: string;
+  lastname: string;
+  username: string;
   phone: string;
   image: string;
   createdAt: Date;
   updatedAt: Date;
+  role: string;
 }
 
 // Define the schema for the User model

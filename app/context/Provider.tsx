@@ -1,5 +1,6 @@
 "use client";
 
+// https://next-auth.js.org/getting-started/client#options
 import { SessionProvider } from "next-auth/react";
 
 type Props = {
