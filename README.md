@@ -61,3 +61,19 @@ hitme.to/
 └── README.md                   # Documentación del proyecto
   
   ```
+
+## Frontend
+- Tailwind
+- Shadcn UI
+- Lucide React
+
+## Auth
+- NextAuth
+- GitHub
+- Google
+
+## Pricing
+- Lemonsqueeze
+
+## DataBase
+- MongoDB
