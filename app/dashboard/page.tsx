@@ -4,6 +4,8 @@ import React from "react";
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
+  console.log(session);
+
 
   const currentUserName = session?.user?.name;
   const currentUserEmail = session?.user?.email;

@@ -1,25 +1,14 @@
 # Personal Code Snippets For This Project
 
-### See if user is logged in
+### Get user data in client side
 
 ```ts
-import { useSession, signOut } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
-const Page: React.FC = () => {
-  const { data: session } = useSession();
-
-  if( !session?.user ) {
-    redirect('/login');
-  }
-
-  return (
-    <div>
-      <h1>Protected Page</h1>
-      <button onClick={() => signOut()}>Sign Out</button>
-    </div>
-  );
-};
+// Component code
+const {data: session} = useSession();
+  const name = session?.user?.name;
+  console.log('name: ', name);
 ```
 --------------------------------------------------------------------------------------------
 
