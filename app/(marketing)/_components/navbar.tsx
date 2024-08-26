@@ -27,7 +27,7 @@ export default function Navbar({children}: Props) {
     if (status === "authenticated") {
       return (
         <button
-          className="border border-solid border-black rounded"
+          className=""
           onClick={() => {
             signOut({ redirect: false }).then(() => {
               router.push("/");
@@ -40,15 +40,15 @@ export default function Navbar({children}: Props) {
       )
     } else if (status === "loading") {
       return (
-        <span className="text-[#888] text-sm mt-7">Loading...</span>
+        <span className="">Loading...</span>
       )
     } else {
       return (
         <Link
           href="/login"
-          className="border border-solid border-black rounded"
+          className=""
         >
-          Sign In
+          Log In
         </Link>
       )
     }
@@ -57,7 +57,7 @@ export default function Navbar({children}: Props) {
   return (
     <header className="px-4 lg:px-6 h-14 flex items-center border-b border-gray-200 dark:border-gray-800">
       <a href="#" className="flex items-center justify-center">
-        <MessageCircle className="h-6 w-6 text-gray-800" />
+      <MessageCircle className="h-6 w-6 text-blue-600" />
         <span className="ml-2 text-2xl font-bold text-gray-800 dark:text-gray-200">hitme.to</span>
       </a>
       <div className="ml-auto flex items-center">
@@ -72,7 +72,7 @@ export default function Navbar({children}: Props) {
             About
           </a>
         </nav>
-        <Button className="hidden md:flex ml-4">{showSession()}</Button>
+        <Button className="hidden md:flex ml-4 bg-blue-600">{showSession()}</Button>
         <Button
           variant="ghost"
           size="icon"

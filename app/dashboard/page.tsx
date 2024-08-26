@@ -1,24 +1,18 @@
-"use client";
-import React from 'react';
-import { useSession, signOut } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import React from "react";
 
-const Page: React.FC = () => {
-  const { data: session } = useSession();
+export default async function DashboardPage() {
+  const session = await getServerSession(authOptions);
 
-  console.log({session});
+  const currentUserName = session?.user?.name;
+  const currentUserEmail = session?.user?.email;
 
-  // if( !session?.user ) {
-  //   redirect('/login');
-  // }
-  
-  
   return (
     <div>
-      <h1>Page for dashboard</h1>
-      <p>Welcome test</p>
+      <h1>Dashboard</h1>
+      <p>Welcome, {currentUserName}</p>
+      <p>Email: {currentUserEmail}</p>
     </div>
   );
-};
-
-export default Page;
+}

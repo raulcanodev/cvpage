@@ -2,8 +2,10 @@
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Navbar } from './_components';
+import { Navbar, Testimonials, Hero, KeyFeatures, Video, About } from './_components';
 import { Footer } from '@/components/layout';
+
+
 
 // v0
 import { useState } from 'react';
@@ -53,8 +55,8 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <Navbar>{showSession()}</Navbar>
 
-      <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+      <main className="flex flex-col min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+        {/* <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
@@ -84,50 +86,13 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">
-              Key Features
-            </h2>
-            <div className="grid gap-6 lg:grid-cols-3 lg:gap-12">
-              <Card>
-                <CardContent className="flex flex-col items-center space-y-4 p-6">
-                  <Link
-                    href="#"
-                    className="h-12 w-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center"
-                  >
-                    Test
-                  </Link>
-                  <h3 className="text-xl font-bold">Custom URL</h3>
-                  <p className="text-gray-500 dark:text-gray-400 text-center">
-                    Get your own personalized hitme.to link to share with your audience.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="flex flex-col items-center space-y-4 p-6">
-                  <Zap className="h-12 w-12 rounded-full bg-blue-100 text-blue-600 p-2" />
-                  <h3 className="text-xl font-bold">Easy Setup</h3>
-                  <p className="text-gray-500 dark:text-gray-400 text-center">
-                    Create your page in minutes with our intuitive dashboard.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="flex flex-col items-center space-y-4 p-6">
-                  <Shield className="h-12 w-12 rounded-full bg-purple-100 text-purple-600 p-2" />
-                  <h3 className="text-xl font-bold">Secure & Reliable</h3>
-                  <p className="text-gray-500 dark:text-gray-400 text-center">
-                    Your data is always safe and your page is always online.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
+        </section> */}
+        <Hero/> 
+        <KeyFeatures/>
+        <Testimonials />
+        <Video />
+        <About/>
       </main>
-      
       <Footer/>
     </div>
   );

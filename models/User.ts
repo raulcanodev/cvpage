@@ -7,6 +7,7 @@ export interface UserDocument {
   name: string;
   lastname: string;
   username: string;
+  description: string;
   phone: string;
   image: string;
   createdAt: Date;
@@ -32,7 +33,10 @@ const UserSchema = new Schema<UserDocument>({
   name: {
     type: String,
     required: [true, "Name is required"]
-  }
+  },
+  description: {
+    type: String
+  },
 },
 {
   timestamps: true,
