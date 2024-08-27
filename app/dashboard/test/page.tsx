@@ -1,19 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
 
 const DescriptionForm = () => {
   const [description, setDescription] = useState('');
   const [message, setMessage] = useState('');
-
-  const {data: session} = useSession();
-  // const userId = session?.user?.id;
-  const name = session?.user?.name;
-  // console.log(userId, name);
-  console.log(session);
-
-
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();

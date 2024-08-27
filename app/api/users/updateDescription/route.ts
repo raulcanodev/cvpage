@@ -4,7 +4,7 @@
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth"; 
+import { authOptions } from "@/lib/auth";
 
 export async function PUT(request: any) {
   try {
@@ -15,7 +15,7 @@ export async function PUT(request: any) {
     }
    
 
-    const userId = session.user._id.toString();
+    const userId = (session.user as { _id: string })._id;
     const { description } = await request.json();
 
     await connectDB();
