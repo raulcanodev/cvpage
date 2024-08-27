@@ -5,6 +5,16 @@ import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import { z } from 'zod';  
+
+// Define a validation schema for the description field
+const descriptionSchema = z.string()
+  .trim() // Remove leading/trailing whitespace
+  .min(1, "Description cannot be empty") // Check for empty string
+  .max(1000, "Description cannot exceed 1000 characters") // Check for max length
+  .refine((description) => !/[<>]/.test(description), { // Check for '<' or '>' characters
+    message: "Description cannot contain '<' or '>' characters",
+  });
 
 export async function PUT(request: Request) {
   try {
@@ -18,8 +28,10 @@ export async function PUT(request: Request) {
     const { description } = await request.json();
 
     // Validate description field
-    if (!description || description.trim() === "") {
-      return new Response(JSON.stringify({ error: "Description is required" }), { status: 400 });
+    const parsedDescription = descriptionSchema.safeParse(description);
+    if (!parsedDescription.success) {
+      const errorMessages = parsedDescription.error.issues.map((issue) => issue.message);
+      return new Response(JSON.stringify({ error: errorMessages }), { status: 400 });
     }
 
     // Connect to the database and find the user by ID to update the description
@@ -30,7 +42,7 @@ export async function PUT(request: Request) {
       return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
     }
 
-    user.description = description;
+    user.description = parsedDescription.data;
     await user.save();
 
     return new Response(JSON.stringify({ message: "Description updated successfully" }), { status: 200 });

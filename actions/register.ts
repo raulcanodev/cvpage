@@ -3,11 +3,23 @@ import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
 
+interface RegisterValues {
+  email?: string;
+  password: string;
+  repeatPassword: string;
+}
+
 // Register a new user in the database
-export const register = async (values: any) => {
-  const { email, password, name } = values;
+export const register = async (values: RegisterValues) => {
+  const { email, password, repeatPassword } = values;
   
   try {
+      if (password !== repeatPassword) {
+          return {
+              error: 'Passwords do not match!'
+          }
+      }
+
       await connectDB();
       const userFound = await User.findOne({ email });
       if(userFound){
@@ -17,7 +29,6 @@ export const register = async (values: any) => {
       }
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = new User({
-        name,
         email,
         password: hashedPassword,
       });

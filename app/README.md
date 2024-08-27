@@ -42,3 +42,10 @@ db.users.find()
 ```
 
 --------------------------------------------------------------------------------------------
+
+## UI Components
+
+Instalation: 
+```bash
+npx shadcn-ui@latest add alert
+```

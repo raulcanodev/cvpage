@@ -1,4 +1,5 @@
 import  mongoose, { Schema, model } from  "mongoose";
+import { z } from 'zod';
 
 export interface UserDocument {
   _id: string;
@@ -8,6 +9,7 @@ export interface UserDocument {
   lastname: string;
   username: string;
   description: string;
+  customDomain: string;
   phone: string;
   image: string;
   createdAt: Date;
@@ -32,9 +34,11 @@ const UserSchema = new Schema<UserDocument>({
   },
   name: {
     type: String,
-    required: [true, "Name is required"]
   },
   description: {
+    type: String
+  },
+  customDomain: {
     type: String
   },
 },
