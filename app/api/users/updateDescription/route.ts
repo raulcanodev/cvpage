@@ -15,7 +15,7 @@ export async function PUT(request: any) {
     }
    
 
-    const userId = (session.user as { _id: string })._id;
+    const userId = session.user._id;
     const { description } = await request.json();
 
     await connectDB();
