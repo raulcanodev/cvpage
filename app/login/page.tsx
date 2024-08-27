@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { MessageCircle, AlertCircle, Github, Mail } from "lucide-react"
 
@@ -127,7 +127,7 @@ export default function Login() {
           <Link href="/register" className="text-blue-600 dark:text-blue-400 hover:underline">
             Sign up
           </Link>
-        </div>
+        </div>        
       </CardFooter>
     </Card>
   </div>
