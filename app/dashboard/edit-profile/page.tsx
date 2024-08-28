@@ -1,249 +1,241 @@
-"use client";
-import { useState } from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+'use client'
+import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent } from "@/components/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { PlusCircle, Trash2, Link, Eye, MessageCircle } from "lucide-react"
+import { Label } from "@/components/ui/label"
+import { Pencil, Plus, GripVertical, X, Eye } from "lucide-react"
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 interface Service {
-  id: number
+  id: string
   title: string
-  price: string
   description: string
-  details: string
+  price: string
 }
 
-export default function Component() {
-  const [name, setName] = useState("Jane Doe")
-  const [username, setUsername] = useState("janedoe")
-  const [bio, setBio] = useState("Freelance Developer & Designer")
-  const [whatsapp, setWhatsapp] = useState("1234567890")
-  const [services, setServices] = useState<Service[]>([
-    {
-      id: 1,
-      title: "Web Development",
-      price: "$500",
-      description: "Custom website development",
-      details: "Fully responsive, SEO-optimized websites built with modern technologies like React and Next.js."
-    },
-    {
-      id: 2,
-      title: "UI/UX Design",
-      price: "$300",
-      description: "User-centered design solutions",
-      details: "Intuitive and visually appealing interfaces designed to enhance user experience and engagement."
-    }
-  ])
+type ColorScheme = 'blue' | 'green' | 'purple' | 'pink'
 
-  const addService = () => {
+const colorSchemes: Record<ColorScheme, { primary: string, secondary: string, background: string }> = {
+  blue: { primary: 'bg-blue-500', secondary: 'bg-blue-100', background: 'bg-blue-50' },
+  green: { primary: 'bg-green-500', secondary: 'bg-green-100', background: 'bg-green-50' },
+  purple: { primary: 'bg-purple-500', secondary: 'bg-purple-100', background: 'bg-purple-50' },
+  pink: { primary: 'bg-pink-500', secondary: 'bg-pink-100', background: 'bg-pink-50' },
+}
+
+export default function DashboardEditProfile() {
+  const [name, setName] = useState('Marc Lou')
+  const [description, setDescription] = useState('Your Saturday issue to find startup ideas, launch fast, and get profitable 💸')
+  const [services, setServices] = useState<Service[]>([
+    { id: '1', title: 'ShipFast', description: 'Ship your startup in days, not months', price: '$57.4k/mo' },
+  ])
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('blue')
+
+  const handleAddService = () => {
     const newService: Service = {
-      id: Date.now(),
-      title: "",
-      price: "",
-      description: "",
-      details: ""
+      id: Date.now().toString(),
+      title: 'New Service',
+      description: 'Description of the new service',
+      price: '$0/mo'
     }
     setServices([...services, newService])
   }
 
-  const updateService = (id: number, field: keyof Service, value: string) => {
+  const handleUpdateService = (id: string, field: keyof Service, value: string) => {
     setServices(services.map(service => 
       service.id === id ? { ...service, [field]: value } : service
     ))
   }
 
-  const removeService = (id: number) => {
+  const handleDeleteService = (id: string) => {
     setServices(services.filter(service => service.id !== id))
   }
 
-  const PreviewProfile = () => (
-    <div className="max-w-md mx-auto p-6 bg-gradient-to-b from-gray-50 to-gray-100 rounded-lg shadow-lg">
-      <div className="text-center mb-6">
-        <Avatar className="w-24 h-24 mx-auto mb-4">
-          <AvatarImage src="/placeholder-avatar.jpg" alt={name} />
-          <AvatarFallback>{name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-        </Avatar>
-        <h1 className="text-2xl font-semibold text-gray-800 mb-2">{name}</h1>
-        <p className="text-gray-600 mb-4">{bio}</p>
-        <Button 
-          className="w-full bg-green-500 hover:bg-green-600 text-white"
-          onClick={() => window.open(`https://wa.me/${whatsapp}`, '_blank')}
-        >
-          <MessageCircle className="w-4 h-4 mr-2" />
-          Contact via WhatsApp
-        </Button>
-      </div>
-      <div className="space-y-4">
-        {services.map((service) => (
-          <Card key={service.id} className="overflow-hidden">
-            <CardContent className="p-4">
-              <h2 className="text-lg font-semibold text-gray-800 mb-2">{service.title}</h2>
-              <p className="text-sm text-gray-600 mb-2">{service.description}</p>
-              <div className="flex justify-between items-center">
-                <span className="text-lg font-semibold text-gray-800">{service.price}</span>
-                <Button variant="outline" size="sm">Learn More</Button>
+  const onDragEnd = (result: any) => {
+    if (!result.destination) return
+    const items = Array.from(services)
+    const [reorderedItem] = items.splice(result.source.index, 1)
+    items.splice(result.destination.index, 0, reorderedItem)
+    setServices(items)
+  }
+
+  const MobilePreview = () => (
+    <div className="fixed bottom-4 right-4 md:hidden">
+      <Button onClick={() => setIsPreviewOpen(true)} className={`rounded-full shadow-lg ${colorSchemes[colorScheme].primary} text-white`}>
+        <Eye className="mr-2 h-4 w-4" /> Preview
+      </Button>
+    </div>
+  )
+
+  const Preview = () => (
+    <div className="w-[375px] h-[812px] bg-white dark:bg-gray-800 rounded-[60px] shadow-xl overflow-hidden border-8 border-gray-800 dark:border-gray-200">
+      <div className="w-40 h-6 bg-gray-800 dark:bg-gray-200 mx-auto rounded-b-3xl"></div>
+      <div className={`p-8 overflow-y-auto h-full ${colorSchemes[colorScheme].background} dark:bg-gray-800`}>
+        <div className="flex items-center space-x-4 mb-6">
+          <Avatar className="w-20 h-20">
+            <AvatarImage src="/placeholder.svg?height=100&width=100" alt={name} />
+            <AvatarFallback>{name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+          </Avatar>
+          <div>
+            <h2 className="text-2xl font-bold">{name}</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Bali</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">$62.1k/month</p>
+          </div>
+        </div>
+        <p className="text-sm mb-6">{description}</p>
+        <Input className="mb-4" placeholder="marc.louvion@gmail.com" />
+        <Button className={`w-full mb-6 ${colorSchemes[colorScheme].primary} text-white`}>Subscribe</Button>
+        <div className="space-y-4">
+          {services.map((service) => (
+            <div key={service.id} className="bg-white dark:bg-gray-700 rounded-lg p-4 transition-all hover:shadow-md">
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="font-semibold text-lg">{service.title}</h3>
+                <span className={`text-sm font-medium ${colorSchemes[colorScheme].secondary} ${colorSchemes[colorScheme].primary.replace('bg-', 'text-')} px-2 py-1 rounded-full`}>
+                  {service.price}
+                </span>
               </div>
-            </CardContent>
-          </Card>
-        ))}
+              <p className="text-sm text-gray-600 dark:text-gray-300">{service.description}</p>
+              <Button variant="link" className={`mt-2 p-0 h-auto ${colorSchemes[colorScheme].primary.replace('bg-', 'text-')} hover:underline`}>
+                Learn more →
+              </Button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-2xl font-bold">hitme.to Dashboard</CardTitle>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="outline">
-                  <Eye className="w-4 h-4 mr-2" />
-                  Preview
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                  <DialogTitle>Profile Preview</DialogTitle>
-                </DialogHeader>
-                <PreviewProfile />
-              </DialogContent>
-            </Dialog>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col sm:flex-row items-center gap-6 mb-6">
-              <Avatar className="w-24 h-24">
-                <AvatarImage src="/placeholder-avatar.jpg" alt="User" />
-                <AvatarFallback>JD</AvatarFallback>
-              </Avatar>
-              <Button>Change Avatar</Button>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="name">Name</Label>
-                <Input 
-                  id="name" 
-                  value={name} 
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="username">hitme.to URL</Label>
-                <div className="flex items-center">
-                  <span className="bg-gray-200 p-2 rounded-l-md text-gray-700">hitme.to/</span>
-                  <Input 
-                    id="username" 
-                    value={username} 
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="rounded-l-none"
-                  />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-8">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold mb-8">Edit Profile</h1>
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <Card className="overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-4 mb-4">
+                  <Avatar className="w-24 h-24">
+                    <AvatarImage src="/placeholder.svg?height=100&width=100" alt={name} />
+                    <AvatarFallback>{name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                  </Avatar>
+                  <Button className={`${colorSchemes[colorScheme].primary} text-white`}>Change Image</Button>
                 </div>
-              </div>
-              <div>
-                <Label htmlFor="bio">Bio</Label>
-                <Textarea 
-                  id="bio" 
-                  value={bio} 
-                  onChange={(e) => setBio(e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="whatsapp">WhatsApp Number</Label>
-                <Input 
-                  id="whatsapp" 
-                  value={whatsapp} 
-                  onChange={(e) => setWhatsapp(e.target.value)}
-                />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Manage Services</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {services.map((service) => (
-              <div key={service.id} className="mb-8 p-4 border rounded-lg">
-                <div className="grid gap-4 mb-4">
+                <div className="space-y-4">
                   <div>
-                    <Label htmlFor={`title-${service.id}`}>Title</Label>
-                    <Input 
-                      id={`title-${service.id}`}
-                      value={service.title} 
-                      onChange={(e) => updateService(service.id, 'title', e.target.value)}
-                    />
+                    <Label htmlFor="name">Name</Label>
+                    <Input id="name" value={name} onChange={(e) => setName(e.target.value)} className="mt-1" />
                   </div>
                   <div>
-                    <Label htmlFor={`price-${service.id}`}>Price</Label>
-                    <Input 
-                      id={`price-${service.id}`}
-                      value={service.price} 
-                      onChange={(e) => updateService(service.id, 'price', e.target.value)}
-                    />
+                    <Label htmlFor="description">Description</Label>
+                    <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="mt-1" />
                   </div>
                   <div>
-                    <Label htmlFor={`description-${service.id}`}>Short Description</Label>
-                    <Input 
-                      id={`description-${service.id}`}
-                      value={service.description} 
-                      onChange={(e) => updateService(service.id, 'description', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor={`details-${service.id}`}>Detailed Description</Label>
-                    <Textarea 
-                      id={`details-${service.id}`}
-                      value={service.details} 
-                      onChange={(e) => updateService(service.id, 'details', e.target.value)}
-                    />
+                    <Label>Color Scheme</Label>
+                    <div className="flex space-x-2 mt-1">
+                      {(Object.keys(colorSchemes) as ColorScheme[]).map((color) => (
+                        <button
+                          key={color}
+                          onClick={() => setColorScheme(color)}
+                          className={`w-8 h-8 rounded-full ${colorSchemes[color].primary} ${colorScheme === color ? 'ring-2 ring-offset-2 ring-gray-400' : ''}`}
+                          aria-label={`Select ${color} color scheme`}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <Button 
-                  variant="destructive" 
-                  onClick={() => removeService(service.id)}
-                >
-                  <Trash2 className="w-4 h-4 mr-2" />
-                  Remove Service
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <h2 className="text-xl font-semibold mb-4">Services</h2>
+                <DragDropContext onDragEnd={onDragEnd}>
+                  <Droppable droppableId="services">
+                    {(provided) => (
+                      <div {...provided.droppableProps} ref={provided.innerRef}>
+                        {services.map((service, index) => (
+                          <Draggable key={service.id} draggableId={service.id} index={index}>
+                            {(provided) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                className="mb-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700"
+                              >
+                                <div className="flex items-center mb-2">
+                                  <div {...provided.dragHandleProps} className="mr-2">
+                                    <GripVertical className="h-5 w-5 text-gray-400" />
+                                  </div>
+                                  <Input 
+                                    value={service.title} 
+                                    onChange={(e) => handleUpdateService(service.id, 'title', e.target.value)}
+                                    className="font-semibold flex-grow"
+                                  />
+                                  <Dialog>
+                                    <DialogTrigger asChild>
+                                      <Button variant="outline" size="sm" className="ml-2">
+                                        <Pencil className="h-4 w-4" />
+                                      </Button>
+                                    </DialogTrigger>
+                                    <DialogContent>
+                                      <DialogHeader>
+                                        <DialogTitle>Edit Price</DialogTitle>
+                                      </DialogHeader>
+                                      <div className="py-4">
+                                        <Label htmlFor={`price-${service.id}`}>Price</Label>
+                                        <Input 
+                                          id={`price-${service.id}`}
+                                          value={service.price} 
+                                          onChange={(e) => handleUpdateService(service.id, 'price', e.target.value)}
+                                          className="mt-1"
+                                        />
+                                      </div>
+                                    </DialogContent>
+                                  </Dialog>
+                                </div>
+                                <Textarea 
+                                  value={service.description} 
+                                  onChange={(e) => handleUpdateService(service.id, 'description', e.target.value)}
+                                  className="mb-2"
+                                />
+                                <Button variant="destructive" size="sm" onClick={() => handleDeleteService(service.id)}>
+                                  <X className="h-4 w-4 mr-2" />
+                                  Delete
+                                </Button>
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
+                </DragDropContext>
+                <Button onClick={handleAddService} className={`w-full mt-4 ${colorSchemes[colorScheme].primary} text-white`}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Service
                 </Button>
-              </div>
-            ))}
-            <Button onClick={addService} className="w-full">
-              <PlusCircle className="w-4 h-4 mr-2" />
-              Add New Service
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="mt-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Link className="w-5 h-5 text-gray-500" />
-                <span className="text-sm text-gray-700">Your hitme.to Link:</span>
-              </div>
-              <a 
-                href={`https://hitme.to/${username}`} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-sm text-blue-600 hover:underline"
-              >
-                https://hitme.to/{username}
-              </a>
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="flex justify-end">
-          <Button className="w-full sm:w-auto">Save Changes</Button>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="hidden md:flex justify-center items-start pt-12">
+            <Preview />
+          </div>
         </div>
       </div>
+      <MobilePreview />
+      <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
+        <DialogContent className="max-w-[425px] p-0">
+          <DialogHeader className="p-6">
+            <DialogTitle>Profile Preview</DialogTitle>
+          </DialogHeader>
+          <div className="px-6 pb-6">
+            <Preview />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

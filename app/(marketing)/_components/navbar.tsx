@@ -7,14 +7,7 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-
-
-
-interface Props {
-  children?: React.ReactNode
-}
-
-export default function Navbar({children}: Props) {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   const { status } = useSession();
@@ -55,7 +48,7 @@ export default function Navbar({children}: Props) {
   }
 
   return (
-    <header className="px-4 lg:px-6 h-14 flex items-center border-b border-gray-200 dark:border-gray-800">
+    <header className="px-4 z-50 lg:px-6 h-14 flex items-center border-b border-gray-200 dark:border-gray-800">
       <a href="#" className="flex items-center justify-center">
       <MessageCircle className="h-6 w-6 text-blue-600" />
         <span className="ml-2 text-2xl font-bold text-gray-800 dark:text-gray-200">hitme.to</span>
@@ -65,7 +58,7 @@ export default function Navbar({children}: Props) {
           <a className="text-sm font-medium hover:underline underline-offset-4" href="#">
             Features
           </a>
-          <a className="text-sm font-medium hover:underline underline-offset-4" href="#">
+          <a className="text-sm font-medium hover:underline underline-offset-4" href="#pricing">
             Pricing
           </a>
           <a className="text-sm font-medium hover:underline underline-offset-4" href="#">
@@ -73,6 +66,7 @@ export default function Navbar({children}: Props) {
           </a>
         </nav>
         <Button className="hidden md:flex ml-4 bg-blue-600">{showSession()}</Button>
+
         <Button
           variant="ghost"
           size="icon"
@@ -90,7 +84,7 @@ export default function Navbar({children}: Props) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-14 left-0 right-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 py-4 px-4 md:hidden"
+            className="absolute top-14 left-0 right-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 py-4 px-4 md:hidden"
           >
             <nav className="flex flex-col space-y-4">
               <a className="text-sm font-medium hover:underline underline-offset-4" href="#">
@@ -102,7 +96,6 @@ export default function Navbar({children}: Props) {
               <a className="text-sm font-medium hover:underline underline-offset-4" href="#">
                 About
               </a>
-              {children}
             </nav>
           </motion.div>
         )}

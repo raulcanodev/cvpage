@@ -4,3 +4,6 @@ export { default as Hero } from './hero';
 export { default as KeyFeatures } from './key-features';
 export { default as Video } from './video';
 export { default as About } from './about';
+export { default as BigCTA } from './big-cta';
+export { default as Pricing } from './pricing';
+export { default as FAQS } from './faq';

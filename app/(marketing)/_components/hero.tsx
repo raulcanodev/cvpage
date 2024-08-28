@@ -1,61 +1,45 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import Image from 'next/image';
+import React, { useState } from 'react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { ArrowRight } from "lucide-react"
 
 export default function Hero() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     // Handle form submission here
-    console.log('Submitted email:', email);
-  };
+    console.log('Username submitted:', username)
+  }
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
-      <div className="container px-4 md:px-6">
-
-        <div className="grid gap-12 lg:grid-cols-[1fr_400px] lg:gap-7 xl:grid-cols-[1fr_600px]">
-
-          <div className="flex items-center justify-center">
-            <div className="relative w-[280px] h-[572px] bg-gray-900 rounded-[60px] overflow-hidden border-[14px] border-gray-900 shadow-xl">
-              <Image
-                src="/placeholder.svg?height=572&width=280"
-                width={280}
-                height={572}
-                alt="hitme.to app mockup"
-                className="object-cover"
-              />
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[120px] h-[30px] bg-gray-900 rounded-b-[20px]"></div>
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-center space-y-4">
-            <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                Connect with Your Audience
-              </h1>
-              <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-                Create a personalized landing page for all your services and contact information in
-                one place.
-              </p>
-            </div>
-            <div className="w-full max-w-sm space-y-2">
-              <form onSubmit={handleSubmit} className="flex space-x-2">
-                <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white">
-                  Sign Up 👉
-                </Button>
-              </form>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                Start your free trial. No credit card required.
-              </p>
-            </div>
-          </div>
-
+<>
+    <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+      <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-6 leading-tight">
+        Create Your Personal Landing Page
+      </h2>
+      <p className="text-xl text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+        Showcase your services, contact information, and personal brand all in one place. 
+        Get started with your custom hitme.to URL today.
+      </p>
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+        <div className="flex-grow flex items-center bg-white rounded-lg shadow-sm">
+          <span className="text-gray-500 pl-4 pr-2">hitme.to/</span>
+          <Input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="flex-grow border-0 focus:ring-0"
+          />
         </div>
-
-      </div>
-    </section>
-  );
+        <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg">
+          Get started <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
+      </form>
+      {/* <p className="text-sm text-gray-500 text-center mt-4">
+        Need help setting up your page? <a href="#" className="text-blue-600 hover:underline">Contact us</a>
+      </p> */}
+    </div>
+    </>
+  )
 }
