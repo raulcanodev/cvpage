@@ -17,6 +17,7 @@ export interface UserDocument {
   customDomain: string;
   phone: string;
   profileImage: string;
+  location: string;
   services: Service[];
   isRegistered: boolean;
   role: string;
@@ -58,13 +59,21 @@ const UserSchema = new Schema<UserDocument>(
     },
     description: {
       type: String,
+      default: "I'm using hitme.to!",
     },
     customDomain: {
       type: String,
     },
+    location: {
+      type: String,
+    },
     services: {
       type: [ServiceSchema], // Embed the service schema
-      default: [],
+      default: [{
+        title: "Service 1",
+        price: 100,
+        description: "Description for service 1",
+      }],
     },
     isRegistered: {
       type: Boolean,

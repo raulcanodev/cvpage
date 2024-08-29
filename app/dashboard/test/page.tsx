@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 
 const DescriptionForm = () => {
@@ -10,7 +9,7 @@ const DescriptionForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/users/updateDescription', {
+      const response = await fetch('/api/user/updateDescription', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

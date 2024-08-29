@@ -10,6 +10,12 @@ import { Label } from "@/components/ui/label"
 import { Pencil, Plus, GripVertical, X, Eye } from "lucide-react"
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
+// Backend
+import { getUserById } from '@/lib/mongodb'; // Function to get the user
+import { authOptions } from '@/lib/auth';
+import { notFound, redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth/next';
+
 interface Service {
   id: string
   title: string
@@ -26,7 +32,20 @@ const colorSchemes: Record<ColorScheme, { primary: string, secondary: string, ba
   pink: { primary: 'bg-pink-500', secondary: 'bg-pink-100', background: 'bg-pink-50' },
 }
 
-export default function DashboardEditProfile() {
+
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+export default function DashboardEditProfile({ params }: Props) {
+  // Backend data
+  const { id } = params;
+  console.log(id)
+  //! const session = await getServerSession(authOptions); --> Not allowed in the client
+  //! const currentUserId = session?.user?._id; --> Not allowed in the client
+
   const [name, setName] = useState('Marc Lou')
   const [description, setDescription] = useState('Your Saturday issue to find startup ideas, launch fast, and get profitable 💸')
   const [services, setServices] = useState<Service[]>([
@@ -109,12 +128,31 @@ export default function DashboardEditProfile() {
     </div>
   )
 
+  const handleSubmit = async () => {
+    // Handle form submission
+    try {
+      const response = await fetch(`/api/user/${id}`, {
+        method: 'POST',
+        body: JSON.stringify({ name, description, services }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-8">
+      
       <div className="max-w-6xl mx-auto">
+
         <h1 className="text-3xl font-bold mb-8">Edit Profile</h1>
         <div className="grid md:grid-cols-2 gap-8">
           <div className="space-y-6">
+            
+            {/* // Image, name description */}
             <Card className="overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4 mb-4">
@@ -149,6 +187,8 @@ export default function DashboardEditProfile() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* // Services list */}
             <Card>
               <CardContent className="p-6">
                 <h2 className="text-xl font-semibold mb-4">Services</h2>
@@ -219,12 +259,19 @@ export default function DashboardEditProfile() {
                 </Button>
               </CardContent>
             </Card>
+
           </div>
+          
+          {/* // Preview */}
           <div className="hidden md:flex justify-center items-start pt-12">
             <Preview />
           </div>
-        </div>
+
       </div>
+
+      </div>
+
+      {/* // Mobile preview */}
       <MobilePreview />
       <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
         <DialogContent className="max-w-[425px] p-0">

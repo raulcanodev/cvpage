@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import User from "@/models/User";
+
 const { MONGODB_URI } = process.env;
 
 export const connectDB = async () => {
@@ -12,3 +14,21 @@ export const connectDB = async () => {
     return Promise.reject(error);
   }
 };
+
+export const getUserById = async (id: string) => {
+  await connectDB();
+  return User.findById(id);
+}
+
+export const updateUserById = async (id: string, data: any) => {
+  await connectDB();
+  return User.findByIdAndUpdate(id, data, {
+    new: true,
+    runValidators: true,
+  });
+}
+
+export const deleteUserById = async (id: string) => {
+  await connectDB();
+  return User.findByIdAndDelete(id);
+}

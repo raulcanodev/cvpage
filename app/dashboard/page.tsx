@@ -5,9 +5,10 @@ import React from "react";
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
 
+  const currentUserId = session?.user?._id;
+  
   const currentUserName = session?.user?.name;
   const currentUserEmail = session?.user?.email;
-  const currentUserId = session?.user?._id;
 
   return (
     <div>
