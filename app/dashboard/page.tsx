@@ -12,7 +12,7 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      <h1>Dashboard</h1>
+      <h1>Dashboard data from session provider</h1>
       <p>Welcome, {currentUserName}</p>
       <p>Email: {currentUserEmail}</p>
       <p>User ID: {currentUserId}</p>

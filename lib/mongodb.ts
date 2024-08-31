@@ -32,3 +32,15 @@ export const deleteUserById = async (id: string) => {
   await connectDB();
   return User.findByIdAndDelete(id);
 }
+
+/**
+ * Retrieves user data by custom domain.
+ * 
+ * @param customDomain - The custom domain to search for.
+ * @returns The user data.
+ */
+export const getUserDataByCustomDomain = async (customDomain: string) => {
+  console.log("customDomain", customDomain);
+  await connectDB();
+  return User.findOne({ customDomain: customDomain });
+}

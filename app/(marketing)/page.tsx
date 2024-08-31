@@ -2,7 +2,7 @@
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Navbar, Testimonials, Hero, KeyFeatures, Video, About, BigCTA, Pricing, FAQS } from './_components';
+import { Navbar, Testimonials, Hero, KeyFeatures, BigCTA, Pricing, FAQS } from './_components';
 import { Footer } from '@/components/layout';
 
 

@@ -85,3 +85,12 @@ export default async function handler(req, res) {
 
 
 --------------------------------------------------------------------------------------------
+
+## MongoDB CLI
+
+Update a document
+```bash
+db.users.updateOne({ email: 'test@test.com' }, { $set: { customDomain:'testdomain' } })
+```
+
+--------------------------------------------------------------------------------------------
