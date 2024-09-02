@@ -1,4 +1,5 @@
-import { getUserDataByCustomDomainTest } from '@/actions/getUserDataByCustomDomain';
+import { getUserByCustomDomain } from '@/actions';
+import { notFound, redirect } from 'next/navigation';
 
 interface Props {
   params: {
@@ -15,9 +16,13 @@ interface Props {
 export default async function UserPage({ params }: Props) {
   const { customDomain } = params;
 
-  const userData = await getUserDataByCustomDomainTest(customDomain);
+  const userData = await getUserByCustomDomain(customDomain);
 
   const response = JSON.parse(userData);
+
+  if (!response) {
+    return notFound();
+  }
 
   return (
     <div>

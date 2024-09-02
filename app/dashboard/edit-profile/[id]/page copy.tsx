@@ -1,4 +1,4 @@
-import { getUserById } from '@/lib/mongodb'; // Function to get the user
+import { fetchUserByCustomDomain } from '@/lib/mongodb'; // Function to get the user
 import { authOptions } from '@/lib/auth';
 import { notFound, redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth/next';
@@ -34,7 +34,7 @@ export default async function EditUserPage({ params }: Props) {
   }
 
   // Get the user by ID
-  const user = await getUserById(id);
+  // const user = await getUserById(id);
 
   // Check if the user exists and if the current user is authorized to edit it
   if (!user || currentUserId !== id) {

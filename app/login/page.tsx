@@ -20,18 +20,19 @@ export default function Login() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    
     const res = await signIn('credentials', {
       email: formData.get('email'),
       password: formData.get('password'),
       redirect: false,
     });
+    
     if (res?.error) {
       setError(res.error as string);
     }
-    if (res?.ok) {
-      return router.push('/dashboard/edit-profile');
-    }
-
+    // if (res?.ok) {
+    //   return router.push('/dashboard/edit-profile');
+    // }
   };
 
   const handleSocialLogin = (provider: string) => {
@@ -43,7 +44,7 @@ export default function Login() {
   useEffect(() => {
     if (status === "authenticated") {
       // Si el usuario está autenticado, redirige a la página deseada
-      router.push("/dashboard"); // Ajusta esta ruta según tu aplicación
+      router.push(`/dashboard/edit-profile/${session.user._id}`); // Ajusta esta ruta según tu aplicación
     }
   }, [status, router]);
 
