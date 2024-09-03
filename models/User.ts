@@ -22,6 +22,8 @@ export interface UserDocument {
   twitter: string;
   instagram: string;
   linkedin: string;
+  github: string;
+  email2: string;
   services: mongoose.Types.ObjectId[]; // Reference to the Service model
   isRegistered: boolean;
   role: string;
@@ -96,6 +98,12 @@ const UserSchema = new Schema<UserDocument>(
       type: String,
     },
     linkedin: {
+      type: String,
+    },
+    github: {
+      type: String,
+    },
+    email2: {
       type: String,
     },
     services: [{

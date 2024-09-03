@@ -9,7 +9,11 @@ import {
 } from '@/components/ui/';
 import { UserLocation, UserEmail, UserInstagram, UserTwitter, UserLinkedin } from '../ui'
 
+import { useUserContext } from '../../../../context/UserContext';
+
 export function EditUser() {
+  const { userData, updateField } = useUserContext();
+
     return (
       <>
         {/* Profile Section */}
@@ -22,7 +26,7 @@ export function EditUser() {
             <div>
               <Input
                 className="text-2xl font-bold text-white bg-zinc-900 border-zinc-900 focus:ring-transparent"
-                defaultValue={'Raul Cano'}
+                defaultValue={userData.name}
               />
             </div>
           </div>

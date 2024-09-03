@@ -15,3 +15,4 @@ export {  Dialog,
 export { Label } from './label';
 export { Textarea } from './textarea';
 export { Switch } from './switch';
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './accordion';

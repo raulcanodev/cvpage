@@ -1,10 +1,12 @@
+import { UserProvider } from '../../context/UserContext';
 
-export default function editProfileLayout({children}:Readonly<{children: React.ReactNode;}>) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
-
-      <h1>Edit Profile</h1>
-      {children}
-    </div>
-  )
+    <UserProvider>
+      <div className="dashboard-layout">
+        {/* Here you can add the navbar, sidebar, etc... */}
+        {children}
+      </div>
+    </UserProvider>
+  );
 }
