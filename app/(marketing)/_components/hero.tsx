@@ -23,8 +23,8 @@ export default function Hero() {
         Get started with your custom hitme.to URL today.
       </p>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-        <div className="flex-grow flex items-center bg-white rounded-lg shadow-sm">
-          <span className="text-gray-500 pl-4 pr-2">hitme.to/</span>
+        <div className="flex-grow flex bg-white dark:bg-slate-950 items-center rounded-lg shadow-sm">
+          <span className=" text-gray-500 pl-4 pr-2">hitme.to/</span>
           <Input
             type="text"
             value={username}

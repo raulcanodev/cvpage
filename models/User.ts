@@ -13,12 +13,16 @@ export interface UserDocument {
   email: string;
   password: string;
   name: string;
-  description: string;
   customDomain: string;
+  description: string;
+  location: string;
   phone: string;
   profileImage: string;
-  location: string;
-  services: Service[];
+  website: string;
+  twitter: string;
+  instagram: string;
+  linkedin: string;
+  services: mongoose.Types.ObjectId[]; // Reference to the Service model
   isRegistered: boolean;
   role: string;
   createdAt: Date;
@@ -26,17 +30,26 @@ export interface UserDocument {
 }
 
 // Define the schema for the service model
-const ServiceSchema = new Schema<Service>({
-  title: {
-    type: String,
+const ServiceSchema = new Schema<Service>(
+  {
+    title: {
+      type: String,
+      required: [true, "Title is required"],
+    },
+    price: {
+      type: Number,
+      required: [true, "Price is required"],
+      min: [0, "Price must be a positive number"],
+    },
+    description: {
+      type: String,
+      default: "No description provided",
+    },
   },
-  price: {
-    type: Number,
-  },
-  description: {
-    type: String,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 // Define the schema for the user model
 const UserSchema = new Schema<UserDocument>(
@@ -67,17 +80,35 @@ const UserSchema = new Schema<UserDocument>(
     location: {
       type: String,
     },
-    services: {
-      type: [ServiceSchema], // Embed the service schema
-      default: [{
-        title: "Service 1",
-        price: 100,
-        description: "Description for service 1",
-      }],
+    phone: {
+      type: String,
     },
+    profileImage: {
+      type: String,
+    },
+    website: {
+      type: String,
+    },
+    twitter: {
+      type: String,
+    },
+    instagram: {
+      type: String,
+    },
+    linkedin: {
+      type: String,
+    },
+    services: [{
+      type: Schema.Types.ObjectId,
+      ref: "Service",
+    }],
     isRegistered: {
       type: Boolean,
       default: false,
+    },
+    role: {
+      type: String,
+      default: "user",
     },
   },
   {
@@ -85,6 +116,10 @@ const UserSchema = new Schema<UserDocument>(
   }
 );
 
-// Si el modelo ya está creado, úsalo. De lo contrario, crea un nuevo modelo
+// Define the model for the Service
+const Service = mongoose.models?.Service || model<Service>("Service", ServiceSchema);
+export { Service };
+
+// Define the model for the User
 const User = mongoose.models?.User || model<UserDocument>("User", UserSchema);
 export default User;

@@ -1,5 +1,7 @@
 "use server";
 import { fetchUserByCustomDomain } from "@/lib/mongodb";
+import { notFound, redirect } from "next/navigation";
+
 
 /**
  * Retrieves user data by custom domain.
@@ -11,7 +13,7 @@ export const getUserByCustomDomain = async (customDomain: string) => {
   const response = await fetchUserByCustomDomain(customDomain);
 
   if (!response) {
-    throw new Error("User data not found, check the custom domain");
+    notFound();
   }
 
   return JSON.stringify(response);

@@ -24,7 +24,7 @@ interface PreviewProps {
   };
 }
 
-export default function Preview({ name, description, services, colorSchemes, colorScheme }: PreviewProps) {
+export function Preview({ name, description, services, colorSchemes, colorScheme }: PreviewProps) {
   return (
     <div className="w-[375px] h-[812px] bg-white dark:bg-gray-800 rounded-[60px] shadow-xl overflow-hidden border-8 border-gray-800 dark:border-gray-200">
     <div className="w-40 h-6 bg-gray-800 dark:bg-gray-200 mx-auto rounded-b-3xl"></div>

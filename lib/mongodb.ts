@@ -41,8 +41,8 @@ export const fetchUserId = async (id: string) => {
 export const updateUserById = async (id: string, data: any) => {
   await connectDB();
   return User.findByIdAndUpdate(id, data, {
-    new: true,
-    runValidators: true,
+    new: true, // Return the updated document
+    runValidators: true, // Run model validations
   });
 }
 

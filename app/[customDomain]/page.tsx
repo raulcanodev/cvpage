@@ -17,12 +17,8 @@ export default async function UserPage({ params }: Props) {
   const { customDomain } = params;
 
   const userData = await getUserByCustomDomain(customDomain);
-
+  
   const response = JSON.parse(userData);
-
-  if (!response) {
-    return notFound();
-  }
 
   return (
     <div>

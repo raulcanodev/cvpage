@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { MessageCircle, Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { ThemeSwitcher } from '@/components/layout';
 
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -65,6 +66,7 @@ export default function Navbar() {
             About
           </a>
         </nav>
+        <ThemeSwitcher />
         <Button className="hidden md:flex ml-4 bg-blue-600">{showSession()}</Button>
 
         <Button
