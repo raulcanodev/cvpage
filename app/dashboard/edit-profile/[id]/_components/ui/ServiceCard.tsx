@@ -10,18 +10,23 @@ import {
   Switch,
 } from '@/components/ui';
 import { DollarSign, Flag, Link, Maximize2, Tag, Trash2, GripVertical } from 'lucide-react';
-
 import { ConfirmDeleteService } from '../ui';
+import { useUserContext } from '../../../../context/UserContext';
 
 interface ServiceCardProps {
   index: number;
 }
 
 export function ServiceCard({ index }: ServiceCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+ const { userData, updateUserData, updateUserService } = useUserContext();
+ const { id, services } = userData;
 
-  const toggleExpanded = () => {
-    setIsExpanded(!isExpanded);
+  const handleSaveChanges = () => {
+    try {
+      updateUserService(id, { services });
+    } catch (error) {
+      console.error('Error saving changes:', error);
+    }
   };
 
   return (

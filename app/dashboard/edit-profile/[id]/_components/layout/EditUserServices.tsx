@@ -5,10 +5,12 @@ import { Plus } from 'lucide-react';
 import { Reorder } from 'framer-motion';
 import { ServiceCard } from '../ui';
 // Drag and drop: https://www.youtube.com/watch?v=XlXT9lhy-4M
+import { useUserContext } from '../../../../context/UserContext';
 
 export function EditUserServices() {
   const [services, setServices] = useState([1, 2, 3, 4, 5]);
-  
+  // const { userData, updateUserData, updateUserService } = useUserContext();
+  // const { id, services } = userData;
 
   return (
     <>
@@ -18,7 +20,7 @@ export function EditUserServices() {
       <Reorder.Group values={services} onReorder={setServices}>
         {services.map((service, index) => (
           <Reorder.Item key={service} value={service}>
-            <ServiceCard index={index}/>
+            <ServiceCard index={index} />
           </Reorder.Item>
         ))}
       </Reorder.Group>
