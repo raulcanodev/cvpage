@@ -5,7 +5,7 @@ import { authOptions } from '@/lib/auth';
 
 
 /**
- * Retrieves the current user's session ID.
+ * Retrieves the current user's session ID stored in the next-auth session.
  *  
  * @returns Promise, get the current user's session ID. (string)
  * @throws An error if the user is not authenticated.

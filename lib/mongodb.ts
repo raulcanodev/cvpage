@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import User from "@/models/User";
+import Service from "@/models/Service";
 
 const { MONGODB_URI } = process.env;
 
@@ -28,8 +29,8 @@ export const connectDB = async () => {
  */
 export const fetchUserId = async (id: string) => {
   await connectDB();
-  return User.findById(id);
-}
+  return User.findById(id); // TODO: Handle the case where the user is not found
+} 
 
 /**
  * Updates user data by ID.
@@ -54,7 +55,7 @@ export const updateUserById = async (id: string, data: any) => {
  */
 export const deleteUserById = async (id: string) => {
   await connectDB();
-  return User.findByIdAndDelete(id);
+  return User.findByIdAndDelete(id); // TODO: Handle the case where the user is not found
 }
 
 /**
@@ -71,6 +72,33 @@ export const deleteUserById = async (id: string) => {
  */
 export const fetchUserByCustomDomain = async (customDomain: string) => {
   await connectDB();
-  const user = await User.findOne({ customDomain: customDomain });
+  const user = await User.findOne({ customDomain: customDomain }); // TODO: Handle the case where the user is not found
   return user ? user : null;
+}
+
+
+/**
+ * Retrieves service data by its ID.
+ *  
+ * @param id - The user ID.
+ * @returns A promise that resolves to the service data.
+ */
+export const fetchServiceById = async (id: string) => {
+  await connectDB();
+  return Service.findById(id); // TODO: Handle the case where the service is not found
+}
+
+/**
+ * Updates service data by ID.
+ * 
+ * @param id - The service ID.
+ * @param data - The data to update.
+ * @returns 
+ */
+export const updateServiceById = async (id: string, data: any) => {
+  await connectDB();
+  return Service.findByIdAndUpdate(id, data, { // TODO: Handle the case where the service is not found
+    new: true, // Return the updated document
+    runValidators: true, // Run model validations
+  });
 }

@@ -85,7 +85,7 @@ export default function DashboardEditProfile({ params }: Props) {
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Left - User */}
             <div className="flex-1 space-y-8 ">
-              <EditUser />
+              <EditUser id={id} />
               <EditUserServices />
             </div>
 

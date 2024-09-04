@@ -19,10 +19,10 @@ export interface UserDocument {
   phone: string;
   profileImage: string;
   website: string;
-  twitter: string;
-  instagram: string;
-  linkedin: string;
-  github: string;
+  twitterUrl: string;
+  instagramUrl: string;
+  linkedinUrl: string;
+  githubUrl: string;
   email2: string;
   services: mongoose.Types.ObjectId[]; // Reference to the Service model
   isRegistered: boolean;
@@ -91,16 +91,16 @@ const UserSchema = new Schema<UserDocument>(
     website: {
       type: String,
     },
-    twitter: {
+    twitterUrl: {
       type: String,
     },
-    instagram: {
+    instagramUrl: {
       type: String,
     },
-    linkedin: {
+    linkedinUrl: {
       type: String,
     },
-    github: {
+    githubUrl: {
       type: String,
     },
     email2: {

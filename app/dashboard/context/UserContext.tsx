@@ -4,7 +4,7 @@ import { getUserById, updateUser, getSessionId } from '@/actions';
 
 interface UserContextProps {
   userData: any;
-  updateField: (field: string, value: string) => void;
+  updateUserData: (id: string, data: any) => Promise<string>;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -12,12 +12,31 @@ const UserContext = createContext<UserContextProps | undefined>(undefined);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState({});
 
-  const updateField = (field: string, value: string) => {
-    setUserData(prevState => ({
-      ...prevState,
-      [field]: value,
-    }));
-  };
+
+/**
+ * Updates user data by ID.
+ * 
+ * @param id 
+ * @param data 
+ * @returns 
+ */
+const updateUserData = async (id: string, data: any) => {
+  const sessionId = await getSessionId();
+
+  if (id !== sessionId) {
+    throw new Error('User is not authorized to update this user data');
+  }
+
+  try {
+    const response = await updateUser(id, data);
+    const updateUserData = JSON.parse(response || '{}');
+    setUserData(updateUserData);
+    return JSON.stringify(response);
+  } catch (error) {
+    console.error(error);
+    return Promise.reject(error);
+  }
+}
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +53,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ userData, updateField }}>
+    <UserContext.Provider value={{ userData, updateUserData }}>
       {children}
     </UserContext.Provider>
   );

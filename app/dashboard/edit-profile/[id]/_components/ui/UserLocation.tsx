@@ -1,3 +1,4 @@
+"use client";
 import {
   Dialog,
   DialogTrigger,
@@ -6,17 +7,31 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
+  DialogClose,
   Input,
   Button,
 } from '@/components/ui';
 import { MapPin } from 'lucide-react';
+import { useState } from 'react';
+import { useUserContext } from '../../../../context/UserContext';
 
 export function UserLocation() {
+  const { userData, updateUserData } = useUserContext();
+  const [location, setLocation] = useState(userData.location || '');
+
+  const handleSaveChanges = () => {
+    try {
+      updateUserData(userData._id, { location });
+    } catch (error) {
+      console.error('Error saving changes:', error);
+    }
+  };
+
   return (
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <MapPin className="w-5 h-5" />
+          <MapPin className={`w-5 h-5 cursor-pointer ${userData.location && 'text-black dark:text-white'}`} />
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -27,16 +42,23 @@ export function UserLocation() {
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              {/* <Label htmlFor="name" className="text-right">
-                Location
-              </Label> */}
-              <Input id="name" placeholder="Lisbon" className="col-span-4" />
+              <Input
+                id="location"
+                placeholder="Lisbon"
+                className="col-span-4"
+                defaultValue={userData.location}
+                onChange={(e) => setLocation(e.target.value)} 
+              />
             </div>
           </div>
-          <DialogFooter>
-            <Button type="submit">Save changes</Button>
-          </DialogFooter>
-        </DialogContent>
+            <DialogFooter>
+              <DialogClose asChild>
+              <Button type="button" onClick={handleSaveChanges}>
+                Save changes
+              </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
       </Dialog>
     </>
   );
