@@ -9,29 +9,27 @@ import {
   Input,
   Switch,
 } from '@/components/ui';
-import { DollarSign, Flag, Link, Maximize2, Tag, Trash2, GripVertical } from 'lucide-react';
+import { DollarSign, Link, Tag, GripVertical } from 'lucide-react';
 import { ConfirmDeleteService } from '../ui';
 import { useUserContext } from '../../../../context/UserContext';
+import { updateService } from '@/actions';
+import { Service } from '@/types/types';
 
 interface ServiceCardProps {
   index: number;
+  serviceId: string;
   title?: string;
   description?: string;
   category?: string;
   price?: number;
+  active?: boolean;
 }
 
-export function ServiceCard({ index, title, description, category, price }: ServiceCardProps) {
+export function ServiceCard({ serviceId, title, description, category, price, active }: Service) {
  const { userData, updateUserData, updateUserService } = useUserContext();
- const { id, services } = userData;
+ console.log("active", active);
+ 
 
-  const handleSaveChanges = () => {
-    try {
-      updateUserService(id, { services });
-    } catch (error) {
-      console.error('Error saving changes:', error);
-    }
-  };
 
   return (
     <>
@@ -44,16 +42,17 @@ export function ServiceCard({ index, title, description, category, price }: Serv
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center space-x-3">
                   <Avatar className="w-7 h-7 border border-zinc-700">
-                    <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Change this" />
-                    <AvatarFallback>{index}</AvatarFallback>
+                    <AvatarImage src="" alt="Change this" />
+                    <AvatarFallback>RC</AvatarFallback>
                   </Avatar>
                   <Input
                     className="font-semibold bg-transparent border-none  text-white focus:ring-0 h-auto w-full"
                     placeholder="Service title..."
                     defaultValue={title}
+                    onChange={(e)=> updateUserService(serviceId, {title: e.target.value})}
                   />
                 </div>
-                <Switch className="data-[state=checked]:bg-pink-500" />
+                <Switch className="data-[state=checked]:bg-pink-500" checked={active}/>
               </div>
 
               {/* Description */}
@@ -61,6 +60,7 @@ export function ServiceCard({ index, title, description, category, price }: Serv
                 className="bg-zinc-900 text-white border-none focus:ring-0 mb-4 w-full h-auto"
                 placeholder="Description of your service..."
                 defaultValue={description}
+                onChange={(e)=> updateUserService(serviceId, {description: e.target.value})}
               />
 
               {/* Bottom - Actions */}
@@ -76,7 +76,7 @@ export function ServiceCard({ index, title, description, category, price }: Serv
                     <Tag className="w-5 h-5" />
                   </button>
                 </div>
-                <ConfirmDeleteService />
+                <ConfirmDeleteService serviceId={serviceId} />
               </div>
             </div>
           </div>

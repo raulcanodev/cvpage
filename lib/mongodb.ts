@@ -112,3 +112,31 @@ export const updateServiceById = async (id: string, data: any) => {
     runValidators: true, // Run model validations
   });
 }
+
+/**
+ * Deletes service data by ID.
+ * 
+ * @param id - The service ID.
+ * @returns  The deleted service data.
+ */
+export const deleteServiceById = async (id: string) => {
+  await connectDB();
+  return Service.findByIdAndDelete(id); // TODO: Handle the case where the service is not found
+}
+
+/**
+ * Delete service in the user's services array.
+ * 
+ * @param userId - The user ID.
+ * @param serviceId - The service ID.
+ * @returns The updated user data.
+ */
+export const deleteServiceFromUser = async (userId: string, serviceId: string) => {
+  await connectDB();
+  return User.findByIdAndUpdate(userId, {
+    $pull: { services: serviceId },
+  }, {
+    new: true,
+    runValidators: true, 
+  });
+}

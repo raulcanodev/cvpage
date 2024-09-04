@@ -1,3 +1,4 @@
+"use server";
 import { updateServiceById } from '@/lib/mongodb';
 
 interface ServiceData {

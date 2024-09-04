@@ -13,17 +13,17 @@ const teamMembers: TeamMember[] = [
   {
     name: "Jane Doe",
     role: "Founder & CEO",
-    avatar: "/placeholder.svg?height=100&width=100"
+    avatar: ""
   },
   {
     name: "John Smith",
     role: "CTO",
-    avatar: "/placeholder.svg?height=100&width=100"
+    avatar: ""
   },
   {
     name: "Alice Johnson",
     role: "Head of Design",
-    avatar: "/placeholder.svg?height=100&width=100"
+    avatar: ""
   }
 ]
 

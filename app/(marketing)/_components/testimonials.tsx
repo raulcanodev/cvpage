@@ -19,7 +19,7 @@ const testimonials: Testimonial[] = [
     name: "Sarah Johnson",
     role: "Marketing Manager",
     company: "TechCorp",
-    avatar: "/placeholder.svg?height=100&width=100",
+    avatar: "",
     content: "hitme.to has revolutionized how I connect with my audience. It's so easy to use and looks incredibly professional!",
     rating: 5
   },
@@ -28,7 +28,7 @@ const testimonials: Testimonial[] = [
     name: "Alex Chen",
     role: "Freelance Designer",
     company: "Self-employed",
-    avatar: "/placeholder.svg?height=100&width=100",
+    avatar: "",
     content: "As a freelancer, having all my services in one place is a game-changer. hitme.to has helped me land more clients!",
     rating: 5
   },
@@ -37,7 +37,7 @@ const testimonials: Testimonial[] = [
     name: "Emily Rodriguez",
     role: "Content Creator",
     company: "YouTube",
-    avatar: "/placeholder.svg?height=100&width=100",
+    avatar: "",
     content: "I love how customizable hitme.to is. It perfectly matches my brand and has increased my engagement rates.",
     rating: 4
   }

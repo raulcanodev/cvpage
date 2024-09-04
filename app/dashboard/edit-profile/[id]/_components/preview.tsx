@@ -31,7 +31,7 @@ export function Preview({ name, description, services, colorSchemes, colorScheme
     <div className={`p-8 overflow-y-auto h-full ${colorSchemes[colorScheme].background} dark:bg-gray-800`}>
       <div className="flex items-center space-x-4 mb-6">
         <Avatar className="w-20 h-20">
-          <AvatarImage src="/placeholder.svg?height=100&width=100" alt={name} />
+          <AvatarImage src="" alt={name} />
           <AvatarFallback>{name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
         </Avatar>
         <div>

@@ -1,11 +1,13 @@
-'use client';
+"use client";
 import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import { getUserById, updateUser, getSessionId, getServiceById, updateService } from '@/actions';
+import { getUserById, updateUser, getSessionId, getServiceById, updateService, deleteService } from '@/actions';
 
 interface UserContextProps {
   userData: any;
   updateUserData: (id: string, data: any) => Promise<string>;
   updateUserService: (id: string, data: any) => Promise<string>;
+  reloadUserData: () => Promise<void>;
+  deleteUserService: (serviceId: string, userId: string) => Promise<string>;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -13,13 +15,25 @@ const UserContext = createContext<UserContextProps | undefined>(undefined);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState({});
 
-  /**
-   * Updates user data by ID.
-   *
-   * @param id
-   * @param data
-   * @returns
-   */
+  const fetchUserData = async () => {
+    try {
+      const sessionId = await getSessionId();
+      const userData = await getUserById(sessionId);
+
+      const user = JSON.parse(userData || '{}');
+
+      if (user.services && user.services.length > 0) {
+        user.services = await Promise.all(
+          user.services.map((serviceId: string) => getServiceById(serviceId))
+        );
+      }
+
+      setUserData(user);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
   const updateUserData = async (id: string, data: any) => {
     const sessionId = await getSessionId();
 
@@ -29,51 +43,45 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       const response = await updateUser(id, data);
-      const updateUserData = JSON.parse(response || '{}');
-      setUserData(updateUserData);
+      await fetchUserData();
       return JSON.stringify(response);
     } catch (error) {
       console.error(error);
       return Promise.reject(error);
     }
   };
-
+  // TODO: Check it, maybe we don't need this function
   const updateUserService = async (id: string, data: any) => {
     try {
       const response = await updateService({ id, data });
+      await fetchUserData();
       return JSON.stringify(response);
     } catch (error) {
       console.error('Error updating service data:', error);
       return Promise.reject(error);
     }
-  }
+  };
+
+const deleteUserService = async (serviceId: string, userId: string) => {
+    try {
+      const response = await deleteService(serviceId, userId);
+      await fetchUserData();
+      return JSON.stringify(response);
+    } catch (error) {
+      console.error('Error deleting service data:', error);
+      return Promise.reject(error);
+    }
+  };
+  
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const sessionId = await getSessionId();
-        const userData = await getUserById(sessionId);
-
-        // Asegúrate de parsear `userData` como un objeto si es necesario
-        const user = JSON.parse(userData || '{}');
-
-        // Fetching related services
-        if (user.services && user.services.length > 0) {
-          user.services = await Promise.all(
-            user.services.map((serviceId: string) => getServiceById(serviceId))
-          );
-        }
-
-        setUserData(user);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-    fetchData();
+    fetchUserData();
   }, []);
 
   return (
-    <UserContext.Provider value={{ userData, updateUserData, updateUserService }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ userData, updateUserData, updateUserService, reloadUserData: fetchUserData, deleteUserService }}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

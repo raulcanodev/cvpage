@@ -56,7 +56,7 @@ export default function DashboardPage() {
             <div className="bg-zinc-900 p-6 rounded-lg">
               <div className="flex items-center space-x-4 mb-4">
                 <Avatar className="w-16 h-16">
-                  <AvatarImage src="/placeholder.svg?height=64&width=64" alt="Raul Cano" />
+                  <AvatarImage src="" alt="Raul Cano" />
                   <AvatarFallback>RC</AvatarFallback>
                 </Avatar>
                 <div>
@@ -86,7 +86,7 @@ export default function DashboardPage() {
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-4">
                     <Avatar className="w-12 h-12">
-                      <AvatarImage src="/placeholder.svg?height=48&width=48" alt={startup.name} />
+                      <AvatarImage src="" alt={startup.name} />
                       <AvatarFallback>{startup.name[0]}</AvatarFallback>
                     </Avatar>
                     <div>

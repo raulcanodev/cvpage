@@ -5,13 +5,19 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter,
   DialogClose,
   Button,
 } from '@/components/ui';
 import { Trash2 } from 'lucide-react';
+interface ConfirmDeleteServiceProps {
+  serviceId: string;
+}
+import { useUserContext } from '@/app/dashboard/context/UserContext';
 
-export function ConfirmDeleteService() {
+export function ConfirmDeleteService({ serviceId }: ConfirmDeleteServiceProps) {
+  const { deleteUserService, userData } = useUserContext();
+  const userId = userData._id;
+
   return (
     <>
       <Dialog>
@@ -39,12 +45,15 @@ export function ConfirmDeleteService() {
                 Cancel
               </Button>
             </DialogClose>
-            <Button
-              type="submit"
-              className="w-full sm:w-auto bg-red-600 hover:bg-red-800 text-white"
-            >
-              Delete Service
-            </Button>
+            <DialogClose asChild>
+              <Button
+                type="submit"
+                className="w-full sm:w-auto bg-red-600 hover:bg-red-800 text-white"
+                onClick={() => deleteUserService(serviceId, userId)}
+              >
+                Delete Service
+              </Button>
+            </DialogClose>
           </div>
         </DialogContent>
       </Dialog>

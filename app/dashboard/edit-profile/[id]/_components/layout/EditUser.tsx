@@ -24,7 +24,7 @@ export function EditUser({id}: {id: string}) {
         <div className="bg-zinc-100 dark:bg-zinc-900 p-6 rounded-lg">
           <div className="flex items-center space-x-2 mb-4">
             <Avatar className="w-12 h-12">
-              <AvatarImage src="/placeholder.svg?height=64&width=64" alt="Raul Cano" /> 
+              <AvatarImage src="" alt="Raul Cano" /> 
               <AvatarFallback>:D</AvatarFallback>
             </Avatar>
             <div>
