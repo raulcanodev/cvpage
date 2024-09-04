@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import User from "@/models/User";
-import Service from "@/models/Service";
+import User, { Service } from "@/models/Schemas";
 
 const { MONGODB_URI } = process.env;
 
@@ -86,6 +85,17 @@ export const fetchUserByCustomDomain = async (customDomain: string) => {
 export const fetchServiceById = async (id: string) => {
   await connectDB();
   return Service.findById(id); // TODO: Handle the case where the service is not found
+}
+
+/**
+ * Creates a new service.
+ * 
+ * @param data - The data to create the service.
+ * @returns The created service data.
+ */
+export const createService = async (data: any) => {
+  await connectDB();
+  return Service.create(data);
 }
 
 /**

@@ -15,9 +15,13 @@ import { useUserContext } from '../../../../context/UserContext';
 
 interface ServiceCardProps {
   index: number;
+  title?: string;
+  description?: string;
+  category?: string;
+  price?: number;
 }
 
-export function ServiceCard({ index }: ServiceCardProps) {
+export function ServiceCard({ index, title, description, category, price }: ServiceCardProps) {
  const { userData, updateUserData, updateUserService } = useUserContext();
  const { id, services } = userData;
 
@@ -46,6 +50,7 @@ export function ServiceCard({ index }: ServiceCardProps) {
                   <Input
                     className="font-semibold bg-transparent border-none  text-white focus:ring-0 h-auto w-full"
                     placeholder="Service title..."
+                    defaultValue={title}
                   />
                 </div>
                 <Switch className="data-[state=checked]:bg-pink-500" />
@@ -55,6 +60,7 @@ export function ServiceCard({ index }: ServiceCardProps) {
               <Input
                 className="bg-zinc-900 text-white border-none focus:ring-0 mb-4 w-full h-auto"
                 placeholder="Description of your service..."
+                defaultValue={description}
               />
 
               {/* Bottom - Actions */}

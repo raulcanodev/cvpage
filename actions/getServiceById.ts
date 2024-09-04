@@ -12,7 +12,7 @@ export const getServiceById = async (id: string) => {
     }
 
     const service = JSON.stringify(response);
-    return service;
+    return JSON.parse(service);
     
   } catch (error) {
     console.error('Error retrieving service data:', error);

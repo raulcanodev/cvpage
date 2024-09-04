@@ -25,7 +25,6 @@ const ServiceSchema = new Schema<Service>(
     },
     category: {
       type: String,
-      required: [true, "Category is required"],
     },
     price: {
       type: Number,

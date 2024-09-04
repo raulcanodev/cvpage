@@ -93,4 +93,9 @@ Update a document
 db.users.updateOne({ email: 'test@test.com' }, { $set: { customDomain:'testdomain' } })
 ```
 
+Delete a document
+```bash
+db.users.deleteOne({_id: ObjectId("")})
+```
+
 --------------------------------------------------------------------------------------------

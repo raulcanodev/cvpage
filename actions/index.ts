@@ -6,3 +6,4 @@ export { register } from './register';
 export { getSessionId } from './getSessionId';
 export { getServiceById } from './getServiceById';
 export { updateService } from './updateService';
+export { createNewService } from './createNewService';

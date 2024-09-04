@@ -5,6 +5,8 @@ interface Service {
   title: string;
   price: number;
   description: string;
+  category: string;
+  active: boolean;
 }
 
 // Interface definition for the User document
@@ -36,16 +38,20 @@ const ServiceSchema = new Schema<Service>(
   {
     title: {
       type: String,
-      required: [true, "Title is required"],
     },
     price: {
       type: Number,
-      required: [true, "Price is required"],
       min: [0, "Price must be a positive number"],
     },
     description: {
       type: String,
-      default: "No description provided",
+    },
+    category: {
+      type: String,
+    },
+    active: {
+      type: Boolean,
+      default: true,
     },
   },
   {
