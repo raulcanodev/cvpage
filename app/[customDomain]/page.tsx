@@ -26,8 +26,8 @@ export default async function UserProfilePage({ params }: Props) {
     return serviceData;
   }, []));
 
-  console.log("allServices", allServices);
-  
+  const filteredServices = allServices.filter(service => service.active);
+
 
   const socialLinks = [
     { icon: Twitter, href: twitterUrl },
@@ -72,7 +72,7 @@ export default async function UserProfilePage({ params }: Props) {
         </div>
 
         <div className="space-y-8">
-          {allServices.map((service, index) => (
+          {filteredServices.map((service, index) => (
             <Card key={index} className="bg-gray-800 border-gray-700">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-semibold mb-4">{service.title}</h3>

@@ -63,8 +63,9 @@ export function EditUser() {
           onChange={(e) => updateUserData(userData._id, { description: e.target.value })}
         />
 
-        <div className="flex text-zinc-400 justify-between items-center">
-          <div className="flex row gap-4">
+        <div className="flex text-zinc-400 md:justify-between md:items-center md:flex-row flex-col gap-3">
+
+          <div className="flex gap-4">
             <UserLocation />
             <UserInstagram />
             <UserTwitter />
@@ -84,6 +85,7 @@ export function EditUser() {
               />
             </div>
           </div>
+
         </div>
       </div>
     </>
