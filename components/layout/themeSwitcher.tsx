@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import { Button } from '@/components/ui/button'; // Make sure this is the correct import for your Button component in ShadCN
+import { Switch } from '@/components/ui/switch';
 import { Sun, Moon } from 'lucide-react';
 
 export const ThemeSwitcher = () => {
@@ -22,8 +22,15 @@ export const ThemeSwitcher = () => {
   };
 
   return (
-    <Button onClick={toggleTheme} className='rounded-full' variant="ghost" size="icon" aria-label="Toggle theme">
-      {theme === 'dark' ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
-    </Button>
+    <div className="flex items-center space-x-2">
+      {/* <Sun className="h-[1.2rem] w-[1.2rem] text-gray-500 dark:text-gray-400" /> */}
+      <Switch
+        checked={theme === 'dark'}
+        onCheckedChange={toggleTheme}
+        className="data-[state=checked]:bg-zinc-200"
+        aria-label="Toggle dark mode"
+      />
+      {/* <Moon className="h-[1.2rem] w-[1.2rem] text-gray-500 dark:text-gray-400" /> */}
+    </div>
   );
 };

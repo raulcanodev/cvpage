@@ -10,6 +10,9 @@ import { notFound, redirect } from "next/navigation";
  * @returns The user data if found, otherwise null.
  */
 export const getUserByCustomDomain = async (customDomain: string) => {
+  
+  // TODO: Validate custom domain
+  
   const response = await fetchUserByCustomDomain(customDomain);
 
   if (!response) {

@@ -8,6 +8,7 @@ import { ServiceCard } from '../ui';
 import { useUserContext } from '../../../../context/UserContext';
 import { createNewService } from '@/actions';
 import { Service } from '@/types/types';
+import { Bars } from 'react-loader-spinner'
 
 export function EditUserServices() {
   const [servicesState, setServicesState] = useState<Service[]>([]);
@@ -27,33 +28,47 @@ export function EditUserServices() {
   const handleReorder = async (newOrder: Service[]) => {
     setServicesState(newOrder);
     await updateUserData(_id, { services: newOrder });
-    
-  }
+  };
 
-  const reset = async () => {
-    await updateUserData(_id, { services: [] });
-  }
-
-  useEffect(()=>{
-    if(services){
-      setServicesState(services)
+  useEffect(() => {
+    if (services) {
+      setServicesState(services);
     }
-
-  },[services])
+  }, [services]);
 
   return (
     <>
-    <Button onClick={reset} >Reset</Button>
-      <Button className="bg-blue-600 text-white w-full" onClick={handleAddService}>
+      <Button className="bg-slate-300 text-slate-950 w-full" onClick={handleAddService}>
         <Plus className="w-5 h-5 mx-2" /> ADD SERVICE
       </Button>
+    {services && (
       <Reorder.Group values={servicesState} onReorder={handleReorder}>
-        {servicesState.map((service, index) => (
-          <Reorder.Item key={service._id} value={service}>
-            <ServiceCard serviceId={service._id} title={service.title} description={service.description} active={service.active}/>
-          </Reorder.Item>
-        ))}
+        {servicesState
+          .filter((service) => service._id) 
+          .map((service, index) => (
+            <Reorder.Item key={service._id} value={service}>
+              <ServiceCard
+                serviceId={service._id as string}
+                title={service.title}
+                description={service.description}
+                active={service.active}
+              />
+            </Reorder.Item>
+          ))}
       </Reorder.Group>
+    )}
+    {/* {!services && (
+      <div className='flex justify-center'>
+        <Bars
+        visible={true}
+        height="80"
+        width="80"
+        color='#4B5563'
+        ariaLabel="puff-loading"
+        />
+      </div>
+    )} */}
+      
     </>
   );
 }

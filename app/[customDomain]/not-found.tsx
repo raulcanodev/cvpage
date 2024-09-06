@@ -5,7 +5,15 @@ import { Input } from "@/components/ui/input"
 import { ArrowRight } from "lucide-react"
 import Link from 'next/link'
 
-export default function NotFoundPage() {
+
+
+interface Props {
+  params: {
+    id?: string
+  }
+}
+
+export default function NotFoundPage({ params }: Props) {
   const [username, setUsername] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -32,8 +40,8 @@ export default function NotFoundPage() {
               <Input
                 type="text"
                 required
-                className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-blue-500 focus:border-blue-500"
-                placeholder="your-username"
+                className="flex-1 bg-gray-50 border-gray-300 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-blue-500 focus:border-blue-500"
+                placeholder={''}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />

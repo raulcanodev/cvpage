@@ -48,6 +48,8 @@ db.users.find()
 Instalation: 
 ```bash
 npx shadcn-ui@latest add alert
+
+npx shadcn-ui@0.8.0 add button
 ```
 --------------------------------------------------------------------------------------------
 ## Params in Next.js
@@ -86,7 +88,7 @@ export default async function handler(req, res) {
 
 --------------------------------------------------------------------------------------------
 
-## MongoDB CLI
+## MongoDB CLI > Mongosh
 
 Update a document
 ```bash
@@ -96,6 +98,11 @@ db.users.updateOne({ email: 'test@test.com' }, { $set: { customDomain:'testdomai
 Delete a document
 ```bash
 db.users.deleteOne({_id: ObjectId("")})
+```
+
+Delete all documents
+```bash
+db.users.deleteMany({})
 ```
 
 --------------------------------------------------------------------------------------------

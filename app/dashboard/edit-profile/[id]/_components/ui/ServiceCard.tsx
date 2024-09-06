@@ -12,7 +12,6 @@ import {
 import { DollarSign, Link, Tag, GripVertical } from 'lucide-react';
 import { ConfirmDeleteService } from '../ui';
 import { useUserContext } from '../../../../context/UserContext';
-import { updateService } from '@/actions';
 import { Service } from '@/types/types';
 
 interface ServiceCardProps {
@@ -26,7 +25,7 @@ interface ServiceCardProps {
 }
 
 export function ServiceCard({ serviceId, title, description, category, price, active }: Service) {
- const { userData, updateUserData, updateUserService } = useUserContext();
+ const { userData, updateUserService } = useUserContext();
  console.log("active", active);
  
 
@@ -52,7 +51,9 @@ export function ServiceCard({ serviceId, title, description, category, price, ac
                     onChange={(e)=> updateUserService(serviceId, {title: e.target.value})}
                   />
                 </div>
-                <Switch className="data-[state=checked]:bg-pink-500" checked={active}/>
+                <Switch className="data-[state=checked]:bg-slate-300" checked={active}
+                onCheckedChange={(e)=> updateUserService(serviceId, {active: e})}
+                />
               </div>
 
               {/* Description */}
