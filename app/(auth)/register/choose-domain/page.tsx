@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { MessageCircle, CheckCircle, XCircle } from 'lucide-react';
+import { updateUserDomain } from '@/actions';
 
 export default function ChooseDomainPage() {
   const router = useRouter();

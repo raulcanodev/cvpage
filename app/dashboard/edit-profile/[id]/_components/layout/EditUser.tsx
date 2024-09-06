@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { Avatar, AvatarFallback, AvatarImage, Input, Textarea, Button } from '@/components/ui/';
 import { UserLocation, UserEmail, UserInstagram, UserTwitter, UserLinkedin } from '../ui';
 import { useUserContext } from '../../../../context/UserContext';
+import { Toaster, toast } from 'sonner';
 
 export function EditUser() {
   const { userData, updateUserData } = useUserContext();
   const { name, description, customDomain } = userData;
+  const [error, setError] = useState(null);
 
   // Local state for customDomain
   const [domainInput, setDomainInput] = useState(customDomain);
@@ -21,7 +23,10 @@ export function EditUser() {
     if (hasDomainChanged) {
       const handler = setTimeout(() => {
         if (domainInput !== customDomain) {
-            const escapedDomain = domainInput.replace(/[^a-zA-Z0-9-]/g, '').trim().toLowerCase(); // Remove special characters, trim whitespace, and convert to lowercase
+          const escapedDomain = domainInput
+            .replace(/[^a-zA-Z0-9-]/g, '')
+            .trim()
+            .toLowerCase(); // Remove special characters, trim whitespace, and convert to lowercase
           updateUserData(userData._id, { customDomain: escapedDomain });
         }
         setHasDomainChanged(false); // Reset the flag after update
@@ -64,7 +69,6 @@ export function EditUser() {
         />
 
         <div className="flex text-zinc-400 md:justify-between md:items-center md:flex-row flex-col gap-3">
-
           <div className="flex gap-4">
             <UserLocation />
             <UserInstagram />
@@ -73,19 +77,23 @@ export function EditUser() {
             <UserEmail />
           </div>
 
-          <div className="flex row">
+          <div className="flex row ">
             <div className="flex rounded-md shadow-sm">
-              <span className="inline-flex items-center px-1 rounded-l-md border-none bg-zinc-900 text-sm">
-                hitme.to/
-              </span>
-              <Input
-                className="flex-1 bg-zinc-900 min-w-0 border-none block text-gray-300 w-full px-0 rounded-none rounded-r-md"
-                value={domainInput} // Controlled by local state
-                onChange={handleDomainChange} // Update local state and set change flag
-              />
+
+              <div className="relative flex-grow ">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-0 text-gray-400">
+                  hitme.to/
+                </span>
+                <Input
+                  type="text"
+                  placeholder="yourname"
+                  value={domainInput}
+                  onChange={handleDomainChange}
+                  className="pl-[4.3rem] bg-zinc-900 border-none text-white"
+                />
+              </div>
             </div>
           </div>
-
         </div>
       </div>
     </>

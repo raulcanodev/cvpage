@@ -1,6 +1,8 @@
 "use client";
 import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { getUserById, updateUser, getSessionId, getServiceById, updateService, deleteService } from '@/actions';
+import { toast } from 'sonner';
+import { useDebouncedCallback } from 'use-debounce';
 
 interface UserContextProps {
   userData: any;
@@ -43,10 +45,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       const response = await updateUser(id, data);
+      toast.success('Profile updated successfully!');
       await fetchUserData();
       return JSON.stringify(response);
     } catch (error) {
       console.error(error);
+      toast.error('Error updating profile');
       return Promise.reject(error);
     }
   };

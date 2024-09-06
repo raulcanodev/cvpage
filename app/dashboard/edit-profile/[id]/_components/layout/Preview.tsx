@@ -7,6 +7,7 @@ import { useUserContext } from '@/app/dashboard/context/UserContext';
 export function Preview() {
   const [refreshKey, setRefreshKey] = useState(0);
   const { userData } = useUserContext();
+  const { customDomain } = userData;
 
 
 
@@ -17,13 +18,13 @@ export function Preview() {
 
   return (
     <>
-      <div className="bg-zinc-800 rounded-[40px] p-4 mx-auto max-w-[375px] aspect-[9/19]"> {/* Tamaño ajustado para simular un móvil */}
-        <div className="bg-zinc-950 rounded-[32px] h-full overflow-hidden text-black relative"> {/* Asegurar que el contenedor de iframe no muestra scroll */}
+      <div className="bg-zinc-800 rounded-[40px] p-4 mx-auto max-w-[23.43rem] aspect-[9/19]"> {/* Tamaño ajustado para simular un móvil */}
+        <div className="bg-zinc-950 rounded-[32px] h-full overflow-hidden text-black relative"> Asegurar que el contenedor de iframe no muestra scroll
           
           {/* iframe que carga la página de localhost */}
           <iframe
             key={refreshKey} // Use the key to force re-render
-            src="http://localhost:3000/rawraul"
+            src={`http://localhost:3000/${customDomain}`}
             title="Preview"
             className="w-full h-full rounded-[32px] absolute top-0 left-0"
             frameBorder="0"

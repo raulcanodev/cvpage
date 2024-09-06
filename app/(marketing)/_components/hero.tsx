@@ -1,45 +1,72 @@
 import React, { useState } from 'react'
+import { ArrowRight, Check } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ArrowRight } from "lucide-react"
 
-export default function Hero() {
+export default function HeroSection() {
   const [username, setUsername] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log('Username submitted:', username)
+    // Handle the submission logic here
+    console.log('Submitted username:', username)
   }
 
   return (
-<>
-    <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-      <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-6 leading-tight">
-        Create Your Personal Landing Page
-      </h2>
-      <p className="text-xl text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-        Showcase your services, contact information, and personal brand all in one place. 
-        Get started with your custom hitme.to URL today.
-      </p>
-      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-        <div className="flex-grow flex bg-white dark:bg-slate-950 items-center rounded-lg shadow-sm">
-          <span className=" text-gray-500 pl-4 pr-2">hitme.to/</span>
-          <Input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="flex-grow border-0 focus:ring-0"
-          />
+    <div className="bg-gray-200 dark:bg-zinc-950 text-white min-h-screen flex items-center">
+      <div className="container mx-auto px-4 py-16 md:py-24">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              Create your professional <span className="bg-blue-600 px-2">landing page</span> in minutes, not hours
+            </h1>
+            <p className="text-xl mb-8 text-gray-300">
+              Build a stunning online presence, showcase your services, and connect with your audience effortlessly.
+            </p>
+            <div className="space-y-4 mb-8">
+              <Feature text="Customizable templates for any profession" />
+              <Feature text="Integrated booking and contact forms" />
+              <Feature text="SEO optimization for better visibility" />
+            </div>
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
+              <div className="relative flex-grow">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                  hitme.to/
+                </span>
+                <Input
+                  type="text"
+                  placeholder="yourname"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="pl-20 bg-gray-800 border-gray-700 text-white"
+                />
+              </div>
+              <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
+                Get Started <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </form>
+          </div>
+          <div className="hidden md:block">
+            <div className="bg-gray-800 p-6 rounded-lg shadow-xl">
+              <h3 className="text-xl font-semibold mb-4">Growth Statistics</h3>
+              <div className="text-4xl font-bold mb-2">1,234 <span className="text-green-400 text-2xl">+567</span></div>
+              <p className="text-gray-400 mb-4">New users in the last 30 days</p>
+              <div className="h-48 bg-gray-700 rounded-md flex items-end">
+                <div className="w-full bg-green-400 rounded-b-md" style={{height: '70%'}}></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg">
-          Get started <ArrowRight className="ml-2 h-5 w-5" />
-        </Button>
-      </form>
-      {/* <p className="text-sm text-gray-500 text-center mt-4">
-        Need help setting up your page? <a href="#" className="text-blue-600 hover:underline">Contact us</a>
-      </p> */}
+      </div>
     </div>
-    </>
+  )
+}
+
+function Feature({ text }: { text: string }) {
+  return (
+    <div className="flex items-center">
+      <Check className="text-green-400 mr-2 h-5 w-5" />
+      <span>{text}</span>
+    </div>
   )
 }
