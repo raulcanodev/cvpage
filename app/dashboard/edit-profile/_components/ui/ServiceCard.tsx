@@ -11,7 +11,7 @@ import {
 } from '@/components/ui';
 import { DollarSign, Link, Tag, GripVertical } from 'lucide-react';
 import { ConfirmDeleteService } from '../ui';
-import { useUserContext } from '../../../../context/UserContext';
+import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { Service } from '@/types/types';
 
 interface ServiceCardProps {

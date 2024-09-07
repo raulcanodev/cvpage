@@ -13,7 +13,7 @@ import {
 } from '@/components/ui';
 import { Instagram } from 'lucide-react';
 import { useState } from 'react';
-import { useUserContext } from '../../../../context/UserContext';
+import { useUserContext } from '@/app/dashboard/context/UserContext';
 
 export function UserInstagram() {
   const { userData, updateUserData } = useUserContext();
@@ -39,7 +39,7 @@ export function UserInstagram() {
           <DialogHeader>
             <DialogTitle>Instagram URL</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
+              Make changes to your profile here. Click save when you are done.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

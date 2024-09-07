@@ -5,7 +5,7 @@ import { Plus } from 'lucide-react';
 import { Reorder } from 'framer-motion';
 import { ServiceCard } from '../ui';
 // Drag and drop: https://www.youtube.com/watch?v=XlXT9lhy-4M
-import { useUserContext } from '../../../../context/UserContext';
+import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { createNewService } from '@/actions';
 import { Service } from '@/types/types';
 import { Bars } from 'react-loader-spinner'

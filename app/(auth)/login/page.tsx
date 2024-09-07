@@ -44,7 +44,7 @@ export default function Login() {
   useEffect(() => {
     if (status === 'authenticated') {
       // Si el usuario está autenticado, redirige a la página deseada
-      router.push(`/dashboard/edit-profile/${session.user._id}`); // Ajusta esta ruta según tu aplicación
+      router.push(`/dashboard/edit-profile/`); // Ajusta esta ruta según tu aplicación
     }
   }, [status, router]);
 

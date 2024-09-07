@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Avatar, AvatarFallback, AvatarImage, Input, Textarea, Button } from '@/components/ui/';
 import { UserLocation, UserEmail, UserInstagram, UserTwitter, UserLinkedin } from '../ui';
-import { useUserContext } from '../../../../context/UserContext';
+import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { Toaster, toast } from 'sonner';
 
 export function EditUser() {
