@@ -18,7 +18,6 @@ export default async function UserProfilePage({ params }: Props) {
 
   const userData = await getUserByCustomDomain(customDomain);
   
-  
   const { name, description, location, instagramUrl, linkedinUrl, twitterUrl, githubUrl, services  } = JSON.parse(userData);  
   
   const allServices = await Promise.all(services.map(async (serviceId: string) => {
@@ -28,14 +27,12 @@ export default async function UserProfilePage({ params }: Props) {
 
   const filteredServices = allServices.filter(service => service.active);
 
-
   const socialLinks = [
     { icon: Twitter, href: twitterUrl },
     { icon: Instagram, href: instagramUrl },
     { icon: Linkedin, href: linkedinUrl },
     { icon: Github, href: githubUrl },
   ]
-  
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
