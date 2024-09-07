@@ -9,3 +9,4 @@ export { updateService } from './updateService';
 export { createNewService } from './createNewService';
 export { deleteService } from './deleteService';
 export { getAllUserServices } from './getAllUserServices';
+export { updateUserDomain } from './updateUserDomain';

@@ -13,7 +13,7 @@ export default function Pricing() {
             Scale your online presence with value at every level
           </h3>
           <p className="mt-4 text-xl text-gray-500">
-            From personal branding to business growth, we've got you covered.
+            From personal branding to business growth, we`&ldquo;`ve got you covered.
           </p>
         </div>
 

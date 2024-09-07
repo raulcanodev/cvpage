@@ -47,7 +47,7 @@ export default function Register() {
     useEffect(() => {
       if (status === 'authenticated') {
         // Si el usuario está autenticado, redirige a la página deseada
-        router.push(`/dashboard/edit-profile/${session.user._id}`); // Ajusta esta ruta según tu aplicación
+        router.push(`/dashboard/edit-profile/`); // Ajusta esta ruta según tu aplicación
       }
     }, [status, router]);
     
@@ -69,7 +69,7 @@ export default function Register() {
         </div>
         <div>
           <blockquote className="text-xl">
-            "hitme.to has transformed how I present my portfolio. It's sleek, professional, and exactly what I needed."
+            hitme.to has transformed how I present my portfolio. It is sleek, professional, and exactly what I needed.
           </blockquote>
           <p className="mt-4">Jane Smith, Freelance Writer</p>
         </div>

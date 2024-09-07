@@ -25,7 +25,7 @@ export default function NotFoundPage({ params }: Props) {
       <div className="max-w-md w-full space-y-8 text-center">
         <div>
           <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
-            This domain doesn't exist, yet! 😉
+            This domain doesn`&ldquo;`t exist, yet! 😉
           </h1>
           <p className="mt-2 text-xl text-gray-600">
             Create your hitme.to page

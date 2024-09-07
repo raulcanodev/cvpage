@@ -67,8 +67,8 @@ export default function Login() {
         </div>
         <div>
           <blockquote className="text-xl">
-            "This platform has revolutionized how I showcase my services online. It's simple,
-            elegant, and incredibly effective."
+            This platform has revolutionized how I showcase my services online. It is simple,
+            elegant, and incredibly effective.
           </blockquote>
           <p className="mt-4">John Doe, Freelance Designer</p>
         </div>

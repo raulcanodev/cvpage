@@ -20,7 +20,7 @@ export default function SuccessPage() {
             Welcome to hitme.to!
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
-            Your account has been successfully created. You're now ready to start building your professional online presence.
+            Your account has been successfully created. You are now ready to start building your professional online presence.
           </p>
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">

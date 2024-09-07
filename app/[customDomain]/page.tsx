@@ -1,11 +1,8 @@
 import { getUserByCustomDomain, getServiceById } from '@/actions';
-import { notFound, redirect } from 'next/navigation';
-import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { MapPin, Twitter, Instagram, Linkedin, Github, ExternalLink } from 'lucide-react'
-import { g } from 'framer-motion/client';
+import { MapPin, Twitter, Instagram, Linkedin, Github } from 'lucide-react'
 
 interface Props {
   params: {
@@ -86,7 +83,7 @@ export default async function UserProfilePage({ params }: Props) {
         </div>
 
         <footer className="mt-20 text-center text-gray-400">
-          <p className="text-lg">© 2024 Raul. All rights reserved.</p>
+          <p className="text-lg">© 2024 hitme.to. All rights reserved.</p>
           <p className="mt-3 text-base">
             Powered by <a href="https://hitme.to" className="text-blue-400 hover:underline">hitme.to</a>
           </p>

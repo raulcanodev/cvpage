@@ -6,7 +6,6 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-  Label,
   Input,
   Button,
 } from '@/components/ui';
@@ -23,7 +22,7 @@ export function UserEmail() {
           <DialogHeader>
             <DialogTitle>Email</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
+              Make changes to your profile here. Click save when you`&ldquo;`re done.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

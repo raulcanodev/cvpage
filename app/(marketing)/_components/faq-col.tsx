@@ -26,12 +26,12 @@ export default function FAQSection() {
             Frequently asked questions
           </h3>
           <p className="mt-4 text-lg text-gray-500">
-            Have a different question and can't find the answer you're looking for? Reach out to our
+            Have a different question and can`&ldquo;`t find the answer you`&ldquo;`re looking for? Reach out to our
             support team by{' '}
             <Link href="/contact" className="font-medium text-blue-600 hover:text-blue-500">
               sending us an email
             </Link>{' '}
-            and we'll get back to you as soon as we can.
+            and we`&ldquo;`ll get back to you as soon as we can.
           </p>
         </div>
 

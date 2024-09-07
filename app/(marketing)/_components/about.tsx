@@ -36,7 +36,7 @@ export default function About() {
             About hitme.to
           </h2>
           <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-            We're revolutionizing how professionals and businesses showcase their services online. 
+            We are revolutionizing how professionals and businesses showcase their services online. 
             Our platform is designed to simplify your digital presence and amplify your reach.
           </p>
         </div>
@@ -71,7 +71,7 @@ export default function About() {
             <div className="w-full md:w-1/2 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 p-6 rounded-lg">
               <h4 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">Success Story</h4>
               <p className="text-gray-600 dark:text-gray-300">
-                "hitme.to's analytics helped me identify my most popular service, leading to a 25% increase in revenue!" - Sarah K., Freelance Designer
+                hitme.to`&ldquo;`s analytics helped me identify my most popular service, leading to a 25% increase in revenue! - Sarah K., Freelance Designer
               </p>
             </div>
           </div>
@@ -81,7 +81,7 @@ export default function About() {
               <Rocket className="w-16 h-16 mb-4 text-green-600 dark:text-green-400" />
               <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">Continuous Innovation</h3>
               <p className="text-gray-500 dark:text-gray-400">
-                We're constantly evolving to meet the changing needs of our users. 
+                We`&ldquo;`re constantly evolving to meet the changing needs of our users. 
                 Our team is dedicated to bringing you cutting-edge features that keep you ahead in the digital landscape.
               </p>
             </div>

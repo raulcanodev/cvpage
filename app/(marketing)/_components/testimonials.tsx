@@ -82,7 +82,7 @@ export default function Testimonials() {
                   </div>
                 </div>
                 <StarRating rating={testimonial.rating} />
-                <p className="mt-4 text-gray-600 dark:text-gray-300">"{testimonial.content}"</p>
+                <p className="mt-4 text-gray-600 dark:text-gray-300">`&ldquo;`{testimonial.content}`&ldquo;`</p>
               </CardContent>
             </Card>
           ))}
