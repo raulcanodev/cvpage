@@ -14,7 +14,7 @@ export default function DashboardEditProfile() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   return (
-    <div className="container mx-auto px-4 py-8 pb-20 lg:pb-8">
+    <div className="mx-auto py-8 pb-20 lg:pb-8">
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Left - User */}
         <div className="flex-1 space-y-8">

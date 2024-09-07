@@ -11,17 +11,17 @@ import {
   Button,
   DialogClose,
 } from '@/components/ui';
-import { Instagram } from 'lucide-react';
+import { Github } from 'lucide-react';
 import { useState } from 'react';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 
-export function UserInstagram() {
+export function UserGithub() {
   const { userData, updateUserData } = useUserContext();
-  const [instagramUrl, setInstagramUrl] = useState(userData.instagramUrl || '');
+  const [githubUrl, setGithubUrl] = useState(userData.githubUrl || '');
 
   const handleSaveChanges = async () => {
     try {
-      await updateUserData(userData._id, { instagramUrl });
+      await updateUserData(userData._id, { githubUrl });
     } catch (error) {
       console.error('Failed to update Instagram URL:', error);
     }
@@ -31,13 +31,13 @@ export function UserInstagram() {
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Instagram
-            className={`w-5 h-5 cursor-pointer ${userData.instagramUrl && 'text-black dark:text-white'}`}
+          <Github
+            className={`w-5 h-5 cursor-pointer ${userData.githubUrl && 'text-black dark:text-white'}`}
           />
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Instagram URL</DialogTitle>
+            <DialogTitle>Twitter URL</DialogTitle>
             <DialogDescription>
               Make changes to your profile here. Click save when you are done.
             </DialogDescription>
@@ -46,10 +46,10 @@ export function UserInstagram() {
             <div className="grid grid-cols-4 items-center gap-4">
               <Input
                 id="instagramUrl"
-                placeholder="https://www.instagram.com/username"
+                placeholder="https://github.com/username"
                 className="col-span-4"
-                defaultValue={userData.instagramUrl}
-                onChange={(e) => setInstagramUrl(e.target.value)}
+                defaultValue={userData.githubUrl}
+                onChange={(e) => setGithubUrl(e.target.value)}
               />
             </div>
           </div>

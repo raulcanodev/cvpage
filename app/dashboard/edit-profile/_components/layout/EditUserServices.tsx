@@ -57,18 +57,6 @@ export function EditUserServices() {
           ))}
       </Reorder.Group>
     )}
-    {/* {!services && (
-      <div className='flex justify-center'>
-        <Bars
-        visible={true}
-        height="80"
-        width="80"
-        color='#4B5563'
-        ariaLabel="puff-loading"
-        />
-      </div>
-    )} */}
-      
     </>
   );
 }

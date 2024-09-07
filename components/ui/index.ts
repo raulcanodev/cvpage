@@ -32,3 +32,4 @@ export { Menubar,
   MenubarGroup,
   MenubarSub,
   MenubarShortcut} from './menubar';
+  export { Badge, badgeVariants } from './badge';

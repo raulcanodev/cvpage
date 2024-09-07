@@ -1,8 +1,14 @@
 import { getUserByCustomDomain, getServiceById } from '@/actions';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { MapPin, Twitter, Instagram, Linkedin, Github } from 'lucide-react'
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Badge,
+  Card,
+  CardContent,
+  Button,
+} from '@/components/ui';
+import { MapPin, Twitter, Instagram, Linkedin, Github, Send, Link } from 'lucide-react';
 
 interface Props {
   params: {
@@ -14,68 +20,105 @@ export default async function UserProfilePage({ params }: Props) {
   const { customDomain } = params;
 
   const userData = await getUserByCustomDomain(customDomain);
-  
-  const { name, description, location, instagramUrl, linkedinUrl, twitterUrl, githubUrl, services  } = JSON.parse(userData);  
-  
-  const allServices = await Promise.all(services.map(async (serviceId: string) => {
-    const serviceData = await getServiceById(serviceId);
-    return serviceData;
-  }, []));
 
-  const filteredServices = allServices.filter(service => service.active);
+  const {
+    name,
+    description,
+    location,
+    instagramUrl,
+    linkedinUrl,
+    twitterUrl,
+    githubUrl,
+    services,
+  } = JSON.parse(userData);
+
+  const allServices = await Promise.all(
+    services.map(async (serviceId: string) => {
+      const serviceData = await getServiceById(serviceId);
+      return serviceData;
+    }, [])
+  );
+
+  const filteredServices = allServices.filter((service) => service.active);
 
   const socialLinks = [
     { icon: Twitter, href: twitterUrl },
     { icon: Instagram, href: instagramUrl },
     { icon: Linkedin, href: linkedinUrl },
     { icon: Github, href: githubUrl },
-  ]
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
-      <div className="max-w-2xl mx-auto px-4 py-16">
-        <div className="text-center mb-16">
-          <Avatar className="w-40 h-40 mx-auto mb-6 border-4">
+    <div className="min-h-screen relative">
+      {/* Background element */}
+      <div className="fixed inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+      <div className="max-w-2xl mx-auto px-4 py-10">
+        <div className="text-center mb-8">
+          
+          <Avatar className="w-32 h-32 mx-auto mb-6">
             <AvatarImage src="/placeholder.svg?height=160&width=160" alt="Raul" />
             <AvatarFallback>RA</AvatarFallback>
           </Avatar>
-          <h1 className="text-5xl font-bold mb-4">{name}</h1>
-          <p className="text-2xl text-gray-300 mb-6">Indie Hacker & Web Developer</p>
-          <div className="flex items-center justify-center text-gray-400 mb-8">
-            <MapPin className="w-5 h-5 mr-2" />
-            <span className="text-lg">{location}</span>
-          </div>
-          <p className="text-gray-300 text-xl mb-8">
-            {description}
-          </p>
-          <div className="flex justify-center space-x-6 mb-12">
-            {socialLinks.map((link, index) => (
+          
+          <h1 className="text-4xl text-zinc-700 font-bold mb-4">{name}</h1>
+
+          <p className="text-xl text-zinc-500 mb-4">Indie Hacker & Web Developer</p>
+
+          {location && (
+            <div className="flex gap-1 items-center justify-center text-zinc-400 mb-4">
+              <MapPin className="w-5 h-5" />
+              <span className="text-lg">{location}</span>
+            </div>
+          )}
+
+          <p className="text-zinc-500 mb-8">{description}</p>
+
+          <div className="flex justify-center space-x-6 mb-8">
+            {socialLinks.map((link, index) =>
               link.href && link.icon ? (
-                <a 
-                  key={index} 
-                  href={link.href} 
-                  target="_blank" 
+                <a
+                  key={index}
+                  href={link.href}
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-zinc-400 hover:text-zinc-300 transition-colors"
                 >
-                  <link.icon className="w-8 h-8" />
+                  <link.icon className="w-7 h-7" />
                 </a>
               ) : null
-            ))}
+            )}
           </div>
+
         </div>
 
-        <div className="space-y-8">
+        {/* TWO ROW BUTTON FOR CATEGORIE SERVICE AND PROJECTS */}
+        <div className="flex justify-center gap-4 mb-4">
+          <Button className="w-1/2">Services</Button>
+          <Button className="w-1/2">Projects</Button>
+        </div>
+
+
+        {/* SERVICE LIST */}
+        <div className="flex flex-col gap-3">
           {filteredServices.map((service, index) => (
-            <Card key={index} className="bg-gray-800 border-gray-700">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-semibold mb-4">{service.title}</h3>
-                <p className="text-gray-300 text-lg mb-6">{service.description}</p>
+            <Card key={index} className="bg-zinc-50 border-zinc-300 rounded-2xl">
+              <CardContent className="p-4">
+
+                <div className="flex flex-row gap-2 justify-between">
+                  <h3 className="flex-1 text-xl text-zinc-800 font-semibold mb-2">
+                    {service.title}
+                  </h3>
+                  <Badge className="whitespace-nowrap px-3 py-1 self-start" variant="secondary">
+                    Service
+                  </Badge>
+                </div>
+
+                <p className="text-zinc-500 mb-4">{service.description}</p>
+                
                 <div className="flex justify-between items-center">
-                  <span className="text-blue-400 font-bold text-xl">{service.price}</span>
-                  <Button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full text-lg">
-                    Book Now
-                  </Button>
+                  <span className="text-zinc-500 font-bold text">90$</span>
+                  <Send className="text-zinc-700 w-5" />
                 </div>
               </CardContent>
             </Card>
@@ -85,10 +128,13 @@ export default async function UserProfilePage({ params }: Props) {
         <footer className="mt-20 text-center text-gray-400">
           <p className="text-lg">© 2024 hitme.to. All rights reserved.</p>
           <p className="mt-3 text-base">
-            Powered by <a href="https://hitme.to" className="text-blue-400 hover:underline">hitme.to</a>
+            Powered by{' '}
+            <a href="https://hitme.to" className="text-zinc-900 hover:underline">
+              hitme.to
+            </a>
           </p>
         </footer>
       </div>
     </div>
-  )
+  );
 }

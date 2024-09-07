@@ -26,8 +26,6 @@ interface ServiceCardProps {
 export function ServiceCard({ serviceId, title, description, category, price, active }: Service) {
  const { userData, updateUserService } = useUserContext();
  console.log("active", active);
- 
-
 
   return (
     <>
