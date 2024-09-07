@@ -1,8 +1,9 @@
 "use client";
 import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import { getUserById, updateUser, getSessionId, getServiceById, updateService, deleteService } from '@/actions';
+import { getUserById, updateUser, getSessionId, getServiceById, updateService, deleteService, updateAvatar } from '@/actions';
 import { toast } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
+import { u } from 'framer-motion/client';
 
 interface UserContextProps {
   userData: any;
@@ -10,6 +11,7 @@ interface UserContextProps {
   updateUserService: (id: string, data: any) => Promise<string>;
   reloadUserData: () => Promise<void>;
   deleteUserService: (serviceId: string, userId: string) => Promise<string>;
+  updateUserAvatar: (userId: string, formData: FormData) => Promise<string>;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -76,14 +78,27 @@ const deleteUserService = async (serviceId: string, userId: string) => {
       return Promise.reject(error);
     }
   };
-  
+
+const updateUserAvatar = async (userId: string, formData: FormData) => {
+    try {
+      await updateAvatar(userId, formData);
+      
+        await fetchUserData();
+        toast.success('Avatar updated successfully!');
+      
+      return Promise.resolve('Avatar updated successfully!');
+    } catch (error) {
+      console.error('Error updating user avatar:', error);
+      return Promise.reject(error);
+    }
+}
 
   useEffect(() => {
     fetchUserData();
   }, []);
 
   return (
-    <UserContext.Provider value={{ userData, updateUserData, updateUserService, reloadUserData: fetchUserData, deleteUserService }}>
+    <UserContext.Provider value={{ userData, updateUserData, updateUserService, reloadUserData: fetchUserData, deleteUserService, updateUserAvatar }}>
       {children}
     </UserContext.Provider>
   );

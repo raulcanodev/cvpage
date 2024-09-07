@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Avatar, AvatarFallback, AvatarImage, Input, Textarea, Button } from '@/components/ui/';
-import { UserLocation, UserEmail, UserInstagram, UserTwitter, UserLinkedin, UserGithub } from '../ui';
+import { UserLocation, UserEmail, UserInstagram, UserTwitter, UserLinkedin, UserGithub, UserAvatar } from '../ui';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
-import { Toaster, toast } from 'sonner';
+import { Camera } from 'lucide-react';
+
+import { updateAvatar } from '@/actions';
 
 export function EditUser() {
   const { userData, updateUserData } = useUserContext();
@@ -47,10 +49,7 @@ export function EditUser() {
     <>
       <div className="bg-zinc-100 dark:bg-zinc-900 p-6 rounded-lg">
         <div className="flex items-center space-x-2 mb-4">
-          <Avatar className="w-12 h-12">
-            <AvatarImage src="" alt="Raul Cano" />
-            <AvatarFallback>:D</AvatarFallback>
-          </Avatar>
+          <UserAvatar/>
           <div>
             <Input
               className="text-2xl font-bold text-white bg-zinc-900 border-zinc-900 focus:ring-transparent"

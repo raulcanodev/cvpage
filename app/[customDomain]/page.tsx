@@ -25,6 +25,7 @@ export default async function UserProfilePage({ params }: Props) {
     name,
     description,
     location,
+    avatar,
     instagramUrl,
     linkedinUrl,
     twitterUrl,
@@ -48,6 +49,8 @@ export default async function UserProfilePage({ params }: Props) {
     { icon: Github, href: githubUrl },
   ];
 
+  const firstLetterName = name?.charAt(0) ?? '';
+
   return (
     <div className="min-h-screen relative">
       {/* Background element */}
@@ -56,9 +59,9 @@ export default async function UserProfilePage({ params }: Props) {
       <div className="max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-8">
           
-          <Avatar className="w-32 h-32 mx-auto mb-6">
-            <AvatarImage src="/placeholder.svg?height=160&width=160" alt="Raul" />
-            <AvatarFallback>RA</AvatarFallback>
+          <Avatar className="w-32 h-32 mx-auto mb-6 object-cover">
+            <AvatarImage src={avatar} alt={name} />
+            <AvatarFallback>{firstLetterName}</AvatarFallback>
           </Avatar>
           
           <h1 className="text-4xl text-zinc-700 font-bold mb-4">{name}</h1>

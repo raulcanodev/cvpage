@@ -19,7 +19,7 @@ export interface UserDocument {
   description: string;
   location: string;
   phone: string;
-  profileImage: string;
+  avatar: string;
   website: string;
   twitterUrl: string;
   instagramUrl: string;
@@ -91,7 +91,7 @@ const UserSchema = new Schema<UserDocument>(
     phone: {
       type: String,
     },
-    profileImage: {
+    avatar: {
       type: String,
     },
     website: {

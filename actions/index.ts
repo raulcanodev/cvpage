@@ -10,3 +10,4 @@ export { createNewService } from './createNewService';
 export { deleteService } from './deleteService';
 export { getAllUserServices } from './getAllUserServices';
 export { updateUserDomain } from './updateUserDomain';
+export { updateAvatar } from './cloudinary';
