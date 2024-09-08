@@ -7,7 +7,7 @@ import { Camera } from 'lucide-react';
 import { updateAvatar } from '@/actions';
 
 export function EditUser() {
-  const { userData, updateUserData } = useUserContext();
+  const { userData, updateUserData, updateUserDomain } = useUserContext();
   const { name, description, customDomain } = userData;
   const [error, setError] = useState(null);
 
@@ -29,7 +29,9 @@ export function EditUser() {
             .replace(/[^a-zA-Z0-9-]/g, '')
             .trim()
             .toLowerCase(); // Remove special characters, trim whitespace, and convert to lowercase
-          updateUserData(userData._id, { customDomain: escapedDomain });
+            updateUserDomain(userData._id, escapedDomain);
+            console.log("escapedDomain", escapedDomain);
+            
         }
         setHasDomainChanged(false); // Reset the flag after update
       }, 500); // Debounce time (500ms)
@@ -54,7 +56,7 @@ export function EditUser() {
             <Input
               className="text-2xl font-bold text-white bg-zinc-900 border-zinc-900 focus:ring-transparent"
               defaultValue={name}
-              placeholder="Your name"
+              placeholder="Great Name"
               onChange={(e) => updateUserData(userData._id, { name: e.target.value })}
             />
           </div>
@@ -74,7 +76,7 @@ export function EditUser() {
             <UserTwitter />
             <UserLinkedin />
             <UserGithub />
-            <UserEmail />
+            {/* <UserEmail /> */}
           </div>
 
           <div className="flex row ">

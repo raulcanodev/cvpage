@@ -37,7 +37,7 @@ export function UserGithub() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Twitter URL</DialogTitle>
+            <DialogTitle>Github URL</DialogTitle>
             <DialogDescription>
               Make changes to your profile here. Click save when you are done.
             </DialogDescription>

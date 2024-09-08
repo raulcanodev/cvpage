@@ -61,12 +61,6 @@ export const deleteUserById = async (id: string) => {
  * Retrieves user data by custom domain.
  * 
  * @param customDomain - The custom domain to search for.
- * @returns The user data.
- */
-/**
- * Retrieves user data by custom domain.
- * 
- * @param customDomain - The custom domain to search for.
  * @returns The user data if found, otherwise null.
  */
 export const fetchUserByCustomDomain = async (customDomain: string) => {
@@ -74,7 +68,6 @@ export const fetchUserByCustomDomain = async (customDomain: string) => {
   const user = await User.findOne({ customDomain: customDomain }); // TODO: Handle the case where the user is not found
   return user ? user : null;
 }
-
 
 /**
  * Retrieves service data by its ID.
@@ -138,5 +131,25 @@ export const deleteServiceFromUser = async (userId: string, serviceId: string) =
   }, {
     new: true,
     runValidators: true, 
+  });
+}
+
+/**
+ * Updates user domain, it has to be unique.
+ * 
+ * @param id - The user ID.
+ * @param data - The data to update.
+ * @returns The updated user data.
+ * @throws An error if the domain is already taken.
+ */
+export const updateCustomDomain = async (id: string, domain: string) => {
+  await connectDB();
+  const user = await User.findOne({ customDomain: domain });
+  if (user) {
+    throw new Error('Custom domain is already taken');
+  }
+  return User.findByIdAndUpdate(id, { customDomain: domain }, {
+    new: true,
+    runValidators: true,
   });
 }

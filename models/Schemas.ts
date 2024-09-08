@@ -3,7 +3,7 @@ import mongoose, { Schema, model } from "mongoose";
 // Interface definition for the Service document
 interface Service {
   title: string;
-  price: number;
+  price: string;
   description: string;
   category: string;
   active: boolean;
@@ -40,7 +40,7 @@ const ServiceSchema = new Schema<Service>(
       type: String,
     },
     price: {
-      type: Number,
+      type: String,
       min: [0, "Price must be a positive number"],
     },
     description: {
@@ -80,10 +80,10 @@ const UserSchema = new Schema<UserDocument>(
     },
     description: {
       type: String,
-      default: "I'm using hitme.to!",
     },
     customDomain: {
       type: String,
+      unique: true,
     },
     location: {
       type: String,

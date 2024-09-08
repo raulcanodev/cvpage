@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui';
 import { Plus } from 'lucide-react';
 import { Reorder } from 'framer-motion';
-import { ServiceCard } from '../ui';
+import { ServiceCard } from './ServiceCard';
 // Drag and drop: https://www.youtube.com/watch?v=XlXT9lhy-4M
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { createNewService } from '@/actions';

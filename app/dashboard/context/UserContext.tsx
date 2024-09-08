@@ -1,9 +1,16 @@
-"use client";
+'use client';
 import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import { getUserById, updateUser, getSessionId, getServiceById, updateService, deleteService, updateAvatar } from '@/actions';
+import {
+  getUserById,
+  updateUser,
+  getSessionId,
+  getServiceById,
+  updateService,
+  deleteService,
+  updateAvatar,
+  updateDomain,
+} from '@/actions';
 import { toast } from 'sonner';
-import { useDebouncedCallback } from 'use-debounce';
-import { u } from 'framer-motion/client';
 
 interface UserContextProps {
   userData: any;
@@ -12,6 +19,7 @@ interface UserContextProps {
   reloadUserData: () => Promise<void>;
   deleteUserService: (serviceId: string, userId: string) => Promise<string>;
   updateUserAvatar: (userId: string, formData: FormData) => Promise<string>;
+  updateUserDomain: (id: string, domain: string) => Promise<string>;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -47,7 +55,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       const response = await updateUser(id, data);
-      toast.success('Profile updated successfully!');
       await fetchUserData();
       return JSON.stringify(response);
     } catch (error) {
@@ -68,7 +75,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-const deleteUserService = async (serviceId: string, userId: string) => {
+  const deleteUserService = async (serviceId: string, userId: string) => {
     try {
       const response = await deleteService(serviceId, userId);
       await fetchUserData();
@@ -79,26 +86,51 @@ const deleteUserService = async (serviceId: string, userId: string) => {
     }
   };
 
-const updateUserAvatar = async (userId: string, formData: FormData) => {
+  const updateUserAvatar = async (userId: string, formData: FormData) => {
     try {
       await updateAvatar(userId, formData);
-      
-        await fetchUserData();
-        toast.success('Avatar updated successfully!');
-      
+
+      await fetchUserData();
+      toast.success('Avatar updated successfully!');
+
       return Promise.resolve('Avatar updated successfully!');
     } catch (error) {
       console.error('Error updating user avatar:', error);
       return Promise.reject(error);
     }
-}
+  };
+
+  // It has to be unique, return error if the domain is already taken
+  const updateUserDomain = async (id: string, domain: string) => {
+    
+    try {
+      const response = await updateDomain(id, domain);
+      toast.success('Domain updated successfully!');
+      await fetchUserData();
+      return JSON.stringify(response);
+    } catch (error) {
+      console.error('Error updating user domain:', error);
+      toast.error('Domain is already taken');
+      return Promise.reject(error);
+    }
+  };
 
   useEffect(() => {
     fetchUserData();
   }, []);
 
   return (
-    <UserContext.Provider value={{ userData, updateUserData, updateUserService, reloadUserData: fetchUserData, deleteUserService, updateUserAvatar }}>
+    <UserContext.Provider
+      value={{
+        userData,
+        updateUserData,
+        updateUserService,
+        reloadUserData: fetchUserData,
+        deleteUserService,
+        updateUserAvatar,
+        updateUserDomain,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

@@ -16,7 +16,7 @@ export function UserEmail() {
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Mail className="w-5 h-5 " />
+          <Mail className="w-5 h-5" />
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>

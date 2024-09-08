@@ -66,7 +66,7 @@ export default async function UserProfilePage({ params }: Props) {
           
           <h1 className="text-4xl text-zinc-700 font-bold mb-4">{name}</h1>
 
-          <p className="text-xl text-zinc-500 mb-4">Indie Hacker & Web Developer</p>
+          {/* <p className="text-xl text-zinc-500 mb-4">Indie Hacker & Web Developer</p> */}
 
           {location && (
             <div className="flex gap-1 items-center justify-center text-zinc-400 mb-4">
@@ -112,15 +112,17 @@ export default async function UserProfilePage({ params }: Props) {
                   <h3 className="flex-1 text-xl text-zinc-800 font-semibold mb-2">
                     {service.title}
                   </h3>
-                  <Badge className="whitespace-nowrap px-3 py-1 self-start" variant="secondary">
-                    Service
-                  </Badge>
+                  {service.price && (
+                    <Badge className="whitespace-nowrap px-3 py-1 self-start" variant="secondary">
+                      {service.price} <span>&euro;</span>
+                    </Badge>
+                  )}
                 </div>
 
                 <p className="text-zinc-500 mb-4">{service.description}</p>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-zinc-500 font-bold text">90$</span>
+                  {/* <span className="text-zinc-500 font-bold text">90$</span> */}
                   <Send className="text-zinc-700 w-5" />
                 </div>
               </CardContent>

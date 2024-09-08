@@ -33,3 +33,13 @@ export { Menubar,
   MenubarSub,
   MenubarShortcut} from './menubar';
   export { Badge, badgeVariants } from './badge';
+  export {   Select,
+    SelectGroup,
+    SelectValue,
+    SelectTrigger,
+    SelectContent,
+    SelectLabel,
+    SelectItem,
+    SelectSeparator,
+    SelectScrollUpButton,
+    SelectScrollDownButton, } from './select';
