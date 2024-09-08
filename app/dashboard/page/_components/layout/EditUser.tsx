@@ -1,17 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Avatar, AvatarFallback, AvatarImage, Input, Textarea, Button } from '@/components/ui/';
-import { UserLocation, UserEmail, UserInstagram, UserTwitter, UserLinkedin, UserGithub, UserAvatar } from '../ui';
+import { Input, Textarea } from '@/components/ui/';
+import { UserLocation, UserInstagram, UserTwitter, UserLinkedin, UserGithub, UserAvatar } from '../ui';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
-import { Camera } from 'lucide-react';
-
-import { updateAvatar, getUserData } from '@/actions';
 
 export function EditUser() {
   const { userData, updateUserData, updateUserDomain } = useUserContext();
   const { name, description, customDomain } = userData;
   const [error, setError] = useState(null);
   console.log("userData", userData);
-  
 
   // Local state for customDomain
   const [domainInput, setDomainInput] = useState(customDomain);
@@ -77,7 +73,6 @@ export function EditUser() {
             <UserTwitter />
             <UserLinkedin />
             <UserGithub />
-            {/* <UserEmail /> */}
           </div>
 
           <div className="flex row ">
