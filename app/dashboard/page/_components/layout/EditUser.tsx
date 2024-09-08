@@ -10,6 +10,8 @@ export function EditUser() {
   const { userData, updateUserData, updateUserDomain } = useUserContext();
   const { name, description, customDomain } = userData;
   const [error, setError] = useState(null);
+  console.log("userData", userData);
+  
 
   // Local state for customDomain
   const [domainInput, setDomainInput] = useState(customDomain);
@@ -30,7 +32,7 @@ export function EditUser() {
             .replace(/[^a-zA-Z0-9-]/g, '')
             .trim()
             .toLowerCase(); // Remove special characters, trim whitespace, and convert to lowercase
-            updateUserDomain(userData._id, escapedDomain);
+            updateUserDomain(userData._id, escapedDomain); //* <------ Update the domain
         }
         setHasDomainChanged(false); // Reset the flag after update
       }, 500); // Debounce time (500ms)

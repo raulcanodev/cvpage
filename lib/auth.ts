@@ -5,6 +5,8 @@ import GoogleProvider from 'next-auth/providers/google';
 import bcrypt from 'bcryptjs';
 import type { NextAuthOptions } from 'next-auth';
 
+// TODO: Fix the type of the user object
+
 export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/login',
@@ -49,41 +51,31 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({user, account}): Promise<any> {
-      // console.log("user", user);
-      // console.log("account", account);
 
       if(account?.provider === 'google') {
-        const { email, name } = user;
+        const { email, name, image } = user;
+
         try {
           await connectDB();
-          const userExist = await User.findOne({ email });
-
+          let userExist = await User.findOne({ email });
+          
           if(!userExist){
-            const response = await fetch("http://localhost:3000/api/user", {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                email,
-                name,
-              }),
-            })
-            if (response.ok) {
-              return user;
-            }
+            userExist = await User.create({ name, email, avatar: image });
           }
+
+          user._id = userExist?._id.toString(); 
+
         } catch(error) {
           console.error(error);
         }
       }
 
-      return user;
+      return true;
     },
     async jwt({ token, user }) {
       // If the user is authenticated, store the user's id in the token
       if (user) {
-        token.id = user.id;
+        token.id = user._id;
       }
       return token;
     },
@@ -95,6 +87,7 @@ export const authOptions: NextAuthOptions = {
         }
         // This is the path to the user id
         session.user._id = token.id;
+        
       }
       return session;
     },

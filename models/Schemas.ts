@@ -10,8 +10,8 @@ interface Service {
 }
 
 // Interface definition for the User document
-export interface UserDocument {
-  _id: string;
+export interface User {
+  _id: mongoose.Types.ObjectId;
   email: string;
   password: string;
   name: string;
@@ -60,7 +60,7 @@ const ServiceSchema = new Schema<Service>(
 );
 
 // Define the schema for the user model
-const UserSchema = new Schema<UserDocument>(
+const UserSchema = new Schema<User>(
   {
     email: {
       type: String,
@@ -132,5 +132,5 @@ const Service = mongoose.models?.Service || model<Service>("Service", ServiceSch
 export { Service };
 
 // Define the model for the User
-const User = mongoose.models?.User || model<UserDocument>("User", UserSchema);
+const User = mongoose.models?.User || model<User>("User", UserSchema);
 export default User;
