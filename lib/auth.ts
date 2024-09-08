@@ -1,6 +1,7 @@
 import { connectDB } from '@/lib/mongodb';
 import User from '@/models/Schemas';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
 import bcrypt from 'bcryptjs';
 import type { NextAuthOptions } from 'next-auth';
 
@@ -20,11 +21,9 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         await connectDB();
-
         // Find the user by email address and select the password field
         const user = await User.findOne({ email: credentials?.email }).select('+password');
-        //get id
-        const userId = user._id.toString();
+
         if (!user) throw new Error('Wrong Email');
 
         // Compare the password from the form with the password from the database
@@ -40,11 +39,47 @@ export const authOptions: NextAuthOptions = {
         };
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
   ],
   session: {
     strategy: 'jwt',
   },
   callbacks: {
+    async signIn({user, account}): Promise<any> {
+      // console.log("user", user);
+      // console.log("account", account);
+
+      if(account?.provider === 'google') {
+        const { email, name } = user;
+        try {
+          await connectDB();
+          const userExist = await User.findOne({ email });
+
+          if(!userExist){
+            const response = await fetch("http://localhost:3000/api/user", {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email,
+                name,
+              }),
+            })
+            if (response.ok) {
+              return user;
+            }
+          }
+        } catch(error) {
+          console.error(error);
+        }
+      }
+
+      return user;
+    },
     async jwt({ token, user }) {
       // If the user is authenticated, store the user's id in the token
       if (user) {

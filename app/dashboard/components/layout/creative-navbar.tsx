@@ -8,7 +8,7 @@ export function CreativeNavbar() {
       {/* Top Navigation */}
       <div className="flex justify-between items-center mb-8 mx-auto">
         <div className="flex gap-3">
-          <Link href={`/dashboard/edit-profile`}>
+          <Link href={`/dashboard/page`}>
             <Button
               variant="outline"
               className="bg-zinc-900 text-white border-zinc-700 flex gap-2 md:gap-0 items-center md:flex-row"
@@ -18,7 +18,7 @@ export function CreativeNavbar() {
             </Button>
           </Link>
 
-          <Link href={`/dashboard/edit-style`}>
+          <Link href={`/dashboard/style`}>
             <Button
               variant="outline"
               className="bg-zinc-900 text-white border-zinc-700 flex gap-2 md:gap-0 items-center md:flex-row"
@@ -28,7 +28,7 @@ export function CreativeNavbar() {
             </Button>
           </Link>
 
-          <Link href={`/dashboard/edit-settings`}>
+          <Link href={`/dashboard/settings`}>
             <Button
               variant="outline"
               className="bg-zinc-900 text-white border-zinc-700 flex gap-2 md:gap-0 items-center md:flex-row"

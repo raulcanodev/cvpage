@@ -8,7 +8,6 @@ import { useSession } from 'next-auth/react';
 // Component code
 const {data: session} = useSession();
   const name = session?.user?.name;
-  console.log('name: ', name);
 ```
 --------------------------------------------------------------------------------------------
 

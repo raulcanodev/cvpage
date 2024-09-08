@@ -4,7 +4,7 @@ import { UserLocation, UserEmail, UserInstagram, UserTwitter, UserLinkedin, User
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { Camera } from 'lucide-react';
 
-import { updateAvatar } from '@/actions';
+import { updateAvatar, getUserData } from '@/actions';
 
 export function EditUser() {
   const { userData, updateUserData, updateUserDomain } = useUserContext();
@@ -22,6 +22,7 @@ export function EditUser() {
 
   // Update domain only when user stops typing and input is different from initial value
   useEffect(() => {
+
     if (hasDomainChanged) {
       const handler = setTimeout(() => {
         if (domainInput !== customDomain) {
@@ -30,8 +31,6 @@ export function EditUser() {
             .trim()
             .toLowerCase(); // Remove special characters, trim whitespace, and convert to lowercase
             updateUserDomain(userData._id, escapedDomain);
-            console.log("escapedDomain", escapedDomain);
-            
         }
         setHasDomainChanged(false); // Reset the flag after update
       }, 500); // Debounce time (500ms)

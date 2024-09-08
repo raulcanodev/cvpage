@@ -8,10 +8,17 @@ import {
   DialogContent,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Eye, EyeIcon } from 'lucide-react';
+import { Eye } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { authOptions } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
 
 export default function DashboardEditProfile() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  // const { status, data: session } = useSession();
+  
+  // const session = getServerSideProps();
+  
 
   return (
     <div className="mx-auto py-8 pb-20 lg:pb-8">
@@ -33,7 +40,7 @@ export default function DashboardEditProfile() {
         <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
           <DialogTrigger asChild>
             <Button className="w-full">
-              <EyeIcon className="w-4 h-4 mr-2" />
+              <Eye className="w-4 h-4 mr-2" />
               Preview
             </Button>
           </DialogTrigger>

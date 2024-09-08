@@ -16,7 +16,7 @@ export const getUserById = async (id: string) => {
   const sessionId = await getSessionId();
 
   if (id !== sessionId) {
-    redirect(`/dashboard/edit-profile/${sessionId}`);
+    redirect(`/dashboard/page/`);
   }
 
   try {

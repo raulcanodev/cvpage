@@ -12,13 +12,14 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { MessageCircle, AlertCircle } from "lucide-react"
 import { Github } from "lucide-react"
+import { GoogleSignInButton } from '../components/AuthButtons';
 
 export default function Register() {
   const [error, setError] = useState<string>();
   const router = useRouter();
   const ref = useRef<HTMLFormElement>(null);
   const { data: session, status } = useSession();
-
+  
   const handleSubmit = async (formData: FormData) => {
     const email = formData.get('email')?.toString();
     const password = formData.get('password')?.toString();
@@ -47,12 +48,12 @@ export default function Register() {
     useEffect(() => {
       if (status === 'authenticated') {
         // Si el usuario está autenticado, redirige a la página deseada
-        router.push(`/dashboard/edit-profile/`); // Ajusta esta ruta según tu aplicación
+        router.push(`/dashboard/page/`); // Ajusta esta ruta según tu aplicación
       }
     }, [status, router]);
     
     if (status === 'loading') {
-      return <p>Cargando...</p>; // Mostrar un indicador de carga mientras se verifica la sesión
+      return <p>Cargando...</p>; // TODO: Mostrar un indicador de carga mientras se verifica la sesión
     }
   
     if (status === 'authenticated') {
@@ -150,6 +151,7 @@ export default function Register() {
                 <Github className="w-5 h-5 mr-2" />
                 GitHub
               </Button>
+              <GoogleSignInButton />
             </div>
           </div>
 

@@ -1,111 +1,97 @@
-'use client';
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+'use client'
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { MessageCircle, CheckCircle, XCircle } from 'lucide-react';
-import { updateUserDomain } from '@/actions';
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Loader2 } from 'lucide-react'
 
 export default function ChooseDomainPage() {
-  const router = useRouter();
-  const [domain, setDomain] = useState('');
-  const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
-  const [isChecking, setIsChecking] = useState(false);
+  const [domain, setDomain] = useState('')
+  const [isAvailable, setIsAvailable] = useState<boolean | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   const checkDomainAvailability = async () => {
-    setIsChecking(true);
+    setIsLoading(true)
     // Simulating an API call to check domain availability
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsAvailable(Math.random() > 0.5); // Randomly determine availability for demo purposes
-    setIsChecking(false);
-  };
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    setIsAvailable(Math.random() > 0.5) // Randomly set availability for demo purposes
+    setIsLoading(false)
+  }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (isAvailable) {
-      // Here you would typically call an API to register the domain
-      console.log('Domain registered:', domain);
-      // For demo purposes, we'll just log the data
-      router.push('/register/success');
-    }
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    await checkDomainAvailability()
+  }
+
+  const handleContinue = () => {
+    router.push('/dashboard')
+  }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <div className="flex items-center justify-center">
-            <MessageCircle className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-            <CardTitle className="text-2xl font-bold ml-2">hitme.to</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit}>
-            <div className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="domain">Your Domain</Label>
-                <div className="flex">
-                  <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                    hitme.to/
-                  </span>
-                  <Input
-                    id="domain"
-                    type="text"
-                    placeholder="yourdomain"
-                    value={domain}
-                    onChange={(e) => {
-                      setDomain(e.target.value);
-                      setIsAvailable(null);
-                    }}
-                    className="rounded-l-none"
-                    required
-                  />
-                </div>
-              </div>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={checkDomainAvailability}
-                disabled={!domain || isChecking}
-              >
-                {isChecking ? 'Checking...' : 'Check Availability'}
-              </Button>
-              {isAvailable !== null && (
-                <Alert variant={isAvailable ? 'default' : 'destructive'}>
-                  {isAvailable ? (
-                    <CheckCircle className="h-4 w-4" />
-                  ) : (
-                    <XCircle className="h-4 w-4" />
-                  )}
-                  <AlertDescription>
-                    {isAvailable
-                      ? 'Great! This domain is available.'
-                      : 'Sorry, this domain is already taken.'}
-                  </AlertDescription>
-                </Alert>
-              )}
-              <Button className="w-full" type="submit" disabled={!isAvailable}>
-                Claim Your Domain
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-        <CardFooter>
-          <p className="text-sm text-gray-600 dark:text-gray-400 text-center w-full">
-            Your domain can be changed later.
+    <div className="min-h-screen bg-black flex flex-col items-center justify-center px-4">
+      <div className="w-full max-w-md space-y-8">
+        <div className="text-center">
+          <h2 className="mt-6 text-3xl font-bold tracking-tight text-white">
+            Choose your domain
+          </h2>
+          <p className="mt-2 text-sm text-gray-400">
+            Select a unique domain for your hitme.to profile
           </p>
-        </CardFooter>
-      </Card>
+        </div>
+        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+          <div className="rounded-md shadow-sm">
+            <div className="flex">
+              <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-700 bg-gray-900 text-gray-400 text-sm">
+                hitme.to/
+              </span>
+              <Input
+                type="text"
+                required
+                className="appearance-none rounded-none rounded-r-md relative block w-full px-3 py-2 border border-gray-700 bg-gray-900 placeholder-gray-500 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                placeholder="yourdomain"
+                value={domain}
+                onChange={(e) => setDomain(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div>
+            <Button
+              type="submit"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-zinc-100 hover:bg-zinc-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
+                  Checking...
+                </>
+              ) : (
+                'Check Availability'
+              )}
+            </Button>
+          </div>
+        </form>
+
+        {isAvailable !== null && (
+          <div className={`mt-4 p-4 rounded-md ${isAvailable ? 'bg-green-900 text-green-300' : 'bg-red-900 text-red-300'}`}>
+            {isAvailable ? 'Domain is available!' : 'Domain is not available. Please try another.'}
+          </div>
+        )}
+
+        {isAvailable && (
+          <div className="mt-6">
+            <Button
+              onClick={handleContinue}
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            >
+              Continue
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
-  );
+  )
 }

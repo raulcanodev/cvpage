@@ -12,7 +12,7 @@ interface RegisterValues {
 // Register a new user in the database
 export const register = async (values: RegisterValues) => {
   const { email, password, repeatPassword } = values;
-  
+
   try {
       if (password !== repeatPassword) {
           return {

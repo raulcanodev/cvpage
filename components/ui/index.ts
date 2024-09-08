@@ -43,3 +43,4 @@ export { Menubar,
     SelectSeparator,
     SelectScrollUpButton,
     SelectScrollDownButton, } from './select';
+export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';

@@ -65,7 +65,6 @@ const UserSchema = new Schema<UserDocument>(
     email: {
       type: String,
       unique: true,
-      required: [true, "Email is required"],
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
         "Email is invalid",
@@ -73,7 +72,6 @@ const UserSchema = new Schema<UserDocument>(
     },
     password: {
       type: String,
-      required: true,
     },
     name: {
       type: String,
@@ -83,7 +81,6 @@ const UserSchema = new Schema<UserDocument>(
     },
     customDomain: {
       type: String,
-      unique: true,
     },
     location: {
       type: String,

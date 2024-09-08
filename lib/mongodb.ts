@@ -29,7 +29,30 @@ export const connectDB = async () => {
 export const fetchUserId = async (id: string) => {
   await connectDB();
   return User.findById(id); // TODO: Handle the case where the user is not found
-} 
+}
+
+
+/**
+ * Retrieves user data by its email.
+ * 
+ * @param email - The user email.
+ * @returns The user data.
+ */
+export const fetchUserDataByEmail = async (email: string) => {
+  try {
+    await connectDB();
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 /**
  * Updates user data by ID.

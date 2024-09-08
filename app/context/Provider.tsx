@@ -11,7 +11,9 @@ type Props = {
 export const Provider = ({ children }: Props) => {
   return (
     <SessionProvider>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>{children}</ThemeProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        {children}
+        </ThemeProvider>
     </SessionProvider>
   );
 };

@@ -8,9 +8,8 @@ import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { MessageCircle, AlertCircle, Github, Mail } from 'lucide-react';
+import { AlertCircle, Github } from 'lucide-react';
 
 export default function Login() {
   const [error, setError] = useState('');
@@ -35,21 +34,16 @@ export default function Login() {
     // }
   };
 
-  const handleSocialLogin = (provider: string) => {
-    // Here you would typically initiate OAuth flow for the selected provider
-    console.log(`Initiating ${provider} login`);
-  };
-
-  //TODO: Implement this in the lib/auth.ts file
+  // TODO: Implement this in the lib/auth.ts file
   useEffect(() => {
     if (status === 'authenticated') {
       // Si el usuario está autenticado, redirige a la página deseada
-      router.push(`/dashboard/edit-profile/`); // Ajusta esta ruta según tu aplicación
+      router.push(`/dashboard/page/`); // Ajusta esta ruta según tu aplicación
     }
   }, [status, router]);
 
   if (status === 'loading') {
-    return <p>Cargando...</p>; // Mostrar un indicador de carga mientras se verifica la sesión
+    return <p>Cargando...</p>; // TODO: Mostrar un indicador de carga mientras se verifica la sesión
   }
 
   if (status === 'authenticated') {
