@@ -1,18 +1,14 @@
 'use client';
 import { useState, useEffect } from 'react';
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
   Card,
   CardContent,
   Input,
   Switch,
 } from '@/components/ui';
-import { DollarSign, Link, Tag, GripVertical } from 'lucide-react';
+import {  GripVertical } from 'lucide-react';
 import { ConfirmDeleteService, ServicePriceDialog, ServiceCategorySelect } from '../ui';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
-import { Service } from '@/types/types';
 import { useDebounce } from 'use-debounce';
 
 interface ServiceCardProps {
@@ -83,9 +79,6 @@ export function ServiceCard({ serviceId, title, description, category, active }:
               {/* Bottom - Actions */}
               <div className="flex items-center justify-between text-zinc-400">
                 <div className="flex gap-1 align-center">
-                  {/* <button className="hover:text-white transition-colors">
-                    <Link className="w-5 h-5" />
-                  </button> */}
                   <ServicePriceDialog serviceId={serviceId} />
                   <ServiceCategorySelect serviceId={serviceId}/>
                 </div>

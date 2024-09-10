@@ -35,7 +35,7 @@ export const authOptions: NextAuthOptions = {
 
         // Return user with id included
         return {
-          id: user._id.toString(), // Convert ObjectId to string
+          _id: user._id.toString(), // Convert ObjectId to string
           name: user.name,
           email: user.email,
         };

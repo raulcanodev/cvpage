@@ -9,16 +9,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Eye } from 'lucide-react';
-import { useSession } from 'next-auth/react';
-import { authOptions } from '@/lib/auth';
-import { getServerSession } from 'next-auth';
 
 export default function DashboardEditProfile() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  // const { status, data: session } = useSession();
-  
-  // const session = getServerSideProps();
-  
 
   return (
     <div className="mx-auto py-8 pb-20 lg:pb-8">

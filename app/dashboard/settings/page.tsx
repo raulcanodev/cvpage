@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui"
 import { Copy, Trash2, LogOut } from 'lucide-react'
+import { Logout } from './_components/ui/'
 
 export default function SettingsPage() {
   const [username, setUsername] = useState('raulcano')
@@ -25,7 +26,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1C1C1E] text-white p-4 md:p-8">
+    <div className="min-h-screen text-white p-4 md:p-8">
       <div className="max-w-3xl mx-auto">
         <Tabs defaultValue="account" className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-8 bg-[#2C2C2E]">
@@ -76,10 +77,7 @@ export default function SettingsPage() {
                 <Trash2 className="h-4 w-4 mr-2" />
                 DELETE
               </Button>
-              <Button variant="outline" onClick={handleLogout} className="border-[#4A4A4C] text-white hover:bg-[#3A3A3C]">
-                <LogOut className="h-4 w-4 mr-2" />
-                LOGOUT
-              </Button>
+              <Logout/>
             </div>
           </TabsContent>
           <TabsContent value="billing">
