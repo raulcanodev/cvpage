@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Eye } from 'lucide-react';
 import { useUserContext } from '../context/UserContext';
-import { RotatingLines, LineWave } from 'react-loader-spinner';
+import { LineWave } from 'react-loader-spinner';
 
 export default function DashboardEditProfile() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
