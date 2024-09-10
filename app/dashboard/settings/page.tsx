@@ -73,10 +73,6 @@ export default function SettingsPage() {
             </div>
 
             <div className="flex justify-end space-x-4 mt-8">
-              <Button variant="destructive" onClick={handleDelete} className="bg-[#FF3B30] hover:bg-[#FF453A]">
-                <Trash2 className="h-4 w-4 mr-2" />
-                DELETE
-              </Button>
               <Logout/>
             </div>
           </TabsContent>

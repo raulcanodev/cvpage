@@ -2,6 +2,7 @@ import { connectDB } from '@/lib/mongodb';
 import User from '@/models/Schemas';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
+import GitHubProvider from "next-auth/providers/github";
 import bcrypt from 'bcryptjs';
 import type { NextAuthOptions } from 'next-auth';
 
@@ -45,6 +46,10 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+    })
   ],
   session: {
     strategy: 'jwt',
@@ -52,7 +57,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({user, account}): Promise<any> {
 
-      if(account?.provider === 'google') {
+      if(account?.provider === 'google' || account?.provider === 'github') {
         const { email, name, image } = user;
 
         try {

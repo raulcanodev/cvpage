@@ -8,18 +8,31 @@ import { ServiceCard } from './ServiceCard';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { createNewService } from '@/actions';
 import { Service } from '@/types/types';
-import { Bars } from 'react-loader-spinner'
+import { toast } from 'sonner';
 
 export function EditUserServices() {
   const [servicesState, setServicesState] = useState<Service[]>([]);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const { userData, updateUserData } = useUserContext();
   const { _id, services } = userData;
 
   const handleAddService = async () => {
+    // TODO: Validate in the backend
+    if (userData.services.length >= 99) {
+      setIsButtonDisabled(true);
+      toast.error('You can only have up to 99.');
+      return;
+    }
+
     try {
+      setIsButtonDisabled(true);
       const newService = await createNewService();
       setServicesState((prevServices) => [...prevServices, newService]);
       await updateUserData(_id, { services: [...servicesState, newService] });
+
+      setTimeout(() => {
+        setIsButtonDisabled(false);
+      }, 300);
     } catch (error) {
       console.error('Error adding service:', error);
     }
@@ -38,25 +51,29 @@ export function EditUserServices() {
 
   return (
     <>
-      <Button className="bg-slate-300 text-slate-950 w-full" onClick={handleAddService}>
-        <Plus className="w-5 h-5 mx-2" /> ADD SERVICE
+      <Button
+        className="bg-zinc-100 text-slate-950 w-full"
+        onClick={handleAddService}
+        disabled={isButtonDisabled}
+      >
+        <Plus className="w-4 h-4 mx-1" /> ADD SERVICE
       </Button>
-    {services && (
-      <Reorder.Group values={servicesState} onReorder={handleReorder}>
-        {servicesState
-          .filter((service) => service._id) 
-          .map((service, index) => (
-            <Reorder.Item key={service._id} value={service}>
-              <ServiceCard
-                serviceId={service._id as string}
-                title={service.title}
-                description={service.description}
-                active={service.active}
-              />
-            </Reorder.Item>
-          ))}
-      </Reorder.Group>
-    )}
+      {services && (
+        <Reorder.Group values={servicesState} onReorder={handleReorder}>
+          {servicesState
+            .filter((service) => service._id)
+            .map((service, index) => (
+              <Reorder.Item key={service._id} value={service}>
+                <ServiceCard
+                  serviceId={service._id as string}
+                  title={service.title}
+                  description={service.description}
+                  active={service.active}
+                />
+              </Reorder.Item>
+            ))}
+        </Reorder.Group>
+      )}
     </>
   );
 }

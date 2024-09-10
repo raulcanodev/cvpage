@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle, Github } from 'lucide-react';
+import { GoogleSignInButton, GithubSignInButton } from '../components/AuthButtons';
 
 export default function Login() {
   const [error, setError] = useState('');
@@ -80,7 +81,7 @@ export default function Login() {
           </p>
 
           {error && (
-            <Alert variant="destructive" className='mt-3'>
+            <Alert variant="destructive" className="mt-3">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>Email or password is incorrect. Please try again.</AlertDescription>
             </Alert>
@@ -137,10 +138,8 @@ export default function Login() {
             </div>
 
             <div className="mt-6">
-              <Button className="w-full bg-zinc-900 text-white hover:bg-zinc-800 flex items-center justify-center">
-                <Github className="w-5 h-5 mr-2" />
-                GitHub
-              </Button>
+              <GithubSignInButton />
+              <GoogleSignInButton />
             </div>
           </div>
         </div>

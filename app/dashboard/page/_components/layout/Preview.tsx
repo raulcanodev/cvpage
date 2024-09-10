@@ -1,7 +1,5 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { MapPin, Link } from 'lucide-react';
-import { Button } from '@/components/ui/';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 
 export function Preview() {

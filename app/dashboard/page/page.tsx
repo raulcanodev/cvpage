@@ -1,17 +1,34 @@
 'use client';
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { EditUser, EditUserServices, Preview } from './_components/layout';
-import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Eye } from 'lucide-react';
+import { useUserContext } from '../context/UserContext';
+import { RotatingLines, LineWave } from 'react-loader-spinner';
 
 export default function DashboardEditProfile() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const { userData, isLoading } = useUserContext(); // Asumiendo que isLoading es parte del contexto
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <LineWave
+          visible={true}
+          height="100"
+          width="100"
+          color="white"
+          ariaLabel="line-wave-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          firstLineColor=""
+          middleLineColor=""
+          lastLineColor=""
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto py-8 pb-20 lg:pb-8">
@@ -21,7 +38,7 @@ export default function DashboardEditProfile() {
           <EditUser />
           <EditUserServices />
         </div>
-        
+
         {/* Right - Phone Preview (Desktop) */}
         <div className="hidden lg:block lg:w-1/3">
           <Preview />

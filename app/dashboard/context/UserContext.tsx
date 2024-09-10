@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 
 interface UserContextProps {
   userData: any;
+  isLoading: boolean;
   updateUserData: (id: string, data: any) => Promise<string>;
   updateUserService: (id: string, data: any) => Promise<string>;
   reloadUserData: () => Promise<void>;
@@ -26,8 +27,12 @@ const UserContext = createContext<UserContextProps | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState({});
+  const [isLoading, setIsLoading] = useState(true); 
 
-  const fetchUserData = async () => {
+  const fetchUserData = async (initialLoad: boolean = false) => {
+    if (initialLoad) {
+      setIsLoading(true); 
+    }
     try {
       const sessionId = await getSessionId();
       const userData = await getUserById(sessionId);
@@ -43,6 +48,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       setUserData(user);
     } catch (error) {
       console.error('Error fetching user data:', error);
+    } finally {
+      if (initialLoad) {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -55,7 +64,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       const response = await updateUser(id, data);
-      await fetchUserData();
+      await fetchUserData(); // La actualización no afecta el estado de carga inicial
       return JSON.stringify(response);
     } catch (error) {
       console.error(error);
@@ -63,11 +72,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       return Promise.reject(error);
     }
   };
-  // TODO: Check it, maybe we don't need this function
+
   const updateUserService = async (id: string, data: any) => {
     try {
       const response = await updateService({ id, data });
-      await fetchUserData();
+      await fetchUserData(); // La actualización no afecta el estado de carga inicial
       return JSON.stringify(response);
     } catch (error) {
       console.error('Error updating service data:', error);
@@ -78,7 +87,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const deleteUserService = async (serviceId: string, userId: string) => {
     try {
       const response = await deleteService(serviceId, userId);
-      await fetchUserData();
+      await fetchUserData(); // La actualización no afecta el estado de carga inicial
       return JSON.stringify(response);
     } catch (error) {
       console.error('Error deleting service data:', error);
@@ -89,10 +98,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const updateUserAvatar = async (userId: string, formData: FormData) => {
     try {
       await updateAvatar(userId, formData);
-
-      await fetchUserData();
+      await fetchUserData(); // La actualización no afecta el estado de carga inicial
       toast.success('Avatar updated successfully!');
-
       return Promise.resolve('Avatar updated successfully!');
     } catch (error) {
       console.error('Error updating user avatar:', error);
@@ -100,13 +107,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // It has to be unique, return error if the domain is already taken
   const updateUserDomain = async (id: string, domain: string) => {
-    
     try {
       const response = await updateDomain(id, domain);
       toast.success('Domain updated successfully!');
-      await fetchUserData();
+      await fetchUserData(); 
       return JSON.stringify(response);
     } catch (error) {
       console.error('Error updating user domain:', error);
@@ -116,13 +121,14 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    fetchUserData();
+    fetchUserData(true);
   }, []);
 
   return (
     <UserContext.Provider
       value={{
         userData,
+        isLoading, 
         updateUserData,
         updateUserService,
         reloadUserData: fetchUserData,
