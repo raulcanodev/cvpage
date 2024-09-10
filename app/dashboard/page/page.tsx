@@ -9,7 +9,7 @@ import { LineWave } from 'react-loader-spinner';
 
 export default function DashboardEditProfile() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const { userData, isLoading } = useUserContext(); // Asumiendo que isLoading es parte del contexto
+  const { isLoading } = useUserContext(); // Asumiendo que isLoading es parte del contexto
 
   if (isLoading) {
     return (
