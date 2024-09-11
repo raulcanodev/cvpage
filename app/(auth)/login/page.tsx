@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AlertCircle, Github } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 import { GoogleSignInButton, GithubSignInButton } from '../components/AuthButtons';
 
 export default function Login() {
@@ -30,31 +30,29 @@ export default function Login() {
     if (res?.error) {
       setError(res.error as string);
     }
-    // if (res?.ok) {
-    //   return router.push('/dashboard/edit-profile');
-    // }
   };
 
-  // TODO: Implement this in the lib/auth.ts file
   useEffect(() => {
     if (status === 'authenticated') {
-      // Si el usuario está autenticado, redirige a la página deseada
-      router.push(`/dashboard/page/`); // Ajusta esta ruta según tu aplicación
+      router.push(`/dashboard/page/`);
     }
   }, [status, router]);
 
   if (status === 'loading') {
-    return <p>Cargando...</p>; // TODO: Mostrar un indicador de carga mientras se verifica la sesión
+    return <p>Cargando...</p>;
   }
 
   if (status === 'authenticated') {
-    return null; // No mostrar nada mientras redirige
+    return null;
   }
 
   return (
     <div className="min-h-screen bg-black text-white flex">
-      {/* Left side with testimonial */}
-      <div className="hidden lg:flex lg:flex-1 flex-col justify-between p-12 bg-zinc-900">
+      {/* Left side with testimonial and background image */}
+      <div
+        className="hidden lg:flex lg:flex-1 flex-col justify-between p-12 bg-cover bg-center"
+        style={{ backgroundImage: `url('/black-building.jpg')` }}
+      >
         <div>
           <Link href="/" className="text-2xl font-bold">
             hitme.to
