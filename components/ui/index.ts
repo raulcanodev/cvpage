@@ -44,3 +44,4 @@ export { Menubar,
     SelectScrollUpButton,
     SelectScrollDownButton, } from './select';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
+export { Alert, AlertTitle, AlertDescription } from './alert';

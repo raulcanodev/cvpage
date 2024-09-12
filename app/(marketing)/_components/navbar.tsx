@@ -1,107 +1,109 @@
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { MessageCircle, Menu, X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+'use client';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 import { ThemeSwitcher } from '@/components/layout';
+import { Button } from '@/components/ui';
+import { useRouter } from 'next/navigation';
 
-import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-
+//* Add to the layout >
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const { status } = useSession();
+  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
-
-  const toggleMenu = () => setIsOpen(!isOpen)
-
-  const showSession = () => {
-    if (status === "authenticated") {
-      return (
-        <button
-          className=""
-          onClick={() => {
-            signOut({ redirect: false }).then(() => {
-              router.push("/");
-            });
-
-          }}
-        >
-          Sign Out
-        </button>
-      )
-    } else if (status === "loading") {
-      return (
-        <span className="">Loading...</span>
-      )
-    } else {
-      return (
-        <Link
-          href="/login"
-          className=""
-        >
-          Log In
-        </Link>
-      )
-    }
-  }
-
   return (
-    <header className="px-4 z-50 lg:px-6 h-14 flex items-center border-b border-gray-200 dark:border-gray-800">
-      <a href="#" className="flex items-center justify-center">
-      <MessageCircle className="h-6 w-6 text-blue-600" />
-        <span className="ml-2 text-2xl font-bold text-gray-800 dark:text-gray-200">hitme.to</span>
-      </a>
-      <div className="ml-auto flex items-center">
-        <nav className="hidden md:flex gap-6">
-          <a className="text-sm font-medium hover:underline underline-offset-4" href="#">
-            Features
-          </a>
-          <a className="text-sm font-medium hover:underline underline-offset-4" href="#pricing">
-            Pricing
-          </a>
-          <a className="text-sm font-medium hover:underline underline-offset-4" href="#">
-            About
-          </a>
-        </nav>
-        <ThemeSwitcher />
-        <Button className="hidden md:flex ml-4 bg-blue-600">{showSession()}</Button>
+    <nav className="bg-zinc-950 text-white fixed w-full z-50">
+      <div className="container mx-auto py-3">
+        <div className="flex justify-between items-center">
+          {/* Logo */}
+          <Link href="/" className="text-xl font-bold">
+            hitme.to
+          </Link>
 
-        <Button
-          variant="ghost"
-          size="icon"
-          className="ml-2 md:hidden"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </Button>
+          {/* Desktop Menu */}
+          <div className="hidden md:flex space-x-6 items-center">
+            <Link href="/dashboard/profile">
+              <div className="flex items-center space-x-2 hover:text-gray-300 transition-colors">
+                <span className="text-sm">Profile</span>
+              </div>
+            </Link>
+            <Link href="#pricing">
+              <div className="flex items-center space-x-2 hover:text-gray-300 transition-colors">
+                <span className="text-sm">Pricing</span>
+              </div>
+            </Link>
+            <Link href="/dashboard/analytics">
+              <div className="flex items-center space-x-2 hover:text-gray-300 transition-colors">
+                <span className="text-sm">Analytics</span>
+              </div>
+            </Link>
+
+            {/* Log in with white background */}
+            <div className="flex items-center space-x-4">
+              <Link href="/auth/register">
+                <Button variant="ghost" className="bg-white text-black">Sign Up</Button>
+              </Link>
+              
+              {/* ThemeSwitcher for desktop */}
+              <ThemeSwitcher />
+            </div>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button className="md:hidden" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-14 left-0 right-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 py-4 px-4 md:hidden"
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'tween', duration: 0.3 }}
+            className="fixed top-0 right-0 h-full w-64 bg-zinc-950 shadow-lg md:hidden"
           >
-            <nav className="flex flex-col space-y-4">
-              <a className="text-sm font-medium hover:underline underline-offset-4" href="#">
-                Features
-              </a>
-              <a className="text-sm font-medium hover:underline underline-offset-4" href="#">
-                Pricing
-              </a>
-              <a className="text-sm font-medium hover:underline underline-offset-4" href="#">
-                About
-              </a>
-            </nav>
+            <div className="flex flex-col h-full">
+              <div className="flex justify-end items-center p-4 border-b border-gray-800">
+                <button onClick={() => setIsOpen(false)} aria-label="Close menu">
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="flex flex-col space-y-4 p-4">
+                <Link href="/dashboard/profile" onClick={() => setIsOpen(false)}>
+                  <div className="flex items-center space-x-3 hover:bg-gray-800 p-2 rounded transition-colors">
+                    <span>Profile</span>
+                  </div>
+                </Link>
+                <Link href="#pricing" onClick={() => setIsOpen(false)}>
+                  <div className="flex items-center space-x-3 hover:bg-gray-800 p-2 rounded transition-colors">
+                    <span>Pricing</span>
+                  </div>
+                </Link>
+                <Link href="/dashboard/analytics" onClick={() => setIsOpen(false)}>
+                  <div className="flex items-center space-x-3 hover:bg-gray-800 p-2 rounded transition-colors">
+                    <span>Analytics</span>
+                  </div>
+                </Link>
+                
+                {/* Log in in mobile with white background */}
+                <Link href="/auth/register" onClick={() => setIsOpen(false)}>
+                  <div className="flex items-center space-x-3 bg-white text-black p-2 rounded hover:bg-gray-300 transition-colors">
+                    <span>Sign Up</span>
+                  </div>
+                </Link>
+
+                {/* ThemeSwitcher for mobile */}
+                <ThemeSwitcher />
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
-  )
+    </nav>
+  );
 }

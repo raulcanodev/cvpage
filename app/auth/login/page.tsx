@@ -4,13 +4,10 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button, Input, Label, Alert, AlertDescription } from '@/components/ui';
 import { AlertCircle } from 'lucide-react';
-import { GoogleSignInButton, GithubSignInButton } from '../components/AuthButtons';
+import { LineWave } from 'react-loader-spinner';
+import { AcceptConditions, GoogleSignInButton, GithubSignInButton } from '../components';
 
 export default function Login() {
   const [error, setError] = useState('');
@@ -39,7 +36,24 @@ export default function Login() {
   }, [status, router]);
 
   if (status === 'loading') {
-    return <p>Cargando...</p>;
+    return (
+      <div className="flex-1 flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-20 xl:px-24">
+        <div className="m-auto">
+          <LineWave
+            visible={true}
+            height="100"
+            width="100"
+            color="white"
+            ariaLabel="line-wave-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            firstLineColor=""
+            middleLineColor=""
+            lastLineColor=""
+          />
+        </div>
+      </div>
+    );
   }
 
   if (status === 'authenticated') {
@@ -47,33 +61,13 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white flex">
-      {/* Left side with testimonial and background image */}
-      <div
-        className="hidden lg:flex lg:flex-1 flex-col justify-between p-12 bg-cover bg-center"
-        style={{ backgroundImage: `url('/black-building.jpg')` }}
-      >
-        <div>
-          <Link href="/" className="text-2xl font-bold">
-            hitme.to
-          </Link>
-        </div>
-        <div>
-          <blockquote className="text-xl">
-            This platform has revolutionized how I showcase my services online. It is simple,
-            elegant, and incredibly effective.
-          </blockquote>
-          <p className="mt-4">John Doe, Freelance Designer</p>
-        </div>
-      </div>
-
-      {/* Right side with login form */}
+    <>
       <div className="flex-1 flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm">
           <h2 className="mt-6 text-3xl font-extrabold">Sign in to your account</h2>
           <p className="mt-2 text-sm text-zinc-400">
             Or{' '}
-            <Link href="/register" className="font-medium text-white hover:underline">
+            <Link href="/auth/register" className="font-medium text-white hover:underline">
               create a new account
             </Link>
           </p>
@@ -140,8 +134,9 @@ export default function Login() {
               <GoogleSignInButton />
             </div>
           </div>
+          <AcceptConditions />
         </div>
       </div>
-    </div>
+    </>
   );
 }

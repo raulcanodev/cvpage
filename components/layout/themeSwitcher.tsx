@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import { Switch } from '@/components/ui/switch';
 import { Sun, Moon } from 'lucide-react';
 
 export const ThemeSwitcher = () => {
@@ -22,15 +21,16 @@ export const ThemeSwitcher = () => {
   };
 
   return (
-    <div className="flex items-center space-x-2">
-      {/* <Sun className="h-[1.2rem] w-[1.2rem] text-gray-500 dark:text-gray-400" /> */}
-      <Switch
-        checked={theme === 'dark'}
-        onCheckedChange={toggleTheme}
-        className="data-[state=checked]:bg-zinc-200"
-        aria-label="Toggle dark mode"
-      />
-      {/* <Moon className="h-[1.2rem] w-[1.2rem] text-gray-500 dark:text-gray-400" /> */}
-    </div>
+    <button
+      onClick={toggleTheme}
+      aria-label="Toggle dark mode"
+      className="relative inline-flex items-center justify-center w-10 h-10 rounded-full p-2 shadow-lg transition-all duration-300 focus:outline-none"
+    >
+      {theme === 'dark' ? (
+        <Moon className="w-5 h-5 text-white transition-transform duration-300 transform rotate-0" />
+      ) : (
+        <Sun className="w-5 h-5 text-white transition-transform duration-300 transform rotate-180" />
+      )}
+    </button>
   );
 };
