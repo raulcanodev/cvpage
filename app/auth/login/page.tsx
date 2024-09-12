@@ -8,9 +8,9 @@ import { Button, Input, Label, Alert, AlertDescription } from '@/components/ui';
 import { AlertCircle } from 'lucide-react';
 import { LineWave } from 'react-loader-spinner';
 import { AcceptConditions, GoogleSignInButton, GithubSignInButton } from '../components';
+import { toast } from 'sonner';
 
 export default function Login() {
-  const [error, setError] = useState('');
   const router = useRouter();
   const { data: session, status } = useSession();
 
@@ -25,7 +25,7 @@ export default function Login() {
     });
 
     if (res?.error) {
-      setError(res.error as string);
+      toast.error(res.error as string);
     }
   };
 
@@ -56,10 +56,6 @@ export default function Login() {
     );
   }
 
-  if (status === 'authenticated') {
-    return null;
-  }
-
   return (
     <>
       <div className="flex-1 flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-20 xl:px-24">
@@ -71,13 +67,6 @@ export default function Login() {
               create a new account
             </Link>
           </p>
-
-          {error && (
-            <Alert variant="destructive" className="mt-3">
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>Email or password is incorrect. Please try again.</AlertDescription>
-            </Alert>
-          )}
 
           <form onSubmit={handleSubmit} className="mt-4 space-y-6">
             <div>

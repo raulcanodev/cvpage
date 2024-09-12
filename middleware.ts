@@ -4,23 +4,30 @@ import type { NextRequest } from 'next/server';
 
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req });
-  
-  // Define the protected paths
+  const isAuthenticated = !!token;
+
   const protectedPaths = ['/dashboard'];
+  const publicPaths = ['/auth/login', '/auth/register'];
 
   const isProtectedRoute = protectedPaths.some((path) =>
     req.nextUrl.pathname.startsWith(path)
   );
-  
-  // If the route is protected and the user is not authenticated, redirect to login
-  if (isProtectedRoute && !token) {
-    return NextResponse.redirect(new URL('/login', req.url));
+
+  const isAuthRoute = publicPaths.some((path) =>
+    req.nextUrl.pathname.startsWith(path)
+  );
+
+  if (isAuthenticated && isAuthRoute) {
+    return NextResponse.redirect(new URL('/dashboard/page', req.url));
   }
 
-  // Continue to the requested route if the user is authenticated or the route is not protected
+  if (isProtectedRoute && !isAuthenticated) {
+    return NextResponse.redirect(new URL('/auth/register', req.url));
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*'],
+  matcher: ['/auth/login', '/auth/register', '/dashboard/:path*'],
 };

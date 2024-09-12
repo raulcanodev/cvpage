@@ -13,10 +13,11 @@ export function SideBanner() {
     </div>
     <div>
       <blockquote className="text-xl">
-        This platform has revolutionized how I showcase my services online. It is simple,
-        elegant, and incredibly effective.
+        &ldquo;Fools are fascinated by complexity, geniuses by simplicity.&ldquo;
       </blockquote>
-      <p className="mt-4">John Doe, Freelance Designer</p>
+      <p className="mt-4">
+        <span className="text-xl font-bold">- Alan Perlis </span>
+      </p>
     </div>
   </div>
   )

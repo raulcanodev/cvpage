@@ -7,9 +7,9 @@ import { Button, Input, Label } from '@/components/ui/';
 import { AcceptConditions, GoogleSignInButton, GithubSignInButton } from '../components';
 import { register } from '@/actions';
 import { LineWave } from 'react-loader-spinner';
+import { toast } from 'sonner';
 
 export default function Register() {
-  const [error, setError] = useState<string>();
   const router = useRouter();
   const ref = useRef<HTMLFormElement>(null);
   const { data: session, status } = useSession();
@@ -20,7 +20,7 @@ export default function Register() {
     const repeatPassword = formData.get('repeat-password')?.toString();
 
     if (password !== repeatPassword) {
-      return setError('Passwords do not match!');
+      toast.error('Passwords do not match!');
     }
 
     const r = await register({
@@ -31,14 +31,13 @@ export default function Register() {
 
     ref.current?.reset();
     if (r?.error) {
-      setError(r.error);
+      toast.error(r.error);
       return;
     } else {
-      return router.push('/register/choose-domain');
+      return router.push(`/dashboard/page/`);
     }
   };
 
-  //TODO: Implement this in the lib/auth.ts file
   useEffect(() => {
     if (status === 'authenticated') {
       router.push(`/dashboard/page/`);
@@ -64,10 +63,6 @@ export default function Register() {
         </div>
       </div>
     );
-  }
-
-  if (status === 'authenticated') {
-    return null;
   }
 
   return (
