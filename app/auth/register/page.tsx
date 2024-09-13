@@ -34,7 +34,7 @@ export default function Register() {
       toast.error(r.error);
       return;
     } else {
-      return router.push(`/dashboard/page/`);
+      return router.push(`/auth/register/success`);
     }
   };
 
