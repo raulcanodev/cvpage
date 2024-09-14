@@ -25,19 +25,16 @@ export function ServiceCard({ serviceId, title, description, category, active }:
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
   
-  // Debounce the title and description updates
   const [debouncedTitle] = useDebounce(titleText, 500);
   const [debouncedDescription] = useDebounce(descriptionText, 500);
 
   useEffect(() => {
-    // Update the service title and description in the backend
     if (debouncedTitle !== title) {
       updateUserService(serviceId, { title: debouncedTitle });
     }
   }, [debouncedTitle, serviceId, title, updateUserService]);
 
   useEffect(() => {
-    // Update the service description in the backend
     if (debouncedDescription !== description) {
       updateUserService(serviceId, { description: debouncedDescription });
     }
