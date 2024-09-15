@@ -6,6 +6,9 @@ interface Service {
   price: string;
   description: string;
   category: string;
+  link: string;
+  data: string;
+  location: string;
   active: boolean;
 }
 
@@ -47,6 +50,15 @@ const ServiceSchema = new Schema<Service>(
       type: String,
     },
     category: {
+      type: String,
+    },
+    link: {
+      type: String,
+    },
+    data: {
+      type: String,
+    },
+    location: {
       type: String,
     },
     active: {

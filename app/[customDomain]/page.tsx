@@ -1,4 +1,3 @@
-
 import { getUserByCustomDomain, getServiceById } from '@/actions';
 import {
   Avatar,
@@ -10,8 +9,6 @@ import {
   Button,
 } from '@/components/ui';
 import { MapPin, Twitter, Instagram, Linkedin, Github, Send, Link } from 'lucide-react';
-import { authOptions } from '@/lib/auth';
-import { getServerSession } from 'next-auth';
 
 interface Props {
   params: {
@@ -21,8 +18,6 @@ interface Props {
 
 export default async function UserProfilePage({ params }: Props) {
   const { customDomain } = params;
-  // TODO: Remove the hydratation error by implementing this
-  
 
   const userData = await getUserByCustomDomain(customDomain);
 
@@ -97,7 +92,6 @@ export default async function UserProfilePage({ params }: Props) {
               ) : null
             )}
           </div>
-
         </div>
 
         {/* TWO ROW BUTTON FOR CATEGORIE SERVICE AND PROJECTS */}
@@ -105,7 +99,6 @@ export default async function UserProfilePage({ params }: Props) {
           <Button className="w-1/2">Services</Button>
           <Button className="w-1/2">Projects</Button>
         </div>
-
 
         {/* SERVICE LIST */}
         <div className="flex flex-col gap-3">
