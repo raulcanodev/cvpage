@@ -7,4 +7,4 @@ export { ConfirmDeleteService } from './ConfirmDeleteService';
 export { UserGithub } from './UserGithub';
 export { UserAvatar } from './UserAvatar';
 export { ServicePriceDialog } from './ServicePriceDialog';
-export { ServiceCategorySelect } from './ServiceCategorySelect';
+export { BlockCategorySelect } from './BlockCategorySelect';

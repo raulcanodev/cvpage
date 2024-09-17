@@ -76,7 +76,6 @@ export function EditUser() {
     }
   }, [descriptionInput, description, userData._id, hasDescriptionChanged, updateUserData]);
 
-  // Handlers for input changes
   const handleDomainChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDomainInput(e.target.value);
     setHasDomainChanged(true);

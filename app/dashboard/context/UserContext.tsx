@@ -64,7 +64,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       const response = await updateUser(id, data);
-      await fetchUserData(); // La actualización no afecta el estado de carga inicial
+      await fetchUserData();
       return JSON.stringify(response);
     } catch (error) {
       console.error(error);
@@ -76,7 +76,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const updateUserService = async (id: string, data: any) => {
     try {
       const response = await updateService({ id, data });
-      await fetchUserData(); // La actualización no afecta el estado de carga inicial
+      await fetchUserData();
       return JSON.stringify(response);
     } catch (error) {
       console.error('Error updating service data:', error);
@@ -87,7 +87,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const deleteUserService = async (serviceId: string, userId: string) => {
     try {
       const response = await deleteService(serviceId, userId);
-      await fetchUserData(); // La actualización no afecta el estado de carga inicial
+      await fetchUserData(); 
       return JSON.stringify(response);
     } catch (error) {
       console.error('Error deleting service data:', error);
@@ -98,7 +98,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const updateUserAvatar = async (userId: string, formData: FormData) => {
     try {
       await updateAvatar(userId, formData);
-      await fetchUserData(); // La actualización no afecta el estado de carga inicial
+      await fetchUserData();
       toast.success('Avatar updated successfully!');
       return Promise.resolve('Avatar updated successfully!');
     } catch (error) {

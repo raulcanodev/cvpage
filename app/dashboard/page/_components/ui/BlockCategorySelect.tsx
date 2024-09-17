@@ -9,7 +9,6 @@ import {
   SelectValue,
 } from "@/components/ui"
 import { useUserContext } from '@/app/dashboard/context/UserContext';
-import { Tag } from 'lucide-react';
 
 interface ServiceCategorySelectProps {
   serviceId: string;
@@ -18,9 +17,12 @@ interface ServiceCategorySelectProps {
 const categories = [
   { value: 'service', label: 'Service' },
   { value: 'project', label: 'Project' },
+  { value: 'title', label: 'Title' },
+  { value: 'textarea', label: 'Textarea' },
+  { value: 'workexperience', label: 'Work Experience' },
 ];
 
-export function ServiceCategorySelect({ serviceId }: ServiceCategorySelectProps) {
+export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {
   const { updateUserService } = useUserContext();
   const [category, setCategory] = useState();
 
@@ -35,7 +37,7 @@ export function ServiceCategorySelect({ serviceId }: ServiceCategorySelectProps)
   return (
       <Select onValueChange={handleCategoryChange}>
         <SelectTrigger className=" bg-zinc-900 border-none">
-          <SelectValue placeholder={<Tag className="w-5 h-5" />} />
+          <SelectValue placeholder="Select block" />
         </SelectTrigger>
         <SelectContent>
           {categories.map((cat) => (

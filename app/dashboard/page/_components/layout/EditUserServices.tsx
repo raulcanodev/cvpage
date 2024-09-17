@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui';
 import { Plus } from 'lucide-react';
 import { Reorder } from 'framer-motion';
-import { ServiceCard } from './ServiceCard';
+import { BlockCard } from './BlockCard';
 // Drag and drop: https://www.youtube.com/watch?v=XlXT9lhy-4M
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { createNewService } from '@/actions';
@@ -56,7 +56,7 @@ export function EditUserServices() {
         onClick={handleAddService}
         disabled={isButtonDisabled}
       >
-        <Plus className="w-4 h-4 mx-1" /> ADD SERVICE
+        <Plus className="w-4 h-4 mx-1" /> ADD BLOCK
       </Button>
       {services && (
         <Reorder.Group values={servicesState} onReorder={handleReorder}>
@@ -64,7 +64,8 @@ export function EditUserServices() {
             .filter((service) => service._id)
             .map((service, index) => (
               <Reorder.Item key={service._id} value={service}>
-                <ServiceCard
+                <BlockCard
+                  category={service.category}
                   serviceId={service._id as string}
                   title={service.title}
                   description={service.description}

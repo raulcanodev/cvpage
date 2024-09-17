@@ -31,10 +31,10 @@ export default function DashboardEditProfile() {
   }
 
   return (
-    <div className="mx-auto py-8 pb-20 lg:pb-8">
+    <div className="mx-auto py-0 pb-20 lg:pb-8">
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Left - User */}
-        <div className="flex-1 space-y-8">
+        <div className="flex-1 space-y-3">
           <EditUser />
           <EditUserServices />
         </div>

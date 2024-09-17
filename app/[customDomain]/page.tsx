@@ -121,7 +121,7 @@ export default async function UserProfilePage({ params }: Props) {
                 
                 <div className="flex justify-between items-center">
                   {/* <span className="text-zinc-500 font-bold text">90$</span> */}
-                  <Send className="text-zinc-700 w-5" />
+                  {/* <Send className="text-zinc-700 w-5" /> */}
                 </div>
               </CardContent>
             </Card>
