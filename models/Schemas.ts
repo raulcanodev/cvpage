@@ -3,6 +3,7 @@ import mongoose, { Schema, model } from "mongoose";
 // Interface definition for the Service document
 interface Service {
   title: string;
+  subtitle: string;
   price: string;
   description: string;
   category: string;
@@ -40,6 +41,9 @@ export interface User {
 const ServiceSchema = new Schema<Service>(
   {
     title: {
+      type: String,
+    },
+    subtitle: {
       type: String,
     },
     price: {

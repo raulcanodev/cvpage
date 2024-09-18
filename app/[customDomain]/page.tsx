@@ -95,10 +95,10 @@ export default async function UserProfilePage({ params }: Props) {
         </div>
 
         {/* TWO ROW BUTTON FOR CATEGORIE SERVICE AND PROJECTS */}
-        <div className="flex justify-center gap-4 mb-4">
+        {/* <div className="flex justify-center gap-4 mb-4">
           <Button className="w-1/2">Services</Button>
           <Button className="w-1/2">Projects</Button>
-        </div>
+        </div> */}
 
         {/* SERVICE LIST */}
         <div className="flex flex-col gap-3">

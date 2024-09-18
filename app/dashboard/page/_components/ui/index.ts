@@ -8,3 +8,5 @@ export { UserGithub } from './UserGithub';
 export { UserAvatar } from './UserAvatar';
 export { ServicePriceDialog } from './ServicePriceDialog';
 export { BlockCategorySelect } from './BlockCategorySelect';
+export { DateJobPickerWithRange } from './DateJobPickerWithRange';
+export { DateJob2 } from './DateJob2';
