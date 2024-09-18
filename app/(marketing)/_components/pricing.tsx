@@ -64,16 +64,16 @@ function Heading() {
                 whileInView={{ rotateX: 0, opacity: 1 }}
                 transition={{ duration: 1, ease: 'easeIn' }}
                 viewport={{ once: true }}
-                className="text-2xl md:text-5xl font-bold"
+                className="text-2xl md:text-4xl font-bold text-center"
             >
-                Choose the plan that’s right for you
+                Choose the plan that&apos;s right for you
             </motion.p>
             <motion.p
                 initial={{ rotateX: -90, opacity: 0 }}
                 whileInView={{ rotateX: 0, opacity: 1 }}
                 transition={{ duration: 1, ease: 'easeIn' }}
                 viewport={{ once: true }}
-                className="text-center text-xs md:text-base max-w-2xl"
+                className="text-wrap text-center text-sm sm:text-base"
             >
                 So I can buy a kebap, and you can get your page
             </motion.p>

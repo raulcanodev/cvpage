@@ -13,7 +13,7 @@ export default function Navbar() {
   const router = useRouter();
 
   return (
-    <nav className="fixed w-full z-50">
+    <nav className="fixed w-full z-50 dark:bg-black">
       <div className="container mx-auto py-3">
         <div className="flex justify-between items-center">
           {/* Logo */}

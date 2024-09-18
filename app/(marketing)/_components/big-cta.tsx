@@ -8,11 +8,11 @@ export default function BigCTA() {
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
             Discover the hitme.to advantage.
             <br />
             Elevate your online presence.
-          </h1>
+          </h2>
           <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto">
             Our intuitive platform helps you create a stunning, centralized hub for all your services and contact information in one place.
           </p>

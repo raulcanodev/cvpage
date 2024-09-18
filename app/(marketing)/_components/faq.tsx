@@ -36,7 +36,7 @@ const FAQSection: React.FC = () => {
         <p className="border py-0.5 px-3 rounded-full text-sm dark:bg-black/5 ">
           FAQ
         </p>
-        <p className="text-2xl sm:text-3xl font-semibold">
+        <p className="text-2xl md:text-4xl font-semibold">
           Any Questions? Look Here
         </p>
         <p className="text-wrap text-center text-sm sm:text-base">

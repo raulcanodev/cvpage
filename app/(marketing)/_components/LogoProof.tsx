@@ -68,18 +68,18 @@ const LogoProof = () => (
             }}
         >
                
-            <motion.h1
+            <motion.h2
                 variants={FADE_DOWN_ANIMATION_VARIANTS}
                 className="text-xl sm:text-4xl font-bold text-center"
             >
                 Partnerships with Coveted Brands
-            </motion.h1>
-            <motion.h1
+            </motion.h2>
+            <motion.h2
                 variants={FADE_DOWN_ANIMATION_VARIANTS}
                 className="p-6 sm:text-base max-w-2xl text-sm text-center m-auto"
             >
                 Lorem ipsum dolor sit amet consectetur adipisicing elit nam maxime quas fugiat tempore blanditiis, eveniet quia accusantium.
-            </motion.h1>
+            </motion.h2>
         </motion.div>
         <motion.div
             variants={FADE_DOWN_ANIMATION_VARIANTS}
