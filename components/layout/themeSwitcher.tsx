@@ -24,12 +24,12 @@ export const ThemeSwitcher = () => {
     <button
       onClick={toggleTheme}
       aria-label="Toggle dark mode"
-      className="relative inline-flex items-center justify-center w-10 h-10 rounded-full p-2 shadow-lg transition-all duration-300 focus:outline-none"
+      className="relative inline-flex items-center justify-center w-10 h-10 p-2 transition-all duration-300 focus:outline-none"
     >
       {theme === 'dark' ? (
-        <Moon className="w-5 h-5 text-white transition-transform duration-300 transform rotate-0" />
+        <Sun className="w-5 h-5 transition-transform duration-300 transform rotate-180" />
       ) : (
-        <Sun className="w-5 h-5 text-white transition-transform duration-300 transform rotate-180" />
+        <Moon className="w-5 h-5 transition-transform duration-300 transform rotate-0" stroke="black" />
       )}
     </button>
   );

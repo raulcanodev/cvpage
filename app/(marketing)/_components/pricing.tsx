@@ -1,123 +1,135 @@
-import React from 'react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Check } from "lucide-react"
+"use client";
+
+import { AnimatePresence, motion } from "framer-motion";
+import { Dispatch, SetStateAction, useState } from "react";
+
+// Define the type for a single pricing plan
+interface PricingPlan {
+    name: string;
+    description: string;
+    price: string; 
+    link: string;
+    features: string[];
+}
+
+// Sample pricing plans with a unique price
+const pricingPlans: PricingPlan[] = [
+    {
+        name: "Free",
+        description: "Give it a try",
+        price: '0',
+        link: "https://www.linkedin.com/in/maheshwar-reddy-mutupuri-713927258/",
+        features: [
+            "Landing page",
+            "Domain name",
+            "Access to some UI blocks",
+        ],
+    },
+    {
+        name: "PRO",
+        description: "Only for great people, only one time payment",
+        price: '8/∞',
+        link: "https://www.linkedin.com/in/maheshwar-reddy-mutupuri-713927258/",
+        features: [
+            "Landing page",
+            "Domain name",
+            "Access to all UI blocks",
+            "Style customization",
+            "Remove branding",
+        ],
+    },
+];
 
 export default function Pricing() {
-  return (
-    <section id="pricing" className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-50 to-white">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-wide">Pricing</h2>
-          <h3 className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl lg:text-5xl">
-            Scale your online presence with value at every level
-          </h3>
-          <p className="mt-4 text-xl text-gray-500">
-            From personal branding to business growth, we`&ldquo;`ve got you covered.
-          </p>
-        </div>
+    return (
+        <section className="flex justify-center items-center w-full h-full md:px-3 md:py-8 lg:py-9 lg:px-8">
+            <div className="relative w-full max-w-4xl">
+                <Heading />
+                <div className="relative z-10 flex justify-center w-full flex-col items-center gap-8 md:flex-row md:gap-4">
+                    <PricingCards pricingPlans={pricingPlans} />
+                </div>
+            </div>
+        </section>
+    );
+}
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-2">
-          <Card className="bg-white shadow-lg rounded-2xl overflow-hidden">
-            <CardHeader className="px-6 py-8 bg-white">
-              <CardTitle className="text-2xl font-bold text-gray-900">Personal</CardTitle>
-            </CardHeader>
-            <CardContent className="px-6 py-8">
-              <div className="flex items-baseline text-5xl font-extrabold">
-                $0
-                <span className="ml-1 text-2xl font-medium text-gray-500">/month</span>
-              </div>
-              <p className="mt-4 text-lg text-gray-500">
-                Perfect for individuals looking to establish their online presence.
-              </p>
-              <ul className="mt-6 space-y-4">
-                <li className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Check className="h-6 w-6 text-green-500" />
-                  </div>
-                  <p className="ml-3 text-base text-gray-700">Custom hitme.to URL</p>
-                </li>
-                <li className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Check className="h-6 w-6 text-green-500" />
-                  </div>
-                  <p className="ml-3 text-base text-gray-700">Up to 5 service listings</p>
-                </li>
-                <li className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Check className="h-6 w-6 text-green-500" />
-                  </div>
-                  <p className="ml-3 text-base text-gray-700">Basic analytics</p>
-                </li>
-                <li className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Check className="h-6 w-6 text-green-500" />
-                  </div>
-                  <p className="ml-3 text-base text-gray-700">Social media integration</p>
-                </li>
-              </ul>
-            </CardContent>
-            <CardFooter className="px-6 py-8 bg-gray-50">
-              <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg text-lg font-semibold">
-                Get started today
-              </Button>
-            </CardFooter>
-          </Card>
-
-          <Card className="bg-gray-900 shadow-lg rounded-2xl overflow-hidden">
-            <CardHeader className="px-6 py-8 bg-gray-900">
-              <CardTitle className="text-2xl font-bold text-white">Professional</CardTitle>
-              <span className="px-3 py-1 text-sm text-white bg-blue-500 rounded-full uppercase">Most popular</span>
-            </CardHeader>
-            <CardContent className="px-6 py-8">
-              <div className="flex items-baseline text-5xl font-extrabold text-white">
-                $9.99
-                <span className="ml-1 text-2xl font-medium text-gray-400">/month</span>
-              </div>
-              <p className="mt-4 text-lg text-gray-300">
-                For businesses and professionals who need more power and customization.
-              </p>
-              <ul className="mt-6 space-y-4">
-                <li className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Check className="h-6 w-6 text-green-400" />
-                  </div>
-                  <p className="ml-3 text-base text-gray-300">Everything in Personal, plus:</p>
-                </li>
-                <li className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Check className="h-6 w-6 text-green-400" />
-                  </div>
-                  <p className="ml-3 text-base text-gray-300">Unlimited service listings</p>
-                </li>
-                <li className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Check className="h-6 w-6 text-green-400" />
-                  </div>
-                  <p className="ml-3 text-base text-gray-300">Advanced analytics and insights</p>
-                </li>
-                <li className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Check className="h-6 w-6 text-green-400" />
-                  </div>
-                  <p className="ml-3 text-base text-gray-300">Custom domain support</p>
-                </li>
-                <li className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Check className="h-6 w-6 text-green-400" />
-                  </div>
-                  <p className="ml-3 text-base text-gray-300">Priority support</p>
-                </li>
-              </ul>
-            </CardContent>
-            <CardFooter className="px-6 py-8 bg-gray-800">
-              <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg text-lg font-semibold">
-                Get started today
-              </Button>
-            </CardFooter>
-          </Card>
+function Heading() {
+    return (
+        <div id="pricing" className="relative px-5 md:px-0 z-10 my-12 grid grid-cols-1 justify-items-center gap-6">
+            <p className="border py-0.5 px-3 rounded-full text-sm  dark:bg-black/5">
+          Pricing
+        </p>
+            <motion.p
+                initial={{ rotateX: 90, opacity: 0 }}
+                whileInView={{ rotateX: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: 'easeIn' }}
+                viewport={{ once: true }}
+                className="text-2xl md:text-5xl font-bold"
+            >
+                Choose the plan that’s right for you
+            </motion.p>
+            <motion.p
+                initial={{ rotateX: -90, opacity: 0 }}
+                whileInView={{ rotateX: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: 'easeIn' }}
+                viewport={{ once: true }}
+                className="text-center text-xs md:text-base max-w-2xl"
+            >
+                So I can buy a kebap, and you can get your page
+            </motion.p>
         </div>
-      </div>
-    </section>
-  )
+    );
+}
+
+const PricingCardVariants = {
+    hidden: { opacity: 0, x: -30 },
+    visible: { opacity: 1, x: 0 },
+};
+
+function PricingCards({ pricingPlans }: { pricingPlans: PricingPlan[] }) {
+    return (
+        <>
+            {pricingPlans.map((plan, index) => (
+                <motion.div
+                    initial="hidden"
+                    variants={PricingCardVariants}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.3 }}
+                    whileInView="visible"
+                    key={index}
+                    className="overflow-hidden relative group/card w-full max-w-sm rounded-xl border-gray-300 p-6 text-left dark:border-gray-600 hover:dark:ring-offset-0 dark:ring-white shadow-md border hover:ring-1 dark:hover:ring-0 hover:ring-offset-4 transition-all hover:shadow-xl ring-gray-700 ease-in-out duration-200 shadow-input dark:border-white/[0.2] dark:shadow-white/10"
+                >
+                    <p className="mb-1 mt-0 text-sm font-bold uppercase">
+                        {plan.name}
+                    </p>
+                    <p className="my-0 mb-6 text-sm">{plan.description}</p>
+                    <div className="mb-4 overflow-hidden">
+                        <AnimatePresence mode="wait">
+                            <motion.p
+                                key="price" // No need to depend on billing now
+                                initial={{ rotateX: 90, opacity: 0 }}
+                                animate={{ rotateX: 0, opacity: 1 }}
+                                transition={{ type: 'spring', stiffness: 100 }}
+                                className="my-0 text-3xl font-semibold"
+                            >
+                                <span>${plan.price}</span> {/* Unique price */}
+                            </motion.p>
+                        </AnimatePresence>
+                    </div>
+                    <button className="w-full border rounded-lg mb-4 px-3 py-2 h-11 bg-black hover:ring-1 hover:ring-offset-2 transition-all ease-in-out duration-150 dark:hover:ring-0 dark:ring-offset-0 dark:bg-white ring-black text-center font-medium text-white dark:text-black hover:scale-105 active:scale-95">
+                        Get Started
+                    </button>
+                    {plan.features.map((feature, index) => (
+                        <div key={index} className="mb-3 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check">
+                                <path d="M20 6 9 17l-5-5" />
+                            </svg>
+                            <span className="text-sm">{feature}</span>
+                        </div>
+                    ))}
+                    <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#2b2b2b_1px,transparent_1px),linear-gradient(to_bottom,#2b2b2b_1px,transparent_1px)] dark:group-hover/card:bg-[linear-gradient(to_right,#4f4f4f_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f_1px,transparent_1px)] group-hover/card:bg-[linear-gradient(to_right,#d6d4d4_1px,transparent_1px),linear-gradient(to_bottom,#d6d4d4_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] [mask-image:linear-gradient(to_top,white,transparent,transparent)]"></div>
+                </motion.div>
+            ))}
+        </>
+    );
 }

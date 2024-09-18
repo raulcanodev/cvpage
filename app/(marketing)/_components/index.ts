@@ -6,4 +6,5 @@ export { default as Video } from './video';
 export { default as About } from './about';
 export { default as BigCTA } from './big-cta';
 export { default as Pricing } from './pricing';
-export { default as FAQS } from './faq';
+export { default as FAQSection } from './faq';
+export { default as LogoProof } from './LogoProof';

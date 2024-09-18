@@ -1,5 +1,5 @@
 'use client';
-import { Navbar, Testimonials, Hero, KeyFeatures, BigCTA, Pricing, FAQS } from './_components';
+import { Navbar, Testimonials, Hero, KeyFeatures, BigCTA, Pricing, FAQSection, LogoProof } from './_components';
 
 export default function Home() {
 
@@ -8,10 +8,11 @@ export default function Home() {
       <Navbar></Navbar>
       <main className="flex flex-col min-h-screen ">
         <Hero/> 
-        <KeyFeatures/>
+        {/* <KeyFeatures/> */}
         <Pricing/>
-        <FAQS/>
+        <FAQSection/>
         <Testimonials />
+        {/* <LogoProof/> */}
         <BigCTA/>
       </main>
     </div>

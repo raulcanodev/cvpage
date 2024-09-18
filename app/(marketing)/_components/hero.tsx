@@ -1,76 +1,40 @@
-import React, { useState } from 'react'
-import { ArrowRight, Check } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+"use client";
 
-export default function HeroSection() {
-  const [username, setUsername] = useState('')
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle the submission logic here
-    console.log('Submitted username:', username)
-  }
-
+export default function Component() {
   return (
-    <div className="bg-gray-200 dark:bg-black text-white min-h-screen flex items-center">
-      <div className="container mx-auto px-4 py-16 md:py-24">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Create your professional <span className="bg-zinc-100 text-black px-2">landing page</span> in minutes, not hours
-            </h1>
-            <p className="text-xl mb-8 text-zinc-300">
-              Build a stunning online presence, showcase your services, and connect with your audience effortlessly.
-            </p>
-            <div className="space-y-4 mb-8">
-              <Feature text="Customizable templates for any profession" />
-              <Feature text="Integrated booking and contact forms" />
-              <Feature text="SEO optimization for better visibility" />
-            </div>
-
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
-              <div className="relative flex-grow">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-400">
-                  hitme.to/
-                </span>
-                <Input
-                  type="text"
-                  placeholder=""
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="pl-20 bg-zinc-800 border-zinc-700 text-white"
-                />
-              </div>
-              <Button type="submit" className="bg-zinc-100 hover:bg-zinc-300">
-                Get Started <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </form>
-
-          </div>
-
-          <div className="hidden md:block">
-            {/* <div className="bg-gray-800 p-6 rounded-lg shadow-xl border">
-              <h3 className="text-xl font-semibold mb-4">Growth Statistics</h3>
-              <div className="text-4xl font-bold mb-2">1,234 <span className="text-green-400 text-2xl">+567</span></div>
-              <p className="text-gray-400 mb-4">New users in the last 30 days</p>
-              <div className="h-48 bg-gray-700 rounded-md flex items-end">
-                <div className="w-full bg-green-400 rounded-b-md" style={{height: '70%'}}></div>
-              </div>
-            </div> */}
-          </div>
-
+    <section className=" min-h-screen flex flex-col items-center justify-center p-4 mt-8">
+      <div className="max-w-2xl mx-auto text-center">
+        <div className="flex flex-col items-center mb-8 gap-4 max-w-xl">
+          {/* <p className="border py-0.5 px-3 rounded-full text-sm shadow-sm bg-white/5 shadow-white/20">
+            Create Your Page
+          </p> */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">
+            Build Your Online Presence with Hitmeto
+          </h1>
+          <p className="text-wrap text-center text-sm sm:text-base">
+            hitme.to empowers you to create and launch your own stunning web page in minutes, 
+            no coding skills required. Start your digital journey today!
+          </p>
+        </div>
+        <Button className="text-lg py-6 px-8">
+          Get Started for Free
+        </Button>
+        <div className="mt-12 relative w-full aspect-video max-w-2xl mx-auto">
+          <Image
+            src="/hero.png"
+            alt="hitme.to interface preview"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-lg shadow-2xl"
+          />
+        </div>
+        <div className="mt-8 text-zinc-400 text-sm">
+          <p>Trusted by creators, entrepreneurs, and businesses worldwide</p>
         </div>
       </div>
-    </div>
-  )
-}
-
-function Feature({ text }: { text: string }) {
-  return (
-    <div className="flex items-center">
-      <Check className="text-green-400 mr-2 h-5 w-5" />
-      <span>{text}</span>
-    </div>
-  )
+    </section>
+  );
 }
