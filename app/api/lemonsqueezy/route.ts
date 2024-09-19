@@ -77,6 +77,7 @@ export const POST = async (request: NextRequest) => {
     }
   } catch (error: unknown) {
     if (isError(error)) {
+      
       return new Response(`Webhook error: ${error.message}`, {
         status: 400,
       });
