@@ -61,7 +61,6 @@ export default function SuccessPage() {
               <Link href="/auth/login">
                 <Button
                   className="w-full bg-green-500 hover:bg-green-600 text-black py-3 px-6 rounded-full transition-all duration-200 transform hover:scale-105"
-                  onClick={() => console.log('Proceed to Login clicked')}
                 >
                   Proceed to Login
                 </Button>

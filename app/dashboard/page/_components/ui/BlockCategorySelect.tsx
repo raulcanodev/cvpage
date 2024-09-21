@@ -15,10 +15,10 @@ interface ServiceCategorySelectProps {
 }
 
 const categories = [
-  { value: 'service', label: 'Service' },
+  { value: 'textarea', label: 'Description' },
   { value: 'project', label: 'Project' },
+  { value: 'service', label: 'Service' },
   { value: 'title', label: 'Title' },
-  { value: 'textarea', label: 'Textarea' },
   { value: 'workexperience', label: 'Work Experience' },
 ];
 

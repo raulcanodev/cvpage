@@ -11,3 +11,4 @@ export { deleteService } from './deleteService';
 export { getAllUserServices } from './getAllUserServices';
 export { updateDomain } from './updateDomain';
 export { updateAvatar } from './cloudinary';
+export { handlePremiumPurchase } from './userPremium';

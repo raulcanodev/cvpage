@@ -186,3 +186,23 @@ export const updateCustomDomain = async (id: string, domain: string) => {
     }
   );
 };
+
+/**
+ * Updates user premium status.
+ * 
+ * @param email - The user email.
+ * @param premium - The premium status.
+ * @returns The updated user data.
+ */
+export const updateUserPremium = async (email: string, premium: boolean) => {
+
+  await connectDB();
+  return User.findOneAndUpdate(
+    { email },
+    { premium },
+    {
+      new: true,
+      runValidators: true,
+    }
+  ); 
+}
