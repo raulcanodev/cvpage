@@ -20,5 +20,6 @@ export default function Video() {
             </div>
           </div>
         </section>
+        
   )
 }
