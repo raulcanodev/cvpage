@@ -8,8 +8,6 @@ export default async function AuthButton() {
   const session = await getServerSession(authOptions);
   const router = useRouter();
 
-  console.log(session);
-
   const showSession = () => {
     if (session) {
       return (

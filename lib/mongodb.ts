@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import User, { Service } from '@/models/Schemas';
-import { Trykker } from 'next/font/google';
 
 const { MONGODB_URI } = process.env;
 
@@ -196,10 +195,7 @@ export const updateCustomDomain = async (id: string, domain: string) => {
  * @returns The updated user data.
  */
 export const updateUserPremium = async (email: string, premium: boolean) => {
-  console.log("emailmongo", email);
-  console.log("premiummongo", premium);
-  
-  
+
   await connectDB();
   return User.findOneAndUpdate(
     { email },
