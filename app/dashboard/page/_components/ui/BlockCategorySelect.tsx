@@ -1,6 +1,4 @@
 'use client';
-
-import { useState } from 'react';
 import {
   Select,
   SelectContent,
@@ -9,22 +7,23 @@ import {
   SelectValue,
 } from "@/components/ui"
 import { useUserContext } from '@/app/dashboard/context/UserContext';
+import { Gem } from 'lucide-react';
 
 interface ServiceCategorySelectProps {
   serviceId: string;
 }
 
 const categories = [
-  { value: 'textarea', label: 'Description' },
-  { value: 'project', label: 'Project' },
-  { value: 'service', label: 'Service' },
-  { value: 'title', label: 'Title' },
-  { value: 'workexperience', label: 'Work Experience' },
+  { value: 'textarea', label: 'Description', premium: false },
+  { value: 'project', label: 'Project', premium: true },
+  { value: 'service', label: 'Service', premium: true },
+  { value: 'title', label: 'Title', premium: false },
+  { value: 'workexperience', label: 'Work Experience', premium: true },
 ];
 
 export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {
-  const { updateUserService } = useUserContext();
-  const [category, setCategory] = useState();
+  const { updateUserService, userData } = useUserContext();
+  const { premium } = userData;
 
   const handleCategoryChange = async (value: string) => {
     try {
@@ -41,8 +40,11 @@ export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {
         </SelectTrigger>
         <SelectContent>
           {categories.map((cat) => (
-            <SelectItem key={cat.value} value={cat.value}>
+            <SelectItem key={cat.value} value={cat.value} disabled={!premium && cat.premium}>
+              <div className="flex flex-row items-center gap-1">
               {cat.label}
+                { cat.premium && <Gem className="w-3 h-3"/>}
+              </div>
             </SelectItem>
           ))}
         </SelectContent>

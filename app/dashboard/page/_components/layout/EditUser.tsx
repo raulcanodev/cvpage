@@ -6,7 +6,6 @@ import { useUserContext } from '@/app/dashboard/context/UserContext';
 export function EditUser() {
   const { userData, updateUserData, updateUserDomain } = useUserContext();
   const { name, description, customDomain } = userData;
-  const [error, setError] = useState(null);
 
   // Local state for name, description, and customDomain
   const [nameInput, setNameInput] = useState(name);
@@ -36,7 +35,7 @@ export function EditUser() {
           updateUserDomain(userData._id, escapedDomain); // Update domain
         }
         setHasDomainChanged(false);
-      }, 500); // Debounce delay
+      }, 500);
 
       return () => {
         clearTimeout(handler);
@@ -44,7 +43,6 @@ export function EditUser() {
     }
   }, [domainInput, customDomain, userData._id, hasDomainChanged, updateUserDomain]);
 
-  // Debounce logic for updating the name
   useEffect(() => {
     if (hasNameChanged) {
       const handler = setTimeout(() => {
@@ -52,7 +50,7 @@ export function EditUser() {
           updateUserData(userData._id, { name: nameInput });
         }
         setHasNameChanged(false);
-      }, 500); // Debounce delay for name
+      }, 500);
 
       return () => {
         clearTimeout(handler);
@@ -60,7 +58,6 @@ export function EditUser() {
     }
   }, [nameInput, name, userData._id, hasNameChanged, updateUserData]);
 
-  // Debounce logic for updating the description
   useEffect(() => {
     if (hasDescriptionChanged) {
       const handler = setTimeout(() => {
@@ -68,7 +65,7 @@ export function EditUser() {
           updateUserData(userData._id, { description: descriptionInput });
         }
         setHasDescriptionChanged(false);
-      }, 500); // Debounce delay for description
+      }, 500);
 
       return () => {
         clearTimeout(handler);
@@ -110,7 +107,7 @@ export function EditUser() {
           className="bg-zinc-900 text-white border-zinc-900 my-7 focus:ring-0"
           value={descriptionInput}
           placeholder="Tell us about yourself..."
-          onChange={handleDescriptionChange} // Debounced update for description
+          onChange={handleDescriptionChange}
         />
 
         <div className="flex text-zinc-400 md:justify-between md:items-center md:flex-row flex-col gap-3">
@@ -132,7 +129,7 @@ export function EditUser() {
                   type="text"
                   placeholder="yourname"
                   value={domainInput}
-                  onChange={handleDomainChange} // Debounced update for domain
+                  onChange={handleDomainChange}
                   className="pl-[4.3rem] bg-zinc-900 border-none text-white"
                 />
               </div>
