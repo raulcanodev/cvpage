@@ -33,6 +33,8 @@ export interface User {
   services: mongoose.Types.ObjectId[]; // Reference to the Service model
   isRegistered: boolean;
   role: string;
+  pageColor: string;
+  pageFont: string;
   premium: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -140,6 +142,12 @@ const UserSchema = new Schema<User>(
     isRegistered: {
       type: Boolean,
       default: false,
+    },
+    pageColor: {
+      type: String,
+    },
+    pageFont: {
+      type: String,
     },
     role: {
       type: String,

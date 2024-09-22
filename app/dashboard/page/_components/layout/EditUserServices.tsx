@@ -52,7 +52,7 @@ export function EditUserServices() {
   return (
     <>
       <Button
-        className="bg-zinc-100 text-slate-950 w-full"
+        className="bg-zinc-100 text-slate-950 w-full rounded-xl"
         onClick={handleAddService}
         disabled={isButtonDisabled}
       >

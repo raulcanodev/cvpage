@@ -71,7 +71,7 @@ export default function Navbar() {
             <div className="flex flex-col h-full">
               <div className="flex justify-end items-center p-4 ">
                 <button onClick={() => setIsOpen(false)} aria-label="Close menu">
-                  <X className="w-6 h-6" />
+                  <X className="w-6 h-6 ml-10" />
                 </button>
               </div>
               <div className="flex flex-col space-y-4 p-4">

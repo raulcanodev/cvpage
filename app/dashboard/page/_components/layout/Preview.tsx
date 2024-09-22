@@ -16,8 +16,8 @@ export function Preview() {
 
   return (
     <>
-      <div className="bg-zinc-800 rounded-[40px] p-4 mx-auto max-w-[23.43rem] aspect-[9/19]"> {/* Tamaño ajustado para simular un móvil */}
-        <div className="bg-zinc-950 rounded-[32px] h-full overflow-hidden text-black relative"> Asegurar que el contenedor de iframe no muestra scroll
+      <div className="bg-zinc-800 rounded-[50px] p-3 mx-auto max-w-[23.5rem] aspect-[9/19]">
+        <div className="bg-zinc-950 rounded-[40px] h-full overflow-hidden text-black relative"> 
           
           {/* iframe que carga la página de localhost */}
           <iframe

@@ -32,9 +32,9 @@ export default function DashboardEditProfile() {
 
   return (
     <div className="mx-auto py-0 pb-20 lg:pb-8">
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row justify-between gap-3">
         {/* Left - User */}
-        <div className="flex-1 space-y-3">
+        <div className="flex-1 lg:mt-5 flex gap-3 flex-col lg:max-w-[47.5rem]">
           <EditUser />
           <EditUserServices />
         </div>
@@ -46,10 +46,10 @@ export default function DashboardEditProfile() {
       </div>
 
       {/* Preview Button (Mobile) */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-background border-t border-border">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4">
         <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
           <DialogTrigger asChild>
-            <Button className="w-full">
+            <Button className="w-full rounded-xl">
               <Eye className="w-4 h-4 mr-2" />
               Preview
             </Button>

@@ -90,15 +90,15 @@ export function EditUser() {
 
   return (
     <>
-      <div className="bg-zinc-100 dark:bg-zinc-900 p-6 rounded-lg">
+      <div className="bg-zinc-100 dark:bg-zinc-900 p-6 rounded-2xl">
         <div className="flex items-center space-x-2 mb-4">
           <UserAvatar />
           <div>
             <Input
               className="text-2xl font-bold text-white bg-zinc-900 border-zinc-900 focus:ring-transparent"
               value={nameInput}
-              placeholder="Great Name"
-              onChange={handleNameChange} // Debounced update for name
+              placeholder="John Doe"
+              onChange={handleNameChange}
             />
           </div>
         </div>
@@ -106,7 +106,7 @@ export function EditUser() {
         <Textarea
           className="bg-zinc-900 text-white border-zinc-900 my-7 focus:ring-0"
           value={descriptionInput}
-          placeholder="Tell us about yourself..."
+          placeholder="I enjoy the purple cats that dance under the moonlight while eating ice cream"
           onChange={handleDescriptionChange}
         />
 

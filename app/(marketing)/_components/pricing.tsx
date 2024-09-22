@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { Link } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
 
 // Define the type for a single pricing plan
@@ -18,7 +19,7 @@ const pricingPlans: PricingPlan[] = [
         name: "Free",
         description: "Give it a try",
         price: '0',
-        link: "https://www.linkedin.com/in/maheshwar-reddy-mutupuri-713927258/",
+        link: "/auth/register",
         features: [
             "Landing page",
             "Domain name",
@@ -29,7 +30,7 @@ const pricingPlans: PricingPlan[] = [
         name: "PRO",
         description: "Only for great people, only one time payment",
         price: '8/∞',
-        link: "https://www.linkedin.com/in/maheshwar-reddy-mutupuri-713927258/",
+        link: "https://hitme.lemonsqueezy.com/buy/9cb2a0ed-191d-4d81-a9f5-72361c356a43",
         features: [
             "Landing page",
             "Domain name",
@@ -116,9 +117,11 @@ function PricingCards({ pricingPlans }: { pricingPlans: PricingPlan[] }) {
                             </motion.p>
                         </AnimatePresence>
                     </div>
+                    {/* <Link href={plan.link}/> */}
                     <button className="w-full border rounded-lg mb-4 px-3 py-2 h-11 bg-black hover:ring-1 hover:ring-offset-2 transition-all ease-in-out duration-150 dark:hover:ring-0 dark:ring-offset-0 dark:bg-white ring-black text-center font-medium text-white dark:text-black hover:scale-105 active:scale-95">
                         Get Started
                     </button>
+                    {/* <Link/> */}
                     {plan.features.map((feature, index) => (
                         <div key={index} className="mb-3 flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check">

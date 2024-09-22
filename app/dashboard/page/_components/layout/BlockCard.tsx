@@ -22,7 +22,7 @@ export function BlockCard({ serviceId, title, description, category, active, sub
 
   return (
     <>
-      <Card className="bg-zinc-900 border-zinc-800 overflow-hidden my-2">
+      <Card className="bg-zinc-900 border-none overflow-hidden rounded-2xl mb-2">
         <CardContent className="p-4">
           <div className="flex items-center space-x-3">
             <GripVertical className="w-5 h-5 text-zinc-400 cursor-pointer" />

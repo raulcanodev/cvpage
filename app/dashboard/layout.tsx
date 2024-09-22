@@ -8,8 +8,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <>
     <UserProvider>
     <Toaster position="top-center" />
-      <div className="min-h-screen bg-zinc-950 text-white">
-        <div className="container mx-auto px-4 py-8">
+
+      <div className="min-h-screen">
+        <div className="container mx-auto max-w-[75rem] px-2 py-8">
           <CreativeNavbar />
           {children}
         </div>
