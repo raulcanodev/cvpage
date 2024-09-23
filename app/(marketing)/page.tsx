@@ -1,5 +1,5 @@
 'use client';
-import { Navbar, Testimonials, Hero, KeyFeatures, BigCTA, Pricing, FAQSection, LogoProof } from './_components';
+import { Navbar, Testimonials, Hero, KeyFeatures, BigCTA, Pricing, FAQSection, LogoProof, ProfileCard } from './_components';
 import Link from 'next/link';
 
 export default function Home() {
@@ -18,6 +18,7 @@ export default function Home() {
         <Pricing/>
         <FAQSection/>
         <Testimonials />
+        <ProfileCard/>
         {/* <LogoProof/> */}
         <BigCTA/>
       </main>
