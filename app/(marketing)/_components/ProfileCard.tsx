@@ -15,7 +15,7 @@ export function ProfileCard() {
             Hey, Raúl here! Every time I launch a product, I always find myself doing the same things over - worrying if I've done everything right and spending hours thinking of how to promote my product.
           </p>
           <p className="text-gray-500">
-            And so I built this template. To help you and me launch products right, and not spend hours with repetitive work.
+            And so I built this template. To help you and me launch products right, and not spend hours with repetitive work :P
           </p>
         </div>
       </CardContent>
