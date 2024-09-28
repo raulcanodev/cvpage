@@ -48,7 +48,7 @@ export const updateAvatar = async (id: string, formatData: FormData) => {
       crop: 'fill',
     })
     const secureUrl = result?.secure_url;
-    updateUser(id, { avatar: secureUrl })
+    await updateUser(id, { avatar: secureUrl })
   }
 };
 
@@ -79,6 +79,7 @@ const uploadBlockImageToCloud = async (
 
 export const updateBlockImage = async (id: string, formatData: FormData) => {
   const file = formatData.get('profile-image');
+  
 
   if (file instanceof File) {
     const result = await uploadBlockImageToCloud(file, {
@@ -87,6 +88,10 @@ export const updateBlockImage = async (id: string, formatData: FormData) => {
       crop: 'fill',
     })
     const secureUrl = result?.secure_url;
-    updateService({ id, data: { image: secureUrl } })
+    
+    await updateService(id, { image: secureUrl });
+    
+    // const response = await updateServiceById(id, data);
+    // return JSON.stringify(response);
   }
 };

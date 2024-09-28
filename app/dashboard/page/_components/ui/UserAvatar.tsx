@@ -1,6 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
+import { updateAvatar } from '@/actions';
 import { Camera, Upload } from 'lucide-react';
 import {
   Dialog,

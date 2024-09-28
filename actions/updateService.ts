@@ -13,7 +13,11 @@ interface ServiceData {
  * @param data - The data to update.
  * @returns
  */
-export const updateService = async ({id, data}: ServiceData) => {
+export const updateService = async (id: string, data: any) => {
+  console.log("id", id);
+  console.log("data", data);
+  
+  
   try {
     const response = await updateServiceById(id, data);
     return JSON.stringify(response);

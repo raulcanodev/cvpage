@@ -32,7 +32,7 @@ export function EditUserServices() {
 
       setTimeout(() => {
         setIsButtonDisabled(false);
-      }, 300);
+      }, 300); 
     } catch (error) {
       console.error('Error adding service:', error);
     }

@@ -123,6 +123,7 @@ export const createService = async (data: any) => {
  * @returns
  */
 export const updateServiceById = async (id: string, data: any) => {
+
   await connectDB();
   return Service.findByIdAndUpdate(id, data, {
     // TODO: Handle the case where the service is not found

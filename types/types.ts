@@ -7,5 +7,6 @@ export interface Service {
   imageUrl?: string;
   link?: string;
   active?: boolean;
+  image?: string;
   serviceId: string;
 }

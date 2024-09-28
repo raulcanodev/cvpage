@@ -2,9 +2,17 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, Input, Switch, Textarea, Calendar } from '@/components/ui';
 import { GripVertical } from 'lucide-react';
-import { ConfirmDeleteService, ServicePriceDialog, BlockCategorySelect, DateJob2, DateJobPickerWithRange, BlockImage } from '../ui';
+import {
+  ConfirmDeleteService,
+  ServicePriceDialog,
+  BlockCategorySelect,
+  DateJob2,
+  DateJobPickerWithRange,
+  BlockImage,
+} from '../ui';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { useDebounce } from 'use-debounce';
+import Image from 'next/image';
 
 interface ServiceCardProps {
   serviceId: string;
@@ -19,8 +27,18 @@ interface ServiceCardProps {
   link?: string;
 }
 
-export function BlockCard({ serviceId, title, description, category, active, image, subtitle, link, price, date }: ServiceCardProps) {
-
+export function BlockCard({
+  serviceId,
+  title,
+  description,
+  category,
+  active,
+  image,
+  subtitle,
+  link,
+  price,
+  date,
+}: ServiceCardProps) {
   return (
     <>
       <Card className="bg-zinc-900 border-none overflow-hidden rounded-2xl mb-2">
@@ -31,11 +49,35 @@ export function BlockCard({ serviceId, title, description, category, active, ima
             <div className="flex-1">
               {!category && <BlockCategorySelect serviceId={serviceId} />}
               {category === 'title' && <TitleCard serviceId={serviceId} title={title} />}
-              {category === 'project' && <ProjectCard serviceId={serviceId} title={title} description={description} active={active} />}
-              {category === 'service' && <ServiceCard serviceId={serviceId} title={title} description={description} active={active} />}
-              {category === 'textarea' && <TextAreaCard serviceId={serviceId} description={description} />}
-              {category === 'workexperience' && <WorkExperience serviceId={serviceId} title={title} description={description} active={active} date={date} />}
-              {category === 'image' && <ImageCard serviceId={serviceId} image={image}/>}
+              {category === 'project' && (
+                <ProjectCard
+                  serviceId={serviceId}
+                  title={title}
+                  description={description}
+                  active={active}
+                />
+              )}
+              {category === 'service' && (
+                <ServiceCard
+                  serviceId={serviceId}
+                  title={title}
+                  description={description}
+                  active={active}
+                />
+              )}
+              {category === 'textarea' && (
+                <TextAreaCard serviceId={serviceId} description={description} />
+              )}
+              {category === 'workexperience' && (
+                <WorkExperience
+                  serviceId={serviceId}
+                  title={title}
+                  description={description}
+                  active={active}
+                  date={date}
+                />
+              )}
+              {category === 'image' && <ImageCard serviceId={serviceId} image={image} />}
               {/* <BlockCategorySelect serviceId={serviceId} /> */}
               {/* <TitleCard serviceId={serviceId} title={title} /> */}
               {/* <ProjectCard serviceId={serviceId} title={title} description={description} category={category} active={active} /> */}
@@ -161,7 +203,7 @@ export function ServiceCard({ serviceId, title, description, active }: ServiceCa
   );
 }
 
-export function TitleCard({serviceId, title}: ServiceCardProps) {
+export function TitleCard({ serviceId, title }: ServiceCardProps) {
   const { updateUserService } = useUserContext();
   const [titleText, setTitleText] = useState(title || '');
 
@@ -174,48 +216,52 @@ export function TitleCard({serviceId, title}: ServiceCardProps) {
   }, [debouncedTitle, serviceId, title, updateUserService]);
 
   return (
-
-    <div className='flex items-center'>
+    <div className="flex items-center">
       <Input
         className="font-semibold bg-transparent border-none text-white focus:ring-0 h-auto w-full"
         placeholder="Service title..."
         value={titleText}
         onChange={(e) => setTitleText(e.target.value)}
-        />
-        <ConfirmDeleteService serviceId={serviceId} />
+      />
+      <ConfirmDeleteService serviceId={serviceId} />
     </div>
-
-  )
+  );
 }
 
-export function TextAreaCard({serviceId, description}: ServiceCardProps) {
-  const { updateUserService } = useUserContext()
-  const [textArea, setTextArea] = useState(description || '')
+export function TextAreaCard({ serviceId, description }: ServiceCardProps) {
+  const { updateUserService } = useUserContext();
+  const [textArea, setTextArea] = useState(description || '');
 
-  const [debouncedTextArea] = useDebounce(textArea, 500)
+  const [debouncedTextArea] = useDebounce(textArea, 500);
 
-  useEffect(()=>{
-    if(debouncedTextArea !== description){
-      updateUserService(serviceId, {description: debouncedTextArea})
+  useEffect(() => {
+    if (debouncedTextArea !== description) {
+      updateUserService(serviceId, { description: debouncedTextArea });
     }
-  }, [description, serviceId, debouncedTextArea, updateUserService])
+  }, [description, serviceId, debouncedTextArea, updateUserService]);
 
   return (
     <>
       <Textarea
-        className='dark:bg-zinc-900 border-none'
+        className="dark:bg-zinc-900 border-none"
         value={textArea}
-        onChange={(e)=> setTextArea(e.target.value)}
-        />
-        <div className='text-right mt-3'>
-
+        onChange={(e) => setTextArea(e.target.value)}
+      />
+      <div className="text-right mt-3">
         <ConfirmDeleteService serviceId={serviceId} />
-        </div>
+      </div>
     </>
-  )
+  );
 }
 
-export function WorkExperience({serviceId, title, subtitle, description, active, date}: ServiceCardProps) {
+export function WorkExperience({
+  serviceId,
+  title,
+  subtitle,
+  description,
+  active,
+  date,
+}: ServiceCardProps) {
   const { updateUserService } = useUserContext();
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
@@ -242,7 +288,7 @@ export function WorkExperience({serviceId, title, subtitle, description, active,
     <>
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center space-x-3">
-        <Input
+          <Input
             className="font-semibold bg-transparent border-none text-white focus:ring-0 h-auto w-full"
             placeholder="Role"
             value={titleText}
@@ -271,7 +317,7 @@ export function WorkExperience({serviceId, title, subtitle, description, active,
       <div className="flex items-center justify-between text-zinc-400">
         <div className="flex gap-1 align-center">
           {/* <ServicePriceDialog serviceId={serviceId} /> */}
-          <DateJobPickerWithRange serviceId={serviceId}/>
+          <DateJobPickerWithRange serviceId={serviceId} />
           {/* <DateJob2 serviceId={serviceId}/> */}
         </div>
         <ConfirmDeleteService serviceId={serviceId} />
@@ -280,10 +326,20 @@ export function WorkExperience({serviceId, title, subtitle, description, active,
   );
 }
 
-export function ImageCard({serviceId, image}: ServiceCardProps) {
-  console.log("image ImageCard", image);
-  
+export function ImageCard({ serviceId, image }: ServiceCardProps) {
   return (
-    <BlockImage image={image}/>
-  )
+    <>
+      <Image
+        className="w-full object-cover object-top rounded-xl"
+        width={1280}
+        height={720}
+        src={image || 'https://fakeimg.pl/1280x720?font=noto'}
+        alt="Block Image"
+      />
+      <div className="flex justify-between mt-4">
+        <BlockImage serviceId={serviceId} />
+        <ConfirmDeleteService serviceId={serviceId} />
+      </div>
+    </>
+  );
 }

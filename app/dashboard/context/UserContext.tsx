@@ -77,7 +77,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const updateUserService = async (id: string, data: any) => {
     try {
-      const response = await updateService({ id, data });
+      const response = await updateService(id, data);
       await fetchUserData();
       return JSON.stringify(response);
     } catch (error) {
@@ -98,6 +98,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const updateUserAvatar = async (userId: string, formData: FormData) => {
+    console.log("formData", formData);
+    
     try {
       await updateAvatar(userId, formData);
       await fetchUserData();
@@ -109,9 +111,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const updateServiceImage = async (userId: string, formData: FormData) => {
+  const updateServiceImage = async (serviceId: string, formData: FormData) => {
+    console.log("formData", formData);
+    
     try {
-      await updateBlockImage(userId, formData);
+      await updateBlockImage(serviceId, formData);
       await fetchUserData();
       toast.success('Block image updated successfully!');
       return Promise.resolve('Block image updated successfully!');
