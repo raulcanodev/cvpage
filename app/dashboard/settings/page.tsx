@@ -5,15 +5,17 @@ import { useRouter } from 'next/navigation'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui"
-import { Copy, Trash2, LogOut } from 'lucide-react'
+import { Copy } from 'lucide-react'
 import { Logout } from './_components/ui/'
+import { useUserContext } from '@/app/dashboard/context/UserContext'
 
 export default function SettingsPage() {
   const [username, setUsername] = useState('raulcano')
   const [customDomain, setCustomDomain] = useState('marclou.com')
   const router = useRouter()
-  // const { toast } = useToast()
-
+  const { userData } = useUserContext()
+  const { premium } = userData
+  
 
   const handleDelete = () => {
     if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
@@ -29,10 +31,9 @@ export default function SettingsPage() {
     <div className="min-h-screen text-white p-4 md:p-8">
       <div className="max-w-3xl mx-auto">
         <Tabs defaultValue="account" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8 bg-[#2C2C2E]">
+          <TabsList className="grid w-full grid-cols-2 mb-8 bg-[#2C2C2E]">
             <TabsTrigger value="account" className="data-[state=active]:bg-[#3A3A3C] data-[state=active]:text-white">ACCOUNT</TabsTrigger>
             <TabsTrigger value="billing" className="data-[state=active]:bg-[#3A3A3C] data-[state=active]:text-white">BILLING</TabsTrigger>
-            <TabsTrigger value="subscribers" className="data-[state=active]:bg-[#3A3A3C] data-[state=active]:text-white">SUBSCRIBERS</TabsTrigger>
           </TabsList>
           <TabsContent value="account" className="space-y-6">
             <div className="bg-[#2C2C2E] p-6 rounded-lg">
@@ -79,17 +80,29 @@ export default function SettingsPage() {
           <TabsContent value="billing">
             <div className="bg-[#2C2C2E] p-6 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">Billing</h2>
-              <p className="text-[#8E8E93]">Manage your billing information and subscription here.</p>
+              <p className="">
+                {premium && (
+                  <div className='space-y-3'>
+
+                  <p>
+                    You are currently subscribed to the <strong>Premium</strong> plan.</p>
+                    {/* // TODO: Add a cat gif here */}
+                  </div>
+                )}
+                {!premium && (
+                  <div className='space-y-3'>
+                    <p>
+                      Upgrade to the <strong>Premium</strong> plan to make this cat happy.
+                    </p>
+                  {/* // TODO: Add a cat gif here */}
+                  </div>
+
+                )}
+              </p>
             </div>
-            <p>
+            <p className='mt-4 text-sm'>
                 Contact us at <a href="#" className="text-blue-500">email@email.com</a> for any billing inquiries.
             </p>
-          </TabsContent>
-          <TabsContent value="subscribers">
-            <div className="bg-[#2C2C2E] p-6 rounded-lg">
-              <h2 className="text-xl font-semibold mb-4">Subscribers</h2>
-              <p className="text-[#8E8E93]">Manage your subscribers and mailing list here.</p>
-            </div>
           </TabsContent>
         </Tabs>
       </div>
