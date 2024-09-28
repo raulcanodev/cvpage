@@ -10,3 +10,4 @@ export { ServicePriceDialog } from './ServicePriceDialog';
 export { BlockCategorySelect } from './BlockCategorySelect';
 export { DateJobPickerWithRange } from './DateJobPickerWithRange';
 export { DateJob2 } from './DateJob2';
+export { BlockImage } from './BlockImage';

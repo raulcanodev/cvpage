@@ -69,6 +69,7 @@ export function EditUserServices() {
                   serviceId={service._id as string}
                   title={service.title}
                   description={service.description}
+                  image={service.image}
                   active={service.active}
                 />
               </Reorder.Item>

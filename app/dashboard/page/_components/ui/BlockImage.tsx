@@ -18,12 +18,14 @@ import {
 } from '@/components/ui';
 import { DialogClose } from '@radix-ui/react-dialog';
 
-export function UserAvatar() {
+export function BlockImage({image}: {image: string}) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { userData, updateUserAvatar, updateUserData } = useUserContext();
+  const { userData, updateUserData, updateServiceImage } = useUserContext();
   const { avatar, name } = userData;
+  console.log("image blockimage", image);
+  
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -39,7 +41,7 @@ export function UserAvatar() {
     if (selectedFile) {
       const formData = new FormData();
       formData.append('profile-image', selectedFile);
-      await updateUserAvatar(userData._id ,formData);
+      await updateServiceImage(userData._id ,formData);
    
     }
   };
@@ -57,7 +59,7 @@ export function UserAvatar() {
     <Dialog>
       <DialogTrigger asChild>
         <Avatar className="w-12 h-12 cursor-pointer">
-          <AvatarImage src={avatar} alt={name} />
+          <AvatarImage src={image} alt={name} />
           <AvatarFallback>
             <Camera className="text-white" />
           </AvatarFallback>

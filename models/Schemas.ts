@@ -10,6 +10,7 @@ interface Service {
   link: string;
   data: string;
   location: string;
+  image: string;
   active: boolean;
 }
 
@@ -73,6 +74,9 @@ const ServiceSchema = new Schema<Service>(
       type: String,
     },
     location: {
+      type: String,
+    },
+    image: {
       type: String,
     },
     active: {

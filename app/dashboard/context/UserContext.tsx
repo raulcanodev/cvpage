@@ -8,6 +8,7 @@ import {
   updateService,
   deleteService,
   updateAvatar,
+  updateBlockImage,
   updateDomain,
 } from '@/actions';
 import { toast } from 'sonner';
@@ -21,6 +22,7 @@ interface UserContextProps {
   deleteUserService: (serviceId: string, userId: string) => Promise<string>;
   updateUserAvatar: (userId: string, formData: FormData) => Promise<string>;
   updateUserDomain: (id: string, domain: string) => Promise<string>;
+  updateServiceImage: (userId: string, formData: FormData) => Promise<string>;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -107,6 +109,18 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const updateServiceImage = async (userId: string, formData: FormData) => {
+    try {
+      await updateBlockImage(userId, formData);
+      await fetchUserData();
+      toast.success('Block image updated successfully!');
+      return Promise.resolve('Block image updated successfully!');
+    } catch (error) {
+      console.error('Error updating block image:', error);
+      return Promise.reject(error);
+    }
+  };
+
   const updateUserDomain = async (id: string, domain: string) => {
     try {
       const response = await updateDomain(id, domain);
@@ -135,6 +149,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         deleteUserService,
         updateUserAvatar,
         updateUserDomain,
+        updateServiceImage,
       }}
     >
       {children}

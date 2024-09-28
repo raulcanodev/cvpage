@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, Input, Switch, Textarea, Calendar } from '@/components/ui';
 import { GripVertical } from 'lucide-react';
-import { ConfirmDeleteService, ServicePriceDialog, BlockCategorySelect, DateJob2, DateJobPickerWithRange } from '../ui';
+import { ConfirmDeleteService, ServicePriceDialog, BlockCategorySelect, DateJob2, DateJobPickerWithRange, BlockImage } from '../ui';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { useDebounce } from 'use-debounce';
 
@@ -15,10 +15,11 @@ interface ServiceCardProps {
   price?: number;
   active?: boolean;
   date?: any;
+  image?: string;
   link?: string;
 }
 
-export function BlockCard({ serviceId, title, description, category, active, subtitle, link, price, date }: ServiceCardProps) {
+export function BlockCard({ serviceId, title, description, category, active, image, subtitle, link, price, date }: ServiceCardProps) {
 
   return (
     <>
@@ -34,6 +35,7 @@ export function BlockCard({ serviceId, title, description, category, active, sub
               {category === 'service' && <ServiceCard serviceId={serviceId} title={title} description={description} active={active} />}
               {category === 'textarea' && <TextAreaCard serviceId={serviceId} description={description} />}
               {category === 'workexperience' && <WorkExperience serviceId={serviceId} title={title} description={description} active={active} date={date} />}
+              {category === 'image' && <ImageCard serviceId={serviceId} image={image}/>}
               {/* <BlockCategorySelect serviceId={serviceId} /> */}
               {/* <TitleCard serviceId={serviceId} title={title} /> */}
               {/* <ProjectCard serviceId={serviceId} title={title} description={description} category={category} active={active} /> */}
@@ -276,4 +278,12 @@ export function WorkExperience({serviceId, title, subtitle, description, active,
       </div>
     </>
   );
+}
+
+export function ImageCard({serviceId, image}: ServiceCardProps) {
+  console.log("image ImageCard", image);
+  
+  return (
+    <BlockImage image={image}/>
+  )
 }

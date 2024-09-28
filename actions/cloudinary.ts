@@ -1,6 +1,7 @@
 'use server';
 import { v2 as cloud, UploadApiOptions, UploadApiResponse } from 'cloudinary';
 import { updateUser } from './updateUser';
+import { updateService } from './updateService';
 import streamifier from 'streamifier';
 // Refer https://www.youtube.com/watch?v=xsnZDtRSAYg
 
@@ -11,7 +12,7 @@ cloud.config({
   secure: true,
 });
 
-const uploadFileToCloud = async (
+const uploadProfileImageToCloud = async (
   file: File,
   options?: UploadApiOptions
 ): Promise<UploadApiResponse | undefined> => {
@@ -22,7 +23,11 @@ const uploadFileToCloud = async (
   const buffer = Buffer.from(arrayBuffer);
 
   return new Promise((resolve, reject) => {
-    const stream = cloud.uploader.upload_stream(options, (error, result) => {
+    const stream = cloud.uploader.upload_stream({ 
+      folder: 'hitmeto-profile',
+      ...options 
+    }, (error, result) => {
+      
 
       if (error) return reject(error);
       resolve(result);
@@ -36,7 +41,7 @@ export const updateAvatar = async (id: string, formatData: FormData) => {
   const file = formatData.get('profile-image');
 
   if (file instanceof File) {
-    const result = await uploadFileToCloud(file, {
+    const result = await uploadProfileImageToCloud(file, {
       width: 300,
       height: 300,
       gravity: 'face',
@@ -47,3 +52,41 @@ export const updateAvatar = async (id: string, formatData: FormData) => {
   }
 };
 
+const uploadBlockImageToCloud = async (
+  file: File,
+  options?: UploadApiOptions
+): Promise<UploadApiResponse | undefined> => {
+
+  if(file.size <= 0) return;
+
+  const arrayBuffer = await file.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+
+  return new Promise((resolve, reject) => {
+    const stream = cloud.uploader.upload_stream({ 
+      folder: 'hitmeto-block-image',
+      ...options 
+    }, (error, result) => {
+      
+
+      if (error) return reject(error);
+      resolve(result);
+    });
+
+    streamifier.createReadStream(buffer).pipe(stream);
+  });
+};
+
+export const updateBlockImage = async (id: string, formatData: FormData) => {
+  const file = formatData.get('profile-image');
+
+  if (file instanceof File) {
+    const result = await uploadBlockImageToCloud(file, {
+      width: 1280,
+      height: 720,
+      crop: 'fill',
+    })
+    const secureUrl = result?.secure_url;
+    updateService({ id, data: { image: secureUrl } })
+  }
+};
