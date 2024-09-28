@@ -16,8 +16,6 @@ import { motion } from 'framer-motion';
 
 export default function SuccessPage() {
   return (
-    <div className="flex-1 flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-20 xl:px-24">
-      <div className="mx-auto w-full max-w-sm">
         <div className="bg-black flex items-center justify-center">
           <motion.div
             initial={{ opacity: 0 }}
@@ -94,7 +92,5 @@ export default function SuccessPage() {
             />
           </div>
         </div>
-      </div>
-    </div>
   );
 }

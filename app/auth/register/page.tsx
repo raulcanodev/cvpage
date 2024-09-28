@@ -67,8 +67,7 @@ export default function Register() {
 
   return (
     <>
-      <div className="flex-1 flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-20 xl:px-24">
-        <div className="mx-auto w-full max-w-sm">
+
           <h2 className="mt-6 text-3xl font-extrabold">Create an account</h2>
           <p className="mt-2 text-sm text-zinc-400">
             Or{' '}
@@ -142,9 +141,7 @@ export default function Register() {
             </div>
           </div>
 
-          <AcceptConditions />
-        </div>
-      </div>
+
     </>
   );
 }

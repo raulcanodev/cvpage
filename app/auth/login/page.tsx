@@ -58,8 +58,7 @@ export default function Login() {
 
   return (
     <>
-      <div className="flex-1 flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-20 xl:px-24">
-        <div className="mx-auto w-full max-w-sm">
+  
           <h2 className="mt-6 text-3xl font-extrabold">Sign in to your account</h2>
           <p className="mt-2 text-sm text-zinc-400">
             Or{' '}
@@ -97,7 +96,7 @@ export default function Login() {
 
             <div className="flex items-center justify-between">
               <div className="text-sm">
-                <Link href="/forgot-password" className="font-medium text-white hover:underline">
+                <Link href="/auth/reset" className="font-medium text-white hover:underline">
                   Forgot your password?
                 </Link>
               </div>
@@ -124,8 +123,7 @@ export default function Login() {
             </div>
           </div>
           <AcceptConditions />
-        </div>
-      </div>
+
     </>
   );
 }
