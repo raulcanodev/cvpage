@@ -8,5 +8,6 @@ export interface Service {
   link?: string;
   active?: boolean;
   image?: string;
+  location?: string;
   serviceId: string;
 }
