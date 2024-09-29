@@ -30,7 +30,7 @@ export interface User {
   instagramUrl: string;
   linkedinUrl: string;
   githubUrl: string;
-  email2: string;
+  emailContact: string;
   services: mongoose.Types.ObjectId[]; // Reference to the Service model
   isRegistered: boolean;
   role: string;
@@ -39,6 +39,7 @@ export interface User {
   premium: boolean;
   createdAt: Date;
   updatedAt: Date;
+  resetToken?: string;
 }
 
 export interface Plan {
@@ -136,7 +137,7 @@ const UserSchema = new Schema<User>(
     githubUrl: {
       type: String,
     },
-    email2: {
+    emailContact: {
       type: String,
     },
     services: [{
@@ -160,6 +161,9 @@ const UserSchema = new Schema<User>(
     premium: {
       type: Boolean,
       default: false,
+    },
+    resetToken: {
+      type: String,
     },
   },
   {

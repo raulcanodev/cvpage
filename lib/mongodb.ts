@@ -54,6 +54,17 @@ export const fetchUserDataByEmail = async (email: string) => {
 };
 
 /**
+ * Retrieves user data by its email.
+ *
+ * @param email - The user email.
+ * @returns The user data.
+ */
+export const fetchUserByToken = async (token: string) => {
+  await connectDB();
+  return User.findOne({ resetToken: token });
+}
+
+/**
  * Updates user data by ID.
  *
  * @param id - The user ID.
@@ -68,7 +79,7 @@ export const updateUserById = async (id: string, data: any) => {
     new: true, // Return the updated document
     runValidators: true, // Run model validations
   });
-}
+};
 
 /**
  * Deletes user data by ID.
@@ -123,7 +134,6 @@ export const createService = async (data: any) => {
  * @returns
  */
 export const updateServiceById = async (id: string, data: any) => {
-
   await connectDB();
   return Service.findByIdAndUpdate(id, data, {
     // TODO: Handle the case where the service is not found
@@ -190,13 +200,12 @@ export const updateCustomDomain = async (id: string, domain: string) => {
 
 /**
  * Updates user premium status.
- * 
+ *
  * @param email - The user email.
  * @param premium - The premium status.
  * @returns The updated user data.
  */
 export const updateUserPremium = async (email: string, premium: boolean) => {
-
   await connectDB();
   return User.findOneAndUpdate(
     { email },
@@ -205,5 +214,73 @@ export const updateUserPremium = async (email: string, premium: boolean) => {
       new: true,
       runValidators: true,
     }
-  ); 
+  );
+};
+
+/**
+ * Saves the reset token to the user.
+ *
+ * @param email - The user email.
+ * @param token - The reset token.
+ * @returns The updated user data.
+ */
+export const saveResetToken = async (email: string, token: string) => {
+  try {
+    await connectDB();
+    const user = await User.findOneAndUpdate(
+      { email },
+      { resetToken: token },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+/**
+ * Invalidates the reset token.
+ *
+ * @param email - The user email.
+ * @returns The updated user data.
+ */
+export const invalidateResetToken = async (email: string) => {
+  await connectDB();
+  return User.findOneAndUpdate(
+    { email },
+    { resetToken: '' },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+}
+
+/**
+ * Updates the user password.
+ *
+ * @param email - The user email.
+ * @param password - The new password.
+ * @returns The updated user data.
+ */
+export const updatePassword = async (email: string, password: string) => {
+  await connectDB();
+  return User.findOneAndUpdate
+    (
+      { email },
+      { password },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
 }

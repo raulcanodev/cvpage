@@ -1,6 +1,6 @@
 import { InputEmailForm } from '../components';
 
-export default function ResetPasswordPage(){
+export default function ForgotPasswordPage(){
     return (
         <div>
             <InputEmailForm/>

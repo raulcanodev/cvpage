@@ -31,6 +31,7 @@ export default function Login() {
 
   useEffect(() => {
     if (status === 'authenticated') {
+      toast.success('Welcome! 🥰');
       router.push(`/dashboard/page/`);
     }
   }, [status, router]);
@@ -96,7 +97,7 @@ export default function Login() {
 
             <div className="flex items-center justify-between">
               <div className="text-sm">
-                <Link href="/auth/reset" className="font-medium text-white hover:underline">
+                <Link href="/auth/forgot-password" className="font-medium text-white hover:underline">
                   Forgot your password?
                 </Link>
               </div>
