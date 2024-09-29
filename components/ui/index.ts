@@ -55,3 +55,4 @@ export {   useFormField,
   FormMessage,
   FormField }  from './form';
 export { Popover, PopoverTrigger, PopoverContent } from './popover';
+export { RadioGroup, RadioGroupItem } from './radio-group';

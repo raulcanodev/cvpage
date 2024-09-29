@@ -1,57 +1,71 @@
 'use client';
-import { Switch, Button } from '@/components/ui/';
-import { ThemeSwitcher } from '@/components/layout';
+import { RadioGroup, RadioGroupItem, Label } from '@/components/ui/';
+import { OptionThemeSwitcher } from '@/components/layout';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
-
-type ColorTheme = 'light' | 'indigo' | 'green' | 'yellow' | 'red';
+import { toast } from 'sonner';
 
 export function PageStyle() {
   const { updateUserData, userData } = useUserContext();
   const { _id } = userData;
-  
+
   const { pageColor, pageFont } = userData;
 
-  const handleChangeColor = (color: ColorTheme) => {
+  const handleChangeColor = (color: string) => {
+    toast.success(`Theme changed to ${color.charAt(0).toUpperCase() + color.slice(1)} 🎉`);
     updateUserData(_id, { pageColor: color });
   };
 
   const handleChangeFont = (font: string) => {
+    toast.success(`Font changed to ${font.charAt(0).toUpperCase() + font.slice(1)} 🎉`);
     updateUserData(_id, { pageFont: font });
   };
 
-  const colorThemes: Record<ColorTheme, string> = {
-    light: 'bg-white border-2 border-gray-300',
-    indigo: 'bg-indigo-600',
-    green: 'bg-green-500',
-    yellow: 'bg-yellow-400',
-    red: 'bg-red-500',
-  };
+  const fonts = ['sans', 'serif', 'mono'];
+  const colors = ['monochrome', 'midnight', '2000', 'electric purple'];
 
   return (
     <div className="min-h-screen">
       <div className="max-w-md space-y-6">
         <div>
           <h2 className="text-sm font-semibold mb-2">FONT</h2>
-          <div className="text-4xl">Aa</div>
+          <RadioGroup defaultValue={pageFont}>
+            {fonts.map((font) => (
+              <div key={font} className="flex items-center space-x-2">
+                <RadioGroupItem
+                  value={font}
+                  id={`font-${font}`}
+                  onClick={() => handleChangeFont(font)}
+                />
+                <Label htmlFor={`font-${font}`} className="capitalize">
+                  {font}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
         </div>
         <div>
           <h2 className="text-sm font-semibold mb-2">THEME</h2>
-          <div className="flex space-x-3">
-            {(Object.keys(colorThemes) as ColorTheme[]).map((color) => (
-              <Button
-                key={color}
-                className={`w-8 h-8 rounded-md ${colorThemes[color]} ${
-                  pageColor === color ? 'ring-2 ring-offset-2 ring-gray-900' : ''
-                }`}
-                aria-label={`Select ${color} theme`}
-                onClick={() => handleChangeColor(color)}
-              />
+
+          <RadioGroup defaultValue={pageColor}>
+            {colors.map((color) => (
+              <div key={color} className="flex items-center space-x-2">
+                <RadioGroupItem
+                  value={color}
+                  id={`color-${color}`}
+                  onClick={() => handleChangeColor(color as ColorTheme)}
+                />
+                <Label htmlFor={`color-${color}`} className="capitalize">
+                  {color}
+                </Label>
+              </div>
             ))}
-          </div>
+          </RadioGroup>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="max-w-md space-y-62">
           <h2 className="text-sm font-semibold mb-2">DASHBOARD</h2>
-          <ThemeSwitcher />
+          <div className="flex items-center space-x-2">
+            <OptionThemeSwitcher />
+          </div>
         </div>
       </div>
     </div>

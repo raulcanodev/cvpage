@@ -62,7 +62,7 @@ export const fetchUserDataByEmail = async (email: string) => {
 export const fetchUserByToken = async (token: string) => {
   await connectDB();
   return User.findOne({ resetToken: token });
-}
+};
 
 /**
  * Updates user data by ID.
@@ -263,7 +263,7 @@ export const invalidateResetToken = async (email: string) => {
       runValidators: true,
     }
   );
-}
+};
 
 /**
  * Updates the user password.
@@ -274,13 +274,12 @@ export const invalidateResetToken = async (email: string) => {
  */
 export const updatePassword = async (email: string, password: string) => {
   await connectDB();
-  return User.findOneAndUpdate
-    (
-      { email },
-      { password },
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
-}
+  return User.findOneAndUpdate(
+    { email },
+    { password },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+};

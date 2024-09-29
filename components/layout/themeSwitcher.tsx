@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { Sun, Moon } from 'lucide-react';
+import { RadioGroup, RadioGroupItem, Label } from '@/components/ui/';
+import { toast } from 'sonner'
 
 export const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
@@ -34,3 +36,34 @@ export const ThemeSwitcher = () => {
     </button>
   );
 };
+
+export const OptionThemeSwitcher = () => {
+
+  const { theme, setTheme } = useTheme();
+
+  const handleChangeTheme = (theme: string) => {
+    setTheme(theme);
+    if (theme === 'light') {
+      toast.success('Noo! My eyes 🥺');
+    } else {
+      toast.success('Much better! 😎');
+    }
+  };
+
+  return (
+    <RadioGroup defaultValue={theme}>
+      {['light', 'dark'].map((theme) => (
+        <div key={theme} className="flex items-center space-x-2">
+          <RadioGroupItem
+            value={theme}
+            id={`theme-${theme}`}
+            onClick={() => handleChangeTheme(theme)}
+          />
+          <Label htmlFor={`theme-${theme}`} className="capitalize">
+            {theme}
+          </Label>
+        </div>
+      ))}
+    </RadioGroup>
+  );
+}

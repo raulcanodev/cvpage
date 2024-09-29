@@ -31,7 +31,9 @@ export default async function UserProfilePage({ params }: Props) {
     twitterUrl,
     githubUrl,
     services,
-    premium
+    premium,
+    pageColor,
+    pageFont,
   } = JSON.parse(userData);
 
   const allServices = await Promise.all(
@@ -65,8 +67,6 @@ export default async function UserProfilePage({ params }: Props) {
           </Avatar>
 
           <h1 className="text-4xl text-zinc-700 font-bold mb-4">{name}</h1>
-
-          {/* <p className="text-xl text-zinc-500 mb-4">Indie Hacker & Web Developer</p> */}
 
           {location && (
             <div className="flex gap-1 items-center justify-center text-zinc-400 mb-4">

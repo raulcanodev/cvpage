@@ -7,11 +7,9 @@ export async function handlePremiumPurchase(email: string) {
     const user = await User.findOne({ email });
     
     if (user?.premium) {
-      console.log(`The user ${email} is already premium`);
       return;
     }
 
-    console.log(`Premium status for ${email}`);
     await updateUserPremium(email, true);
   } catch (error) {
     console.error('Error updating premium:', error);
