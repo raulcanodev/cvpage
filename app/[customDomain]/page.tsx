@@ -19,7 +19,7 @@ interface Props {
 export default async function UserProfilePage({ params }: Props) {
   const { customDomain } = params;
 
-  const userData = await getUserByCustomDomain(customDomain);
+  const userData = await getUserByCustomDomain(customDomain);  
 
   const {
     name,
@@ -31,6 +31,7 @@ export default async function UserProfilePage({ params }: Props) {
     twitterUrl,
     githubUrl,
     services,
+    premium
   } = JSON.parse(userData);
 
   const allServices = await Promise.all(
@@ -58,12 +59,11 @@ export default async function UserProfilePage({ params }: Props) {
 
       <div className="max-w-2xl mx-auto px-4 py-10">
         <div className="text-center mb-8">
-          
           <Avatar className="w-32 h-32 mx-auto mb-6 object-cover">
             <AvatarImage src={avatar} alt={name} />
             <AvatarFallback>{firstLetterName}</AvatarFallback>
           </Avatar>
-          
+
           <h1 className="text-4xl text-zinc-700 font-bold mb-4">{name}</h1>
 
           {/* <p className="text-xl text-zinc-500 mb-4">Indie Hacker & Web Developer</p> */}
@@ -105,7 +105,6 @@ export default async function UserProfilePage({ params }: Props) {
           {filteredServices.map((service, index) => (
             <Card key={index} className="bg-zinc-50 border-zinc-300 rounded-2xl">
               <CardContent className="p-4">
-
                 <div className="flex flex-row gap-2 justify-between">
                   <h3 className="flex-1 text-xl text-zinc-800 font-semibold mb-2">
                     {service.title}
@@ -118,7 +117,7 @@ export default async function UserProfilePage({ params }: Props) {
                 </div>
 
                 <p className="text-zinc-500 mb-4">{service.description}</p>
-                
+
                 <div className="flex justify-between items-center">
                   {/* <span className="text-zinc-500 font-bold text">90$</span> */}
                   {/* <Send className="text-zinc-700 w-5" /> */}
@@ -127,16 +126,17 @@ export default async function UserProfilePage({ params }: Props) {
             </Card>
           ))}
         </div>
-
-        <footer className="mt-20 text-center text-gray-400">
-          <p className="text-lg">© 2024 hitme.to. All rights reserved.</p>
-          <p className="mt-3 text-base">
-            Powered by{' '}
-            <a href="https://hitme.to" className="text-zinc-900 hover:underline">
-              hitme.to
-            </a>
-          </p>
-        </footer>
+        {!premium && (
+          <footer className="mt-20 text-center text-gray-400">
+            <p className="text-lg">© 2024 hitme.to. All rights reserved.</p>
+            <p className="mt-3 text-base">
+              Powered by{' '}
+              <a href="https://hitme.to" className="text-zinc-900 hover:underline">
+                hitme.to
+              </a>
+            </p>
+          </footer>
+        )}
       </div>
     </div>
   );
