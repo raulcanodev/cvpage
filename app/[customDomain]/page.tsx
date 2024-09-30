@@ -54,7 +54,7 @@ export default async function UserProfilePage({ params }: Props) {
           <SocialLinks {...{ twitterUrl, instagramUrl, linkedinUrl, githubUrl }} />
         </div>
 
-        <Blocks {...{ filteredServices }} />
+        <Blocks {...{ filteredServices, pageColor, pageFont }} />
 
         {!premium && <Footer />}
       </div>

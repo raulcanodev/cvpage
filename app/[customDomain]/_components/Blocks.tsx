@@ -1,4 +1,3 @@
-import { Badge, Card, CardContent } from '@/components/ui';
 import { ImageBlock, TitleBlock, DescriptionBlock, WorkExperienceBlock, Project } from './BlocksComponents';
 
 interface Service {
@@ -16,9 +15,12 @@ interface Service {
 
 interface BlocksProps {
   filteredServices: Service[];
+  pageColor: string;
+  pageFont: string;
 }
 
-export const Blocks = ({ filteredServices }: BlocksProps) => {
+export const Blocks = ({ filteredServices, pageColor, pageFont }: BlocksProps) => {
+  
   const renderServiceBlock = (service: Service) => {
     switch (service.category) {
       case 'image':
