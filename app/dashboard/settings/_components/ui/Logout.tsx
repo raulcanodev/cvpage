@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui';
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation'
 
@@ -15,9 +15,8 @@ export function Logout() {
 
   return (
     <Button
-      variant="outline"
       onClick={handleLogout}
-      className="border-none text-white hover:bg-zinc-800"
+      className="dark:text-zinc-100 text-zinc-500"
     >
       <LogOut className="h-4 w-4 mr-2" />
       LOGOUT

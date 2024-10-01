@@ -5,9 +5,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui"
+} from "@/components/ui";
 import { useUserContext } from '@/app/dashboard/context/UserContext';
-import { Gem } from 'lucide-react';
 
 interface ServiceCategorySelectProps {
   serviceId: string;
@@ -44,8 +43,8 @@ export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {
           {categories.map((cat) => (
             <SelectItem key={cat.value} value={cat.value} disabled={!premium && cat.premium}>
               <div className="flex flex-row items-center gap-1">
-              {cat.label}
-                { cat.premium && <Gem className="w-3 h-3"/>}
+                {cat.label}
+                {!premium && cat.premium && <span>(Premium)</span>}
               </div>
             </SelectItem>
           ))}

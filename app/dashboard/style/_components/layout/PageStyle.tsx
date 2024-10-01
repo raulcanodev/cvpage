@@ -8,9 +8,13 @@ export function PageStyle() {
   const { updateUserData, userData } = useUserContext();
   const { _id } = userData;
 
-  const { pageColor, pageFont } = userData;
+  const { pageColor, pageFont, premium } = userData;
 
   const handleChangeColor = (color: string) => {
+    if (!premium && (color === '2000' || color === 'electric purple')) {
+      toast.error('This theme is only available for premium users.');
+      return;
+    }
     toast.success(`Theme changed to ${color.charAt(0).toUpperCase() + color.slice(1)} 🎉`);
     updateUserData(_id, { pageColor: color });
   };
@@ -21,7 +25,13 @@ export function PageStyle() {
   };
 
   const fonts = ['sans', 'serif', 'mono'];
-  const colors = ['monochrome', 'midnight', '2000', 'electric purple'];
+
+  const colors = [
+    { label: 'monochrome', premiumOnly: false },
+    { label: 'midnight', premiumOnly: true },
+    { label: '2000', premiumOnly: true },
+    { label: 'electric purple', premiumOnly: true },
+  ];
 
   return (
     <div className="min-h-screen">
@@ -45,17 +55,21 @@ export function PageStyle() {
         </div>
         <div>
           <h2 className="text-sm font-semibold mb-2">THEME</h2>
-
           <RadioGroup defaultValue={pageColor}>
-            {colors.map((color) => (
-              <div key={color} className="flex items-center space-x-2">
+            {colors.map(({ label, premiumOnly }) => (
+              <div key={label} className="flex items-center space-x-2">
                 <RadioGroupItem
-                  value={color}
-                  id={`color-${color}`}
-                  onClick={() => handleChangeColor(color as ColorTheme)}
+                  value={label}
+                  id={`color-${label}`}
+                  disabled={!premium && premiumOnly}
+                  onClick={() => handleChangeColor(label)}
                 />
-                <Label htmlFor={`color-${color}`} className="capitalize">
-                  {color}
+                <Label
+                  htmlFor={`color-${label}`}
+                  className={`capitalize ${!premium && premiumOnly ? 'text-gray-400' : ''}`}
+                >
+                  {label}
+                  {!premium && premiumOnly && ' (Premium)'}
                 </Label>
               </div>
             ))}

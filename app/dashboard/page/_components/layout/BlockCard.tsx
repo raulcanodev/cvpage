@@ -19,10 +19,11 @@ interface ServiceCardProps {
   description?: string;
   category?: string;
   active?: boolean;
-  date?: any;
+  data?: any;
   image?: string;
   link?: string;
   price?: string;
+  location?: string;
 }
 
 export function BlockCard({
@@ -35,7 +36,8 @@ export function BlockCard({
   subtitle,
   link,
   price,
-  date,
+  location,
+  data,
 }: ServiceCardProps) {
   return (
     <Card className={`border overflow-hidden rounded-2xl mb-2 dark:bg-zinc-900 bg-zinc-100`}>
@@ -72,8 +74,10 @@ export function BlockCard({
                 serviceId={serviceId}
                 title={title}
                 description={description}
+                data={data}
+                subtitle={subtitle}
+                location={location}
                 active={active}
-                date={date}
               />
             )}
             {category === 'image' && <ImageCard serviceId={serviceId} image={image} />}
@@ -260,42 +264,44 @@ export function WorkExperience({
   subtitle,
   description,
   active,
-  date,
+  location,
+  data,
 }: ServiceCardProps) {
   const { updateUserService } = useUserContext();
+
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
   const [subTitleText, setSubTitleText] = useState(subtitle || '');
-  const [dateText, setDateText] = useState(date || '');
+  const [dataText, setDateText] = useState(data || '');
 
   const [debouncedTitle] = useDebounce(titleText, 500);
   const [debouncedDescription] = useDebounce(descriptionText, 500);
   const [debouncedSubtitle] = useDebounce(subTitleText, 500);
-  const [debouncedDate] = useDebounce(dateText, 500);
+  const [debouncedDate] = useDebounce(dataText, 500);
 
   useEffect(() => {
-    if (debouncedTitle !== title) {
+    if (debouncedTitle && debouncedTitle !== title) {
       updateUserService(serviceId, { title: debouncedTitle });
     }
-  }, [debouncedTitle, serviceId, title, updateUserService]);
+  }, [debouncedTitle, serviceId, updateUserService, title]);
 
   useEffect(() => {
-    if (debouncedDescription !== description) {
+    if (debouncedDescription && debouncedDescription !== description) {
       updateUserService(serviceId, { description: debouncedDescription });
     }
-  }, [debouncedDescription, serviceId, description, updateUserService]);
+  }, [debouncedDescription, serviceId, updateUserService, description]);
 
   useEffect(() => {
-    if (debouncedSubtitle !== subtitle) {
+    if (debouncedSubtitle && debouncedSubtitle !== subtitle) {
       updateUserService(serviceId, { subtitle: debouncedSubtitle });
     }
-  }, [debouncedSubtitle, serviceId, subtitle, updateUserService]);
+  }, [debouncedSubtitle, serviceId, updateUserService, subtitle]);
 
   useEffect(() => {
-    if (debouncedDate !== date) {
+    if (debouncedDate && debouncedDate !== data) {
       updateUserService(serviceId, { date: debouncedDate });
     }
-  }, [debouncedDate, serviceId, date, updateUserService]);
+  }, [debouncedDate, serviceId, updateUserService]); //! LOOP INFINITE HERE
 
   return (
     <>
@@ -321,7 +327,6 @@ export function WorkExperience({
         />
       </div>
 
-      {/* Description */}
       <Textarea
         className="bg-transparent border-none text-gray-900 dark:text-white"
         placeholder="Description"
@@ -331,17 +336,19 @@ export function WorkExperience({
       <Input
         className="bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto mb-4"
         placeholder="Date"
-        value={dateText}
+        value={dataText}
         onChange={(e) => setDateText(e.target.value)}
       />
 
-      {/* Bottom - Actions */}
       <div className="flex items-center justify-between text-zinc-400">
         <ConfirmDeleteService serviceId={serviceId} />
       </div>
     </>
   );
 }
+
+
+
 
 export function ImageCard({ serviceId, image }: ServiceCardProps) {
   const { updateUserService } = useUserContext();
