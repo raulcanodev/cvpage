@@ -23,20 +23,24 @@ const pricingPlans: PricingPlan[] = [
         features: [
             "Landing page",
             "Domain name",
-            "Access to some UI blocks",
+            "Access to 3 content blocks",
+            "5 Block limit",
+            "2 Style customizations",
         ],
     },
     {
         name: "PRO",
-        description: "Only for great people, only one time payment",
-        price: '8/∞',
+        description: "Only for great people, only one-time payment",
+        price: '24/∞',
         link: "https://hitme.lemonsqueezy.com/buy/9cb2a0ed-191d-4d81-a9f5-72361c356a43",
         features: [
             "Landing page",
             "Domain name",
-            "Access to all UI blocks",
-            "Style customization",
+            "Access to 8 content blocks",
             "Remove branding",
+            "100 Block limit",
+            "4 Style customizations",
+            "All future updates",
         ],
     },
 ];
@@ -57,9 +61,9 @@ export default function Pricing() {
 function Heading() {
     return (
         <div id="pricing" className="relative px-5 md:px-0 z-10 my-12 grid grid-cols-1 justify-items-center gap-6">
-            <p className="border py-0.5 px-3 rounded-full text-sm  dark:bg-black/5">
-          Pricing
-        </p>
+            <p className="border py-0.5 px-3 rounded-full text-sm dark:bg-black/5">
+                Pricing
+            </p>
             <motion.p
                 initial={{ rotateX: 90, opacity: 0 }}
                 whileInView={{ rotateX: 0, opacity: 1 }}
@@ -107,27 +111,31 @@ function PricingCards({ pricingPlans }: { pricingPlans: PricingPlan[] }) {
                     <div className="mb-4 overflow-hidden">
                         <AnimatePresence mode="wait">
                             <motion.p
-                                key="price" // No need to depend on billing now
+                                key="price" 
                                 initial={{ rotateX: 90, opacity: 0 }}
                                 animate={{ rotateX: 0, opacity: 1 }}
                                 transition={{ type: 'spring', stiffness: 100 }}
                                 className="my-0 text-3xl font-semibold"
                             >
-                                <span>${plan.price}</span> {/* Unique price */}
+                                <span>${plan.price}</span> 
                             </motion.p>
                         </AnimatePresence>
                     </div>
-                    {/* <Link href={plan.link}/> */}
-                    <button className="w-full border rounded-lg mb-4 px-3 py-2 h-11 bg-black hover:ring-1 hover:ring-offset-2 transition-all ease-in-out duration-150 dark:hover:ring-0 dark:ring-offset-0 dark:bg-white ring-black text-center font-medium text-white dark:text-black hover:scale-105 active:scale-95">
+                    <button
+                        type="button"
+                        onClick={() => window.location.href = plan.link}
+                        className="w-full border rounded-lg mb-4 px-3 py-2 h-11 bg-black hover:ring-1 hover:ring-offset-2 transition-all ease-in-out duration-150 dark:hover:ring-0 dark:ring-offset-0 dark:bg-white ring-black text-center font-medium text-white dark:text-black hover:scale-105 active:scale-95"
+                    >
                         Get Started
                     </button>
-                    {/* <Link/> */}
-                    {plan.features.map((feature, index) => (
-                        <div key={index} className="mb-3 flex items-center gap-2">
+                    {plan.features.map((feature, featureIndex) => (
+                        <div key={featureIndex} className="mb-3 flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check">
                                 <path d="M20 6 9 17l-5-5" />
                             </svg>
-                            <span className="text-sm">{feature}</span>
+                            <span className={`text-sm ${plan.name === "Free" && !plan.features.includes(feature) ? "line-through text-gray-400" : ""}`}>
+                                {feature}
+                            </span>
                         </div>
                     ))}
                     <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#2b2b2b_1px,transparent_1px),linear-gradient(to_bottom,#2b2b2b_1px,transparent_1px)] dark:group-hover/card:bg-[linear-gradient(to_right,#4f4f4f_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f_1px,transparent_1px)] group-hover/card:bg-[linear-gradient(to_right,#d6d4d4_1px,transparent_1px),linear-gradient(to_bottom,#d6d4d4_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] [mask-image:linear-gradient(to_top,white,transparent,transparent)]"></div>

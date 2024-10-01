@@ -18,34 +18,24 @@ import { useUserContext } from '@/app/dashboard/context/UserContext';
 
 interface ServicePriceDialogProps {
   serviceId: string;
+  servicePrice: string;
 }
 
-export function ServicePriceDialog({ serviceId }: ServicePriceDialogProps) {
+export function ServicePriceDialog({ serviceId, servicePrice }: ServicePriceDialogProps) {
   const { updateUserService } = useUserContext();
-  const [price, setPrice] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const [price, setPrice] = useState(servicePrice || '');
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (/^([$€]?)\d*\.?\d{0,2}$/.test(value) || value === '') {
-      setPrice(value);
-      setError(null);
-    } else {
-      setError('Please enter a valid price (up to 2 decimal places)');
-    }
+    setPrice(value);
   };
 
   const handleSaveChanges = async () => {
     try {
       const numericPrice = parseFloat(price);
-      if (isNaN(numericPrice) || numericPrice < 0) {
-        setError('Please enter a valid positive number');
-        return;
-      }
       await updateUserService(serviceId, { price: numericPrice });
     } catch (error) {
       console.error('Failed to update service price:', error);
-      setError('Failed to update price. Please try again.');
     }
   };
 
@@ -71,6 +61,7 @@ export function ServicePriceDialog({ serviceId }: ServicePriceDialogProps) {
             <div className="col-span-3 relative">
               <Euro className="absolute w-5 h-5 left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <Input
+                type="text"
                 id="servicePrice"
                 placeholder="0.00"
                 className="pl-8"
@@ -79,11 +70,10 @@ export function ServicePriceDialog({ serviceId }: ServicePriceDialogProps) {
               />
             </div>
           </div>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
         </div>
         <DialogFooter>
           <DialogClose asChild>
-            <Button type="button" onClick={handleSaveChanges} disabled={!!error}>
+            <Button type="button" onClick={handleSaveChanges}>
               Save changes
             </Button>
           </DialogClose>

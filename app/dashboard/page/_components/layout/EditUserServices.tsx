@@ -14,13 +14,15 @@ export function EditUserServices() {
   const [servicesState, setServicesState] = useState<Service[]>([]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const { userData, updateUserData } = useUserContext();
+  const { premium } = userData;
   const { _id, services } = userData;
 
   const handleAddService = async () => {
     // TODO: Validate in the backend
-    if (userData.services.length >= 99) {
+    const maxServices = premium ? 100 : 5;
+    if (userData.services.length >= maxServices) {
       setIsButtonDisabled(true);
-      toast.error('You can only have up to 99.');
+      toast.error(`You can only have up to ${maxServices}.`);
       return;
     }
 
@@ -68,9 +70,14 @@ export function EditUserServices() {
                   category={service.category}
                   serviceId={service._id as string}
                   title={service.title}
+                  subtitle={service.subtitle}
                   description={service.description}
                   image={service.image}
                   active={service.active}
+                  link={service.link}
+                  price={service.price}
+                  // data={service.data}
+                  // location={service.location}
                 />
               </Reorder.Item>
             ))}

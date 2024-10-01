@@ -42,13 +42,6 @@ export interface User {
   resetToken?: string;
 }
 
-export interface Plan {
-  name: string;
-  price: number;
-  description: string;
-  features: string[];
-}
-
 // Define the schema for the service model
 const ServiceSchema = new Schema<Service>(
   {
@@ -60,7 +53,6 @@ const ServiceSchema = new Schema<Service>(
     },
     price: {
       type: String,
-      min: [0, "Price must be a positive number"],
     },
     description: {
       type: String,
@@ -172,21 +164,6 @@ const UserSchema = new Schema<User>(
 );
 
 
-const PlanSchema = new Schema<Plan>({
-  name: {
-    type: String,
-  },
-  price: {
-    type: Number,
-  },
-  description: {
-    type: String,
-  },
-  features: {
-    type: [String],
-  },
-});
-
 // Define the model for the Service
 const Service = mongoose.models?.Service || model<Service>("Service", ServiceSchema);
 export { Service };
@@ -194,6 +171,3 @@ export { Service };
 // Define the model for the User
 const User = mongoose.models?.User || model<User>("User", UserSchema);
 export default User;
-
-const Plan = mongoose.models?.Plan || model<Plan>("Plan", PlanSchema);
-export { Plan };

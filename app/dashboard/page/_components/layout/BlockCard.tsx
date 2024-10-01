@@ -10,6 +10,7 @@ import {
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { useDebounce } from 'use-debounce';
 import Image from 'next/image';
+import { ServicePriceDialog, LinkBlockDialog } from '../ui/';
 
 interface ServiceCardProps {
   serviceId: string;
@@ -21,7 +22,7 @@ interface ServiceCardProps {
   date?: any;
   image?: string;
   link?: string;
-  price?: number;
+  price?: string;
 }
 
 export function BlockCard({
@@ -59,6 +60,8 @@ export function BlockCard({
                 title={title}
                 description={description}
                 active={active}
+                link={link}
+                price={price}
               />
             )}
             {category === 'textarea' && (
@@ -133,7 +136,7 @@ export function ProjectCard({ serviceId, title, description, active }: ServiceCa
       {/* Bottom - Actions */}
       <div className="flex items-center justify-between text-zinc-400">
         <div className="flex gap-1 align-center">
-          {/* <ServicePriceDialog serviceId={serviceId} /> */}
+          <LinkBlockDialog serviceId={serviceId} />
         </div>
         <ConfirmDeleteService serviceId={serviceId} />
       </div>
@@ -141,7 +144,8 @@ export function ProjectCard({ serviceId, title, description, active }: ServiceCa
   );
 }
 
-export function ServiceCard({ serviceId, title, description, active }: ServiceCardProps) {
+export function ServiceCard({ serviceId, title, description, active, link, price }: ServiceCardProps) {
+
   const { updateUserService } = useUserContext();
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
@@ -190,7 +194,8 @@ export function ServiceCard({ serviceId, title, description, active }: ServiceCa
       {/* Bottom - Actions */}
       <div className="flex items-center justify-between text-zinc-400">
         <div className="flex gap-1 align-center">
-          {/* <ServicePriceDialog serviceId={serviceId} /> */}
+          <ServicePriceDialog serviceId={serviceId} servicePrice={price || ''} />
+          <LinkBlockDialog serviceId={serviceId} serviceLink={link || ''} />
         </div>
         <ConfirmDeleteService serviceId={serviceId} />
       </div>

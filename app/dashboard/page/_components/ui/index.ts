@@ -11,3 +11,4 @@ export { BlockCategorySelect } from './BlockCategorySelect';
 export { DateJobPickerWithRange } from './DateJobPickerWithRange';
 export { DateJob2 } from './DateJob2';
 export { BlockImage } from './BlockImage';
+export { LinkBlockDialog } from './LinkBlockDialog';

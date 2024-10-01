@@ -18,7 +18,7 @@ const categories = [
   { value: 'textarea', label: 'Description', premium: false },
   { value: 'project', label: 'Project', premium: true },
   { value: 'service', label: 'Service', premium: true },
-  { value: 'simple', label: 'Simple', premium: false },
+  { value: 'simple', label: 'Simple Block', premium: false },
   { value: 'title', label: 'Title', premium: false },
   { value: 'workexperience', label: 'Work Experience', premium: true },
 ];

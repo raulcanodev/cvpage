@@ -11,49 +11,39 @@ import { useUserContext } from '@/app/dashboard/context/UserContext'
 
 export default function SettingsPage() {
   const [username, setUsername] = useState('raulcano')
-  const [customDomain, setCustomDomain] = useState('marclou.com')
-  const router = useRouter()
   const { userData } = useUserContext()
-  const { premium } = userData
-  
+  const { premium, customDomain } = userData
 
-  const handleDelete = () => {
-    if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
-      router.push('/')
-    }
-  }
-
-  const handleLogout = () => {
-    router.push('/login')
-  }
 
   return (
-    <div className="min-h-screen text-white p-4 md:p-8">
+    <div className="min-h-screen p-4 md:p-8 text-black  dark:text-white">
       <div className="max-w-3xl mx-auto">
         <Tabs defaultValue="account" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8 bg-[#2C2C2E]">
-            <TabsTrigger value="account" className="data-[state=active]:bg-[#3A3A3C] data-[state=active]:text-white">ACCOUNT</TabsTrigger>
-            <TabsTrigger value="billing" className="data-[state=active]:bg-[#3A3A3C] data-[state=active]:text-white">BILLING</TabsTrigger>
+          
+          <TabsList className="grid w-full grid-cols-2 mb-8 bg-zinc-200 dark:bg-zinc-800">
+            <TabsTrigger value="account" className="data-[state=active]:bg-zinc-300 data-[state=active]:text-black dark:data-[state=active]:bg-zinc-700 dark:data-[state=active]:text-white">ACCOUNT</TabsTrigger>
+            <TabsTrigger value="billing" className="data-[state=active]:bg-zinc-300 data-[state=active]:text-black dark:data-[state=active]:bg-zinc-700 dark:data-[state=active]:text-white">BILLING</TabsTrigger>
           </TabsList>
+          
           <TabsContent value="account" className="space-y-6">
-            <div className="bg-[#2C2C2E] p-6 rounded-lg">
+            <div className="bg-zinc-100 dark:bg-zinc-800 p-6 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">Change username</h2>
               <div className="flex space-x-2">
                 <Input
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="bg-[#3A3A3C] border-[#4A4A4C] text-white flex-grow"
+                  className="bg-transparent border-zinc-300 text-black dark:border-zinc-700 dark:text-white flex-grow"
                 />
-                <Button variant="secondary" className="bg-[#4A4A4C] hover:bg-[#5A5A5C]">UPDATE</Button>
+                <Button variant="secondary" className="bg-zinc-300 hover:bg-zinc-400 dark:bg-zinc-700 dark:hover:bg-zinc-600">UPDATE</Button>
               </div>
             </div>
 
-            <div className="bg-[#2C2C2E] p-6 rounded-lg">
+            <div className="bg-zinc-100 dark:bg-zinc-800 p-6 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">Hitme.to domain</h2>
               <div className="flex justify-between items-center">
-                <span className="text-[#8E8E93]">hitme.to/{username}</span>
+                <span className="text-zinc-600 dark:text-zinc-400">hitme.to/{customDomain}</span>
                 <Button variant="outline" size="sm" onClick={() => {
-                  navigator.clipboard.writeText(`hitme.to/${username}`)
+                  navigator.clipboard.writeText(`hitme.to/${customDomain}`)
                 }}>
                   <Copy className="h-4 w-4 mr-2" />
                   COPY
@@ -61,15 +51,14 @@ export default function SettingsPage() {
               </div>
             </div>
 
-            <div className="bg-[#2C2C2E] p-6 rounded-lg">
+            <div className="bg-zinc-100 dark:bg-zinc-800 p-6 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">Custom domain</h2>
               <div className="flex space-x-2">
                 <Input
                   value={customDomain}
-                  onChange={(e) => setCustomDomain(e.target.value)}
-                  className="bg-[#3A3A3C] border-[#4A4A4C] text-white flex-grow"
+                  className="bg-transparent border-zinc-300 text-black dark:border-zinc-700 dark:text-white flex-grow"
                 />
-                <Button className="bg-[#FF2D55] hover:bg-[#FF3B30]">SAVE</Button>
+                <Button className="bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500">SAVE</Button>
               </div>
             </div>
 
@@ -77,33 +66,32 @@ export default function SettingsPage() {
               <Logout/>
             </div>
           </TabsContent>
+
           <TabsContent value="billing">
-            <div className="bg-[#2C2C2E] p-6 rounded-lg">
+            <div className="bg-zinc-100 dark:bg-zinc-800 p-6 rounded-lg">
               <h2 className="text-xl font-semibold mb-4">Billing</h2>
-              <p className="">
+              <p>
                 {premium && (
                   <div className='space-y-3'>
-
-                  <p>
-                    You are currently subscribed to the <strong>Premium</strong> plan.</p>
-                    {/* // TODO: Add a cat gif here */}
+                    <p>
+                      You are currently subscribed to the <strong>Premium</strong> plan 🥰
+                    </p>
                   </div>
                 )}
                 {!premium && (
                   <div className='space-y-3'>
                     <p>
-                      Upgrade to the <strong>Premium</strong> plan to make this cat happy.
+                      Upgrade to the <strong>Premium</strong> plan to unlock all features.
                     </p>
-                  {/* // TODO: Add a cat gif here */}
                   </div>
-
                 )}
               </p>
             </div>
             <p className='mt-4 text-sm'>
-                Contact us at <a href="#" className="text-blue-500">email@email.com</a> for any billing inquiries.
+              Contact us at <a href="#" className="text-blue-600 dark:text-blue-500">email@email.com</a> for any billing inquiries.
             </p>
           </TabsContent>
+
         </Tabs>
       </div>
     </div>

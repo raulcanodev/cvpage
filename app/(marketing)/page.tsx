@@ -10,9 +10,6 @@ export default function Home() {
       <main className="flex flex-col min-h-screen ">
         <Hero/> 
         <div>
-      <Link href="https://hitme.lemonsqueezy.com/buy/9cb2a0ed-191d-4d81-a9f5-72361c356a43">
-        <button className='text-white'>Comprar ahora</button>
-      </Link>
     </div>
         {/* <KeyFeatures/> */}
         <Pricing/>
