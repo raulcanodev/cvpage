@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { EditUser, EditUserServices, Preview } from '../page/_components/layout';
+import { Preview } from '../page/_components/layout';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Eye } from 'lucide-react';
@@ -14,12 +14,13 @@ export default function DashboardEditProfile() {
 
   if (isLoading) {
     return (
+      <>
       <div className="flex items-center justify-center h-screen">
         <LineWave
           visible={true}
           height="100"
           width="100"
-          color="white"
+          color="black"
           ariaLabel="line-wave-loading"
           wrapperStyle={{}}
           wrapperClass=""
@@ -28,6 +29,7 @@ export default function DashboardEditProfile() {
           lastLineColor=""
         />
       </div>
+      </>
     );
   }
 

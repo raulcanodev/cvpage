@@ -52,10 +52,10 @@ export function EditUserServices() {
   return (
     <>
       <Button
-        className="bg-zinc-100 text-slate-950 w-full rounded-xl"
-        onClick={handleAddService}
-        disabled={isButtonDisabled}
-      >
+  className="bg-white text-slate-950 w-full rounded-xl border border- hover:bg-zinc-100 hover:shadow-lg dark:bg-slate-800 dark:text-white dark:border-zinc-700 dark:hover:bg-slate-700 dark:hover:shadow-lg transition-all duration-300"
+  onClick={handleAddService}
+  disabled={isButtonDisabled}
+>
         <Plus className="w-4 h-4 mx-1" /> ADD BLOCK
       </Button>
       {services && (

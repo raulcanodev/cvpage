@@ -7,16 +7,16 @@ interface Service {
   price?: string;
   description?: string;
   category?: string;
-  link?: string; 
+  link?: string;
   data?: string;
   location?: string;
   image?: string;
   active?: boolean;
 }
 
-const commonCardStyle = "bg-white border-b border-gray-200";
-const commonTitleStyle = "text-lg font-semibold text-gray-900";
-const commonDescriptionStyle = "text-sm text-gray-600";
+const commonCardStyle = 'bg-white border-b border-gray-200';
+const commonTitleStyle = 'text-lg font-semibold text-gray-900';
+const commonDescriptionStyle = 'text-sm text-gray-600 whitespace-pre-wrap';
 
 export const ImageBlock = ({ service }: { service: Service }) => (
   <Card className={`${commonCardStyle} overflow-hidden`}>
@@ -33,20 +33,14 @@ export const ImageBlock = ({ service }: { service: Service }) => (
 );
 
 export const TitleBlock = ({ service }: { service: Service }) => (
-  <Card className={commonCardStyle}>
-    <CardHeader>
-      <CardTitle className={commonTitleStyle}>{service.title}</CardTitle>
-      <CardDescription className={commonDescriptionStyle}>{service.description}</CardDescription>
-    </CardHeader>
-  </Card>
+  <h2 className={commonTitleStyle}>{service.title}</h2>
 );
 
 export const DescriptionBlock = ({ service }: { service: Service }) => (
-  <Card className={commonCardStyle}>
-    <CardContent className="py-3">
-      <p className={commonDescriptionStyle}>{service.description}</p>
-    </CardContent>
-  </Card>
+  <div className='mb-3'>
+    <p className={commonDescriptionStyle}>{service.description}</p>
+  </div>
+
 );
 
 export const WorkExperienceBlock = ({ service }: { service: Service }) => (
@@ -69,6 +63,15 @@ export const Project = ({ service }: { service: Service }) => (
 );
 
 export const Service = ({ service }: { service: Service }) => (
+  <Card className={commonCardStyle}>
+    <CardHeader>
+      <CardTitle className={commonTitleStyle}>{service.title}</CardTitle>
+      <CardDescription className={commonDescriptionStyle}>{service.description}</CardDescription>
+    </CardHeader>
+  </Card>
+);
+
+export const Simple = ({ service }: { service: Service }) => (
   <Card className={commonCardStyle}>
     <CardHeader>
       <CardTitle className={commonTitleStyle}>{service.title}</CardTitle>

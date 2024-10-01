@@ -11,7 +11,7 @@ export function CreativeNavbar() {
           <Link href={`/dashboard/page`}>
             <Button
               variant="outline"
-              className="bg-zinc-900 text-white border-none flex gap-2 md:gap-0 items-center md:flex-row"
+                className="bg-white text-slate-950 w-full rounded-xl border border- hover:bg-zinc-100 hover:shadow-lg dark:bg-slate-800 dark:text-white dark:border-zinc-700 dark:hover:bg-slate-700 dark:hover:shadow-lg transition-all duration-300"
             >
               <User className="w-4 h-4 mb-1 md:mr-2 md:mb-0" />
               <span className="">PAGE</span>
@@ -21,7 +21,7 @@ export function CreativeNavbar() {
           <Link href={`/dashboard/style`}>
             <Button
               variant="outline"
-              className="bg-zinc-900 text-white border-none flex gap-2 md:gap-0 items-center md:flex-row"
+                className="bg-white text-slate-950 w-full rounded-xl border border- hover:bg-zinc-100 hover:shadow-lg dark:bg-slate-800 dark:text-white dark:border-zinc-700 dark:hover:bg-slate-700 dark:hover:shadow-lg transition-all duration-300"
             >
               <Paintbrush className="w-4 h-4 mb-1 md:mr-2 md:mb-0" />
               <span className="">STYLE</span>
@@ -31,7 +31,7 @@ export function CreativeNavbar() {
           <Link href={`/dashboard/settings`}>
             <Button
               variant="outline"
-              className="bg-zinc-900 text-white border-none flex gap-2 md:gap-0 items-center md:flex-row"
+                className="bg-white text-slate-950 w-full rounded-xl border border- hover:bg-zinc-100 hover:shadow-lg dark:bg-slate-800 dark:text-white dark:border-zinc-700 dark:hover:bg-slate-700 dark:hover:shadow-lg transition-all duration-300"
             >
               <Settings className="w-4 h-4 mb-1 md:mr-2 md:mb-0" />
               <span className="">SETTINGS</span>

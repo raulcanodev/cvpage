@@ -1,4 +1,4 @@
-import { ImageBlock, TitleBlock, DescriptionBlock, WorkExperienceBlock, Project } from './BlocksComponents';
+import { ImageBlock, TitleBlock, DescriptionBlock, WorkExperienceBlock, Project, Simple } from './BlocksComponents';
 
 interface Service {
   title?: string;
@@ -20,7 +20,7 @@ interface BlocksProps {
 }
 
 export const Blocks = ({ filteredServices, pageColor, pageFont }: BlocksProps) => {
-  
+
   const renderServiceBlock = (service: Service) => {
     switch (service.category) {
       case 'image':
@@ -35,6 +35,8 @@ export const Blocks = ({ filteredServices, pageColor, pageFont }: BlocksProps) =
         return <Project service={service}/>;
       case 'service':
         return <div>Service Block</div>;
+      case 'simple':
+        return <Simple service={service}/>;
       default:
         return null;
     }

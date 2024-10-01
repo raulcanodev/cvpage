@@ -1,13 +1,10 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Card, CardContent, Input, Switch, Textarea, Calendar } from '@/components/ui';
+import { Card, CardContent, Input, Switch, Textarea } from '@/components/ui';
 import { GripVertical } from 'lucide-react';
 import {
   ConfirmDeleteService,
-  ServicePriceDialog,
   BlockCategorySelect,
-  DateJob2,
-  DateJobPickerWithRange,
   BlockImage,
 } from '../ui';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
@@ -20,11 +17,11 @@ interface ServiceCardProps {
   subtitle?: string;
   description?: string;
   category?: string;
-  price?: number;
   active?: boolean;
   date?: any;
   image?: string;
   link?: string;
+  price?: number;
 }
 
 export function BlockCard({
@@ -40,56 +37,54 @@ export function BlockCard({
   date,
 }: ServiceCardProps) {
   return (
-    <>
-      <Card className="bg-zinc-900 border-none overflow-hidden rounded-2xl mb-2">
-        <CardContent className="p-4">
-          <div className="flex items-center space-x-3">
-            <GripVertical className="w-5 h-5 text-zinc-400 cursor-pointer" />
+    <Card className={`border overflow-hidden rounded-2xl mb-2 dark:bg-zinc-900 bg-zinc-100`}>
+      <CardContent className="p-4">
+        <div className="flex items-center space-x-3">
+          <GripVertical className="w-5 h-5 text-zinc-400 cursor-pointer" />
 
-            <div className="flex-1">
-              {!category && <BlockCategorySelect serviceId={serviceId} />}
-              {category === 'title' && <TitleCard serviceId={serviceId} title={title} />}
-              {category === 'project' && (
-                <ProjectCard
-                  serviceId={serviceId}
-                  title={title}
-                  description={description}
-                  active={active}
-                />
-              )}
-              {category === 'service' && (
-                <ServiceCard
-                  serviceId={serviceId}
-                  title={title}
-                  description={description}
-                  active={active}
-                />
-              )}
-              {category === 'textarea' && (
-                <TextAreaCard serviceId={serviceId} description={description} />
-              )}
-              {category === 'workexperience' && (
-                <WorkExperience
-                  serviceId={serviceId}
-                  title={title}
-                  description={description}
-                  active={active}
-                  date={date}
-                />
-              )}
-              {category === 'image' && <ImageCard serviceId={serviceId} image={image} />}
-              {/* <BlockCategorySelect serviceId={serviceId} /> */}
-              {/* <TitleCard serviceId={serviceId} title={title} /> */}
-              {/* <ProjectCard serviceId={serviceId} title={title} description={description} category={category} active={active} /> */}
-            </div>
+          <div className="flex-1">
+            {!category && <BlockCategorySelect serviceId={serviceId} />}
+            {category === 'title' && <TitleCard serviceId={serviceId} title={title} />}
+            {category === 'project' && (
+              <ProjectCard
+                serviceId={serviceId}
+                title={title}
+                description={description}
+                active={active}
+              />
+            )}
+            {category === 'service' && (
+              <ServiceCard
+                serviceId={serviceId}
+                title={title}
+                description={description}
+                active={active}
+              />
+            )}
+            {category === 'textarea' && (
+              <TextAreaCard serviceId={serviceId} description={description} />
+            )}
+            {category === 'workexperience' && (
+              <WorkExperience
+                serviceId={serviceId}
+                title={title}
+                description={description}
+                active={active}
+                date={date}
+              />
+            )}
+            {category === 'image' && <ImageCard serviceId={serviceId} image={image} />}
+            {category === 'simple' && (
+              <Simple serviceId={serviceId} title={title} description={description} />
+            )}
           </div>
-        </CardContent>
-      </Card>
-    </>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
-export function ProjectCard({ serviceId, title, description, active, link }: ServiceCardProps) {
+export function ProjectCard({ serviceId, title, description, active }: ServiceCardProps) {
   const { updateUserService } = useUserContext();
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
@@ -114,7 +109,7 @@ export function ProjectCard({ serviceId, title, description, active, link }: Ser
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center space-x-3">
           <Input
-            className="font-semibold bg-transparent border-none text-white focus:ring-0 h-auto w-full"
+            className="font-semibold bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto w-full"
             placeholder="Project"
             value={titleText}
             onChange={(e) => setTitleText(e.target.value)}
@@ -129,7 +124,7 @@ export function ProjectCard({ serviceId, title, description, active, link }: Ser
 
       {/* Description */}
       <Input
-        className="bg-zinc-900 text-white border-none focus:ring-0 mb-4 w-full h-auto"
+        className="bg-transparent text-gray-900 dark:text-white border-none focus:ring-0 mb-4 w-full h-auto"
         placeholder="Description"
         value={descriptionText}
         onChange={(e) => setDescriptionText(e.target.value)}
@@ -171,7 +166,7 @@ export function ServiceCard({ serviceId, title, description, active }: ServiceCa
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center space-x-3">
           <Input
-            className="font-semibold bg-transparent border-none text-white focus:ring-0 h-auto w-full"
+            className="font-semibold bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto w-full"
             placeholder="Service"
             value={titleText}
             onChange={(e) => setTitleText(e.target.value)}
@@ -186,7 +181,7 @@ export function ServiceCard({ serviceId, title, description, active }: ServiceCa
 
       {/* Description */}
       <Input
-        className="bg-zinc-900 text-white border-none focus:ring-0 mb-4 w-full h-auto"
+        className="bg-transparent text-gray-900 dark:text-white border-none focus:ring-0 mb-4 w-full h-auto"
         placeholder="Description"
         value={descriptionText}
         onChange={(e) => setDescriptionText(e.target.value)}
@@ -195,7 +190,7 @@ export function ServiceCard({ serviceId, title, description, active }: ServiceCa
       {/* Bottom - Actions */}
       <div className="flex items-center justify-between text-zinc-400">
         <div className="flex gap-1 align-center">
-          <ServicePriceDialog serviceId={serviceId} />
+          {/* <ServicePriceDialog serviceId={serviceId} /> */}
         </div>
         <ConfirmDeleteService serviceId={serviceId} />
       </div>
@@ -218,7 +213,7 @@ export function TitleCard({ serviceId, title }: ServiceCardProps) {
   return (
     <div className="flex items-center">
       <Input
-        className="font-semibold bg-transparent border-none text-white focus:ring-0 h-auto w-full"
+        className="font-semibold bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto w-full"
         placeholder="Service title..."
         value={titleText}
         onChange={(e) => setTitleText(e.target.value)}
@@ -238,12 +233,12 @@ export function TextAreaCard({ serviceId, description }: ServiceCardProps) {
     if (debouncedTextArea !== description) {
       updateUserService(serviceId, { description: debouncedTextArea });
     }
-  }, [description, serviceId, debouncedTextArea, updateUserService]);
+  }, [debouncedTextArea, serviceId, description, updateUserService]);
 
   return (
     <>
       <Textarea
-        className="dark:bg-zinc-900 border-none"
+        className="bg-transparent border-none text-gray-900 dark:text-white"
         value={textArea}
         onChange={(e) => setTextArea(e.target.value)}
       />
@@ -271,6 +266,117 @@ export function WorkExperience({
   const [debouncedTitle] = useDebounce(titleText, 500);
   const [debouncedDescription] = useDebounce(descriptionText, 500);
   const [debouncedSubtitle] = useDebounce(subTitleText, 500);
+  const [debouncedDate] = useDebounce(dateText, 500);
+
+  useEffect(() => {
+    if (debouncedTitle !== title) {
+      updateUserService(serviceId, { title: debouncedTitle });
+    }
+  }, [debouncedTitle, serviceId, title, updateUserService]);
+
+  useEffect(() => {
+    if (debouncedDescription !== description) {
+      updateUserService(serviceId, { description: debouncedDescription });
+    }
+  }, [debouncedDescription, serviceId, description, updateUserService]);
+
+  useEffect(() => {
+    if (debouncedSubtitle !== subtitle) {
+      updateUserService(serviceId, { subtitle: debouncedSubtitle });
+    }
+  }, [debouncedSubtitle, serviceId, subtitle, updateUserService]);
+
+  useEffect(() => {
+    if (debouncedDate !== date) {
+      updateUserService(serviceId, { date: debouncedDate });
+    }
+  }, [debouncedDate, serviceId, date, updateUserService]);
+
+  return (
+    <>
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center space-x-3">
+          <Input
+            className="font-semibold bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto w-full"
+            placeholder="Job Title"
+            value={titleText}
+            onChange={(e) => setTitleText(e.target.value)}
+          />
+          <Input
+            className="bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto w-full"
+            placeholder="Subtitle"
+            value={subTitleText}
+            onChange={(e) => setSubTitleText(e.target.value)}
+          />
+        </div>
+        <Switch
+          className="data-[state=checked]:bg-slate-300"
+          checked={active}
+          onCheckedChange={(e) => updateUserService(serviceId, { active: e })}
+        />
+      </div>
+
+      {/* Description */}
+      <Textarea
+        className="bg-transparent border-none text-gray-900 dark:text-white"
+        placeholder="Description"
+        value={descriptionText}
+        onChange={(e) => setDescriptionText(e.target.value)}
+      />
+      <Input
+        className="bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto mb-4"
+        placeholder="Date"
+        value={dateText}
+        onChange={(e) => setDateText(e.target.value)}
+      />
+
+      {/* Bottom - Actions */}
+      <div className="flex items-center justify-between text-zinc-400">
+        <ConfirmDeleteService serviceId={serviceId} />
+      </div>
+    </>
+  );
+}
+
+export function ImageCard({ serviceId, image }: ServiceCardProps) {
+  const { updateUserService } = useUserContext();
+  const [imageUrl, setImageUrl] = useState(image || '');
+
+  const [debouncedImageUrl] = useDebounce(imageUrl, 500);
+
+  useEffect(() => {
+    if (debouncedImageUrl !== image) {
+      updateUserService(serviceId, { image: debouncedImageUrl });
+    }
+  }, [debouncedImageUrl, serviceId, image, updateUserService]);
+
+  return (
+    <div className="flex items-center">
+      <Image
+        src={imageUrl}
+        alt="Service Image"
+        width={100}
+        height={100}
+        className="rounded-lg"
+      />
+      <Input
+        className="bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto ml-4"
+        placeholder="Image URL"
+        value={imageUrl}
+        onChange={(e) => setImageUrl(e.target.value)}
+      />
+      <ConfirmDeleteService serviceId={serviceId} />
+    </div>
+  );
+}
+
+export function Simple({ serviceId, title, description }: ServiceCardProps) {
+  const { updateUserService } = useUserContext();
+  const [titleText, setTitleText] = useState(title || '');
+  const [descriptionText, setDescriptionText] = useState(description || '');
+
+  const [debouncedTitle] = useDebounce(titleText, 500);
+  const [debouncedDescription] = useDebounce(descriptionText, 500);
 
   useEffect(() => {
     if (debouncedTitle !== title) {
@@ -286,60 +392,19 @@ export function WorkExperience({
 
   return (
     <>
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center space-x-3">
-          <Input
-            className="font-semibold bg-transparent border-none text-white focus:ring-0 h-auto w-full"
-            placeholder="Role"
-            value={titleText}
-            onChange={(e) => setTitleText(e.target.value)}
-          />
-          <Input
-            className="font-semibold bg-transparent border-none text-white focus:ring-0 h-auto w-full"
-            placeholder="Company"
-            value={subTitleText}
-            onChange={(e) => setSubTitleText(e.target.value)}
-          />
-        </div>
-        <Switch
-          className="data-[state=checked]:bg-slate-300"
-          checked={active}
-          onCheckedChange={(e) => updateUserService(serviceId, { active: e })}
-        />
-      </div>
-
+      <Input
+        className="font-semibold bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto mb-2"
+        placeholder="Title"
+        value={titleText}
+        onChange={(e) => setTitleText(e.target.value)}
+      />
       <Textarea
-        className="bg-zinc-900 text-white border-none focus:ring-0 mb-4 w-full h-auto"
+        className="bg-transparent border-none text-gray-900 dark:text-white"
         placeholder="Description"
         value={descriptionText}
         onChange={(e) => setDescriptionText(e.target.value)}
       />
-      <div className="flex items-center justify-between text-zinc-400">
-        <div className="flex gap-1 align-center">
-          {/* <ServicePriceDialog serviceId={serviceId} /> */}
-          <DateJobPickerWithRange serviceId={serviceId} />
-          {/* <DateJob2 serviceId={serviceId}/> */}
-        </div>
-        <ConfirmDeleteService serviceId={serviceId} />
-      </div>
-    </>
-  );
-}
-
-export function ImageCard({ serviceId, image }: ServiceCardProps) {
-  return (
-    <>
-      <Image
-        className="w-full object-cover object-top rounded-xl"
-        width={1280}
-        height={720}
-        src={image || 'https://fakeimg.pl/1280x720?font=noto'}
-        alt="Block Image"
-      />
-      <div className="flex justify-between mt-4">
-        <BlockImage serviceId={serviceId} />
-        <ConfirmDeleteService serviceId={serviceId} />
-      </div>
+      <ConfirmDeleteService serviceId={serviceId} />
     </>
   );
 }

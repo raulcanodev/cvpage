@@ -60,7 +60,7 @@ export default function Login() {
   return (
     <>
   
-          <h2 className="mt-6 text-3xl font-extrabold">Sign in to your account</h2>
+          <h2 className="mt-6 text-3xl font-extrabold">Welcome back</h2>
           <p className="mt-2 text-sm text-zinc-400">
             Or{' '}
             <Link href="/auth/register" className="font-medium text-white hover:underline">

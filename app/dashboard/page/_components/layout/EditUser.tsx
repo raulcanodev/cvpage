@@ -90,12 +90,12 @@ export function EditUser() {
 
   return (
     <>
-      <div className="bg-zinc-100 dark:bg-zinc-900 p-6 rounded-2xl">
+      <div className="bg-zinc-100 dark:bg-zinc-900 p-6 rounded-2xl border">
         <div className="flex items-center space-x-2 mb-4">
           <UserAvatar />
           <div>
             <Input
-              className="text-2xl font-bold text-white bg-zinc-900 border-zinc-900 focus:ring-transparent"
+              className="bg-transparent border-none text-2xl font-bold text-gray-900 dark:text-white focus:ring-transparent"
               value={nameInput}
               placeholder="John Doe"
               onChange={handleNameChange}
@@ -104,7 +104,7 @@ export function EditUser() {
         </div>
 
         <Textarea
-          className="bg-zinc-900 text-white border-zinc-900 my-7 focus:ring-0"
+          className="bg-transparent text-gray-900 dark:text-white border-none my-7 focus:ring-0"
           value={descriptionInput}
           placeholder="I enjoy the purple cats that dance under the moonlight while eating ice cream"
           onChange={handleDescriptionChange}
@@ -120,7 +120,7 @@ export function EditUser() {
           </div>
 
           <div className="flex row">
-            <div className="flex rounded-md shadow-sm">
+            <div className="flex rounded-md">
               <div className="relative flex-grow">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-0 text-gray-400">
                   hitme.to/
@@ -130,7 +130,7 @@ export function EditUser() {
                   placeholder="yourname"
                   value={domainInput}
                   onChange={handleDomainChange}
-                  className="pl-[4.3rem] bg-zinc-900 border-none text-white"
+                  className="pl-[4.3rem] bg-transparent border-none text-gray-900 dark:text-white"
                 />
               </div>
             </div>
