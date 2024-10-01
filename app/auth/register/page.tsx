@@ -140,6 +140,7 @@ export default function Register() {
               <GoogleSignInButton />
             </div>
           </div>
+          <AcceptConditions />
 
 
     </>

@@ -68,7 +68,7 @@ export default function Login() {
             </Link>
           </p>
 
-          <form onSubmit={handleSubmit} className="mt-4 space-y-6">
+          <form onSubmit={handleSubmit} className="mt-8 space-y-6">
             <div>
               <Label htmlFor="email" className="block text-sm font-medium">
                 Email address

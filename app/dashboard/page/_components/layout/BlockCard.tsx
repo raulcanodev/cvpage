@@ -184,7 +184,7 @@ export function ServiceCard({ serviceId, title, description, active, link, price
       </div>
 
       {/* Description */}
-      <Input
+      <Textarea
         className="bg-transparent text-gray-900 dark:text-white border-none focus:ring-0 mb-4 w-full h-auto"
         placeholder="Description"
         value={descriptionText}
