@@ -37,7 +37,7 @@ export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {
 
   return (
       <Select onValueChange={handleCategoryChange}>
-        <SelectTrigger className=" bg-zinc-900 border-none">
+        <SelectTrigger className=" bg-transparent border-none">
           <SelectValue placeholder="Select block" />
         </SelectTrigger>
         <SelectContent>

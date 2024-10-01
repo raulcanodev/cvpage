@@ -29,10 +29,10 @@ export function EditUserServices() {
       const newService = await createNewService();
       setServicesState((prevServices) => [...prevServices, newService]);
       await updateUserData(_id, { services: [...servicesState, newService] });
-
+      toast.success('Block added successfully 🎉');
       setTimeout(() => {
         setIsButtonDisabled(false);
-      }, 300); 
+      }, 300);
     } catch (error) {
       console.error('Error adding service:', error);
     }
@@ -52,10 +52,10 @@ export function EditUserServices() {
   return (
     <>
       <Button
-  className="bg-white text-slate-950 w-full rounded-xl border border- hover:bg-zinc-100 hover:shadow-lg dark:bg-slate-800 dark:text-white dark:border-zinc-700 dark:hover:bg-slate-700 dark:hover:shadow-lg transition-all duration-300"
-  onClick={handleAddService}
-  disabled={isButtonDisabled}
->
+        className="bg-white text-slate-950 w-full rounded-xl border border- hover:bg-zinc-100 hover:shadow-lg dark:bg-slate-800 dark:text-white dark:border-zinc-700 dark:hover:bg-slate-700 dark:hover:shadow-lg transition-all duration-300"
+        onClick={handleAddService}
+        disabled={isButtonDisabled}
+      >
         <Plus className="w-4 h-4 mx-1" /> ADD BLOCK
       </Button>
       {services && (
