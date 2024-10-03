@@ -10,7 +10,7 @@ import {
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { useDebounce } from 'use-debounce';
 import Image from 'next/image';
-import { ServicePriceDialog, LinkBlockDialog } from '../ui/';
+import { ServicePriceDialog, LinkBlockDialog, DateJob2 } from '../ui/';
 
 interface ServiceCardProps {
   serviceId: string;
@@ -341,6 +341,7 @@ export function WorkExperience({
       />
 
       <div className="flex items-center justify-between text-zinc-400">
+      <DateJob2 serviceId={serviceId} />
         <ConfirmDeleteService serviceId={serviceId} />
       </div>
     </>
