@@ -2,15 +2,12 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, Input, Switch, Textarea } from '@/components/ui';
 import { GripVertical } from 'lucide-react';
-import {
-  ConfirmDeleteService,
-  BlockCategorySelect,
-  BlockImage,
-} from '../ui';
+import { ConfirmDeleteService, BlockCategorySelect, BlockImage } from '../ui';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { useDebounce } from 'use-debounce';
 import Image from 'next/image';
-import { ServicePriceDialog, LinkBlockDialog, DateJob2 } from '../ui/';
+import { ServicePriceDialog, LinkBlockDialog, BlockDate } from '../ui/';
+import { sub } from 'date-fns';
 
 interface ServiceCardProps {
   serviceId: string;
@@ -19,7 +16,7 @@ interface ServiceCardProps {
   description?: string;
   category?: string;
   active?: boolean;
-  data?: any;
+  date?: any;
   image?: string;
   link?: string;
   price?: string;
@@ -37,7 +34,7 @@ export function BlockCard({
   link,
   price,
   location,
-  data,
+  date,
 }: ServiceCardProps) {
   return (
     <Card className={`border overflow-hidden rounded-2xl mb-2 dark:bg-zinc-900 bg-zinc-100`}>
@@ -74,7 +71,7 @@ export function BlockCard({
                 serviceId={serviceId}
                 title={title}
                 description={description}
-                data={data}
+                date={date}
                 subtitle={subtitle}
                 location={location}
                 active={active}
@@ -91,7 +88,7 @@ export function BlockCard({
   );
 }
 
-export function ProjectCard({ serviceId, title, description, active }: ServiceCardProps) {
+export function ProjectCard({ serviceId, title, description, active, link }: ServiceCardProps) {
   const { updateUserService } = useUserContext();
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
@@ -140,7 +137,7 @@ export function ProjectCard({ serviceId, title, description, active }: ServiceCa
       {/* Bottom - Actions */}
       <div className="flex items-center justify-between text-zinc-400">
         <div className="flex gap-1 align-center">
-          <LinkBlockDialog serviceId={serviceId} />
+          <LinkBlockDialog serviceId={serviceId} serviceLink={link || ''} />
         </div>
         <ConfirmDeleteService serviceId={serviceId} />
       </div>
@@ -148,8 +145,14 @@ export function ProjectCard({ serviceId, title, description, active }: ServiceCa
   );
 }
 
-export function ServiceCard({ serviceId, title, description, active, link, price }: ServiceCardProps) {
-
+export function ServiceCard({
+  serviceId,
+  title,
+  description,
+  active,
+  link,
+  price,
+}: ServiceCardProps) {
   const { updateUserService } = useUserContext();
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
@@ -265,19 +268,19 @@ export function WorkExperience({
   description,
   active,
   location,
-  data,
+  date,
 }: ServiceCardProps) {
   const { updateUserService } = useUserContext();
 
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
   const [subTitleText, setSubTitleText] = useState(subtitle || '');
-  const [dataText, setDateText] = useState(data || '');
+  const [dateText, setDateText] = useState(date || '');
 
   const [debouncedTitle] = useDebounce(titleText, 500);
   const [debouncedDescription] = useDebounce(descriptionText, 500);
   const [debouncedSubtitle] = useDebounce(subTitleText, 500);
-  const [debouncedDate] = useDebounce(dataText, 500);
+  const [debouncedDate] = useDebounce(dateText, 500);
 
   useEffect(() => {
     if (debouncedTitle && debouncedTitle !== title) {
@@ -298,58 +301,66 @@ export function WorkExperience({
   }, [debouncedSubtitle, serviceId, updateUserService, subtitle]);
 
   useEffect(() => {
-    if (debouncedDate && debouncedDate !== data) {
+    if (debouncedDate && debouncedDate !== date) {
       updateUserService(serviceId, { date: debouncedDate });
     }
   }, [debouncedDate, serviceId, updateUserService]); //! LOOP INFINITE HERE
 
   return (
     <>
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center space-x-3">
-          <Input
-            className="font-semibold bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto w-full"
-            placeholder="Job Title"
-            value={titleText}
-            onChange={(e) => setTitleText(e.target.value)}
-          />
-          <Input
-            className="bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto w-full"
-            placeholder="Subtitle"
-            value={subTitleText}
-            onChange={(e) => setSubTitleText(e.target.value)}
-          />
-        </div>
-        <Switch
-          className="data-[state=checked]:bg-slate-300"
-          checked={active}
-          onCheckedChange={(e) => updateUserService(serviceId, { active: e })}
-        />
-      </div>
-
-      <Textarea
-        className="bg-transparent border-none text-gray-900 dark:text-white"
-        placeholder="Description"
-        value={descriptionText}
-        onChange={(e) => setDescriptionText(e.target.value)}
-      />
+  <div className="flex flex-col md:flex-row items-start justify-between mb-2 w-full">
+    {/* Role Input */}
+    <div className="relative flex-grow md:mr-2">
+      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+        Role
+      </span>
       <Input
-        className="bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto mb-4"
-        placeholder="Date"
-        value={dataText}
-        onChange={(e) => setDateText(e.target.value)}
+        type="text"
+        placeholder="yourname"
+        value={titleText}
+        onChange={(e) => setTitleText(e.target.value)}
+        className="pl-[3.3rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
       />
+    </div>
 
-      <div className="flex items-center justify-between text-zinc-400">
-      <DateJob2 serviceId={serviceId} />
-        <ConfirmDeleteService serviceId={serviceId} />
-      </div>
-    </>
+    {/* Company Input */}
+    <div className="relative flex-grow md:ml-2">
+      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+        Company
+      </span>
+      <Input
+        type="text"
+        placeholder="yourname"
+        value={subTitleText}
+        onChange={(e) => setSubTitleText(e.target.value)}
+        className="pl-[5.6rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
+      />
+    </div>
+
+    {/* Switch Component */}
+    {/* <Switch
+      className="data-[state=checked]:bg-slate-300 mt-3 md:mt-0"
+      checked={active}
+      onCheckedChange={(e) => updateUserService(serviceId, { active: e })}
+    /> */}
+  </div>
+
+    {/* Description Textarea */}
+    <Textarea
+      className="bg-transparent border-none text-gray-900 dark:text-white"
+      placeholder="Description"
+      value={descriptionText}
+      onChange={(e) => setDescriptionText(e.target.value)}
+    />
+
+    {/* Block Date and Delete Button */}
+    <div className="flex items-center justify-between text-zinc-400 mt-4">
+      <BlockDate serviceId={serviceId} />
+      <ConfirmDeleteService serviceId={serviceId} />
+    </div>
+  </>
   );
 }
-
-
-
 
 export function ImageCard({ serviceId, image }: ServiceCardProps) {
   const { updateUserService } = useUserContext();
@@ -365,13 +376,7 @@ export function ImageCard({ serviceId, image }: ServiceCardProps) {
 
   return (
     <div className="flex items-center">
-      <Image
-        src={imageUrl}
-        alt="Service Image"
-        width={100}
-        height={100}
-        className="rounded-lg"
-      />
+      <Image src={imageUrl} alt="Service Image" width={100} height={100} className="rounded-lg" />
       <Input
         className="bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto ml-4"
         placeholder="Image URL"

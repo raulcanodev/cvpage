@@ -11,7 +11,7 @@ interface Service {
   description?: string;
   category?: string;
   link?: string;
-  data?: string;
+  date?: string;
   location?: string;
   image?: string;
   active?: boolean;
@@ -56,8 +56,8 @@ export const WorkExperienceBlock = ({ service }: { service: Service }) => (
         <span className="text-sm text-gray-500">{service.subtitle}</span>
       )}
     </div>
-    {service.data && (
-      <p className="text-xs text-gray-500 mb-1">{service.data}</p>
+    {service.date && (
+      <p className="text-xs text-gray-500 mb-1">{service.date}</p>
     )}
     {service.location && (
       <p className="text-xs text-gray-500 mb-1">{service.location}</p>

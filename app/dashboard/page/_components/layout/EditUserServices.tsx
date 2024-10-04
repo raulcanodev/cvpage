@@ -76,7 +76,7 @@ export function EditUserServices() {
                   active={service.active}
                   link={service.link}
                   price={service.price}
-                  data={service.data}
+                  date={service.date}
                   location={service.location}
                 />
               </Reorder.Item>

@@ -10,6 +10,7 @@ export interface Service {
   active?: boolean;
   image?: string;
   location?: string;
-  data?: string;
+  date?: string;
+  dateEnd?: string;
   serviceId: string;
 }

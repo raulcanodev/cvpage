@@ -8,7 +8,8 @@ interface Service {
   description: string;
   category: string;
   link: string;
-  data: string;
+  date: string;
+  dateEnd: string;
   location: string;
   image: string;
   active: boolean;
@@ -63,7 +64,10 @@ const ServiceSchema = new Schema<Service>(
     link: {
       type: String,
     },
-    data: {
+    date: {
+      type: String,
+    },
+    dateEnd: {
       type: String,
     },
     location: {
