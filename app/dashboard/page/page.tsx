@@ -28,7 +28,6 @@ export default function DashboardEditProfile() {
         />
       </div>
     );
-    
   }
 
   return (
