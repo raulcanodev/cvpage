@@ -8,11 +8,13 @@ import { AcceptConditions, GoogleSignInButton, GithubSignInButton } from '../com
 import { register } from '@/actions';
 import { LineWave } from 'react-loader-spinner';
 import { toast } from 'sonner';
+import { useTheme } from 'next-themes';
 
 export default function Register() {
   const router = useRouter();
   const ref = useRef<HTMLFormElement>(null);
   const { data: session, status } = useSession();
+  const { theme } = useTheme();
 
   const handleSubmit = async (formData: FormData) => {
     const email = formData.get('email')?.toString();
@@ -52,7 +54,7 @@ export default function Register() {
             visible={true}
             height="100"
             width="100"
-            color="white"
+            color='gray'
             ariaLabel="line-wave-loading"
             wrapperStyle={{}}
             wrapperClass=""
@@ -68,17 +70,17 @@ export default function Register() {
   return (
     <>
 
-          <h2 className="mt-6 text-3xl font-extrabold">Create an account</h2>
+          <h2 className="mt-6 text-3xl font-extrabold text-zinc-950 dark:text-white">Create an account</h2>
           <p className="mt-2 text-sm text-zinc-400">
             Or{' '}
-            <Link href="/auth/login" className="font-medium text-white hover:underline">
+            <Link href="/auth/login" className="font-medium hover:underline dark:text-white text-zinc-950">
               sign in to your account
             </Link>
           </p>
 
           <form action={handleSubmit} className="mt-8 space-y-6">
             <div>
-              <Label htmlFor="email" className="block text-sm font-medium">
+              <Label htmlFor="email" className="block text-sm font-medium text-zinc-500 dark:text-zinc-200">
                 Email address
               </Label>
               <Input
@@ -86,12 +88,12 @@ export default function Register() {
                 type="email"
                 name="email"
                 required
-                className="mt-1 block w-full bg-zinc-900 border-zinc-700 text-white"
+                className="mt-1 block w-full dark:bg-zinc-900 dark:border-zinc-700 border-zinc-300 text-black dark:text-white"
               />
             </div>
 
             <div>
-              <Label htmlFor="password" className="block text-sm font-medium">
+              <Label htmlFor="password" className="block text-sm font-medium text-zinc-500 dark:text-zinc-200">
                 Password
               </Label>
               <Input
@@ -99,12 +101,12 @@ export default function Register() {
                 type="password"
                 name="password"
                 required
-                className="mt-1 block w-full bg-zinc-900 border-zinc-700 text-white"
+                className="mt-1 block w-full dark:bg-zinc-900 dark:border-zinc-700 border-zinc-300 text-black dark:text-white"
               />
             </div>
 
             <div>
-              <Label htmlFor="repeat-password" className="block text-sm font-medium">
+              <Label htmlFor="repeat-password" className="block text-sm font-medium text-zinc-500 dark:text-zinc-200">
                 Repeat Password
               </Label>
               <Input
@@ -112,7 +114,7 @@ export default function Register() {
                 type="password"
                 name="repeat-password"
                 required
-                className="mt-1 block w-full bg-zinc-900 border-zinc-700 text-white"
+                className="mt-1 block w-full dark:bg-zinc-900 dark:border-zinc-700 border-zinc-300 text-black dark:text-white"
               />
             </div>
 
@@ -120,7 +122,7 @@ export default function Register() {
               <p className="text-red-500 text-sm">{passwordError}</p>
             )} */}
 
-            <Button type="submit" className="w-full bg-white text-black hover:bg-zinc-200">
+            <Button type="submit" className="w-full">
               Sign Up with Email
             </Button>
           </form>
@@ -131,7 +133,7 @@ export default function Register() {
                 <div className="w-full border-t border-zinc-700"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-black text-zinc-400">Or continue with</span>
+                <span className="px-2 bg-zinc-50 dark:bg-zinc-950 text-zinc-700 dark:text-zinc-400">Or continue with</span>
               </div>
             </div>
 
@@ -141,8 +143,6 @@ export default function Register() {
             </div>
           </div>
           <AcceptConditions />
-
-
     </>
   );
 }

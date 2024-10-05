@@ -8,7 +8,7 @@ export function SideBanner() {
   >
     <div>
       <Link href="/" className="text-2xl font-bold">
-        hitme.to
+        Cvpage
       </Link>
     </div>
     <div>

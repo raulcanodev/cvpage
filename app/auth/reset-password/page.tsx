@@ -60,10 +60,10 @@ export default function ResetPassword() {
 
   return (
     <>
-      <h2 className="mt-6 text-3xl font-extrabold">Reset your password</h2>
+      <h2 className="mt-6 text-3xl font-extrabold text-zinc-950 dark:text-white">Reset your password</h2>
       <form onSubmit={handleResetPassword} className="mt-4 space-y-6">
         <div>
-          <Label htmlFor="password" className="block text-sm font-medium">
+          <Label htmlFor="password" className="block text-sm font-medium text-zinc-500 dark:text-zinc-200">
             New Password
           </Label>
           <Input
@@ -73,12 +73,12 @@ export default function ResetPassword() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="mt-1 block w-full bg-zinc-900 border-zinc-700 text-white"
+            className="mt-1 block w-full dark:bg-zinc-900 dark:border-zinc-700 border-zinc-300 text-black dark:text-white"
           />
         </div>
 
         <div>
-          <Label htmlFor="repeat-password" className="block text-sm font-medium">
+          <Label htmlFor="repeat-password" className="block text-sm font-medium text-zinc-500 dark:text-zinc-200">
             Repeat New Password
           </Label>
           <Input
@@ -88,17 +88,17 @@ export default function ResetPassword() {
             value={repeatPassword}
             onChange={(e) => setRepeatPassword(e.target.value)}
             required
-            className="mt-1 block w-full bg-zinc-900 border-zinc-700 text-white"
+            className="mt-1 block w-full dark:bg-zinc-900 dark:border-zinc-700 border-zinc-300 text-black dark:text-white"
           />
         </div>
 
-        <Button type="submit" className="w-full bg-white text-black hover:bg-zinc-200">
+        <Button type="submit" className="w-full">
           Reset Password
         </Button>
 
         <div className="flex items-center justify-between">
           <div className="text-sm">
-            <Link href="/auth/login" className="font-medium text-white hover:underline">
+            <Link href="/auth/login" className="font-medium hover:underline dark:text-white text-zinc-950">
               Back to log in
             </Link>
           </div>

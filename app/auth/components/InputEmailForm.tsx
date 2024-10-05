@@ -44,10 +44,10 @@ export function InputEmailForm() {
 
   return (
     <>
-      <h2 className="mt-6 text-3xl font-extrabold">Reset your password</h2>
+      <h2 className="mt-6 text-3xl font-extrabold text-zinc-950 dark:text-white">Reset your password</h2>
       <form onSubmit={handleSubmit} className="mt-4 space-y-6">
         <div>
-          <Label htmlFor="email" className="block text-sm font-medium">
+          <Label htmlFor="email" className="block text-sm font-medium text-zinc-500 dark:text-zinc-200">
             Email address
           </Label>
           <Input
@@ -57,17 +57,17 @@ export function InputEmailForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="mt-1 block w-full bg-zinc-900 border-zinc-700 text-white"
+            className="mt-1 block w-full dark:bg-zinc-900 dark:border-zinc-700 border-zinc-300 text-black dark:text-white"
           />
         </div>
 
-        <Button type="submit" className="w-full bg-white text-black hover:bg-zinc-200">
+        <Button type="submit" className="w-full">
           Send Email
         </Button>
 
         <div className="flex items-center justify-between">
           <div className="text-sm">
-            <Link href="/auth/login" className="font-medium text-white hover:underline">
+            <Link href="/auth/login" className="font-medium hover:underline dark:text-white text-zinc-950">
               Sign in to your account
             </Link>
           </div>

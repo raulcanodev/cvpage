@@ -18,7 +18,7 @@ export default function DashboardEditProfile() {
           visible={true}
           height="100"
           width="100"
-          color="white"
+          color="gray"
           ariaLabel="line-wave-loading"
           wrapperStyle={{}}
           wrapperClass=""

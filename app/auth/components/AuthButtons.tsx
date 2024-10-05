@@ -4,7 +4,7 @@ import { GoogleIcon, GitHubIcon } from '@/components/assets/svg';
 
 export function GoogleSignInButton() {
   return (
-    <Button onClick={() => signIn('google')} className="w-full mt-4">
+    <Button onClick={() => signIn('google')} className="w-full mt-4 bg-white text-zinc-950 border hover:bg-zinc-100">
       <GoogleIcon width={25} height={25} className='mr-2' />
       Sign in with Google
     </Button>

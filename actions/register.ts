@@ -18,6 +18,14 @@ export const register = async (values: RegisterValues) => {
           return {
               error: 'Passwords do not match!'
           }
+      }else if(password.length < 8){
+          return {
+              error: 'Password must be at least 8 characters long!'
+          }
+      }else if(!/[!@#$%^&*(),.?":{}|<>]/.test(password)){
+          return {
+              error: 'Password must contain at least one special character!'
+          }
       }
 
       await connectDB();

@@ -50,7 +50,7 @@ export const DescriptionBlock = ({ service }: { service: Service }) => (
 
 export const WorkExperienceBlock = ({ service }: { service: Service }) => (
   <div className={containerStyle}>
-    <div className="flex justify-between">
+    <div className="flex flex-col">
       <h2 className={titleStyle2}>{service.title}</h2>
       {service.subtitle && (
         <span className="text-sm text-gray-500">{service.subtitle}</span>
