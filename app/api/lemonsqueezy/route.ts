@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { handlePremiumPurchase } from '@/actions';
 
-export const verifySignature = (rawBody: Buffer, signature: string, secret: string): boolean => {
+const verifySignature = (rawBody: Buffer, signature: string, secret: string): boolean => {
     const hmac = crypto.createHmac('sha256', secret);
     const digest = Buffer.from(hmac.update(rawBody).digest('hex'), 'utf8');
     const receivedSignature = Buffer.from(signature, 'utf8');

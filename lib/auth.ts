@@ -6,7 +6,12 @@ import GitHubProvider from "next-auth/providers/github";
 import bcrypt from 'bcryptjs';
 import type { NextAuthOptions } from 'next-auth';
 
-// TODO: Fix the type of the user object
+interface UserType {
+  id: string; 
+  name: string;
+  email: string;
+  password?: string;
+}
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -14,6 +19,7 @@ export const authOptions: NextAuthOptions = {
     signOut: '/logout',
     error: '/login',
   },
+
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -22,21 +28,18 @@ export const authOptions: NextAuthOptions = {
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<UserType | null> {
         await connectDB();
-        // Find the user by email address and select the password field
         const user = await User.findOne({ email: credentials?.email }).select('+password');
 
         if (!user) throw new Error('Wrong Email');
 
-        // Compare the password from the form with the password from the database
         const passwordMatch = await bcrypt.compare(credentials!.password, user.password);
 
         if (!passwordMatch) throw new Error('Wrong Password');
 
-        // Return user with id included
         return {
-          _id: user._id.toString(), // Convert ObjectId to string
+          id: user._id.toString(),
           name: user.name,
           email: user.email,
         };
@@ -51,6 +54,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     })
   ],
+
   session: {
     strategy: 'jwt',
   },
@@ -68,7 +72,7 @@ export const authOptions: NextAuthOptions = {
             userExist = await User.create({ name, email, avatar: image });
           }
 
-          user._id = userExist?._id.toString(); 
+          user.id = userExist?._id.toString(); 
 
         } catch(error) {
           console.error(error);
@@ -80,7 +84,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       // If the user is authenticated, store the user's id in the token
       if (user) {
-        token.id = user._id;
+        token.id = user.id;
       }
       return token;
     },

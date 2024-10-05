@@ -1,19 +1,19 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { fetchUserByToken } from '@/lib/mongodb'; 
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { token } = req.query;
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const token = searchParams.get('token');
 
-  if (req.method === 'GET') {
-    const user = await fetchUserByToken(token as string);
-
-    if (user) {
-      return res.status(200).json({ valid: true });
-    } else {
-      return res.status(404).json({ valid: false, message: 'Invalid token' });
-    }
+  if (!token) {
+    return NextResponse.json({ valid: false, message: 'Token is required' }, { status: 400 });
   }
 
-  res.setHeader('Allow', ['GET']);
-  res.status(405).end(`Method ${req.method} Not Allowed`);
+  const user = await fetchUserByToken(token);
+
+  if (user) {
+    return NextResponse.json({ valid: true });
+  } else {
+    return NextResponse.json({ valid: false, message: 'Invalid token' }, { status: 404 });
+  }
 }
