@@ -9,7 +9,7 @@ import { LineWave } from 'react-loader-spinner';
 
 export default function DashboardEditProfile() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const { isLoading } = useUserContext(); 
+  const { isLoading } = useUserContext();
 
   if (isLoading) {
     return (
@@ -34,14 +34,16 @@ export default function DashboardEditProfile() {
     <div className="mx-auto py-0 pb-20 lg:pb-8">
       <div className="flex flex-col lg:flex-row justify-between gap-3">
         {/* Left - User */}
-        <div className="flex-1 lg:mt-5 flex gap-3 flex-col lg:max-w-[47.5rem]">
+        <div className="flex-1 lg:mt-5 flex flex-col gap-3 lg:max-w-[47.5rem] overflow-y-auto">
           <EditUser />
           <EditUserServices />
         </div>
 
         {/* Right - Phone Preview (Desktop) */}
         <div className="hidden lg:block lg:w-1/3">
-          <Preview />
+          <div className="sticky top-[6.7rem]">
+            <Preview />
+          </div>
         </div>
       </div>
 

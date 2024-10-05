@@ -16,7 +16,7 @@ export default function SettingsPage() {
 
 
   return (
-    <div className="min-h-screen p-4 md:p-8 text-black  dark:text-white">
+    <div className="p-4 md:p-8 text-black  dark:text-white">
       <div className="max-w-3xl mx-auto">
         <Tabs defaultValue="account" className="w-full">
           

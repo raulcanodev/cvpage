@@ -77,6 +77,18 @@ export function BlockCard({
                 active={active}
               />
             )}
+            {category === 'education' && (
+              <Education
+                serviceId={serviceId}
+                title={title}
+                description={description}
+                date={date}
+                subtitle={subtitle}
+                location={location}
+                active={active}
+              />
+            )}  
+            
             {category === 'image' && <ImageCard serviceId={serviceId} image={image} />}
             {category === 'simple' && (
               <Simple serviceId={serviceId} title={title} description={description} />
@@ -316,7 +328,6 @@ export function WorkExperience({
       </span>
       <Input
         type="text"
-        placeholder="yourname"
         value={titleText}
         onChange={(e) => setTitleText(e.target.value)}
         className="pl-[3.3rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
@@ -330,7 +341,6 @@ export function WorkExperience({
       </span>
       <Input
         type="text"
-        placeholder="yourname"
         value={subTitleText}
         onChange={(e) => setSubTitleText(e.target.value)}
         className="pl-[5.6rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
@@ -348,15 +358,104 @@ export function WorkExperience({
     {/* Description Textarea */}
     <Textarea
       className="bg-transparent border-none text-gray-900 dark:text-white"
-      placeholder="Description"
       value={descriptionText}
       onChange={(e) => setDescriptionText(e.target.value)}
     />
 
     {/* Block Date and Delete Button */}
-    <div className="flex items-center justify-between text-zinc-400 mt-4">
+    <div className="flex items-center justify-between text-zinc-400 mt-4 flex-col md:flex-row">
       <BlockDate serviceId={serviceId} />
-      <ConfirmDeleteService serviceId={serviceId} />
+    </div>
+  </>
+  );
+}
+
+export function Education({
+  serviceId,
+  title,
+  subtitle,
+  description,
+  active,
+  location,
+  date,
+}: ServiceCardProps) {
+  const { updateUserService } = useUserContext();
+
+  const [titleText, setTitleText] = useState(title || '');
+  const [descriptionText, setDescriptionText] = useState(description || '');
+  const [subTitleText, setSubTitleText] = useState(subtitle || '');
+  const [dateText, setDateText] = useState(date || '');
+
+  const [debouncedTitle] = useDebounce(titleText, 500);
+  const [debouncedDescription] = useDebounce(descriptionText, 500);
+  const [debouncedSubtitle] = useDebounce(subTitleText, 500);
+  const [debouncedDate] = useDebounce(dateText, 500);
+
+  useEffect(() => {
+    if (debouncedTitle && debouncedTitle !== title) {
+      updateUserService(serviceId, { title: debouncedTitle });
+    }
+  }, [debouncedTitle, serviceId, updateUserService, title]);
+
+  useEffect(() => {
+    if (debouncedDescription && debouncedDescription !== description) {
+      updateUserService(serviceId, { description: debouncedDescription });
+    }
+  }, [debouncedDescription, serviceId, updateUserService, description]);
+
+  useEffect(() => {
+    if (debouncedSubtitle && debouncedSubtitle !== subtitle) {
+      updateUserService(serviceId, { subtitle: debouncedSubtitle });
+    }
+  }, [debouncedSubtitle, serviceId, updateUserService, subtitle]);
+
+  useEffect(() => {
+    if (debouncedDate && debouncedDate !== date) {
+      updateUserService(serviceId, { date: debouncedDate });
+    }
+  }, [debouncedDate, serviceId, updateUserService]); //! LOOP INFINITE HERE
+
+  return (
+    <>
+  <div className="flex flex-col md:flex-row items-start justify-between mb-2 w-full">
+    {/* Role Input */}
+    <div className="relative flex-grow md:mr-2">
+      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+        Degree
+      </span>
+      <Input
+        type="text"
+        value={titleText}
+        onChange={(e) => setTitleText(e.target.value)}
+        className="pl-[4.6rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
+      />
+    </div>
+
+    {/* Company Input */}
+    <div className="relative flex-grow md:ml-2">
+      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+        School
+      </span>
+      <Input
+        type="text"
+        value={subTitleText}
+        onChange={(e) => setSubTitleText(e.target.value)}
+        className="pl-[4.5rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
+      />
+    </div>
+
+  </div>
+
+    {/* Description Textarea */}
+    <Textarea
+      className="bg-transparent border-none text-gray-900 dark:text-white"
+      value={descriptionText}
+      onChange={(e) => setDescriptionText(e.target.value)}
+    />
+
+    {/* Block Date and Delete Button */}
+    <div className="flex items-center justify-between text-zinc-400 mt-4 flex-col md:flex-row">
+      <BlockDate serviceId={serviceId} />
     </div>
   </>
   );

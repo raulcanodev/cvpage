@@ -32,7 +32,7 @@ const pricingPlans: PricingPlan[] = [
         name: "PRO",
         description: "Only for great people, only one-time payment",
         price: '24/∞',
-        link: "https://hitme.lemonsqueezy.com/buy/9cb2a0ed-191d-4d81-a9f5-72361c356a43",
+        link: process.env.NEXT_PUBLIC_LEMON_PRODUCT_LINK || "",
         features: [
             "Landing page",
             "Domain name",

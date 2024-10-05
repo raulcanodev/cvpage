@@ -20,6 +20,7 @@ const categories = [
   { value: 'simple', label: 'Simple Block', premium: false },
   { value: 'title', label: 'Title', premium: false },
   { value: 'workexperience', label: 'Work Experience', premium: true },
+  { value: 'education', label: 'Education', premium: true },
 ];
 
 export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {

@@ -15,6 +15,7 @@ import { CalendarIcon } from 'lucide-react';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { cn } from "@/lib/utils"
 import { toast } from "sonner";
+import { ConfirmDeleteService } from "./ConfirmDeleteService";
 
 interface BlockDateProps {
   serviceId: string;
@@ -25,18 +26,21 @@ export function BlockDate({ serviceId }: BlockDateProps) {
   const [startDate, setStartDate] = useState<Date | undefined>();
   const [endDate, setEndDate] = useState<Date | undefined>();
   const [isPresent, setIsPresent] = useState(false);
+  const [isStartDateOpen, setIsStartDateOpen] = useState(false);
+  const [isEndDateOpen, setIsEndDateOpen] = useState(false);
 
   const handleDateSelect = async (isEndDate: boolean, selectedDate: Date | undefined) => {
     if (isEndDate) {
       setEndDate(selectedDate);
+      setIsEndDateOpen(false);
     } else {
       setStartDate(selectedDate);
+      setIsStartDateOpen(false);
     }
 
     if (selectedDate) {
       try {
         const updateField = isEndDate ? 'dateEnd' : 'date';
-        // Formatear la fecha antes de guardarla
         const formattedDate = format(selectedDate, 'dd MMM yyyy');
         await updateUserService(serviceId, { [updateField]: formattedDate });
         toast.success('Date updated');
@@ -62,23 +66,24 @@ export function BlockDate({ serviceId }: BlockDateProps) {
   };
 
   const DateButton = ({ date, isEndDate }: { date: Date | undefined, isEndDate: boolean }) => (
-    <Popover>
+    <Popover open={isEndDate ? isEndDateOpen : isStartDateOpen} onOpenChange={isEndDate ? setIsEndDateOpen : setIsStartDateOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
           className={cn(
-            "w-[140px] justify-start text-left font-normal",
+            "w-[240px] justify-start text-left font-normal bg-transparent",
             !date && "text-muted-foreground"
           )}
           disabled={isEndDate && isPresent}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PP") : <span>{isEndDate ? 'End date' : 'Start date'}</span>}
+          {date ? format(date, "PPP") : <span>{isEndDate ? 'End date' : 'Start date'}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
           mode="single"
+          captionLayout="dropdown-buttons"
           selected={date}
           onSelect={(newDate) => handleDateSelect(isEndDate, newDate)}
           disabled={(date) => 
@@ -87,6 +92,8 @@ export function BlockDate({ serviceId }: BlockDateProps) {
             (isEndDate && startDate ? date <= startDate : false) ||
             (!isEndDate && endDate ? date >= endDate : false)
           }
+          fromYear={1960}
+          toYear={2030}
           initialFocus
         />
       </PopoverContent>
@@ -94,21 +101,24 @@ export function BlockDate({ serviceId }: BlockDateProps) {
   );
 
   return (
-    <div className="flex flex-col space-y-2">
-      <div className="flex items-center space-x-2">
-        <DateButton date={startDate} isEndDate={false} />
-        <span>to</span>
-        <DateButton date={endDate} isEndDate={true} />
-        <Switch
-          id="present-mode"
-          checked={isPresent}
-          onCheckedChange={handlePresentToggle}
-        />
-        <Label htmlFor="present-mode">Present</Label>
+<div className="flex flex-col w-full space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center w-full sm:space-x-2 space-y-2 sm:space-y-0">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
+          <DateButton date={startDate} isEndDate={false} />
+          <span className="hidden sm:inline">to</span>
+          <DateButton date={endDate} isEndDate={true} />
+        </div>
+        <div className="flex items-center gap-2 sm:ml-3">
+          <Switch
+            id="present-mode"
+            checked={isPresent}
+            onCheckedChange={handlePresentToggle}
+          />
+          <Label htmlFor="present-mode">Present</Label>
+        </div>
       </div>
-      
-      <div className="flex items-center space-x-2">
-        
+      <div className="flex justify-end">
+        <ConfirmDeleteService serviceId={serviceId} />
       </div>
     </div>
   );

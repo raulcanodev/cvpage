@@ -34,7 +34,7 @@ export function PageStyle() {
   ];
 
   return (
-    <div className="min-h-screen">
+    <>
       <div className="max-w-md space-y-6">
         <div>
           <h2 className="text-sm font-semibold mb-2">FONT</h2>
@@ -82,6 +82,6 @@ export function PageStyle() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

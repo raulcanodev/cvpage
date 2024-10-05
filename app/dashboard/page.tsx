@@ -27,7 +27,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="bg-black text-white">
       <div className="container mx-auto px-4 py-8">
         {/* Top Navigation */}
         <div className="flex justify-between items-center mb-8">
