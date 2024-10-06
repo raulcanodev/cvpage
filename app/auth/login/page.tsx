@@ -78,6 +78,7 @@ export default function Login() {
                 type="email"
                 name="email"
                 required
+                autoComplete='on'
                 className="mt-1 block w-full dark:bg-zinc-900 dark:border-zinc-700 border-zinc-300 text-black dark:text-white"
               />
             </div>
@@ -91,6 +92,7 @@ export default function Login() {
                 type="password"
                 name="password"
                 required
+                autoComplete='on'
                 className="mt-1 block w-full dark:bg-zinc-900 dark:border-zinc-700 border-zinc-300 text-black dark:text-white"
               />
             </div>
