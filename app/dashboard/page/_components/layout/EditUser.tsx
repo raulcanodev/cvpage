@@ -124,7 +124,7 @@ export function EditUser() {
             <div className="flex rounded-md">
               <div className="relative flex-grow">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-0 text-gray-400">
-                  {config.appName}/
+                  {config.domainName}/
                 </span>
                 <Input
                   type="text"
