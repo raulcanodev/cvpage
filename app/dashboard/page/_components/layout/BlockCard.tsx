@@ -462,28 +462,20 @@ export function Education({
 }
 
 export function ImageCard({ serviceId, image }: ServiceCardProps) {
-  const { updateUserService } = useUserContext();
-  const [imageUrl, setImageUrl] = useState(image || '');
-
-  const [debouncedImageUrl] = useDebounce(imageUrl, 500);
-
-  useEffect(() => {
-    if (debouncedImageUrl !== image) {
-      updateUserService(serviceId, { image: debouncedImageUrl });
-    }
-  }, [debouncedImageUrl, serviceId, image, updateUserService]);
-
   return (
-    <div className="flex items-center">
-      <Image src={imageUrl} alt="Service Image" width={100} height={100} className="rounded-lg" />
-      <Input
-        className="bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto ml-4"
-        placeholder="Image URL"
-        value={imageUrl}
-        onChange={(e) => setImageUrl(e.target.value)}
+    <>
+      <Image
+        className="w-full object-cover object-top rounded-xl"
+        width={1280}
+        height={720}
+        src={image || 'https://fakeimg.pl/1280x720?font=noto'}
+        alt="Block Image"
       />
-      <ConfirmDeleteService serviceId={serviceId} />
-    </div>
+      <div className="flex justify-between mt-4">
+        <BlockImage serviceId={serviceId} />
+        <ConfirmDeleteService serviceId={serviceId} />
+      </div>
+    </>
   );
 }
 
