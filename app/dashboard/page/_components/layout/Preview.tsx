@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { LinkIcon } from 'lucide-react';
 import Link from 'next/link';
+import config from '@/config';
 
 export function Preview() {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -10,7 +11,6 @@ export function Preview() {
   const { customDomain } = userData;
 
   useEffect(() => {
-    // Update the refresh key when the user data changes
     setRefreshKey((prevKey) => prevKey + 1);
   }, [userData]);
 
@@ -21,20 +21,20 @@ export function Preview() {
           {customDomain && (
             <iframe
               key={refreshKey} // Use the key to force re-render
-              src={`http://localhost:3000/${customDomain}`}
+              src={`${config.domainUrl}/${customDomain}`}
               title="Preview"
               className="w-full h-full rounded-[32px] absolute top-0 left-0"
               frameBorder="0"
               style={{
                 overflow: 'hidden',
-                scrollbarWidth: 'none' /* For Firefox */,
+                scrollbarWidth: 'none' ,
               }}
             />
           )}
           {!customDomain && (
             <div className="flex items-center justify-center h-full flex-col p-8 text-center space-y-3">
               <p className="text-zinc-400 text-sm">
-                Add a custom domain to deploy your hitme.to page
+                Add a custom domain to deploy your {config.appName} page
               </p>
               <p>🥳</p>
             </div>
