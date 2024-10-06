@@ -1,6 +1,6 @@
 const config = {
   appName: 'Cvpage',
-  appDescription: 'My App Description',
+  appDescription: 'Create your own personal page with Cvpage and share it with the world',
   domainName: 'cvpage.to',
   domainUrl: 'https://cvpage.to',
 }

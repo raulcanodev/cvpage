@@ -8,13 +8,11 @@ import { AcceptConditions, GoogleSignInButton, GithubSignInButton } from '../com
 import { register } from '@/actions';
 import { LineWave } from 'react-loader-spinner';
 import { toast } from 'sonner';
-import { useTheme } from 'next-themes';
 
 export default function Register() {
   const router = useRouter();
   const ref = useRef<HTMLFormElement>(null);
   const { data: session, status } = useSession();
-  const { theme } = useTheme();
 
   const handleSubmit = async (formData: FormData) => {
     const email = formData.get('email')?.toString();

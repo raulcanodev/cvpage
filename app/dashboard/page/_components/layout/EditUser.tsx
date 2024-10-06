@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Input, Textarea } from '@/components/ui/';
 import { UserLocation, UserInstagram, UserTwitter, UserLinkedin, UserGithub, UserAvatar } from '../ui';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
+import config from '@/config';
 
 export function EditUser() {
   const { userData, updateUserData, updateUserDomain } = useUserContext();
@@ -123,7 +124,7 @@ export function EditUser() {
             <div className="flex rounded-md">
               <div className="relative flex-grow">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-0 text-gray-400">
-                  hitme.to/
+                  {config.appName}/
                 </span>
                 <Input
                   type="text"

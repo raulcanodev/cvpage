@@ -41,13 +41,13 @@ export function Preview() {
           )}
         </div>
       </div>
-      <p className="text-center mt-4 text-zinc-400 text-sm">Preview of your hitme.to page✨</p>
+      <p className="text-center mt-4 text-zinc-400 text-sm">Preview of your {config.appName} page✨</p>
       <Link
         href={`${config.domainUrl}/${customDomain}`}
         target='_blank'
         className="block text-center mt-2 text-zinc-400 text-sm underline hover:no-underline"
       >
-        hitme.to/{customDomain}
+        {config.domainName}/{customDomain}
       </Link>
     </>
   );

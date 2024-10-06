@@ -6,6 +6,7 @@ import { Menu, X } from 'lucide-react';
 import { ThemeSwitcher } from '@/components/layout';
 import { Button } from '@/components/ui';
 import { useRouter } from 'next/navigation';
+import config from '@/config';
 
 //* Add to the layout >
 export default function Navbar() {
@@ -18,7 +19,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="text-xl font-bold">
-            hitme.to
+            {config.appName}
           </Link>
 
           {/* Desktop Menu */}
