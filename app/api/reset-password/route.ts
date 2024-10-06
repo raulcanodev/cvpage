@@ -2,6 +2,7 @@ import { Resend } from 'resend'
 import { NextResponse } from 'next/server';
 import { fetchUserDataByEmail, saveResetToken } from '@/lib/mongodb';
 import { v4 as uuidv4 } from 'uuid';
+import config from "@/config";
 
 /**
  * This route is responsible for sending an email to the user with a link to reset their password.
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
     //   react: ResetPasswordTemplate({ firstName: 'John' }),
     // });
     const { data, error } = await resend.emails.send({
-      from: 'Hitme.to <noreply@hitme.to>',
+      from: `${config.appName} <noreply@${config.domainName}>`,
       to: email,
       subject: 'Reset your password',
       text: `Reset your password here: ${resetUrl}`,
