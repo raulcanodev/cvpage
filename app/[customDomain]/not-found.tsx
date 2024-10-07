@@ -13,14 +13,11 @@ export default function NotFoundPage() {
         </div>
 
         <div className="mt-6">
-          <Button
-            type="submit"
-            className="w-full text-white bg-zinc-950 hover:bg-zinc-700"
-          >
-            <Link href="/auth/register" className="font-medium">
+          <Link href="/auth/register" className="font-medium">
+            <Button type="submit" className="w-full text-white bg-zinc-950 hover:bg-zinc-700">
               Create your page
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
