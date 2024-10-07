@@ -131,7 +131,7 @@ export function EditUser() {
                   placeholder="yourname"
                   value={domainInput}
                   onChange={handleDomainChange}
-                  className="pl-[4.3rem] bg-transparent border-none text-gray-900 dark:text-white"
+                  className="pl-[5.2rem] bg-transparent border-none text-gray-900 dark:text-white"
                 />
               </div>
             </div>
