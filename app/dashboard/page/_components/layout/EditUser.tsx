@@ -13,43 +13,36 @@ export function EditUser() {
   const [descriptionInput, setDescriptionInput] = useState(description);
   const [domainInput, setDomainInput] = useState(customDomain);
 
-  // Flags to track user editing
-  const isEditingName = useRef(false);
-  const isEditingDescription = useRef(false);
-  const isEditingDomain = useRef(false);
+  // Track if the component has mounted
+  const hasMounted = useRef(false);
 
-  // Sync the name, description, and domain only if they have changed and not while editing
+  // Set initial values only on mount
   useEffect(() => {
-    if (!isEditingName.current) {
-      setNameInput(name); // Sync name with userData if not editing
+    if (!hasMounted.current) {
+      setDescriptionInput(description); // Set description from userData only on first mount
+      hasMounted.current = true; // Mark that the component has mounted
     }
+  }, [description]); // Only run this effect when description changes
+
+  // Set initial values for name and domain
+  useEffect(() => {
+    setNameInput(name); // Always set name from userData
   }, [name]);
 
   useEffect(() => {
-    if (!isEditingDescription.current) {
-      setDescriptionInput(description); // Sync description with userData if not editing
-    }
-  }, [description]);
-
-  useEffect(() => {
-    if (!isEditingDomain.current) {
-      setDomainInput(customDomain); // Sync customDomain with userData if not editing
-    }
+    setDomainInput(customDomain); // Always set domain from userData
   }, [customDomain]);
 
   const handleDomainChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDomainInput(e.target.value);
-    isEditingDomain.current = true;  // Mark as being edited
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameInput(e.target.value);
-    isEditingName.current = true;  // Mark as being edited
   };
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescriptionInput(e.target.value);
-    isEditingDescription.current = true;  // Mark as being edited
   };
 
   // Debounced domain update
@@ -59,10 +52,9 @@ export function EditUser() {
         const escapedDomain = domainInput
           .replace(/[^a-zA-Z0-9-]/g, '')
           .trim()
-          .toLowerCase();  // Clean domain input
-        updateUserDomain(userData._id, escapedDomain);  // Update domain
+          .toLowerCase(); // Clean domain input
+        updateUserDomain(userData._id, escapedDomain); // Update domain
       }
-      isEditingDomain.current = false;  // Reset the editing flag after updating
     }, 500);
 
     return () => {
@@ -76,7 +68,6 @@ export function EditUser() {
       if (nameInput !== name) {
         updateUserData(userData._id, { name: nameInput });
       }
-      isEditingName.current = false;  // Reset the editing flag after updating
     }, 500);
 
     return () => {
@@ -90,7 +81,6 @@ export function EditUser() {
       if (descriptionInput !== description) {
         updateUserData(userData._id, { description: descriptionInput });
       }
-      isEditingDescription.current = false;  // Reset the editing flag after updating
     }, 500);
 
     return () => {
