@@ -65,8 +65,8 @@ export function EditUserServices() {
           {servicesState
             .filter((service) => service._id)
             .map((service, index) => (
-              <Reorder.Item key={service._id} value={service}>
                 <BlockCard
+                  key={service._id}
                   category={service.category}
                   serviceId={service._id as string}
                   title={service.title}
@@ -78,8 +78,8 @@ export function EditUserServices() {
                   price={service.price}
                   date={service.date}
                   location={service.location}
+                  service={service}
                 />
-              </Reorder.Item>
             ))}
         </Reorder.Group>
       )}

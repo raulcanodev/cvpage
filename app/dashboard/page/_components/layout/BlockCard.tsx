@@ -7,7 +7,9 @@ import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { useDebounce } from 'use-debounce';
 import Image from 'next/image';
 import { ServicePriceDialog, LinkBlockDialog, BlockDate } from '../ui/';
-import { sub } from 'date-fns';
+
+import { useMotionValue, Reorder, useDragControls } from 'framer-motion';
+import { ReorderIcon } from './_components/DragIcon';
 
 interface ServiceCardProps {
   serviceId: string;
@@ -21,6 +23,7 @@ interface ServiceCardProps {
   link?: string;
   price?: string;
   location?: string;
+  service?: ServiceCardProps;
 }
 
 export function BlockCard({
@@ -35,68 +38,76 @@ export function BlockCard({
   price,
   location,
   date,
+  service
 }: ServiceCardProps) {
-  return (
-    <Card className={`border overflow-hidden rounded-2xl mb-2 dark:bg-zinc-900 bg-zinc-100`}>
-      <CardContent className="p-4">
-        <div className="flex items-center space-x-3">
-          <GripVertical className="w-5 h-5 text-zinc-400 cursor-pointer" />
 
-          <div className="flex-1">
-            {!category && <BlockCategorySelect serviceId={serviceId} />}
-            {category === 'title' && <TitleCard serviceId={serviceId} title={title} />}
-            {category === 'project' && (
-              <ProjectCard
-                serviceId={serviceId}
-                title={title}
-                description={description}
-                active={active}
-              />
-            )}
-            {category === 'service' && (
-              <ServiceCard
-                serviceId={serviceId}
-                title={title}
-                description={description}
-                active={active}
-                link={link}
-                price={price}
-              />
-            )}
-            {category === 'textarea' && (
-              <TextAreaCard serviceId={serviceId} description={description} />
-            )}
-            {category === 'workexperience' && (
-              <WorkExperience
-                serviceId={serviceId}
-                title={title}
-                description={description}
-                date={date}
-                subtitle={subtitle}
-                location={location}
-                active={active}
-              />
-            )}
-            {category === 'education' && (
-              <Education
-                serviceId={serviceId}
-                title={title}
-                description={description}
-                date={date}
-                subtitle={subtitle}
-                location={location}
-                active={active}
-              />
-            )}  
-            
-            {category === 'image' && <ImageCard serviceId={serviceId} image={image} />}
-            {category === 'simple' && (
-              <Simple serviceId={serviceId} title={title} description={description} />
-            )}
+  const dragControls = useDragControls();
+
+  return (
+    <Reorder.Item value={service} id={serviceId} dragListener={false} dragControls={dragControls}>
+
+      <Card className={`border overflow-hidden rounded-2xl mb-2 dark:bg-zinc-900 bg-zinc-100`}>
+        <CardContent className="p-4">
+          <div className="flex items-center space-x-3">
+            <ReorderIcon dragControls={dragControls} />
+
+            <div className="flex-1">
+              {!category && <BlockCategorySelect serviceId={serviceId} />}
+              {category === 'title' && <TitleCard serviceId={serviceId} title={title} />}
+              {category === 'project' && (
+                <ProjectCard
+                  serviceId={serviceId}
+                  title={title}
+                  description={description}
+                  active={active}
+                />
+              )}
+              {category === 'service' && (
+                <ServiceCard
+                  serviceId={serviceId}
+                  title={title}
+                  description={description}
+                  active={active}
+                  link={link}
+                  price={price}
+                />
+              )}
+              {category === 'textarea' && (
+                <TextAreaCard serviceId={serviceId} description={description} />
+              )}
+              {category === 'workexperience' && (
+                <WorkExperience
+                  serviceId={serviceId}
+                  title={title}
+                  description={description}
+                  date={date}
+                  subtitle={subtitle}
+                  location={location}
+                  active={active}
+                />
+              )}
+              {category === 'education' && (
+                <Education
+                  serviceId={serviceId}
+                  title={title}
+                  description={description}
+                  date={date}
+                  subtitle={subtitle}
+                  location={location}
+                  active={active}
+                />
+              )}
+
+              {category === 'image' && <ImageCard serviceId={serviceId} image={image} />}
+              {category === 'simple' && (
+                <Simple serviceId={serviceId} title={title} description={description} />
+              )}
+            </div>
           </div>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+
+    </Reorder.Item>
   );
 }
 
@@ -320,53 +331,53 @@ export function WorkExperience({
 
   return (
     <>
-  <div className="flex flex-col md:flex-row items-start justify-between mb-2 w-full">
-    {/* Role Input */}
-    <div className="relative flex-grow md:mr-2">
-      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-        Role
-      </span>
-      <Input
-        type="text"
-        value={titleText}
-        onChange={(e) => setTitleText(e.target.value)}
-        className="pl-[3.3rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
-      />
-    </div>
+      <div className="flex flex-col md:flex-row items-start justify-between mb-2 w-full">
+        {/* Role Input */}
+        <div className="relative flex-grow md:mr-2">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+            Role
+          </span>
+          <Input
+            type="text"
+            value={titleText}
+            onChange={(e) => setTitleText(e.target.value)}
+            className="pl-[3.3rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
+          />
+        </div>
 
-    {/* Company Input */}
-    <div className="relative flex-grow md:ml-2">
-      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-        Company
-      </span>
-      <Input
-        type="text"
-        value={subTitleText}
-        onChange={(e) => setSubTitleText(e.target.value)}
-        className="pl-[5.6rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
-      />
-    </div>
+        {/* Company Input */}
+        <div className="relative flex-grow md:ml-2">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+            Company
+          </span>
+          <Input
+            type="text"
+            value={subTitleText}
+            onChange={(e) => setSubTitleText(e.target.value)}
+            className="pl-[5.6rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
+          />
+        </div>
 
-    {/* Switch Component */}
-    {/* <Switch
+        {/* Switch Component */}
+        {/* <Switch
       className="data-[state=checked]:bg-slate-300 mt-3 md:mt-0"
       checked={active}
       onCheckedChange={(e) => updateUserService(serviceId, { active: e })}
     /> */}
-  </div>
+      </div>
 
-    {/* Description Textarea */}
-    <Textarea
-      className="bg-transparent border-none text-gray-900 dark:text-white"
-      value={descriptionText}
-      onChange={(e) => setDescriptionText(e.target.value)}
-    />
+      {/* Description Textarea */}
+      <Textarea
+        className="bg-transparent border-none text-gray-900 dark:text-white"
+        value={descriptionText}
+        onChange={(e) => setDescriptionText(e.target.value)}
+      />
 
-    {/* Block Date and Delete Button */}
-    <div className="flex items-center justify-between text-zinc-400 mt-4 flex-col md:flex-row">
-      <BlockDate serviceId={serviceId} />
-    </div>
-  </>
+      {/* Block Date and Delete Button */}
+      <div className="flex items-center justify-between text-zinc-400 mt-4 flex-col md:flex-row">
+        <BlockDate serviceId={serviceId} />
+      </div>
+    </>
   );
 }
 
@@ -417,47 +428,46 @@ export function Education({
 
   return (
     <>
-  <div className="flex flex-col md:flex-row items-start justify-between mb-2 w-full">
-    {/* Role Input */}
-    <div className="relative flex-grow md:mr-2">
-      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-        Degree
-      </span>
-      <Input
-        type="text"
-        value={titleText}
-        onChange={(e) => setTitleText(e.target.value)}
-        className="pl-[4.6rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
+      <div className="flex flex-col md:flex-row items-start justify-between mb-2 w-full">
+        {/* Role Input */}
+        <div className="relative flex-grow md:mr-2">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+            Degree
+          </span>
+          <Input
+            type="text"
+            value={titleText}
+            onChange={(e) => setTitleText(e.target.value)}
+            className="pl-[4.6rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
+          />
+        </div>
+
+        {/* Company Input */}
+        <div className="relative flex-grow md:ml-2">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+            School
+          </span>
+          <Input
+            type="text"
+            value={subTitleText}
+            onChange={(e) => setSubTitleText(e.target.value)}
+            className="pl-[4.5rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
+          />
+        </div>
+      </div>
+
+      {/* Description Textarea */}
+      <Textarea
+        className="bg-transparent border-none text-gray-900 dark:text-white"
+        value={descriptionText}
+        onChange={(e) => setDescriptionText(e.target.value)}
       />
-    </div>
 
-    {/* Company Input */}
-    <div className="relative flex-grow md:ml-2">
-      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-        School
-      </span>
-      <Input
-        type="text"
-        value={subTitleText}
-        onChange={(e) => setSubTitleText(e.target.value)}
-        className="pl-[4.5rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
-      />
-    </div>
-
-  </div>
-
-    {/* Description Textarea */}
-    <Textarea
-      className="bg-transparent border-none text-gray-900 dark:text-white"
-      value={descriptionText}
-      onChange={(e) => setDescriptionText(e.target.value)}
-    />
-
-    {/* Block Date and Delete Button */}
-    <div className="flex items-center justify-between text-zinc-400 mt-4 flex-col md:flex-row">
-      <BlockDate serviceId={serviceId} />
-    </div>
-  </>
+      {/* Block Date and Delete Button */}
+      <div className="flex items-center justify-between text-zinc-400 mt-4 flex-col md:flex-row">
+        <BlockDate serviceId={serviceId} />
+      </div>
+    </>
   );
 }
 

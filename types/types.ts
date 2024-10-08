@@ -13,4 +13,5 @@ export interface Service {
   date?: string;
   dateEnd?: string;
   serviceId: string;
+  service: Service;
 }
