@@ -1,10 +1,8 @@
-'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui';
 import { Plus } from 'lucide-react';
 import { Reorder } from 'framer-motion';
 import { BlockCard } from './BlockCard';
-// Drag and drop: https://www.youtube.com/watch?v=XlXT9lhy-4M
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { createNewService } from '@/actions';
 import { Service } from '@/types/types';
@@ -16,9 +14,10 @@ export function EditUserServices() {
   const { userData, updateUserData } = useUserContext();
   const { premium } = userData;
   const { _id, services } = userData;
+  
+  const hasUserReordered = useRef(false);
 
   const handleAddService = async () => {
-    // TODO: Validate in the backend
     const maxServices = premium ? 100 : 5;
     if (userData.services.length >= maxServices) {
       setIsButtonDisabled(true);
@@ -41,15 +40,20 @@ export function EditUserServices() {
   };
 
   const handleReorder = async (newOrder: Service[]) => {
+    hasUserReordered.current = true;
     setServicesState(newOrder);
     await updateUserData(_id, { services: newOrder });
   };
 
   useEffect(() => {
-    if (services) {
+    if (services && !hasUserReordered.current) {
       setServicesState(services);
     }
   }, [services]);
+
+  useEffect(() => {
+    hasUserReordered.current = false;
+  }, [servicesState]);
 
   return (
     <>
@@ -64,22 +68,22 @@ export function EditUserServices() {
         <Reorder.Group values={servicesState} onReorder={handleReorder}>
           {servicesState
             .filter((service) => service._id)
-            .map((service, index) => (
-                <BlockCard
-                  key={service._id}
-                  category={service.category}
-                  serviceId={service._id as string}
-                  title={service.title}
-                  subtitle={service.subtitle}
-                  description={service.description}
-                  image={service.image}
-                  active={service.active}
-                  link={service.link}
-                  price={service.price}
-                  date={service.date}
-                  location={service.location}
-                  service={service}
-                />
+            .map((service) => (
+              <BlockCard
+                key={service._id}
+                category={service.category}
+                serviceId={service._id as string}
+                title={service.title}
+                subtitle={service.subtitle}
+                description={service.description}
+                image={service.image}
+                active={service.active}
+                link={service.link}
+                price={service.price}
+                date={service.date}
+                location={service.location}
+                service={service}
+              />
             ))}
         </Reorder.Group>
       )}
