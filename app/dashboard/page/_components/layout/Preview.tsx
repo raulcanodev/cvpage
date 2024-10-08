@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
-import { LinkIcon } from 'lucide-react';
 import Link from 'next/link';
 import config from '@/config';
 

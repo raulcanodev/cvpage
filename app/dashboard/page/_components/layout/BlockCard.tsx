@@ -37,9 +37,8 @@ export function BlockCard({
   price,
   location,
   date,
-  service
+  service,
 }: ServiceCardProps) {
-
   const dragControls = useDragControls();
 
   return (

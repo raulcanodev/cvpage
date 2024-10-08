@@ -24,12 +24,16 @@ export function EditUserServices() {
       toast.error(`You can only have up to ${maxServices}.`);
       return;
     }
-
+  
     try {
       setIsButtonDisabled(true);
       const newService = await createNewService();
-      setServicesState((prevServices) => [...prevServices, newService]);
-      await updateUserData(_id, { services: [...servicesState, newService] });
+      // Add new service to local state first
+      setServicesState((prevServices) => {
+        const updatedServices = [...prevServices, newService];
+        updateUserData(_id, { services: updatedServices }); // Update user data with new services
+        return updatedServices; // Return the updated state
+      });
       toast.success('Block added successfully 🎉');
       setTimeout(() => {
         setIsButtonDisabled(false);
@@ -46,16 +50,16 @@ export function EditUserServices() {
   };
 
   useEffect(() => {
-    if (services && !hasUserReordered.current && servicesState.length === 0) {
+    if (services && !hasUserReordered.current) {
 
       setServicesState(services);
     }
-  }, [services, servicesState]);
+  }, [services]);
 
   return (
     <>
       <Button
-        className="bg-white text-slate-950 w-full rounded-xl border border- hover:bg-zinc-100 hover:shadow-lg dark:bg-zinc-950 dark:text-white dark:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:shadow-lg transition-all duration-300"
+        className="bg-white text-slate-950 w-full rounded-xl border hover:bg-zinc-100 hover:shadow-lg dark:bg-zinc-950 dark:text-white dark:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:shadow-lg transition-all duration-300"
         onClick={handleAddService}
         disabled={isButtonDisabled}
       >
