@@ -46,14 +46,11 @@ export function EditUserServices() {
   };
 
   useEffect(() => {
-    if (services && !hasUserReordered.current) {
+    if (services && !hasUserReordered.current && servicesState.length === 0) {
+
       setServicesState(services);
     }
-  }, [services]);
-
-  useEffect(() => {
-    hasUserReordered.current = false;
-  }, [servicesState]);
+  }, [services, servicesState]);
 
   return (
     <>
