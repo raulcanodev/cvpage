@@ -1,14 +1,13 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { Card, CardContent, Input, Switch, Textarea } from '@/components/ui';
-import { GripVertical } from 'lucide-react';
 import { ConfirmDeleteService, BlockCategorySelect, BlockImage } from '../ui';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { useDebounce } from 'use-debounce';
 import Image from 'next/image';
 import { ServicePriceDialog, LinkBlockDialog, BlockDate } from '../ui/';
 
-import { useMotionValue, Reorder, useDragControls } from 'framer-motion';
+import { Reorder, useDragControls } from 'framer-motion';
 import { ReorderIcon } from './_components/DragIcon';
 
 interface ServiceCardProps {
