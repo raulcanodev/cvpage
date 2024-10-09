@@ -43,7 +43,6 @@ export function BlockCard({
 
   return (
     <Reorder.Item value={service} id={serviceId} dragListener={false} dragControls={dragControls}>
-
       <Card className={`border overflow-hidden rounded-2xl mb-2 dark:bg-zinc-900 bg-zinc-100`}>
         <CardContent className="p-4">
           <div className="flex items-center space-x-3">
@@ -97,12 +96,10 @@ export function BlockCard({
               )}
 
               {category === 'image' && <ImageCard serviceId={serviceId} image={image} />}
-             
             </div>
           </div>
         </CardContent>
       </Card>
-
     </Reorder.Item>
   );
 }
@@ -470,13 +467,16 @@ export function Education({
 export function ImageCard({ serviceId, image }: ServiceCardProps) {
   return (
     <>
-      <Image
-        className="w-full object-cover object-top rounded-xl"
-        width={1280}
-        height={720}
-        src={image || 'https://fakeimg.pl/1280x720?font=noto'}
-        alt="Block Image"
-      />
+      {image && (
+        <Image
+          className="w-full object-cover object-top rounded-xl"
+          width={1280}
+          height={720}
+          src={image}
+          alt="Block Image"
+        />
+      )}
+
       <div className="flex justify-between mt-4">
         <BlockImage serviceId={serviceId} />
         <ConfirmDeleteService serviceId={serviceId} />

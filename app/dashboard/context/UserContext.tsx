@@ -19,7 +19,7 @@ interface UserContextProps {
   updateUserData: (id: string, data: any) => Promise<string>;
   updateUserService: (id: string, data: any) => Promise<string>;
   reloadUserData: () => Promise<void>;
-  deleteUserService: (serviceId: string, userId: string) => Promise<string>;
+  deleteUserService: (serviceId: string, userId: string) => Promise<string | number>;
   updateUserAvatar: (userId: string, formData: FormData) => Promise<string>;
   updateUserDomain: (id: string, domain: string) => Promise<string>;
   updateServiceImage: (userId: string, formData: FormData) => Promise<string>;
@@ -159,10 +159,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         updateUserData,
         updateUserService,
         reloadUserData: fetchUserData,
-        deleteUserService,
         updateUserAvatar,
         updateUserDomain,
         updateServiceImage,
+        deleteUserService,
       }}
     >
       {children}
