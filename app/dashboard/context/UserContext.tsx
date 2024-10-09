@@ -153,6 +153,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <UserContext.Provider
+    
       value={{
         userData,
         isLoading, 
