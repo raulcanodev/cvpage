@@ -38,7 +38,7 @@ export function EditUserServices() {
         return 'Block added successfully 🎉';
       },
       error: (err) => {
-        return err.message || 'An error occurred while adding block';
+        return err.message || 'An error occurred while creating block';
       },
       finally: () => {
         setIsButtonDisabled(false);

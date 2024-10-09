@@ -29,12 +29,14 @@ export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {
 
   const handleCategoryChange = async (value: string) => {
 
+    const capitalizeValue = value.charAt(0).toUpperCase() + value.slice(1);
+
     toast.promise(
       updateUserService(serviceId, { category: value }),
       {
-        loading: 'Adding block...',
-        success: 'Block added successfully!',
-        error: 'Failed to add block',
+        loading: `Setting block as ${capitalizeValue}...`,
+        success: 'Block category updated successfully',
+        error: 'Error updating block category',
       }
     )
   };
