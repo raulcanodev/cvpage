@@ -28,18 +28,13 @@ export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {
   const { premium } = userData;
 
   const handleCategoryChange = async (value: string) => {
-    try {
-      await updateUserService(serviceId, { category: value });
-    } catch (error) {
-      console.error('Failed to update service category:', error);
-    }
 
     toast.promise(
       updateUserService(serviceId, { category: value }),
       {
-        loading: 'Updating block...',
-        success: 'Block updated successfully!',
-        error: 'Failed to update block',
+        loading: 'Adding block...',
+        success: 'Block added successfully!',
+        error: 'Failed to add block',
       }
     )
   };
