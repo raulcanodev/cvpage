@@ -19,7 +19,7 @@ export function Preview() {
         <div className="bg-zinc-950 rounded-[40px] h-full overflow-hidden text-black relative">
           {customDomain && (
             <iframe
-              key={refreshKey} // Use the key to force re-render
+              key={refreshKey} 
               src={`${config.domainUrl}/${customDomain}`}
               title="Preview"
               className="w-full h-full rounded-[32px] absolute top-0 left-0"
