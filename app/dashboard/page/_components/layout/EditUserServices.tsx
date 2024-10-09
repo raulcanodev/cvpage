@@ -26,22 +26,6 @@ export function EditUserServices() {
     }
     
     setIsButtonDisabled(true);
-  
-    // try {
-    //   const newService = await createNewService();
-    //   // Add new service to local state first
-    //   setServicesState((prevServices) => {
-    //     const updatedServices = [...prevServices, newService];
-    //     updateUserData(_id, { services: updatedServices }); // Update user data with new services
-    //     return updatedServices; // Return the updated state
-    //   });
-    //   toast.success('Block added successfully 🎉');
-    //   setTimeout(() => {
-    //     setIsButtonDisabled(false);
-    //   }, 300);
-    // } catch (error) {
-    //   console.error('Error adding service:', error);
-    // }
 
     toast.promise(createNewService(), {
       loading: 'Adding block...',

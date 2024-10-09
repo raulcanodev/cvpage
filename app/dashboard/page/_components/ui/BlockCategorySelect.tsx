@@ -7,6 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui";
 import { useUserContext } from '@/app/dashboard/context/UserContext';
+import { toast } from 'sonner';
 
 interface ServiceCategorySelectProps {
   serviceId: string;
@@ -32,6 +33,15 @@ export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {
     } catch (error) {
       console.error('Failed to update service category:', error);
     }
+
+    toast.promise(
+      updateUserService(serviceId, { category: value }),
+      {
+        loading: 'Updating block...',
+        success: 'Block updated successfully!',
+        error: 'Failed to update block',
+      }
+    )
   };
 
   return (
