@@ -35,7 +35,7 @@ export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {
       updateUserService(serviceId, { category: value }),
       {
         loading: `Setting block as ${capitalizeValue}...`,
-        success: 'Block category updated successfully',
+        success: `Block set as ${capitalizeValue} 🎉`,
         error: 'Error updating block category',
       }
     )
