@@ -3,7 +3,6 @@ import { BarChart2, Paintbrush, Settings, User } from 'lucide-react';
 import Link from 'next/link';
 
 export function CreativeNavbar() {
-  // Common button styles
   const buttonStyles = "bg-white text-slate-950 w-full rounded-xl border hover:bg-zinc-100 hover:shadow-lg dark:bg-zinc-950 dark:text-white dark:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:shadow-lg transition-all duration-300 flex items-center";
 
   return (
