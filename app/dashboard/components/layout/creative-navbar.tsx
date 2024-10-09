@@ -7,7 +7,6 @@ export function CreativeNavbar() {
 
   return (
     <>
-      {/* Top Navigation */}
       <div className="flex justify-between items-center mb-8 mx-auto">
         <div className="flex gap-3">
           <Link href={`/dashboard/page`}>
