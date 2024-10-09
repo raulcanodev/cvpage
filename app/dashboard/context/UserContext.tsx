@@ -87,14 +87,23 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const deleteUserService = async (serviceId: string, userId: string) => {
-    try {
-      const response = await deleteService(serviceId, userId);
-      await fetchUserData(); 
-      return JSON.stringify(response);
-    } catch (error) {
-      console.error('Error deleting service data:', error);
-      return Promise.reject(error);
-    }
+    return toast.promise(
+      (async () => {
+        try {
+          const response = await deleteService(serviceId, userId);
+          await fetchUserData();
+          return JSON.stringify(response);
+        } catch (error) {
+          console.error('Error deleting service data:', error);
+          throw error;
+        }
+      })(),
+      {
+        loading: 'Deleting block...',
+        success: 'Block deleted successfully!',
+        error: 'Error deleting block',
+      }
+    );
   };
 
   const updateUserAvatar = async (userId: string, formData: FormData) => {

@@ -97,9 +97,7 @@ export function BlockCard({
               )}
 
               {category === 'image' && <ImageCard serviceId={serviceId} image={image} />}
-              {category === 'simple' && (
-                <Simple serviceId={serviceId} title={title} description={description} />
-              )}
+             
             </div>
           </div>
         </CardContent>
@@ -483,45 +481,6 @@ export function ImageCard({ serviceId, image }: ServiceCardProps) {
         <BlockImage serviceId={serviceId} />
         <ConfirmDeleteService serviceId={serviceId} />
       </div>
-    </>
-  );
-}
-
-export function Simple({ serviceId, title, description }: ServiceCardProps) {
-  const { updateUserService } = useUserContext();
-  const [titleText, setTitleText] = useState(title || '');
-  const [descriptionText, setDescriptionText] = useState(description || '');
-
-  const [debouncedTitle] = useDebounce(titleText, 500);
-  const [debouncedDescription] = useDebounce(descriptionText, 500);
-
-  useEffect(() => {
-    if (debouncedTitle !== title) {
-      updateUserService(serviceId, { title: debouncedTitle });
-    }
-  }, [debouncedTitle, serviceId, title, updateUserService]);
-
-  useEffect(() => {
-    if (debouncedDescription !== description) {
-      updateUserService(serviceId, { description: debouncedDescription });
-    }
-  }, [debouncedDescription, serviceId, description, updateUserService]);
-
-  return (
-    <>
-      <Input
-        className="font-semibold bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto mb-2"
-        placeholder="Title"
-        value={titleText}
-        onChange={(e) => setTitleText(e.target.value)}
-      />
-      <Textarea
-        className="bg-transparent border-none text-gray-900 dark:text-white"
-        placeholder="Description"
-        value={descriptionText}
-        onChange={(e) => setDescriptionText(e.target.value)}
-      />
-      <ConfirmDeleteService serviceId={serviceId} />
     </>
   );
 }

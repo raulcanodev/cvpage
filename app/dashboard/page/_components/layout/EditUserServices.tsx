@@ -24,23 +24,42 @@ export function EditUserServices() {
       toast.error(`You can only have up to ${maxServices}.`);
       return;
     }
+    
+    setIsButtonDisabled(true);
   
-    try {
-      setIsButtonDisabled(true);
-      const newService = await createNewService();
-      // Add new service to local state first
-      setServicesState((prevServices) => {
-        const updatedServices = [...prevServices, newService];
-        updateUserData(_id, { services: updatedServices }); // Update user data with new services
-        return updatedServices; // Return the updated state
-      });
-      toast.success('Block added successfully 🎉');
-      setTimeout(() => {
+    // try {
+    //   const newService = await createNewService();
+    //   // Add new service to local state first
+    //   setServicesState((prevServices) => {
+    //     const updatedServices = [...prevServices, newService];
+    //     updateUserData(_id, { services: updatedServices }); // Update user data with new services
+    //     return updatedServices; // Return the updated state
+    //   });
+    //   toast.success('Block added successfully 🎉');
+    //   setTimeout(() => {
+    //     setIsButtonDisabled(false);
+    //   }, 300);
+    // } catch (error) {
+    //   console.error('Error adding service:', error);
+    // }
+
+    toast.promise(createNewService(), {
+      loading: 'Adding block...',
+      success: (newService) => {
+        setServicesState((prevServices) => {
+          const updatedServices = [...prevServices, newService];
+          updateUserData(_id, { services: updatedServices });
+          return updatedServices;
+        });
+        return 'Block added successfully 🎉';
+      },
+      error: (err) => {
+        return err.message || 'An error occurred while adding block';
+      },
+      finally: () => {
         setIsButtonDisabled(false);
-      }, 300);
-    } catch (error) {
-      console.error('Error adding service:', error);
-    }
+      },
+    });
   };
 
   const handleReorder = async (newOrder: Service[]) => {

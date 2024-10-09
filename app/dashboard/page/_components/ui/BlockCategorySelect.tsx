@@ -13,14 +13,13 @@ interface ServiceCategorySelectProps {
 }
 
 const categories = [
+  { value: 'education', label: 'Education', premium: true },
   { value: 'image', label: 'Image', premium: true },
   { value: 'textarea', label: 'Description', premium: false },
   { value: 'project', label: 'Project', premium: true },
   { value: 'service', label: 'Service', premium: true },
-  { value: 'simple', label: 'Simple Block', premium: false },
   { value: 'title', label: 'Title', premium: false },
   { value: 'workexperience', label: 'Work Experience', premium: true },
-  { value: 'education', label: 'Education', premium: true },
 ];
 
 export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {
