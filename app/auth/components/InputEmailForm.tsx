@@ -1,46 +1,51 @@
-'use client';
-import React, { FormEvent, useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useSession } from 'next-auth/react';
-import { Button, Input, Label } from '@/components/ui';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
+'use client'
+
+import React, { FormEvent, useState, useEffect } from 'react'
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
+import { Button, Input, Label } from '@/components/ui'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 export function InputEmailForm() {
-  const [email, setEmail] = useState('');
-  const { data: session } = useSession();
-  const router = useRouter();
+  const [email, setEmail] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { data: session } = useSession()
+  const router = useRouter()
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
+    setIsSubmitting(true)
 
-    try {
-      const res = await fetch('/api/reset-password', {
+    toast.promise(
+      fetch('/api/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        toast.success(data.message);
-        router.push('/auth/login');
-      } else {
-        toast.error(data.message);
+      }).then(async (res) => {
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.message)
+        return data
+      }),
+      {
+        loading: 'Sending reset email...',
+        success: (data) => {
+          router.push('/auth/login')
+          return data.message
+        },
+        error: (err) => err.message || 'Email not found.',
+        finally: () => setIsSubmitting(false),
       }
-    } catch (error) {
-      toast.error('Email not found.');
-    }
+    )
   }
 
   useEffect(() => {
     if (session) {
-      window.location.href = '/dashboard/page';
+      window.location.href = '/dashboard/page'
     }
-  }, [session]);
+  }, [session])
 
   return (
     <>
@@ -61,8 +66,8 @@ export function InputEmailForm() {
           />
         </div>
 
-        <Button type="submit" className="w-full">
-          Send Email
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? 'Sending Email...' : 'Send Email'}
         </Button>
 
         <div className="flex items-center justify-between">
@@ -74,5 +79,5 @@ export function InputEmailForm() {
         </div>
       </form>
     </>
-  );
+  )
 }
