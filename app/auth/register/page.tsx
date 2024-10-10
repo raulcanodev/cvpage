@@ -35,18 +35,13 @@ export default function Register() {
         repeatPassword: repeatPassword ?? '',
       }),
       {
-        loading: 'Creating your account...',
+        loading: 'Registering user...',
         success: (data) => {
           ref.current?.reset()
           router.push(`/auth/register/success`)
-          return 'Account created successfully!'
-        },
-        error: (err) => {
-          return err.error || 'An error occurred during registration'
-        },
-        finally: () => {
-          setIsSubmitting(false)
-        },
+          return 'User registered successfully!'},
+        error: (err) => err.message || 'Failed to register user',
+        finally: () => setIsSubmitting(false),
       }
     )
   }

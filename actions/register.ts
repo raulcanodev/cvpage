@@ -11,38 +11,34 @@ interface RegisterValues {
 
 // Register a new user in the database
 export const register = async (values: RegisterValues) => {
-  const { email, password, repeatPassword } = values;
+    const { email, password, repeatPassword } = values;
+  
+    try {
 
-  try {
       if (password !== repeatPassword) {
-          return {
-              error: 'Passwords do not match!'
-          }
-      }else if(password.length < 8){
-          return {
-              error: 'Password must be at least 8 characters long!'
-          }
-      }else if(!/[!@#$%^&*(),.?":{}|<>]/.test(password)){
-          return {
-              error: 'Password must contain at least one special character!'
-          }
+        throw new Error('Passwords do not match!');
+      } else if (password.length < 8) {
+        throw new Error('Password must be at least 8 characters long!');
+      } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        throw new Error('Password must contain at least one special character!');
       }
-
+  
       await connectDB();
       const userFound = await User.findOne({ email });
-      if(userFound){
-          return {
-              error: 'Email already exists!'
-          }
+      if (userFound) {
+        throw new Error('Email already exists!');
       }
+  
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = new User({
         email,
         password: hashedPassword,
       });
       await user.save();
-
-  }catch(e){
-      console.log(e);
-  }
-}
+  
+      return { success: true };  
+    } catch (e :any) {
+      throw new Error(e.message || 'Error registering user');  
+    }
+  };
+  
