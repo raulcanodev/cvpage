@@ -12,19 +12,25 @@ export function EditUserServices() {
   const [servicesState, setServicesState] = useState<Service[]>([]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const { userData, updateUserData } = useUserContext();
-  const { premium } = userData;
-  const { _id, services } = userData;
-  
+  const { premium, _id, services } = userData;
+
   const hasUserReordered = useRef(false);
 
+  const maxServices = premium ? 100 : 5;
+
+  useEffect(() => {
+    if (services && !hasUserReordered.current) {
+      setServicesState(services);
+    }
+    setIsButtonDisabled(services.length >= maxServices);
+  }, [services, premium, maxServices]);
+
   const handleAddService = async () => {
-    const maxServices = premium ? 100 : 5;
-    if (userData.services.length >= maxServices) {
-      setIsButtonDisabled(true);
-      toast.error(`You can only have up to ${maxServices}.`);
+    if (servicesState.length >= maxServices) {
+      toast.error(`You can only have up to ${maxServices} blocks.`);
       return;
     }
-    
+
     setIsButtonDisabled(true);
 
     toast.promise(createNewService(), {
@@ -41,7 +47,7 @@ export function EditUserServices() {
         return err.message || 'An error occurred while creating block';
       },
       finally: () => {
-        setIsButtonDisabled(false);
+        setIsButtonDisabled(servicesState.length + 1 >= maxServices);
       },
     });
   };
@@ -52,12 +58,18 @@ export function EditUserServices() {
     await updateUserData(_id, { services: newOrder });
   };
 
-  useEffect(() => {
-    if (services && !hasUserReordered.current) {
-
-      setServicesState(services);
+  const handleDeleteService = async (serviceId: string) => {
+    try {
+      const updatedServices = servicesState.filter((service) => service._id !== serviceId);
+      setServicesState(updatedServices);
+      await updateUserData(_id, { services: updatedServices });
+      setIsButtonDisabled(updatedServices.length >= maxServices);
+      toast.success('Block deleted successfully');
+    } catch (error) {
+      console.error('Error deleting service:', error);
+      toast.error('Failed to delete block. Please try again.');
     }
-  }, [services]);
+  };
 
   return (
     <>
@@ -68,7 +80,7 @@ export function EditUserServices() {
       >
         <Plus className="w-4 h-4 mx-1" /> ADD BLOCK
       </Button>
-      {services && (
+      {servicesState.length > 0 && (
         <Reorder.Group values={servicesState} onReorder={handleReorder}>
           {servicesState
             .filter((service) => service._id)
@@ -86,6 +98,7 @@ export function EditUserServices() {
                 price={service.price}
                 date={service.date}
                 location={service.location}
+                onDelete={handleDeleteService}
                 service={service}
               />
             ))}

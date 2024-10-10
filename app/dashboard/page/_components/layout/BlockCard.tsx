@@ -6,23 +6,23 @@ import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { useDebounce } from 'use-debounce';
 import Image from 'next/image';
 import { ServicePriceDialog, LinkBlockDialog, BlockDate } from '../ui/';
-
 import { Reorder, useDragControls } from 'framer-motion';
 import { ReorderIcon } from './_components/DragIcon';
 
-interface ServiceCardProps {
+export interface ServiceCardProps {
   serviceId: string;
   title?: string;
   subtitle?: string;
   description?: string;
   category?: string;
   active?: boolean;
-  date?: any;
+  date?: string;
   image?: string;
   link?: string;
   price?: string;
   location?: string;
   service?: ServiceCardProps;
+  onDelete?: (serviceId: string) => Promise<void>;
 }
 
 export function BlockCard({
@@ -38,6 +38,7 @@ export function BlockCard({
   location,
   date,
   service,
+  onDelete,
 }: ServiceCardProps) {
   const dragControls = useDragControls();
 
@@ -49,14 +50,16 @@ export function BlockCard({
             <ReorderIcon dragControls={dragControls} />
 
             <div className="flex-1">
-              {!category && <BlockCategorySelect serviceId={serviceId} />}
-              {category === 'title' && <TitleCard serviceId={serviceId} title={title} />}
+              {!category && <BlockCategorySelect serviceId={serviceId} initialCategory={category} />}
+              {category === 'title' && <TitleCard serviceId={serviceId} title={title} onDelete={onDelete} />}
               {category === 'project' && (
                 <ProjectCard
                   serviceId={serviceId}
                   title={title}
                   description={description}
                   active={active}
+                  link={link}
+                  onDelete={onDelete}
                 />
               )}
               {category === 'service' && (
@@ -67,10 +70,11 @@ export function BlockCard({
                   active={active}
                   link={link}
                   price={price}
+                  onDelete={onDelete}
                 />
               )}
               {category === 'textarea' && (
-                <TextAreaCard serviceId={serviceId} description={description} />
+                <TextAreaCard serviceId={serviceId} description={description} onDelete={onDelete} />
               )}
               {category === 'workexperience' && (
                 <WorkExperience
@@ -81,6 +85,7 @@ export function BlockCard({
                   subtitle={subtitle}
                   location={location}
                   active={active}
+                  onDelete={onDelete}
                 />
               )}
               {category === 'education' && (
@@ -92,10 +97,10 @@ export function BlockCard({
                   subtitle={subtitle}
                   location={location}
                   active={active}
+                  onDelete={onDelete}
                 />
               )}
-
-              {category === 'image' && <ImageCard serviceId={serviceId} image={image} />}
+              {category === 'image' && <ImageCard serviceId={serviceId} image={image} onDelete={onDelete} />}
             </div>
           </div>
         </CardContent>
@@ -104,7 +109,7 @@ export function BlockCard({
   );
 }
 
-export function ProjectCard({ serviceId, title, description, active, link }: ServiceCardProps) {
+export function ProjectCard({ serviceId, title, description, active, link, onDelete }: ServiceCardProps) {
   const { updateUserService } = useUserContext();
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
@@ -142,7 +147,6 @@ export function ProjectCard({ serviceId, title, description, active, link }: Ser
         />
       </div>
 
-      {/* Description */}
       <Input
         className="bg-transparent text-gray-900 dark:text-white border-none focus:ring-0 mb-4 w-full h-auto"
         placeholder="Description"
@@ -150,12 +154,11 @@ export function ProjectCard({ serviceId, title, description, active, link }: Ser
         onChange={(e) => setDescriptionText(e.target.value)}
       />
 
-      {/* Bottom - Actions */}
       <div className="flex items-center justify-between text-zinc-400">
         <div className="flex gap-1 align-center">
           <LinkBlockDialog serviceId={serviceId} serviceLink={link || ''} />
         </div>
-        <ConfirmDeleteService serviceId={serviceId} />
+        <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />
       </div>
     </>
   );
@@ -168,6 +171,7 @@ export function ServiceCard({
   active,
   link,
   price,
+  onDelete,
 }: ServiceCardProps) {
   const { updateUserService } = useUserContext();
   const [titleText, setTitleText] = useState(title || '');
@@ -206,7 +210,6 @@ export function ServiceCard({
         />
       </div>
 
-      {/* Description */}
       <Textarea
         className="bg-transparent text-gray-900 dark:text-white border-none focus:ring-0 mb-4 w-full h-auto"
         placeholder="Description"
@@ -214,44 +217,59 @@ export function ServiceCard({
         onChange={(e) => setDescriptionText(e.target.value)}
       />
 
-      {/* Bottom - Actions */}
       <div className="flex items-center justify-between text-zinc-400">
         <div className="flex gap-1 align-center">
           <ServicePriceDialog serviceId={serviceId} servicePrice={price || ''} />
           <LinkBlockDialog serviceId={serviceId} serviceLink={link || ''} />
         </div>
-        <ConfirmDeleteService serviceId={serviceId} />
+        <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />
       </div>
     </>
   );
 }
 
-export function TitleCard({ serviceId, title }: ServiceCardProps) {
+export function TitleCard({ serviceId, title, onDelete }: ServiceCardProps) {
   const { updateUserService } = useUserContext();
   const [titleText, setTitleText] = useState(title || '');
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const [debouncedTitle] = useDebounce(titleText, 500);
 
   useEffect(() => {
-    if (debouncedTitle !== title) {
-      updateUserService(serviceId, { title: debouncedTitle });
+    async function updateTitle() {
+      if (debouncedTitle !== title) {
+        setIsUpdating(true);
+        try {
+          await updateUserService(serviceId, { title: debouncedTitle });
+        } catch (error) {
+          console.error('Failed to update title:', error);
+          setTitleText(title || '');
+        } finally {
+          setIsUpdating(false);
+        }
+      }
     }
+
+    updateTitle();
   }, [debouncedTitle, serviceId, title, updateUserService]);
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center w-full">
       <Input
         className="font-semibold bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto w-full"
         placeholder="Service title..."
         value={titleText}
         onChange={(e) => setTitleText(e.target.value)}
+        disabled={isUpdating}
+        aria-label="Service title"
       />
-      <ConfirmDeleteService serviceId={serviceId} />
+      
+      <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />
     </div>
   );
 }
 
-export function TextAreaCard({ serviceId, description }: ServiceCardProps) {
+export function TextAreaCard({ serviceId, description, onDelete }: ServiceCardProps) {
   const { updateUserService } = useUserContext();
   const [textArea, setTextArea] = useState(description || '');
 
@@ -271,7 +289,7 @@ export function TextAreaCard({ serviceId, description }: ServiceCardProps) {
         onChange={(e) => setTextArea(e.target.value)}
       />
       <div className="text-right mt-3">
-        <ConfirmDeleteService serviceId={serviceId} />
+        <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />
       </div>
     </>
   );
@@ -285,18 +303,17 @@ export function WorkExperience({
   active,
   location,
   date,
+  onDelete,
 }: ServiceCardProps) {
   const { updateUserService } = useUserContext();
 
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
   const [subTitleText, setSubTitleText] = useState(subtitle || '');
-  const [dateText, setDateText] = useState(date || '');
 
   const [debouncedTitle] = useDebounce(titleText, 500);
   const [debouncedDescription] = useDebounce(descriptionText, 500);
   const [debouncedSubtitle] = useDebounce(subTitleText, 500);
-  const [debouncedDate] = useDebounce(dateText, 500);
 
   useEffect(() => {
     if (debouncedTitle && debouncedTitle !== title) {
@@ -316,16 +333,9 @@ export function WorkExperience({
     }
   }, [debouncedSubtitle, serviceId, updateUserService, subtitle]);
 
-  useEffect(() => {
-    if (debouncedDate && debouncedDate !== date) {
-      updateUserService(serviceId, { date: debouncedDate });
-    }
-  }, [debouncedDate, serviceId, updateUserService]); //! LOOP INFINITE HERE
-
   return (
     <>
       <div className="flex flex-col md:flex-row items-start justify-between mb-2 w-full">
-        {/* Role Input */}
         <div className="relative flex-grow md:mr-2">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
             Role
@@ -338,7 +348,6 @@ export function WorkExperience({
           />
         </div>
 
-        {/* Company Input */}
         <div className="relative flex-grow md:ml-2">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
             Company
@@ -350,25 +359,16 @@ export function WorkExperience({
             className="pl-[5.6rem] bg-transparent border-none text-gray-900 dark:text-white w-full"
           />
         </div>
-
-        {/* Switch Component */}
-        {/* <Switch
-      className="data-[state=checked]:bg-slate-300 mt-3 md:mt-0"
-      checked={active}
-      onCheckedChange={(e) => updateUserService(serviceId, { active: e })}
-    /> */}
       </div>
-
-      {/* Description Textarea */}
       <Textarea
         className="bg-transparent border-none text-gray-900 dark:text-white"
         value={descriptionText}
         onChange={(e) => setDescriptionText(e.target.value)}
       />
 
-      {/* Block Date and Delete Button */}
       <div className="flex items-center justify-between text-zinc-400 mt-4 flex-col md:flex-row">
         <BlockDate serviceId={serviceId} />
+        <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />
       </div>
     </>
   );
@@ -382,21 +382,21 @@ export function Education({
   active,
   location,
   date,
+  onDelete,
 }: ServiceCardProps) {
   const { updateUserService } = useUserContext();
 
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
   const [subTitleText, setSubTitleText] = useState(subtitle || '');
-  const [dateText, setDateText] = useState(date || '');
 
   const [debouncedTitle] = useDebounce(titleText, 500);
   const [debouncedDescription] = useDebounce(descriptionText, 500);
   const [debouncedSubtitle] = useDebounce(subTitleText, 500);
-  const [debouncedDate] = useDebounce(dateText, 500);
 
   useEffect(() => {
     if (debouncedTitle && debouncedTitle !== title) {
+      
       updateUserService(serviceId, { title: debouncedTitle });
     }
   }, [debouncedTitle, serviceId, updateUserService, title]);
@@ -413,16 +413,9 @@ export function Education({
     }
   }, [debouncedSubtitle, serviceId, updateUserService, subtitle]);
 
-  useEffect(() => {
-    if (debouncedDate && debouncedDate !== date) {
-      updateUserService(serviceId, { date: debouncedDate });
-    }
-  }, [debouncedDate, serviceId, updateUserService]); //! LOOP INFINITE HERE
-
   return (
     <>
       <div className="flex flex-col md:flex-row items-start justify-between mb-2 w-full">
-        {/* Role Input */}
         <div className="relative flex-grow md:mr-2">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
             Degree
@@ -435,7 +428,6 @@ export function Education({
           />
         </div>
 
-        {/* Company Input */}
         <div className="relative flex-grow md:ml-2">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
             School
@@ -449,22 +441,21 @@ export function Education({
         </div>
       </div>
 
-      {/* Description Textarea */}
       <Textarea
         className="bg-transparent border-none text-gray-900 dark:text-white"
         value={descriptionText}
         onChange={(e) => setDescriptionText(e.target.value)}
       />
 
-      {/* Block Date and Delete Button */}
       <div className="flex items-center justify-between text-zinc-400 mt-4 flex-col md:flex-row">
         <BlockDate serviceId={serviceId} />
+        <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />
       </div>
     </>
   );
 }
 
-export function ImageCard({ serviceId, image }: ServiceCardProps) {
+export function ImageCard({ serviceId, image, onDelete }: ServiceCardProps) {
   return (
     <>
       {image && (
@@ -479,7 +470,7 @@ export function ImageCard({ serviceId, image }: ServiceCardProps) {
 
       <div className="flex justify-between mt-4">
         <BlockImage serviceId={serviceId} />
-        <ConfirmDeleteService serviceId={serviceId} />
+        <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />
       </div>
     </>
   );

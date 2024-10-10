@@ -127,7 +127,6 @@ export function EditUser() {
                 </span>
                 <Input
                   type="text"
-                  placeholder="yourname"
                   value={domainInput}
                   onChange={handleDomainChange}
                   className="pl-[5.2rem] bg-transparent border-none text-gray-900 dark:text-white"
