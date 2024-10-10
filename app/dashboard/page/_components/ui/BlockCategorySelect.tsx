@@ -29,7 +29,6 @@ export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {
 
   const handleCategoryChange = async (value: string) => {
 
-
     const selectedCategory = categories.find(cat => cat.value === value);
     const categoryLabel = selectedCategory ? selectedCategory.label : value;
 
