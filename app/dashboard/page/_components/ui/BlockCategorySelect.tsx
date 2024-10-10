@@ -1,4 +1,5 @@
 'use client';
+import React, { useState } from 'react';
 import {
   Select,
   SelectContent,
@@ -26,11 +27,14 @@ const categories = [
 export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {
   const { updateUserService, userData } = useUserContext();
   const { premium } = userData;
+  const [updating, setUpdating] = useState(false);
 
   const handleCategoryChange = async (value: string) => {
 
     const selectedCategory = categories.find(cat => cat.value === value);
     const categoryLabel = selectedCategory ? selectedCategory.label : value;
+
+    setUpdating(true);
 
     toast.promise(
       updateUserService(serviceId, { category: value }),
@@ -38,12 +42,13 @@ export function BlockCategorySelect({ serviceId }: ServiceCategorySelectProps) {
       loading: `Setting block as ${categoryLabel}...`,
       success: `Block set as ${categoryLabel} 🎉`,
       error: 'Error updating block category',
+      finally: () => setUpdating(false),
       }
     )
   };
 
   return (
-      <Select onValueChange={handleCategoryChange}>
+      <Select onValueChange={handleCategoryChange} disabled={updating}>
         <SelectTrigger className=" bg-transparent border-none">
           <SelectValue placeholder="Select block" />
         </SelectTrigger>

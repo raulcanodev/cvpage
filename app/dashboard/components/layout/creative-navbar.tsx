@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui';
-import { BarChart2, Paintbrush, Settings, User } from 'lucide-react';
+import { Paintbrush, Settings, User } from 'lucide-react';
 import Link from 'next/link';
 
 export function CreativeNavbar() {
