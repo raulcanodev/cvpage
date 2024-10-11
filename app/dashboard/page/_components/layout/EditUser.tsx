@@ -122,7 +122,7 @@ export function EditUser() {
           <div className="flex row">
             <div className="flex rounded-md">
               <div className="relative flex-grow">
-                <span className="text-gray-400 pl-4">
+                <span className="text-gray-400">
                   {config.domainName}/{customDomain || '' }
                 </span>
               </div>
