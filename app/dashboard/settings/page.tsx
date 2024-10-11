@@ -8,12 +8,33 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui"
 import { Copy } from 'lucide-react'
 import { Logout } from './_components/ui/'
 import { useUserContext } from '@/app/dashboard/context/UserContext'
+import config from '@/config'
+import Link from 'next/link'
+import { toast } from 'sonner'
 
 export default function SettingsPage() {
   const [username, setUsername] = useState('raulcano')
-  const { userData } = useUserContext()
-  const { premium, customDomain } = userData
+  const [domain, setDomain] = useState('')
+  const { userData, updateUserDomain } = useUserContext()
+  const { premium, customDomain, email } = userData
 
+  const handleUpdateDomain = (e: any) => {
+    e.preventDefault()
+    if (!domain.trim() || domain === customDomain) return
+    try {
+      const escapedDomain = domain
+        .replace(/[^a-zA-Z0-9-]/g, '') // Remove any character that is not a letter, number, or hyphen
+        .trim()
+        .toLowerCase()
+      if (escapedDomain !== domain) {
+        toast.error('Invalid domain name')
+        return
+      }
+      updateUserDomain(userData._id, escapedDomain)
+    } catch (error) {
+      console.error('Failed to update custom domain:', error)
+    }
+  }
 
   return (
     <div className="p-4 md:p-8 text-black  dark:text-white">
@@ -26,24 +47,21 @@ export default function SettingsPage() {
           </TabsList>
           
           <TabsContent value="account" className="space-y-6">
-            <div className="bg-zinc-100 dark:bg-zinc-800 p-6 rounded-lg">
-              <h2 className="text-xl font-semibold mb-4">Change username</h2>
-              <div className="flex space-x-2">
-                <Input
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="bg-transparent border-zinc-300 text-black dark:border-zinc-700 dark:text-white flex-grow"
-                />
-                <Button variant="secondary" className="bg-zinc-300 hover:bg-zinc-400 dark:bg-zinc-700 dark:hover:bg-zinc-600">UPDATE</Button>
+            {email && (
+              <div className="bg-zinc-100 dark:bg-zinc-800 p-6 rounded-lg">
+                <h2 className="text-xl font-semibold mb-4">Email Account</h2>
+                <div className="flex space-x-2">
+                  <p className='text-black dark:text-white'>{email}</p>
+                </div>
               </div>
-            </div>
+            )}
 
             <div className="bg-zinc-100 dark:bg-zinc-800 p-6 rounded-lg">
-              <h2 className="text-xl font-semibold mb-4">Hitme.to domain</h2>
+              <h2 className="text-xl font-semibold mb-4">{config.domainName} domain</h2>
               <div className="flex justify-between items-center">
-                <span className="text-zinc-600 dark:text-zinc-400">hitme.to/{customDomain}</span>
+                <span className="text-zinc-600 dark:text-zinc-400">{config.domainName}/{customDomain}</span>
                 <Button variant="outline" size="sm" onClick={() => {
-                  navigator.clipboard.writeText(`hitme.to/${customDomain}`)
+                  navigator.clipboard.writeText(`${config.domainName}/${customDomain}`)
                 }}>
                   <Copy className="h-4 w-4 mr-2" />
                   COPY
@@ -52,14 +70,22 @@ export default function SettingsPage() {
             </div>
 
             <div className="bg-zinc-100 dark:bg-zinc-800 p-6 rounded-lg">
-              <h2 className="text-xl font-semibold mb-4">Custom domain</h2>
-              <div className="flex space-x-2">
+              <h2 className="text-xl font-semibold mb-4">
+                {customDomain ? 'Update' : 'Add'} custom domain
+              </h2>
+                <div className="flex space-x-2">
                 <Input
-                  value={customDomain}
+                  placeholder={customDomain || ''}
+                  onChange={(e) => setDomain(e.target.value)}
                   className="bg-transparent border-zinc-300 text-black dark:border-zinc-700 dark:text-white flex-grow"
                 />
-                <Button className="bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500">SAVE</Button>
-              </div>
+                <Button 
+                  className="bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500"
+                  onClick={handleUpdateDomain}
+                >
+                  SAVE
+                </Button>
+                </div>
             </div>
 
             <div className="flex justify-end space-x-4 mt-8">
@@ -72,17 +98,20 @@ export default function SettingsPage() {
               <h2 className="text-xl font-semibold mb-4">Billing</h2>
               <p>
                 {premium && (
-                  <div className='space-y-3'>
-                    <p>
-                      You are currently subscribed to the <strong>Premium</strong> plan 🥰
-                    </p>
-                  </div>
+                    <div className='space-y-3'>
+                      <p>
+                        You are currently subscribed to the <strong>Premium</strong> plan 🥰
+                      </p>
+                    </div>
                 )}
                 {!premium && (
                   <div className='space-y-3'>
                     <p>
-                      Upgrade to the <strong>Premium</strong> plan to unlock all features.
+                      Upgrade to <strong><Link href={config.lemonsqueezy.productLink} passHref>
+                            <span className="text-blue-600 dark:text-blue-500">Premium</span>
+                          </Link></strong> to unlock all features.
                     </p>
+                    <p className='text-xs'>Only {config.lemonsqueezy.price}€. No subscription, keep it forever 🚀</p>
                   </div>
                 )}
               </p>

@@ -16,7 +16,7 @@ export function Logout() {
   return (
     <Button
       onClick={handleLogout}
-      className="dark:text-zinc-100 text-zinc-500"
+      className="dark:bg-zinc-950 bg-zinc-50 text-black dark:text-white"
     >
       <LogOut className="h-4 w-4 mr-2" />
       LOGOUT

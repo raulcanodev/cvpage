@@ -122,15 +122,9 @@ export function EditUser() {
           <div className="flex row">
             <div className="flex rounded-md">
               <div className="relative flex-grow">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-0 text-gray-400">
-                  {config.domainName}/
+                <span className="text-gray-400 pl-4">
+                  {config.domainName}/{customDomain || '' }
                 </span>
-                <Input
-                  type="text"
-                  value={domainInput}
-                  onChange={handleDomainChange}
-                  className="pl-[5.2rem] bg-transparent border-none text-gray-900 dark:text-white"
-                />
               </div>
             </div>
           </div>
