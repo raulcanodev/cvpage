@@ -14,5 +14,4 @@ export interface Service {
   dateEnd?: string;
   serviceId: string;
   service?: Service;
-  onDelete: (serviceId: string) => void;
 }

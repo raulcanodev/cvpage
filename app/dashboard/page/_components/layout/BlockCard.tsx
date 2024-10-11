@@ -8,8 +8,9 @@ import Image from 'next/image';
 import { ServicePriceDialog, LinkBlockDialog, BlockDate } from '../ui/';
 import { Reorder, useDragControls } from 'framer-motion';
 import { ReorderIcon } from './_components/DragIcon';
+import { Service } from '@/types/types';
 
-export interface ServiceCardProps {
+export interface ServiceCardProps extends Omit<Service, 'onDelete'> {
   serviceId: string;
   title?: string;
   subtitle?: string;
@@ -21,7 +22,7 @@ export interface ServiceCardProps {
   link?: string;
   price?: string;
   location?: string;
-  service?: ServiceCardProps;
+  service?: Service;
   onDelete?: (serviceId: string) => Promise<void>;
 }
 
@@ -319,19 +320,19 @@ export function WorkExperience({
     if (debouncedTitle && debouncedTitle !== title) {
       updateUserService(serviceId, { title: debouncedTitle });
     }
-  }, [debouncedTitle, serviceId, updateUserService, title]);
+  }, [debouncedTitle, serviceId, title]);
 
   useEffect(() => {
     if (debouncedDescription && debouncedDescription !== description) {
       updateUserService(serviceId, { description: debouncedDescription });
     }
-  }, [debouncedDescription, serviceId, updateUserService, description]);
+  }, [debouncedDescription, serviceId, description]);
 
   useEffect(() => {
     if (debouncedSubtitle && debouncedSubtitle !== subtitle) {
       updateUserService(serviceId, { subtitle: debouncedSubtitle });
     }
-  }, [debouncedSubtitle, serviceId, updateUserService, subtitle]);
+  }, [debouncedSubtitle, serviceId, subtitle]);
 
   return (
     <>
@@ -396,22 +397,21 @@ export function Education({
 
   useEffect(() => {
     if (debouncedTitle && debouncedTitle !== title) {
-      
       updateUserService(serviceId, { title: debouncedTitle });
     }
-  }, [debouncedTitle, serviceId, updateUserService, title]);
+  }, [debouncedTitle, serviceId, title]);
 
   useEffect(() => {
     if (debouncedDescription && debouncedDescription !== description) {
       updateUserService(serviceId, { description: debouncedDescription });
     }
-  }, [debouncedDescription, serviceId, updateUserService, description]);
+  }, [debouncedDescription, serviceId, description]);
 
   useEffect(() => {
     if (debouncedSubtitle && debouncedSubtitle !== subtitle) {
       updateUserService(serviceId, { subtitle: debouncedSubtitle });
     }
-  }, [debouncedSubtitle, serviceId, updateUserService, subtitle]);
+  }, [debouncedSubtitle, serviceId, subtitle]);
 
   return (
     <>

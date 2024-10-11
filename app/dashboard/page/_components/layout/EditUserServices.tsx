@@ -59,16 +59,19 @@ export function EditUserServices() {
   };
 
   const handleDeleteService = async (serviceId: string) => {
-    try {
-      const updatedServices = servicesState.filter((service) => service._id !== serviceId);
-      setServicesState(updatedServices);
-      await updateUserData(_id, { services: updatedServices });
-      setIsButtonDisabled(updatedServices.length >= maxServices);
-      toast.success('Block deleted successfully');
-    } catch (error) {
-      console.error('Error deleting service:', error);
-      toast.error('Failed to delete block. Please try again.');
-    }
+    toast.promise(
+      (async () => {
+        const updatedServices = servicesState.filter((service) => service._id !== serviceId);
+        setServicesState(updatedServices);
+        await updateUserData(_id, { services: updatedServices });
+        setIsButtonDisabled(updatedServices.length >= maxServices);
+      })(),
+      {
+        loading: 'Deleting block...',
+        success: 'Block deleted successfully',
+        error: 'Failed to delete block. Please try again.',
+      }
+    );
   };
 
   return (

@@ -12,13 +12,15 @@ import { Trash2 } from 'lucide-react';
 
 interface ConfirmDeleteServiceProps {
   serviceId: string;
-  onDelete: (serviceId: string) => Promise<void>;
+  onDelete?: (serviceId: string) => Promise<void>;
 }
 
 export function ConfirmDeleteService({ serviceId, onDelete }: ConfirmDeleteServiceProps) {
   const handleDelete = async () => {
     try {
-      await onDelete(serviceId);
+      if (onDelete) {
+        await onDelete(serviceId);
+      }
     } catch (error) {
       console.error('Error deleting service:', error);
     }
