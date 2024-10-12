@@ -15,7 +15,6 @@ import { CalendarIcon } from 'lucide-react';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { cn } from "@/lib/utils"
 import { toast } from "sonner";
-import { ConfirmDeleteService } from "./ConfirmDeleteService";
 
 interface BlockDateProps {
   serviceId: string;
@@ -116,9 +115,6 @@ export function BlockDate({ serviceId }: BlockDateProps) {
           />
           <Label htmlFor="present-mode">Present</Label>
         </div>
-      </div>
-      <div className="flex justify-end">
-        <ConfirmDeleteService serviceId={serviceId} />
       </div>
     </div>
   );

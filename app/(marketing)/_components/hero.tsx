@@ -8,12 +8,11 @@ export default function Component() {
     <section className=" min-h-screen flex flex-col items-center justify-center p-4 mt-8 px-5">
       <div className="max-w-2xl mx-auto text-center">
         <div className="flex flex-col items-center mb-9 gap-4 max-w-xl">
-          <h1 className="text-2xl md:text-4xl font-bold">
-            Build Your Online Presence with Hitmeto
+          <h1 className="text-4xl md:text-4xl font-bold">
+            Build Your Online CV in Minutes
           </h1>
           <p className="text-wrap text-center text-sm sm:text-base">
-            hitme.to empowers you to create and launch your own stunning web page in minutes, no
-            coding skills required.
+            
           </p>
         </div>
         <Button className="text-lg py-6 px-8">Get Started for Free</Button>

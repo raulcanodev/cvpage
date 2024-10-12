@@ -44,7 +44,7 @@ export default function Navbar() {
             {/* Log in with white background */}
             <div className="flex items-center space-x-4">
               <Link href="/auth/register">
-                <Button variant="ghost" className="dark:bg-white bg-black dark:text-black text-white hover:dark:text-white hover:dark:bg-black">Sign Up</Button>
+                <Button variant="ghost" className="dark:bg-zinc-50 bg-zinc-950 dark:text-black text-white hover:dark:text-white hover:dark:bg-black">Sign Up</Button>
               </Link>
               
               {/* ThemeSwitcher for desktop */}

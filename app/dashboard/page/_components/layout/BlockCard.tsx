@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, Input, Switch, Textarea } from '@/components/ui';
 import { ConfirmDeleteService, BlockCategorySelect, BlockImage } from '../ui';
-import { useUserContext } from '@/app/dashboard/context/UserContext';
 import { useDebounce } from 'use-debounce';
 import Image from 'next/image';
 import { ServicePriceDialog, LinkBlockDialog, BlockDate } from '../ui/';
@@ -18,12 +17,14 @@ export interface ServiceCardProps extends Omit<Service, 'onDelete'> {
   category?: string;
   active?: boolean;
   date?: string;
+  dateEnd?: string;
   image?: string;
   link?: string;
   price?: string;
   location?: string;
   service?: Service;
   onDelete?: (serviceId: string) => Promise<void>;
+  onUpdate: (serviceId: string, data: Partial<Service>) => Promise<void>;
 }
 
 export function BlockCard({
@@ -38,8 +39,10 @@ export function BlockCard({
   price,
   location,
   date,
+  dateEnd,
   service,
   onDelete,
+  onUpdate,
 }: ServiceCardProps) {
   const dragControls = useDragControls();
 
@@ -52,7 +55,7 @@ export function BlockCard({
 
             <div className="flex-1">
               {!category && <BlockCategorySelect serviceId={serviceId} initialCategory={category} />}
-              {category === 'title' && <TitleCard serviceId={serviceId} title={title} onDelete={onDelete} />}
+              {category === 'title' && <TitleCard serviceId={serviceId} title={title} onDelete={onDelete} onUpdate={onUpdate} />}
               {category === 'project' && (
                 <ProjectCard
                   serviceId={serviceId}
@@ -61,6 +64,7 @@ export function BlockCard({
                   active={active}
                   link={link}
                   onDelete={onDelete}
+                  onUpdate={onUpdate}
                 />
               )}
               {category === 'service' && (
@@ -72,10 +76,11 @@ export function BlockCard({
                   link={link}
                   price={price}
                   onDelete={onDelete}
+                  onUpdate={onUpdate}
                 />
               )}
               {category === 'textarea' && (
-                <TextAreaCard serviceId={serviceId} description={description} onDelete={onDelete} />
+                <TextAreaCard serviceId={serviceId} description={description} onDelete={onDelete} onUpdate={onUpdate} />
               )}
               {category === 'workexperience' && (
                 <WorkExperience
@@ -83,10 +88,12 @@ export function BlockCard({
                   title={title}
                   description={description}
                   date={date}
+                  dateEnd={dateEnd}
                   subtitle={subtitle}
                   location={location}
                   active={active}
                   onDelete={onDelete}
+                  onUpdate={onUpdate}
                 />
               )}
               {category === 'education' && (
@@ -95,13 +102,15 @@ export function BlockCard({
                   title={title}
                   description={description}
                   date={date}
+                  dateEnd={dateEnd}
                   subtitle={subtitle}
                   location={location}
                   active={active}
                   onDelete={onDelete}
+                  onUpdate={onUpdate}
                 />
               )}
-              {category === 'image' && <ImageCard serviceId={serviceId} image={image} onDelete={onDelete} />}
+              {category === 'image' && <ImageCard serviceId={serviceId} image={image} onDelete={onDelete} onUpdate={onUpdate} />}
             </div>
           </div>
         </CardContent>
@@ -110,25 +119,25 @@ export function BlockCard({
   );
 }
 
-export function ProjectCard({ serviceId, title, description, active, link, onDelete }: ServiceCardProps) {
-  const { updateUserService } = useUserContext();
+export function ProjectCard({ serviceId, title, description, active, link, onDelete, onUpdate }: ServiceCardProps) {
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
 
-  const [debouncedTitle] = useDebounce(titleText, 500);
-  const [debouncedDescription] = useDebounce(descriptionText, 500);
+  const [debouncedTitle] = useDebounce(titleText, 500); // 500ms debounce delay
+  const [debouncedDescription] = useDebounce(descriptionText, 500); // 500ms debounce delay
 
+  // Trigger onUpdate only when the debounced values change
   useEffect(() => {
     if (debouncedTitle !== title) {
-      updateUserService(serviceId, { title: debouncedTitle });
+      onUpdate(serviceId, { title: debouncedTitle });
     }
-  }, [debouncedTitle, serviceId, title, updateUserService]);
+  }, [debouncedTitle, title, serviceId, onUpdate]);
 
   useEffect(() => {
     if (debouncedDescription !== description) {
-      updateUserService(serviceId, { description: debouncedDescription });
+      onUpdate(serviceId, { description: debouncedDescription });
     }
-  }, [debouncedDescription, serviceId, description, updateUserService]);
+  }, [debouncedDescription, description, serviceId, onUpdate]);
 
   return (
     <>
@@ -144,7 +153,7 @@ export function ProjectCard({ serviceId, title, description, active, link, onDel
         <Switch
           className="data-[state=checked]:bg-slate-300"
           checked={active}
-          onCheckedChange={(e) => updateUserService(serviceId, { active: e })}
+          onCheckedChange={(e) => onUpdate(serviceId, { active: e })}
         />
       </div>
 
@@ -173,25 +182,27 @@ export function ServiceCard({
   link,
   price,
   onDelete,
+  onUpdate,
 }: ServiceCardProps) {
-  const { updateUserService } = useUserContext();
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
 
-  const [debouncedTitle] = useDebounce(titleText, 500);
-  const [debouncedDescription] = useDebounce(descriptionText, 500);
+  const [debouncedTitle] = useDebounce(titleText, 500); // 500ms debounce for title
+  const [debouncedDescription] = useDebounce(descriptionText, 500); // 500ms debounce for description
 
+  // Update the title only when debouncedTitle changes
   useEffect(() => {
     if (debouncedTitle !== title) {
-      updateUserService(serviceId, { title: debouncedTitle });
+      onUpdate(serviceId, { title: debouncedTitle });
     }
-  }, [debouncedTitle, serviceId, title, updateUserService]);
+  }, [debouncedTitle, title, serviceId, onUpdate]);
 
+  // Update the description only when debouncedDescription changes
   useEffect(() => {
     if (debouncedDescription !== description) {
-      updateUserService(serviceId, { description: debouncedDescription });
+      onUpdate(serviceId, { description: debouncedDescription });
     }
-  }, [debouncedDescription, serviceId, description, updateUserService]);
+  }, [debouncedDescription, description, serviceId, onUpdate]);
 
   return (
     <>
@@ -207,7 +218,7 @@ export function ServiceCard({
         <Switch
           className="data-[state=checked]:bg-slate-300"
           checked={active}
-          onCheckedChange={(e) => updateUserService(serviceId, { active: e })}
+          onCheckedChange={(e) => onUpdate(serviceId, { active: e })}
         />
       </div>
 
@@ -229,30 +240,15 @@ export function ServiceCard({
   );
 }
 
-export function TitleCard({ serviceId, title, onDelete }: ServiceCardProps) {
-  const { updateUserService } = useUserContext();
+export function TitleCard({ serviceId, title, onDelete, onUpdate }: ServiceCardProps) {
   const [titleText, setTitleText] = useState(title || '');
-  const [isUpdating, setIsUpdating] = useState(false);
-
   const [debouncedTitle] = useDebounce(titleText, 500);
 
   useEffect(() => {
-    async function updateTitle() {
-      if (debouncedTitle !== title) {
-        setIsUpdating(true);
-        try {
-          await updateUserService(serviceId, { title: debouncedTitle });
-        } catch (error) {
-          console.error('Failed to update title:', error);
-          setTitleText(title || '');
-        } finally {
-          setIsUpdating(false);
-        }
-      }
+    if (debouncedTitle !== title) {
+      onUpdate(serviceId, { title: debouncedTitle });
     }
-
-    updateTitle();
-  }, [debouncedTitle, serviceId, title, updateUserService]);
+  }, [debouncedTitle, title, serviceId, onUpdate]);
 
   return (
     <div className="flex items-center w-full">
@@ -261,7 +257,6 @@ export function TitleCard({ serviceId, title, onDelete }: ServiceCardProps) {
         placeholder="Service title..."
         value={titleText}
         onChange={(e) => setTitleText(e.target.value)}
-        disabled={isUpdating}
         aria-label="Service title"
       />
       
@@ -270,17 +265,15 @@ export function TitleCard({ serviceId, title, onDelete }: ServiceCardProps) {
   );
 }
 
-export function TextAreaCard({ serviceId, description, onDelete }: ServiceCardProps) {
-  const { updateUserService } = useUserContext();
+export function TextAreaCard({ serviceId, description, onDelete, onUpdate }: ServiceCardProps) {
   const [textArea, setTextArea] = useState(description || '');
-
   const [debouncedTextArea] = useDebounce(textArea, 500);
 
   useEffect(() => {
     if (debouncedTextArea !== description) {
-      updateUserService(serviceId, { description: debouncedTextArea });
+      onUpdate(serviceId, { description: debouncedTextArea });
     }
-  }, [debouncedTextArea, serviceId, description, updateUserService]);
+  }, [debouncedTextArea, description, serviceId, onUpdate]);
 
   return (
     <>
@@ -304,35 +297,35 @@ export function WorkExperience({
   active,
   location,
   date,
+  dateEnd,
   onDelete,
+  onUpdate,
 }: ServiceCardProps) {
-  const { updateUserService } = useUserContext();
-
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
   const [subTitleText, setSubTitleText] = useState(subtitle || '');
 
-  const [debouncedTitle] = useDebounce(titleText, 500);
-  const [debouncedDescription] = useDebounce(descriptionText, 500);
-  const [debouncedSubtitle] = useDebounce(subTitleText, 500);
+  const [debouncedTitle] = useDebounce(titleText, 500);        // 500ms debounce for title
+  const [debouncedSubTitle] = useDebounce(subTitleText, 500);  // 500ms debounce for subtitle
+  const [debouncedDescription] = useDebounce(descriptionText, 500); // 500ms debounce for description
 
   useEffect(() => {
-    if (debouncedTitle && debouncedTitle !== title) {
-      updateUserService(serviceId, { title: debouncedTitle });
+    if (debouncedTitle !== title) {
+      onUpdate(serviceId, { title: debouncedTitle });
     }
-  }, [debouncedTitle, serviceId, title]);
+  }, [debouncedTitle, title, serviceId, onUpdate]);
 
   useEffect(() => {
-    if (debouncedDescription && debouncedDescription !== description) {
-      updateUserService(serviceId, { description: debouncedDescription });
+    if (debouncedSubTitle !== subtitle) {
+      onUpdate(serviceId, { subtitle: debouncedSubTitle });
     }
-  }, [debouncedDescription, serviceId, description]);
+  }, [debouncedSubTitle, subtitle, serviceId, onUpdate]);
 
   useEffect(() => {
-    if (debouncedSubtitle && debouncedSubtitle !== subtitle) {
-      updateUserService(serviceId, { subtitle: debouncedSubtitle });
+    if (debouncedDescription !== description) {
+      onUpdate(serviceId, { description: debouncedDescription });
     }
-  }, [debouncedSubtitle, serviceId, subtitle]);
+  }, [debouncedDescription, description, serviceId, onUpdate]);
 
   return (
     <>
@@ -375,6 +368,7 @@ export function WorkExperience({
   );
 }
 
+
 export function Education({
   serviceId,
   title,
@@ -383,35 +377,35 @@ export function Education({
   active,
   location,
   date,
+  dateEnd,
   onDelete,
+  onUpdate,
 }: ServiceCardProps) {
-  const { updateUserService } = useUserContext();
-
   const [titleText, setTitleText] = useState(title || '');
   const [descriptionText, setDescriptionText] = useState(description || '');
   const [subTitleText, setSubTitleText] = useState(subtitle || '');
 
   const [debouncedTitle] = useDebounce(titleText, 500);
+  const [debouncedSubTitle] = useDebounce(subTitleText, 500);
   const [debouncedDescription] = useDebounce(descriptionText, 500);
-  const [debouncedSubtitle] = useDebounce(subTitleText, 500);
 
   useEffect(() => {
-    if (debouncedTitle && debouncedTitle !== title) {
-      updateUserService(serviceId, { title: debouncedTitle });
+    if (debouncedTitle !== title) {
+      onUpdate(serviceId, { title: debouncedTitle });
     }
-  }, [debouncedTitle, serviceId, title]);
+  }, [debouncedTitle, title, serviceId, onUpdate]);
 
   useEffect(() => {
-    if (debouncedDescription && debouncedDescription !== description) {
-      updateUserService(serviceId, { description: debouncedDescription });
+    if (debouncedSubTitle !== subtitle) {
+      onUpdate(serviceId, { subtitle: debouncedSubTitle });
     }
-  }, [debouncedDescription, serviceId, description]);
+  }, [debouncedSubTitle, subtitle, serviceId, onUpdate]);
 
   useEffect(() => {
-    if (debouncedSubtitle && debouncedSubtitle !== subtitle) {
-      updateUserService(serviceId, { subtitle: debouncedSubtitle });
+    if (debouncedDescription !== description) {
+      onUpdate(serviceId, { description: debouncedDescription });
     }
-  }, [debouncedSubtitle, serviceId, subtitle]);
+  }, [debouncedDescription, description, serviceId, onUpdate]);
 
   return (
     <>

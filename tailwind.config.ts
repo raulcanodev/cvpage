@@ -52,6 +52,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        onePBg: "#282A36",
       },
       borderRadius: {
         lg: "var(--radius)",

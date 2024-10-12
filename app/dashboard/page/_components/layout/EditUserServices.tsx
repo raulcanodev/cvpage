@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+"use client";
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui';
 import { Plus } from 'lucide-react';
 import { Reorder } from 'framer-motion';
@@ -11,7 +12,7 @@ import { toast } from 'sonner';
 export function EditUserServices() {
   const [servicesState, setServicesState] = useState<Service[]>([]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const { userData, updateUserData } = useUserContext();
+  const { userData, updateUserData, updateUserService } = useUserContext();
   const { premium, _id, services } = userData;
 
   const hasUserReordered = useRef(false);
@@ -74,6 +75,15 @@ export function EditUserServices() {
     );
   };
 
+  const handleUpdateService = useCallback(async (serviceId: string, updatedService: Partial<Service>) => {
+    setServicesState((prevServices) => 
+      prevServices.map((service) => 
+        service._id === serviceId ? { ...service, ...updatedService } : service
+      )
+    );
+    await updateUserService(serviceId, updatedService);
+  }, [updateUserService]);
+
   return (
     <>
       <Button
@@ -100,8 +110,10 @@ export function EditUserServices() {
                 link={service.link}
                 price={service.price}
                 date={service.date}
+                dateEnd={service.dateEnd}
                 location={service.location}
                 onDelete={handleDeleteService}
+                onUpdate={handleUpdateService}
                 service={service}
               />
             ))}
