@@ -1,13 +1,12 @@
-import React from 'react';
 import { Button } from "@/components/ui/button"
 import { CheckCircle } from 'lucide-react';
 import Image from 'next/image';
 
 const sharingPlatforms = [
-  { name: 'LinkedIn', logo: '/linkedin-logo.png' },
-  { name: 'GitHub', logo: '/github-logo.png' },
-  { name: 'Indeed', logo: '/indeed-logo.png' },
-  { name: 'Monster', logo: '/monster-logo.png' },
+  { name: 'LinkedIn', logo: '/social-logos/linkedin-logo.png' },
+  { name: 'Glassdoor', logo: '/social-logos/glassdoor-logo.webp' },
+  { name: 'InfoJobs', logo: '/social-logos/infojobs-logo.png' },
+  { name: 'Indeed', logo: '/social-logos/indeed-logo.webp' },
 ];
 // "Track views and interactions",
 
@@ -39,12 +38,13 @@ export function CVSharingFeature() {
               ))}
             </ul>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+          <div className="bg-white dark:bg-zinc-950 p-5 rounded-lg shadow-lg border border-black/30 dark:border-white/30">
             <h3 className="text-xl font-semibold mb-6 text-center text-gray-800 dark:text-white">
-              Supported Platforms
+              Share Your CV on
             </h3>
             <div className="grid grid-cols-2 gap-6">
               {sharingPlatforms.map((platform) => (
+                <>
                 <div key={platform.name} className="flex flex-col items-center">
                   <div className="w-16 h-16 relative mb-2">
                     <Image
@@ -56,9 +56,15 @@ export function CVSharingFeature() {
                   </div>
                   <span className="text-sm text-gray-600 dark:text-gray-300">{platform.name}</span>
                 </div>
+                </>
               ))}
+              
+            </div>
+            <div className="text-center mt-8">
+                <span className="text-xs text-zinc-400">And many more!</span>
             </div>
           </div>
+          
         </div>
       </div>
     </section>

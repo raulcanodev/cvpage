@@ -1,27 +1,113 @@
-import { Card, CardContent } from "@/components/ui"
-import Image from 'next/image'
+import React from 'react';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { Github, Linkedin, Mail } from 'lucide-react';
+import config from '@/config';
 
-export function ProfileCard() {
+export const ProfileCard: React.FC = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+      },
+    },
+  };
+
   return (
-    <Card className="w-full max-w-3xl mx-auto my-12">
-      <CardContent className="flex items-start space-x-4 p-6">
-        <Image
-          alt="Profile picture"
-          className="rounded-full"
-          width={62}
-          height={62}
-          src="/raul.jpeg"
-        />
-        <div className="space-y-2">
-          <h2 className="text-2xl font-bold">Why I built hitme.to</h2>
-          <p className="">
-            Hey, Raúl here! Every time I launch a product, I always find myself doing the same things over - worrying if I&apos;ve done everything right and spending hours thinking of how to promote my product.
-          </p>
-          <p className="">
-            And so I built this template. To help you and me launch products right, and not spend hours with repetitive work :P
-          </p>
+    <section className="py-16">
+      <motion.div
+        className="container mx-auto px-4 flex justify-center items-center"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-center text-center md:text-left md:space-x-8">
+            <motion.div 
+              variants={itemVariants} 
+              className="mb-8 md:mb-0 w-32 h-32 md:w-48 md:h-48 flex-shrink-0"
+            >
+              <Image
+                src="/raul.jpeg"
+                alt={config.personal.name}
+                width={200}
+                height={200}
+                className="rounded-lg shadow-lg object-cover w-full h-full"
+              />
+            </motion.div>
+            <div className="w-full md:w-2/3 flex flex-col items-center md:items-start">
+              <motion.h3 
+                variants={itemVariants} 
+                className="text-3xl font-bold mb-4 text-gray-800 dark:text-white"
+              >
+                Hey, {config.personal.name} here!
+              </motion.h3>
+
+              {config.personal.title && (
+                <motion.p variants={itemVariants} className="text-gray-600 dark:text-gray-300 mb-6">
+                  {config.personal.title}
+                </motion.p>
+              )}
+
+              {config.personal.description && (
+                <motion.p variants={itemVariants} className="text-gray-700 dark:text-gray-200 mb-6 leading-relaxed">
+                  {config.personal.description}
+                </motion.p>
+              )}
+
+              <motion.div variants={itemVariants} className="flex space-x-4 mb-6">
+                {config.personal.github && (
+                  <a
+                    href={config.personal.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                  >
+                    <Github className="w-6 h-6" />
+                    <span className="sr-only">GitHub</span>
+                  </a>
+                )}
+
+                {config.personal.linkedin && (
+                  <a
+                    href={config.personal.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                  >
+                    <Linkedin className="w-6 h-6" />
+                    <span className="sr-only">LinkedIn</span>
+                  </a>
+                )}
+
+                {config.personal.email && (
+                  <a
+                    href={`mailto:${config.personal.email}`}
+                    className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                  >
+                    <Mail className="w-6 h-6" />
+                    <span className="sr-only">Email</span>
+                  </a>
+                )}
+              </motion.div>
+            </div>
+          </div>
         </div>
-      </CardContent>
-    </Card>
-  )
-}
+      </motion.div>
+    </section>
+  );
+};

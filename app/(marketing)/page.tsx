@@ -10,6 +10,7 @@ import {
   LogoProof,
   ProfileCard,
   CVSharingFeature,
+  StatisticsBlock,
 } from './_components';
 import Link from 'next/link';
 
@@ -24,13 +25,16 @@ export default function Home() {
         <div className="w-full flex justify-center">
           <div className="max-w-screen-lg w-full px-4">
             <CVSharingFeature />
+            <StatisticsBlock />
           </div>
         </div>
-            <Testimonials />
-            <FAQSection />
-            <Pricing />
-            <ProfileCard />
-            <BigCTA />
+        <Testimonials />
+        <div className="container">
+          <FAQSection />
+          <Pricing />
+          <ProfileCard />
+        </div>
+        <BigCTA />
       </main>
     </div>
   );

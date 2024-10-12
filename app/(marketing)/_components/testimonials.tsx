@@ -68,24 +68,19 @@ const Testimonials: FC = () => {
                 }}
                 className='flex flex-col items-center'
             >
-                <motion.p
-                    variants={FADE_DOWN_ANIMATION_VARIANTS}
-                    className='mb-5 rounded-2xl p-2 w-40 font-medium text-sm border text-center bg-white dark:bg-black'
-                >
-                    Words from Others
-                </motion.p>
+            
                 <motion.h2
                     variants={FADE_DOWN_ANIMATION_VARIANTS}
                     className="text-2xl md:text-4xl font-bold text-center"
                 >
                     What Our Users Say
                 </motion.h2>
-                <motion.h2
+                {/* <motion.h2
                     variants={FADE_DOWN_ANIMATION_VARIANTS}
                     className="pt-6 pb-8 md:text-base max-w-2xl text-center text-sm m-auto md:px-0 px-7"
                 >
-                    
-                </motion.h2>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, quod? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, quod?
+                </motion.h2> */}
             </motion.div>
             <div className="mx-auto w-full px-4 md:px-8">
                 <div

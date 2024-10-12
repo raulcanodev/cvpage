@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
+import config from "@/config";
 
 // Define the type for a single pricing plan
 interface PricingPlan {
@@ -32,7 +33,7 @@ const pricingPlans: PricingPlan[] = [
         name: "PRO",
         description: "Only for great people, only one-time payment",
         price: '24/∞',
-        link: process.env.NEXT_PUBLIC_LEMON_PRODUCT_LINK || "",
+        link: config.lemonsqueezy.productLink || "",
         features: [
             "Landing page",
             "Domain name",
@@ -61,9 +62,6 @@ export default function Pricing() {
 function Heading() {
     return (
         <div id="pricing" className="relative px-5 md:px-0 z-10 my-12 grid grid-cols-1 justify-items-center gap-6">
-            <p className="border py-0.5 px-3 rounded-full text-sm dark:bg-black/5">
-                Pricing
-            </p>
             <motion.p
                 initial={{ rotateX: 90, opacity: 0 }}
                 whileInView={{ rotateX: 0, opacity: 1 }}
@@ -71,17 +69,17 @@ function Heading() {
                 viewport={{ once: true }}
                 className="text-2xl md:text-4xl font-bold text-center"
             >
-                Choose the plan that&apos;s right for you
+                Pricing
             </motion.p>
-            <motion.p
+            {/* <motion.p
                 initial={{ rotateX: -90, opacity: 0 }}
                 whileInView={{ rotateX: 0, opacity: 1 }}
                 transition={{ duration: 1, ease: 'easeIn' }}
                 viewport={{ once: true }}
                 className="text-wrap text-center text-sm sm:text-base"
             >
-                So I can buy a kebap, and you can get your page
-            </motion.p>
+                So I can buy a kebap, and you can get your CV page :D
+            </motion.p> */}
         </div>
     );
 }

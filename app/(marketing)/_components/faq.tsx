@@ -13,40 +13,42 @@ interface FaqItem {
 // Sample FAQ data
 const faqList: FaqItem[] = [
   {
-    title: "Accordion Question 1",
+    title: "How do I create my online CV?",
     answer:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus iure sequi sint sunt, dolor magnam temporibus modi placeat laboriosam dicta!",
+      "Creating your CV is very simple, just write your sections and arrange them however you like. Then you can share it with a simple link like this: cvpage.to/raul"
   },
   {
-    title: "Accordion Question 2",
+    title: "Can I update my CV after it's created?",
     answer:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus iure sequi sint sunt, dolor magnam temporibus modi placeat laboriosam dicta!",
+      "Yes, you can update your CV anytime. Whether you want to add more experience, update your skills, or change your personal details, you can make edits at any time and your CV will automatically be updated online.",
   },
   {
-    title: "Accordion Question 3",
+    title: "How does sharing my online CV work?",
     answer:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus iure sequi sint sunt, dolor magnam temporibus modi placeat laboriosam dicta!",
+      "Once your online CV is ready, you can easily share it by generating a unique link. You can send this link to employers or add it to your resume applications. This makes your CV easily accessible and ensures you always have an up-to-date version ready to share.",
   },
+  {
+    title: "Do I have to pay to create my CV?",
+    answer:
+      "To use 100% of the features, a one-time payment is required, priced like a dinner. You are not tied to any subscription, we are against that model. It will always be yours. However, you can always use the free version to see how it works."
+  }
 ];
 
 const FAQSection: React.FC = () => {
   return (
-    <section id="faq" className="flex w-full flex-col gap-5 items-center py-10 px-5">
+    <section id="faq" className="flex w-full flex-col gap-5 items-center py-10">
       <div className="flex flex-col items-center mb-4 gap-4 max-w-xl">
-        <p className="border py-0.5 px-3 rounded-full text-sm dark:bg-black/5 ">
-          FAQ
-        </p>
         <p className="text-2xl md:text-4xl font-semibold">
-          Any Questions? Look Here
+          Any Questions?
         </p>
-        <p className="text-wrap text-center text-sm sm:text-base">
+        {/* <p className="text-wrap text-center text-sm sm:text-base">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem reiciendis placeat possimus error officia quis, rem nihil dolor molestias illo!
-        </p>
+        </p> */}
       </div>
       <Accordion className="max-w-2xl">
         {faqList.map((item, index) => (
           <AccordionItem
-            className="border-b border-black/50 dark:border-white/50"
+            className="shadow-md"
             title={item.title}
             answer={item.answer}
             key={index}
