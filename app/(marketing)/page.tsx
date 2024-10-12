@@ -1,23 +1,36 @@
 'use client';
-import { Navbar, Testimonials, Hero, KeyFeatures, BigCTA, Pricing, FAQSection, LogoProof, ProfileCard } from './_components';
+import {
+  Navbar,
+  Testimonials,
+  Hero,
+  KeyFeatures,
+  BigCTA,
+  Pricing,
+  FAQSection,
+  LogoProof,
+  ProfileCard,
+  CVSharingFeature,
+} from './_components';
 import Link from 'next/link';
 
 export default function Home() {
+  const sectionClasses = '';
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar></Navbar>
       <main className="flex flex-col min-h-screen ">
-        <Hero/> 
-        <div>
-    </div>
-        {/* <KeyFeatures/> */}
-        <Pricing/>
-        <FAQSection/>
-        <Testimonials />
-        <ProfileCard/>
-        {/* <LogoProof/> */}
-        <BigCTA/>
+        <Hero />
+        <div className="w-full flex justify-center">
+          <div className="max-w-screen-lg w-full px-4">
+            <CVSharingFeature />
+          </div>
+        </div>
+            <Testimonials />
+            <FAQSection />
+            <Pricing />
+            <ProfileCard />
+            <BigCTA />
       </main>
     </div>
   );

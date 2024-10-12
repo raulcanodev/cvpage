@@ -9,3 +9,4 @@ export { default as Pricing } from './pricing';
 export { default as FAQSection } from './faq';
 export { default as LogoProof } from './LogoProof';
 export { ProfileCard } from './ProfileCard';
+export { CVSharingFeature } from './CVSharingFeature';

@@ -1,22 +1,29 @@
-'use client';
-
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Component() {
   return (
-    <section className=" min-h-screen flex flex-col items-center justify-center p-4 mt-8 px-5">
-      <div className="max-w-2xl mx-auto text-center">
-        <div className="flex flex-col items-center mb-9 gap-4 max-w-xl">
-          <h1 className="text-4xl md:text-4xl font-bold">
-            Build Your Online CV in Minutes
+    <section className="min-h-screen flex items-center mt-14 md:mt-0 p-4 px-5">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
+        <div className="flex-1 text-left">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            Build Your <span className="text-blue-600">Online CV</span> in Minutes
           </h1>
-          <p className="text-wrap text-center text-sm sm:text-base">
-            
+          <p className="text-lg md:text-xl mb-8 text-gray-600 dark:text-zinc-400">
+            Create a professional, customizable CV that stands out from the crowd. Showcase your
+            skills and experience with ease.
           </p>
+
+          <Button className="text-lg py-6 px-8">
+            <Link href="/auth/register">Get Started for Free</Link>
+          </Button>
+
+          <div className="mt-8 text-zinc-500 text-sm">
+            <p>Join the first wave of users building their professional presence</p>
+          </div>
         </div>
-        <Button className="text-lg py-6 px-8">Get Started for Free</Button>
-        <div className="mt-12 relative w-full aspect-video max-w-2xl mx-auto">
+        <div className="flex-1 relative w-full aspect-[4/3]">
           <Image
             src="/hero.png"
             alt="hitme.to interface preview"
@@ -24,9 +31,6 @@ export default function Component() {
             objectFit="cover"
             className="rounded-lg shadow-2xl"
           />
-        </div>
-        <div className="mt-8 text-zinc-400 text-sm">
-          <p>Trusted by creators, entrepreneurs, and businesses worldwide</p>
         </div>
       </div>
     </section>

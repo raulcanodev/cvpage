@@ -78,13 +78,13 @@ const Testimonials: FC = () => {
                     variants={FADE_DOWN_ANIMATION_VARIANTS}
                     className="text-2xl md:text-4xl font-bold text-center"
                 >
-                    What our happy clients say
+                    What Our Users Say
                 </motion.h2>
                 <motion.h2
                     variants={FADE_DOWN_ANIMATION_VARIANTS}
                     className="pt-6 pb-8 md:text-base max-w-2xl text-center text-sm m-auto md:px-0 px-7"
                 >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit nam maxime quas fugiat tempore blanditiis, eveniet quia accusantium.
+                    
                 </motion.h2>
             </motion.div>
             <div className="mx-auto w-full px-4 md:px-8">
