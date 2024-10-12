@@ -29,12 +29,6 @@ export function CreativeNavbar() {
               <span>SETTINGS</span>
             </Button>
           </Link>
-
-          <Link href={`/dashboard/settings`}>
-            <Button variant="outline" className={buttonStyles}>
-            <Rocket className="w-4 h-4" />
-            </Button>
-          </Link>
         </div>
       </div>
     </>

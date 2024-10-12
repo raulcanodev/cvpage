@@ -1,8 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import { Input, Textarea } from '@/components/ui/';
-import { UserLocation, UserInstagram, UserTwitter, UserLinkedin, UserGithub, UserAvatar } from '../ui';
+import {
+  UserLocation,
+  UserInstagram,
+  UserTwitter,
+  UserLinkedin,
+  UserGithub,
+  UserAvatar,
+} from '../ui';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import config from '@/config';
+import { toast } from 'sonner';
 
 export function EditUser() {
   const { userData, updateUserData, updateUserDomain } = useUserContext();
@@ -110,7 +118,7 @@ export function EditUser() {
           onChange={handleDescriptionChange}
         />
 
-        <div className="flex text-zinc-400 md:justify-between md:items-center md:flex-row flex-col gap-3">
+        <div className="flex text-zinc-400 md:justify-between md:items-center flex-row justify-between">
           <div className="flex gap-4">
             <UserLocation />
             <UserInstagram />
@@ -122,9 +130,15 @@ export function EditUser() {
           <div className="flex row">
             <div className="flex rounded-md">
               <div className="relative flex-grow">
-                <span className="text-gray-400">
-                  {config.domainName}/{customDomain || '' }
-                </span>
+                <button
+                  className="ml-2 text-gray-400 hover:underline"
+                  onClick={() => {
+                    navigator.clipboard.writeText(`${config.domainName}/${customDomain || ''}`);
+                    toast.success('Copied to clipboard');
+                  }}
+                >
+                  {config.domainName}/{customDomain || ''}
+                </button>
               </div>
             </div>
           </div>
