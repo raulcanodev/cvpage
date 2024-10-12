@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { format } from 'date-fns';
+import React, { useState, useEffect } from 'react';
+import { format, parse } from 'date-fns';
 import {
   Button,
   Calendar,
@@ -18,15 +18,29 @@ import { toast } from "sonner";
 
 interface BlockDateProps {
   serviceId: string;
+  date?: string;
+  dateEnd?: string;
 }
 
-export function BlockDate({ serviceId }: BlockDateProps) {
+export function BlockDate({ serviceId, date, dateEnd }: BlockDateProps) {
   const { updateUserService } = useUserContext();
   const [startDate, setStartDate] = useState<Date | undefined>();
   const [endDate, setEndDate] = useState<Date | undefined>();
   const [isPresent, setIsPresent] = useState(false);
   const [isStartDateOpen, setIsStartDateOpen] = useState(false);
   const [isEndDateOpen, setIsEndDateOpen] = useState(false);
+
+  // Initialize startDate and endDate based on the provided date and dateEnd
+  useEffect(() => {
+    if (date) {
+      setStartDate(parse(date, 'dd MMM yyyy', new Date())); // Adjust format as needed
+    }
+    if (dateEnd && dateEnd !== 'Present') {
+      setEndDate(parse(dateEnd, 'dd MMM yyyy', new Date())); // Adjust format as needed
+    } else if (dateEnd === 'Present') {
+      setIsPresent(true);
+    }
+  }, [date, dateEnd]);
 
   const handleDateSelect = async (isEndDate: boolean, selectedDate: Date | undefined) => {
     if (isEndDate) {
@@ -100,7 +114,7 @@ export function BlockDate({ serviceId }: BlockDateProps) {
   );
 
   return (
-<div className="flex flex-col w-full space-y-4">
+    <div className="flex flex-col w-full space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center w-full sm:space-x-2 space-y-2 sm:space-y-0">
         <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
           <DateButton date={startDate} isEndDate={false} />

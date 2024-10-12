@@ -361,7 +361,7 @@ export function WorkExperience({
       />
 
       <div className="flex items-center justify-between text-zinc-400 mt-4 flex-col md:flex-row">
-        <BlockDate serviceId={serviceId} />
+        <BlockDate serviceId={serviceId} date={date} dateEnd={dateEnd} />
         <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />
       </div>
     </>
@@ -442,7 +442,7 @@ export function Education({
       />
 
       <div className="flex items-center justify-between text-zinc-400 mt-4 flex-col md:flex-row">
-        <BlockDate serviceId={serviceId} />
+        <BlockDate serviceId={serviceId} date={date} dateEnd={dateEnd} />
         <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />
       </div>
     </>
