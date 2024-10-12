@@ -368,7 +368,6 @@ export function WorkExperience({
   );
 }
 
-
 export function Education({
   serviceId,
   title,

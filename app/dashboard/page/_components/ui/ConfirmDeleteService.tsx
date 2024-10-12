@@ -30,7 +30,7 @@ export function ConfirmDeleteService({ serviceId, onDelete }: ConfirmDeleteServi
     <Dialog>
       <DialogTrigger asChild>
         <button aria-label="Delete service" className="hover:text-red-600 transition-colors">
-          <Trash2 className="w-5 h-5 text-zinc-400 dark:text-zinc-400" />
+          <Trash2 className="w-4 h-4 text-zinc-400 dark:text-zinc-400" />
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] p-6 rounded-lg shadow-lg bg-white dark:bg-zinc-900">

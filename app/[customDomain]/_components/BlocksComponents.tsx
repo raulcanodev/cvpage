@@ -115,10 +115,3 @@ export const ServiceBlock = ({ service }: { service: Service }) => (
     </div>
   </div>
 );
-
-export const SimpleBlock = ({ service }: { service: Service }) => (
-  <div className={containerStyle}>
-    <h2 className={titleStyle}>{service.title}</h2>
-    <p className={descriptionStyle}>{service.description}</p>
-  </div>
-);

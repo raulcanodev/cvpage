@@ -100,7 +100,7 @@ export default function SettingsPage() {
                 {premium && (
                     <div className='space-y-3'>
                       <p>
-                        You are currently subscribed to the <strong>Premium</strong> plan 🥰
+                        You are currently in the <strong>Premium</strong> plan 🥰
                       </p>
                     </div>
                 )}
