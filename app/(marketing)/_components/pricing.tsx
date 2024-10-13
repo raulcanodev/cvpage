@@ -75,11 +75,12 @@ export const Pricing = () => {
           variants={itemVariants}
           className="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-white"
         >
-          Choose Your Plan
+          Pricing
         </motion.h2>
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <PricingCard
                 title="Free"
+                subtitle='Try it out for free'
                 price="0€"
                 features={[
                     "Landing page",
