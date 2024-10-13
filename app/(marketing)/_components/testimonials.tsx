@@ -57,7 +57,7 @@ const FADE_DOWN_ANIMATION_VARIANTS = {
 
 const Testimonials: FC = () => {
     return (
-        <section id="reviews" className="w-full py-12">
+        <section id="reviews" className="w-full py-16 scroll-mt-28">
             <motion.div
                 initial="hidden"
                 whileInView="show"

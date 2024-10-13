@@ -37,7 +37,7 @@ export const Pricing = () => {
   }> = ({ title, price, features, buttonText, isPro, subtitle, link}) => (
     <motion.div
       variants={itemVariants}
-      className={`bg-white dark:bg-zinc-950 rounded-lg shadow-lg p-6 flex flex-col border border-black/30 dark:border-white/30 hover:shadow-2xl transition-shadow duration-300 ease-in-out  ${
+      className={` bg-white dark:bg-zinc-950 rounded-lg shadow-lg p-6 flex flex-col border border-black/30 dark:border-white/30 hover:shadow-2xl transition-shadow duration-300 ease-in-out  ${
         isPro ? 'border-2 border-blue-500 dark:border-blue-500' : ''
       }`}
     >
@@ -67,7 +67,7 @@ export const Pricing = () => {
   );
 
   return (
-    <section className="py-16">
+    <section className="py-16 scroll-mt-28" id="pricing">
       <motion.div
         className="container mx-auto px-4"
         initial="hidden"

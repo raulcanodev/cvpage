@@ -7,7 +7,7 @@ export const StatisticsBlock = () => {
 
   return (
     <section className="py-16">
-      <div className="container mx-auto px-4">
+      <div className="mx-auto">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-8">
             <span className="text-blue-600">95% of Workers</span> Are Either Looking for or Planning
