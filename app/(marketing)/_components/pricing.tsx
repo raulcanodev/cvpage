@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import config from '@/config';
+import Link from 'next/link';
 
 export const Pricing = () => {
   const containerVariants = {
@@ -32,7 +33,8 @@ export const Pricing = () => {
     features: string[];
     buttonText: string;
     isPro?: boolean;
-  }> = ({ title, price, features, buttonText, isPro, subtitle = false }) => (
+    link: string;
+  }> = ({ title, price, features, buttonText, isPro, subtitle, link}) => (
     <motion.div
       variants={itemVariants}
       className={`bg-white dark:bg-zinc-950 rounded-lg shadow-lg p-6 flex flex-col border border-black/30 dark:border-white/30 hover:shadow-2xl transition-shadow duration-300 ease-in-out  ${
@@ -50,15 +52,17 @@ export const Pricing = () => {
           </li>
         ))}
       </ul>
-      <button
-        className={`py-2 px-4 rounded-full font-bold transition duration-300 transform ${
-          isPro
-            ? 'bg-blue-500 text-white hover:bg-blue-600 hover:scale-105'
-            : 'bg-zinc-950 dark:bg-zinc-50 text-white hover:bg-zinc-700 dark:text-black dark:hover:bg-gray-600'
-        }`}
-      >
-        {buttonText}
-      </button>
+      <Link href={link}>
+        <button
+          className={`py-2 px-4 w-full rounded-full font-bold transition duration-300 transform ${
+            isPro
+              ? 'bg-blue-500 text-white hover:bg-blue-600 hover:scale-105'
+              : 'bg-zinc-950 dark:bg-zinc-50 text-white hover:bg-zinc-700 dark:text-black dark:hover:bg-gray-600'
+          }`}
+        >
+          {buttonText}
+        </button>
+      </Link>
     </motion.div>
   );
 
@@ -80,6 +84,7 @@ export const Pricing = () => {
           <PricingCard
             title="Free"
             subtitle="Try it out for free"
+            link="/auth/register"
             price="0€"
             features={[
               'Landing page',
@@ -93,6 +98,7 @@ export const Pricing = () => {
           <PricingCard
             title="Pro"
             subtitle="Most popular, one-time payment"
+            link={config.lemonsqueezy.productLink}
             price={config.lemonsqueezy.price}
             features={[
               'Landing page',

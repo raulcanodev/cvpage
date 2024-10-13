@@ -45,10 +45,8 @@ export const MinimalFooter: React.FC = () => {
           </motion.div>
           <motion.nav variants={itemVariants} className="mb-4 md:mb-0">
             <ul className="flex space-x-4">
-              <li><Link href="/about" className="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white">About</Link></li>
-              <li><Link href="/contact" className="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white">Contact</Link></li>
-              <li><Link href="/privacy" className="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white">Privacy</Link></li>
-              <li><Link href="/terms" className="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white">Terms</Link></li>
+              <li><Link href="/tos" className="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white">Terms of Service</Link></li>
+              <li><Link href="/privacy-policy" className="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white">Privacy Policy</Link></li>
             </ul>
           </motion.nav>
           <motion.div variants={itemVariants} className="flex space-x-4">
