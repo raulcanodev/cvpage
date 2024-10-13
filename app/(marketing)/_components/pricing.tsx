@@ -84,7 +84,7 @@ export const Pricing = () => {
             features={[
               'Landing page',
               'Domain name',
-              'Access to 2 content blocks',
+              'Access to 2 section blocks',
               '1 Style customizations',
             ]}
             buttonText="Get Started"
