@@ -96,10 +96,9 @@ export const Pricing = () => {
             features={[
               'Landing page',
               'Domain name',
-              'Custom templates',
               'Access to 7 section blocks',
-              '100 Block limit',
               '4 Style customizations',
+              '100 Block limit',
               'All future updates',
             ]}
             buttonText="Upgrade to Pro 🚀"
