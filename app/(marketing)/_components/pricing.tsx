@@ -86,6 +86,7 @@ export const Pricing = () => {
               'Domain name',
               'Access to 2 section blocks',
               '1 Style customizations',
+              '5 Block limit',
             ]}
             buttonText="Get Started"
           />
