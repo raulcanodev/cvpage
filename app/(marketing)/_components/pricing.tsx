@@ -1,144 +1,112 @@
-"use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { Link } from "lucide-react";
-import { Dispatch, SetStateAction, useState } from "react";
-import config from "@/config";
+import { motion } from 'framer-motion';
+import { Check } from 'lucide-react';
+import config from '@/config';
 
-// Define the type for a single pricing plan
-interface PricingPlan {
-    name: string;
-    description: string;
-    price: string; 
-    link: string;
+export const Pricing = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+      },
+    },
+  };
+
+  const PricingCard: React.FC<{
+    title: string;
+    subtitle?: string;
+    price: string;
     features: string[];
-}
+    buttonText: string;
+    isPro?: boolean;
+  }> = ({ title, price, features, buttonText, isPro, subtitle = false }) => (
+    <motion.div
+      variants={itemVariants}
+      className={`bg-white dark:bg-zinc-950 rounded-lg shadow-lg p-6 flex flex-col border border-black/30 dark:border-white/30 hover:shadow-2xl transition-shadow duration-300 ease-in-out  ${
+        isPro ? 'border-2 border-blue-500 dark:border-blue-500' : ''
+      }`}
+    >
+      <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">{title}</h3>
+      <p className="text-4xl font-bold text-gray-900 dark:text-gray-100">{price}</p>
+      <span className='text-sm mb-6 text-zinc-400'>{subtitle}</span>
+      <ul className="mb-6 flex-grow">
+        {features.map((feature, index) => (
+          <li key={index} className="flex items-center mb-2 text-gray-600 dark:text-gray-300">
+            <Check className="w-5 h-5 mr-2 text-green-500" />
+            {feature}
+          </li>
+        ))}
+      </ul>
+      <button
+  className={`py-2 px-4 rounded-full font-bold transition duration-300 transform ${
+    isPro
+      ? 'bg-blue-500 text-white hover:bg-blue-600 hover:scale-105'
+      : 'bg-zinc-950 dark:bg-zinc-50 text-white hover:bg-zinc-700 dark:text-black dark:hover:bg-gray-600'
+  }`}
+>
+  {buttonText}
+</button>
+    </motion.div>
+  );
 
-// Sample pricing plans with a unique price
-const pricingPlans: PricingPlan[] = [
-    {
-        name: "Free",
-        description: "Give it a try",
-        price: '0',
-        link: "/auth/register",
-        features: [
-            "Landing page",
-            "Domain name",
-            "Access to 3 content blocks",
-            "5 Block limit",
-            "2 Style customizations",
-        ],
-    },
-    {
-        name: "PRO",
-        description: "Only for great people, only one-time payment",
-        price: '24/∞',
-        link: config.lemonsqueezy.productLink || "",
-        features: [
-            "Landing page",
-            "Domain name",
-            "Access to 8 content blocks",
-            "Remove branding",
-            "100 Block limit",
-            "4 Style customizations",
-            "All future updates",
-        ],
-    },
-];
-
-export default function Pricing() {
-    return (
-        <section className="flex justify-center items-center w-full h-full md:px-3 md:py-8 lg:py-9 lg:px-8">
-            <div className="relative w-full max-w-4xl">
-                <Heading />
-                <div className="relative z-10 flex justify-center w-full flex-col items-center gap-8 md:flex-row md:gap-4">
-                    <PricingCards pricingPlans={pricingPlans} />
-                </div>
-            </div>
-        </section>
-    );
-}
-
-function Heading() {
-    return (
-        <div id="pricing" className="relative px-5 md:px-0 z-10 my-12 grid grid-cols-1 justify-items-center gap-6">
-            <motion.p
-                initial={{ rotateX: 90, opacity: 0 }}
-                whileInView={{ rotateX: 0, opacity: 1 }}
-                transition={{ duration: 1, ease: 'easeIn' }}
-                viewport={{ once: true }}
-                className="text-2xl md:text-4xl font-bold text-center"
-            >
-                Pricing
-            </motion.p>
-            {/* <motion.p
-                initial={{ rotateX: -90, opacity: 0 }}
-                whileInView={{ rotateX: 0, opacity: 1 }}
-                transition={{ duration: 1, ease: 'easeIn' }}
-                viewport={{ once: true }}
-                className="text-wrap text-center text-sm sm:text-base"
-            >
-                So I can buy a kebap, and you can get your CV page :D
-            </motion.p> */}
+  return (
+    <section className="py-16">
+      <motion.div
+        className="container mx-auto px-4"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <motion.h2
+          variants={itemVariants}
+          className="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-white"
+        >
+          Choose Your Plan
+        </motion.h2>
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <PricingCard
+                title="Free"
+                price="0€"
+                features={[
+                    "Landing page",
+                    "Domain name",
+                    "Access to 2 content blocks",
+                    "1 Style customizations",
+                ]}
+                buttonText="Get Started"
+            />
+            <PricingCard
+                title="Pro"
+                subtitle="Most popular, one-time payment"
+                price={config.lemonsqueezy.price}
+                features={[
+                    "Landing page",
+                    "Domain name",
+                    "Custom templates",
+                    "Access to 8 content blocks",
+                    "100 Block limit",
+                    "4 Style customizations",
+                    "All future updates",
+                ]}
+                buttonText="Upgrade to Pro 🚀"
+                isPro={true}
+            />
         </div>
-    );
-}
-
-const PricingCardVariants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: { opacity: 1, x: 0 },
+      </motion.div>
+    </section>
+  );
 };
-
-function PricingCards({ pricingPlans }: { pricingPlans: PricingPlan[] }) {
-    return (
-        <>
-            {pricingPlans.map((plan, index) => (
-                <motion.div
-                    initial="hidden"
-                    variants={PricingCardVariants}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.3 }}
-                    whileInView="visible"
-                    key={index}
-                    className="overflow-hidden relative group/card w-full max-w-sm rounded-xl border-gray-300 p-6 text-left dark:border-gray-600 hover:dark:ring-offset-0 dark:ring-white shadow-md border hover:ring-1 dark:hover:ring-0 hover:ring-offset-4 transition-all hover:shadow-xl ring-gray-700 ease-in-out duration-200 shadow-input dark:border-white/[0.2] dark:shadow-white/10"
-                >
-                    <p className="mb-1 mt-0 text-sm font-bold uppercase">
-                        {plan.name}
-                    </p>
-                    <p className="my-0 mb-6 text-sm">{plan.description}</p>
-                    <div className="mb-4 overflow-hidden">
-                        <AnimatePresence mode="wait">
-                            <motion.p
-                                key="price" 
-                                initial={{ rotateX: 90, opacity: 0 }}
-                                animate={{ rotateX: 0, opacity: 1 }}
-                                transition={{ type: 'spring', stiffness: 100 }}
-                                className="my-0 text-3xl font-semibold"
-                            >
-                                <span>${plan.price}</span> 
-                            </motion.p>
-                        </AnimatePresence>
-                    </div>
-                    <button
-                        type="button"
-                        onClick={() => window.location.href = plan.link}
-                        className="w-full border rounded-lg mb-4 px-3 py-2 h-11 bg-black hover:ring-1 hover:ring-offset-2 transition-all ease-in-out duration-150 dark:hover:ring-0 dark:ring-offset-0 dark:bg-white ring-black text-center font-medium text-white dark:text-black hover:scale-105 active:scale-95"
-                    >
-                        Get Started
-                    </button>
-                    {plan.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="mb-3 flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check">
-                                <path d="M20 6 9 17l-5-5" />
-                            </svg>
-                            <span className={`text-sm ${plan.name === "Free" && !plan.features.includes(feature) ? "line-through text-gray-400" : ""}`}>
-                                {feature}
-                            </span>
-                        </div>
-                    ))}
-                    <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#2b2b2b_1px,transparent_1px),linear-gradient(to_bottom,#2b2b2b_1px,transparent_1px)] dark:group-hover/card:bg-[linear-gradient(to_right,#4f4f4f_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f_1px,transparent_1px)] group-hover/card:bg-[linear-gradient(to_right,#d6d4d4_1px,transparent_1px),linear-gradient(to_bottom,#d6d4d4_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] [mask-image:linear-gradient(to_top,white,transparent,transparent)]"></div>
-                </motion.div>
-            ))}
-        </>
-    );
-}

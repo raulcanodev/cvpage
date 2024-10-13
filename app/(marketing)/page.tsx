@@ -4,13 +4,14 @@ import {
   Testimonials,
   Hero,
   KeyFeatures,
-  BigCTA,
+  BottomCTA,
   Pricing,
   FAQSection,
   LogoProof,
   ProfileCard,
   CVSharingFeature,
   StatisticsBlock,
+  MinimalFooter,
 } from './_components';
 import Link from 'next/link';
 
@@ -34,7 +35,8 @@ export default function Home() {
           <Pricing />
           <ProfileCard />
         </div>
-        <BigCTA />
+        <BottomCTA />
+        <MinimalFooter />
       </main>
     </div>
   );

@@ -7,6 +7,7 @@ import { ThemeSwitcher } from '@/components/layout';
 import { Button } from '@/components/ui';
 import { useRouter } from 'next/navigation';
 import config from '@/config';
+import { File } from 'lucide-react';
 
 //* Add to the layout >
 export default function Navbar() {
@@ -18,8 +19,8 @@ export default function Navbar() {
       <div className="container mx-auto py-3">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="text-xl font-bold">
-            {config.appName}
+          <Link href="/" className="text-xl font-normal flex items-center">
+          <File strokeWidth={1.3}/> <span className='lowercase'>{config.appName}</span>
           </Link>
 
           {/* Desktop Menu */}
