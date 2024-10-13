@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import config from '@/config';
@@ -42,7 +41,7 @@ export const Pricing = () => {
     >
       <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">{title}</h3>
       <p className="text-4xl font-bold text-gray-900 dark:text-gray-100">{price}</p>
-      <span className='text-sm mb-6 text-zinc-400'>{subtitle}</span>
+      <span className="text-sm mb-6 text-zinc-400">{subtitle}</span>
       <ul className="mb-6 flex-grow">
         {features.map((feature, index) => (
           <li key={index} className="flex items-center mb-2 text-gray-600 dark:text-gray-300">
@@ -52,14 +51,14 @@ export const Pricing = () => {
         ))}
       </ul>
       <button
-  className={`py-2 px-4 rounded-full font-bold transition duration-300 transform ${
-    isPro
-      ? 'bg-blue-500 text-white hover:bg-blue-600 hover:scale-105'
-      : 'bg-zinc-950 dark:bg-zinc-50 text-white hover:bg-zinc-700 dark:text-black dark:hover:bg-gray-600'
-  }`}
->
-  {buttonText}
-</button>
+        className={`py-2 px-4 rounded-full font-bold transition duration-300 transform ${
+          isPro
+            ? 'bg-blue-500 text-white hover:bg-blue-600 hover:scale-105'
+            : 'bg-zinc-950 dark:bg-zinc-50 text-white hover:bg-zinc-700 dark:text-black dark:hover:bg-gray-600'
+        }`}
+      >
+        {buttonText}
+      </button>
     </motion.div>
   );
 
@@ -78,34 +77,34 @@ export const Pricing = () => {
           Pricing
         </motion.h2>
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <PricingCard
-                title="Free"
-                subtitle='Try it out for free'
-                price="0€"
-                features={[
-                    "Landing page",
-                    "Domain name",
-                    "Access to 2 content blocks",
-                    "1 Style customizations",
-                ]}
-                buttonText="Get Started"
-            />
-            <PricingCard
-                title="Pro"
-                subtitle="Most popular, one-time payment"
-                price={config.lemonsqueezy.price}
-                features={[
-                    "Landing page",
-                    "Domain name",
-                    "Custom templates",
-                    "Access to 8 content blocks",
-                    "100 Block limit",
-                    "4 Style customizations",
-                    "All future updates",
-                ]}
-                buttonText="Upgrade to Pro 🚀"
-                isPro={true}
-            />
+          <PricingCard
+            title="Free"
+            subtitle="Try it out for free"
+            price="0€"
+            features={[
+              'Landing page',
+              'Domain name',
+              'Access to 2 content blocks',
+              '1 Style customizations',
+            ]}
+            buttonText="Get Started"
+          />
+          <PricingCard
+            title="Pro"
+            subtitle="Most popular, one-time payment"
+            price={config.lemonsqueezy.price}
+            features={[
+              'Landing page',
+              'Domain name',
+              'Custom templates',
+              'Access to 7 section blocks',
+              '100 Block limit',
+              '4 Style customizations',
+              'All future updates',
+            ]}
+            buttonText="Upgrade to Pro 🚀"
+            isPro={true}
+          />
         </div>
       </motion.div>
     </section>
