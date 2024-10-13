@@ -1,8 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Section from '../_components/Section';
+import config from '@/config';
 
 const PrivacyPolicy: React.FC = () => {
+  const { appName } = config;
+
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto  overflow-hidden">
@@ -16,7 +19,7 @@ const PrivacyPolicy: React.FC = () => {
 
           <Section title="1. Introduction">
             <p>
-              Your privacy is important to us. It is Cvpage&apos;s policy to respect your privacy
+              Your privacy is important to us. It is {appName}&apos;s policy to respect your privacy
               regarding any information we may collect from you across our website and other sites
               we own and operate.
             </p>
@@ -32,7 +35,7 @@ const PrivacyPolicy: React.FC = () => {
 
           <Section title="3. Google Account Integration">
             <p>
-              You can sign up with your Google account so your Cvpage account username will be
+              You can sign up with your Google account so your {appName} account username will be
               prefilled with your name and your public profile picture.
             </p>
           </Section>
@@ -56,7 +59,7 @@ const PrivacyPolicy: React.FC = () => {
           <Section title="6. Data Control and Processing">
             <p>
               We act in the capacity of a data controller and a data processor with regard to the
-              personal data processed through Cvpage and its services in terms of the applicable
+              personal data processed through {appName} and its services in terms of the applicable
               data protection laws, including the EU General Data Protection Regulation (GDPR).
             </p>
           </Section>

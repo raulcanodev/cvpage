@@ -1,8 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Section from '../_components/Section';
+import config from '@/config';
 
 const TermsAndConditions: React.FC = () => {
+  const {appName} = config;
+  
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto overflow-hidden">
@@ -19,23 +22,23 @@ const TermsAndConditions: React.FC = () => {
 
           <Section title="1. Introduction">
             <p>
-              By using Cvpage, you confirm your acceptance of, and agree to be bound by, these terms
+              By using {appName}, you confirm your acceptance of, and agree to be bound by, these terms
               and conditions.
             </p>
           </Section>
 
           <Section title="2. Agreement to Terms and Conditions">
             <p>
-              This Agreement takes effect on the date on which you first use the Cvpage application.
+              This Agreement takes effect on the date on which you first use the {appName} application.
             </p>
           </Section>
 
           <Section title="3. Unlimited Access Software License with Termination Rights">
             <p>
-              The Cvpage Software License facilitates the acquisition of Cvpage software through a
+              The {appName} Software License facilitates the acquisition of {appName} software through a
               single purchase, granting users unrestricted and perpetual access to its comprehensive
               functionalities. Tailored for professionals, job seekers, and independent creators,
-              Cvpage empowers users to create online CVs and digital portfolios.
+              {appName} empowers users to create online CVs and digital portfolios.
             </p>
             <p>
               This license entails a straightforward and flexible arrangement, exempting users from
@@ -47,7 +50,7 @@ const TermsAndConditions: React.FC = () => {
 
           <Section title="4. Disclaimer">
             <p>
-              It is not warranted that Cvpage will meet your requirements or that its operation will
+              It is not warranted that {appName} will meet your requirements or that its operation will
               be uninterrupted or error-free. All express and implied warranties or conditions not
               stated in this Agreement (including without limitation, loss of profits, loss or
               corruption of data, business interruption, or loss of contracts), so far as such
@@ -59,28 +62,28 @@ const TermsAndConditions: React.FC = () => {
           {/* Nueva sección para la política de no reembolsos */}
           <Section title="5. No Refunds Policy">
             <p>
-              Once a purchase or subscription is made for any of Cvpage's services or plans, no refunds will be issued under any circumstances. We encourage users to review the available options thoroughly before making a purchase. By proceeding with the payment, you agree to this no refund policy.
+              Once a purchase or subscription is made for any of {appName}&apos;s services or plans, no refunds will be issued under any circumstances. We encourage users to review the available options thoroughly before making a purchase. By proceeding with the payment, you agree to this no refund policy.
             </p>
           </Section>
 
           <Section title="6. Warranties and Limitation of Liability">
             <p>
-              Cvpage does not give any warranty, guarantee, or other term as to the quality, fitness
-              for purpose, or otherwise of the software. Cvpage shall not be liable to you by reason
+              {appName} does not give any warranty, guarantee, or other term as to the quality, fitness
+              for purpose, or otherwise of the software. {appName} shall not be liable to you by reason
               of any representation (unless fraudulent), or any implied warranty, condition, or
               other term, or any duty at common law, for any loss of profit or any indirect,
               special, or consequential loss, damage, costs, expenses, or other claims.
             </p>
             <p>
-              Cvpage&apos;s liability is limited to the amount actually paid by you for your services or
+              {appName}&apos;s liability is limited to the amount actually paid by you for your services or
               software.
             </p>
           </Section>
 
           <Section title="7. Responsibilities">
             <p>
-              Cvpage is not responsible for what the user does with the user-generated content. The
-              content created, shared, and distributed through Cvpage is the sole responsibility of
+              {appName} is not responsible for what the user does with the user-generated content. The
+              content created, shared, and distributed through {appName} is the sole responsibility of
               the user.
             </p>
           </Section>
@@ -89,7 +92,7 @@ const TermsAndConditions: React.FC = () => {
             <p>
               This Agreement is governed by the laws of your country of residence. You acknowledge
               that no joint venture, partnership, employment, or agency relationship exists between
-              you and Cvpage as a result of your use of these services.
+              you and {appName} as a result of your use of these services.
             </p>
           </Section>
         </div>
