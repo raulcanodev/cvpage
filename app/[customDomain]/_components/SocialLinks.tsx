@@ -21,20 +21,20 @@ export const SocialLinks = ({
     { icon: Github, href: githubUrl },
   ];
   return (
-    <div className="flex space-x-4 mb-8">
-      {socialLinks.map((link, index) =>
-        link.href ? (
-          <a
-            key={index}
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-zinc-400 hover:text-zinc-600 transition-colors"
-          >
-            <link.icon className="w-6 h-6" />
-          </a>
-        ) : null
-      )}
-    </div>
+    <div className="mb-8 space-x-4 mt-4">
+    {socialLinks.map((link, index) =>
+      link.href ? (
+        <a
+          key={index}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-zinc-400 hover:text-zinc-600 transition-colors inline-block "
+        >
+          <link.icon className="w-6 h-6" />
+        </a>
+      ) : null
+    )}
+  </div>
   );
 }

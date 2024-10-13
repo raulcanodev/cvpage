@@ -43,13 +43,16 @@ export default async function UserProfilePage({ params }: Props) {
       <div className="fixed inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
       <div className="max-w-[700px] mx-auto px-4 py-20">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-          <div className="w-full md:flex-grow text-left">
+          <div className="md:hidden self-center mb-2">
+            <Avatar {...{ avatar, name, firstLetterName }} />
+          </div>
+          <div className="w-full md:flex-grow text-center md:text-left">
             {name && <Name {...{ name }} />}
             {description && <Description {...{ description }} />}
             {location && <Location {...{ location }} />}
             <SocialLinks {...{ twitterUrl, instagramUrl, linkedinUrl, githubUrl }} />
           </div>
-          <div className="md:self-start">
+          <div className="hidden md:block md:self-start">
             <Avatar {...{ avatar, name, firstLetterName }} />
           </div>
         </div>
