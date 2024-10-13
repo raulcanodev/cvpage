@@ -20,6 +20,7 @@ const config = {
     github: 'https://github.com/raulcanodev',
     linkedin: 'https://www.linkedin.com/in/raulcano-in/',
     email: '',
+    twitter: 'https://x.com/raulcanodev',
   },
 };
 

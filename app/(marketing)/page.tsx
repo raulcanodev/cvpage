@@ -10,6 +10,7 @@ import {
   CVSharingFeature,
   StatisticsBlock,
   MinimalFooter,
+  RotatingUrl,
 } from './_components';
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
         <Hero />
         <div className="w-full flex justify-center">
           <div className="max-w-screen-lg w-full px-4">
+            {/* <RotatingUrl /> */}
             <CVSharingFeature />
             <StatisticsBlock />
           </div>

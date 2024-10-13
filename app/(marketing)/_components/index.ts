@@ -12,3 +12,4 @@ export { ProfileCard } from './ProfileCard';
 export { CVSharingFeature } from './CVSharingFeature';
 export { StatisticsBlock } from './StatisticsBlock';
 export { MinimalFooter } from './MinimalFooter';
+export { RotatingUrl } from './RotatingUrl';

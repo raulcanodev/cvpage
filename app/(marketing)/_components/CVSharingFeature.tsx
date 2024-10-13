@@ -50,8 +50,8 @@ export function CVSharingFeature() {
                     <Image
                       src={platform.logo}
                       alt={`${platform.name} logo`}
-                      layout="fill"
-                      objectFit="contain"
+                      width={64}
+                      height={64}
                     />
                   </div>
                   <span className="text-sm text-gray-600 dark:text-gray-300">{platform.name}</span>
