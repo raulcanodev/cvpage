@@ -3,17 +3,14 @@ import {
   Navbar,
   Testimonials,
   Hero,
-  KeyFeatures,
   BottomCTA,
   Pricing,
   FAQSection,
-  LogoProof,
   ProfileCard,
   CVSharingFeature,
   StatisticsBlock,
   MinimalFooter,
 } from './_components';
-import Link from 'next/link';
 
 export default function Home() {
   const sectionClasses = '';
