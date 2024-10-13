@@ -6,9 +6,9 @@ interface LocationProps {
 
 export const Location = ({ location }: LocationProps) => {
   return (
-    <div className="flex gap-1 items-center justify-center text-zinc-400 mb-4">
+    <div className="flex gap-1 items-center text-zinc-500 mb-4">
       <MapPin className="w-5 h-5" />
-      <span className="text-lg">{location}</span>
+      <span className="text-base">{location}</span>
     </div>
   );
 };

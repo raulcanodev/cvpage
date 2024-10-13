@@ -1,4 +1,4 @@
-import { Avatar as UiAvatar, AvatarFallback, AvatarImage } from '@/components/ui';
+import Image from 'next/image';
 
 interface AvatarProps {
   avatar?: string;
@@ -8,11 +8,20 @@ interface AvatarProps {
 
 export const Avatar = ({ avatar, name, firstLetterName }: AvatarProps) => {
   return (
-    <>
-      <UiAvatar className="w-32 h-32 mx-auto mb-6 object-cover">
-        <AvatarImage src={avatar} alt={name} />
-        <AvatarFallback>{firstLetterName}</AvatarFallback>
-      </UiAvatar>
-    </>
+    <div className="w-[100px] h-[100px] relative overflow-hidden rounded-r-2xl">
+      {avatar ? (
+        <Image
+          src={avatar}
+          alt={name || "Profile picture"}
+          width={100}
+          height={100}
+          className="rounded-r-2xl object-cover"
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center bg-zinc-200 text-zinc-500 text-3xl font-bold">
+          {firstLetterName}
+        </div>
+      )}
+    </div>
   );
 }

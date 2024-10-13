@@ -1,4 +1,4 @@
-import { ImageBlock, TitleBlock, DescriptionBlock, WorkExperienceBlock, ProjectBlock, ServiceBlock } from './BlocksComponents';
+import { ImageBlock, TitleBlock, DescriptionBlock, WorkExperienceBlock, ProjectBlock, ServiceBlock, EducationBlock } from './BlocksComponents';
 
 interface Service {
   title?: string;
@@ -20,7 +20,6 @@ interface BlocksProps {
 }
 
 export const Blocks = ({ filteredServices, pageColor, pageFont }: BlocksProps) => {
-
   const renderServiceBlock = (service: Service) => {
     switch (service.category) {
       case 'image':
@@ -35,13 +34,15 @@ export const Blocks = ({ filteredServices, pageColor, pageFont }: BlocksProps) =
         return <ProjectBlock service={service}/>;
       case 'service':
         return <ServiceBlock service={service}/>;
+      case 'education':
+        return <EducationBlock service={service}/>;
       default:
         return null;
     }
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col">
       {filteredServices.map((service, index) => (
         <div key={index}>
           {renderServiceBlock(service)}
