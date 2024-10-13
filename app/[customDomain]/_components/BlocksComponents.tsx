@@ -94,7 +94,7 @@ export const ServiceBlock = ({ service }: { service: Service }) => (
       {service.price && <Badge variant="outline">Price: {service.price}</Badge>}
       {service.link && (
         <Link href={service.link} target="_blank" className={linkButtonStyle}>
-          I'm interested <ExternalLink className="ml-2 h-4 w-4" />
+          I&apos;m interested <ExternalLink className="ml-2 h-4 w-4" />
         </Link>
       )}
     </div>
