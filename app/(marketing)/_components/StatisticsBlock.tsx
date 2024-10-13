@@ -28,11 +28,20 @@ export const StatisticsBlock = () => {
           <p className="text-xl mb-8">
             Don&apos;t just share your PDF, elevate your profile with a powerful online presence.
           </p>
-          <Button className="text-lg py-6 px-7 hover:bg-blue-600">
-            {' '}
+          <Button
+            className="text-lg md:text-xl py-6 px-7 hover:bg-blue-600 relative
+                    bg-blue-500 text-white font-bold
+                      rounded-lg
+                      transition-all duration-150 ease-in-out
+                      shadow-[0_8px_0_0_#2563eb,0_15px_0_0_#1e40af]
+                      hover:shadow-[0_4px_0_0_#2563eb,0_7px_0_0_#1e40af]
+                      active:shadow-[0_0_0_0_#2563eb,0_0_0_0_#1e40af]
+                      hover:translate-y-1
+                      active:translate-y-2"
+          >
             <Link href="/auth/register">
-              Get Started for Free<span className="ml-3">🚀</span>{' '}
-            </Link>{' '}
+              Get Started for Free<span className="ml-3">🚀</span>
+            </Link>
           </Button>
         </div>
       </div>

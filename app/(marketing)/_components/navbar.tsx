@@ -45,7 +45,7 @@ export default function Navbar() {
             {/* Log in with white background */}
             <div className="flex items-center space-x-4">
               <Link href="/auth/register">
-                <Button variant="ghost" className="dark:bg-zinc-50 bg-zinc-950 dark:text-black text-white hover:dark:text-white hover:dark:bg-black">Sign Up</Button>
+                <Button variant="ghost" className="dark:bg-blue-600 bg-blue-600 dark:text-white text-white hover:dark:text-white hover:dark:bg-black">Sign Up</Button>
               </Link>
               
               {/* ThemeSwitcher for desktop */}
@@ -95,7 +95,7 @@ export default function Navbar() {
                 
                 {/* Log in in mobile with white background */}
                 <Link href="/auth/register" onClick={() => setIsOpen(false)}>
-                  <div className="flex dark:bg-white bg-black dark:text-black text-white items-center space-x-3 p-2 rounded transition-colors">
+                  <div className="flex dark:bg-blue-600 bg-blue-600 dark:text-white text-white items-center space-x-3 p-2 rounded transition-colors">
                     <span>Sign Up</span>
                   </div>
                 </Link>
