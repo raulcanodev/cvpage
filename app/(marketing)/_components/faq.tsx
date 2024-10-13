@@ -15,7 +15,7 @@ const faqList: FaqItem[] = [
   {
     title: "How do I create my online CV?",
     answer:
-      "Creating your CV is very simple, just write your sections and arrange them however you like. Then you can share it with a simple link like this: cvpage.to/raul"
+      "Creating your CV is very simple, just write your sections blocks and arrange them however you like. Then you can share it with a simple link like this: cvpage.to/raul"
   },
   {
     title: "Can I update my CV after it's created?",
