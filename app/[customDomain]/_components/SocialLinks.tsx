@@ -29,7 +29,7 @@ export const SocialLinks = ({
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-zinc-400 hover:text-zinc-600 transition-colors inline-block "
+          className="text-zinc-400 hover:text-zinc-600 transition-colors inline-block border border-zinc-400 rounded p-1 hover:border-zinc-600"
         >
           <link.icon className="w-6 h-6" />
         </a>

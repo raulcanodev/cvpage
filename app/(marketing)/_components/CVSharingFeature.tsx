@@ -19,7 +19,7 @@ const features = [
 
 export function CVSharingFeature() {
   return (
-    <section className="flex items-center mt-14 md:mt-0 p-4 px-5 pb-16">
+    <section className="flex items-center mt-14 md:mt-0 p-4 px-5 py-16">
       <div className="mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>

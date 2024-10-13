@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe } from 'lucide-react';
+import config from '@/config';
 
 export const RotatingUrl: React.FC = () => {
-  const urls = ['cvpage.to/john-doe', 'cvpage.to/jane-smith', 'cvpage.to/alex-johnson'];
+  const { domainUrl } = config;
+  const urls = [`${domainUrl}/raw`, `${domainUrl}/rawraul2`, `${domainUrl}/alex-johnson`];
   const [currentUrlIndex, setCurrentUrlIndex] = useState(0);
 
   useEffect(() => {
@@ -15,7 +17,7 @@ export const RotatingUrl: React.FC = () => {
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto my-12 p-4">
+    <div className="container mx-auto mt-8 md:mt-0">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
         <div className="flex items-center bg-gray-100 dark:bg-gray-700 px-4 py-2">
           <div className="flex space-x-2 mr-4">
@@ -31,7 +33,7 @@ export const RotatingUrl: React.FC = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 1 }}
                 className="text-gray-800 dark:text-gray-200 font-mono"
               >
                 {urls[currentUrlIndex]}
@@ -39,10 +41,14 @@ export const RotatingUrl: React.FC = () => {
             </AnimatePresence>
           </div>
         </div>
-        {/* DEMO */}
-        <div className="bg-white dark:bg-gray-800 p-4">
-          <div className="h-40 flex items-center justify-center text-gray-400 dark:text-gray-500 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded">
-            CV Content Preview
+        <div className="bg-white dark:bg-gray-800">
+          <div className="relative w-full" style={{ paddingTop: '75%' }}>
+            <iframe
+              src={`${urls[currentUrlIndex]}`}
+              className="absolute top-0 left-0 w-full h-full border-0"
+              title={`CV preview for ${urls[currentUrlIndex]}`}
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
