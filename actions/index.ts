@@ -12,3 +12,4 @@ export { getAllUserServices } from './getAllUserServices';
 export { updateDomain } from './updateDomain';
 export { updateAvatar, updateBlockImage } from './cloudinary';
 export { handlePremiumPurchase } from './userPremium';
+export { handleUserCount } from './userCount';

@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Star } from 'lucide-react';
+import { handleUserCount } from '@/actions/';
 
 const trustData = {
   users: [
@@ -13,10 +14,11 @@ const trustData = {
   ],
   rating: 5,
   count: 36,
-  text: 'people trust us',
+  text: 'cvpagers trust us',
 };
 
-const TrustIndicator: React.FC = () => {
+const TrustIndicator = async () => {
+
   return (
     <div className="flex items-center gap-4 rounded-lg max-w-sm">
       <div className="flex -space-x-2 overflow-hidden">

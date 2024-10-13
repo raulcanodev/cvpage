@@ -283,3 +283,8 @@ export const updatePassword = async (email: string, password: string) => {
     }
   );
 };
+
+export const userCounter = async () => {
+  await connectDB();
+  return User.countDocuments();
+}
