@@ -35,7 +35,7 @@ export function InputEmailForm() {
           router.push('/auth/login')
           return data.message
         },
-        error: (err) => err.message || 'Email not found.',
+        error: 'Email not found.',
         finally: () => setIsSubmitting(false),
       }
     )
