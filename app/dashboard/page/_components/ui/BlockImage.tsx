@@ -29,7 +29,7 @@ export function BlockImage({ serviceId }: { serviceId: string }) {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <Button type="button" onClick={triggerFileInput} variant="outline" className="w-full border-none bg-zinc-900">
+      <Button type="button" onClick={triggerFileInput} variant="outline" className="w-full border-none bg-zinc-100 dark:bg-zinc-900">
         <Upload className="mr-2 h-4 w-4" /> Choose Image
       </Button>
       <input
