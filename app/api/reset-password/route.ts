@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { fetchUserDataByEmail, saveResetToken } from '@/lib/mongodb';
 import { v4 as uuidv4 } from 'uuid';
 import config from "@/config";
-import { ResetPasswordEmail } from '@/react-email-starter/emails/reset-password';
+import { ResetPasswordEmail } from '@/email-template/emails/reset-password';
 
 /**
  * This route is responsible for sending an email to the user with a link to reset their password.
