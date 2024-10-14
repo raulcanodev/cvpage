@@ -23,7 +23,7 @@ export default function Home() {
         <Hero />
         <div className="w-full flex justify-center">
           <div className="max-w-screen-lg w-full px-4">
-            <RotatingUrl />
+            {/* <RotatingUrl /> */}
             <CVSharingFeature />
             <StatisticsBlock />
           </div>
