@@ -119,7 +119,7 @@ export function EditUser() {
           onChange={handleDescriptionChange}
         />
 
-        <div className="flex text-zinc-400 md:justify-between md:items-center flex-row justify-between">
+        <div className="flex text-zinc-400 md:justify-between md:items-center flex-col md:flex-row justify-between gap-3">
           <div className="flex gap-4">
             <UserLocation />
             <UserEmail />
@@ -133,7 +133,7 @@ export function EditUser() {
             <div className="flex rounded-md">
               <div className="relative flex-grow">
                 <button
-                  className="ml-2 text-gray-400 hover:underline"
+                  className="text-gray-400 hover:underline"
                   onClick={() => {
                     navigator.clipboard.writeText(`${config.domainName}/${customDomain || ''}`);
                     toast.success('Copied to clipboard');
