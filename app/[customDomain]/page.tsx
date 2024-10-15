@@ -23,6 +23,7 @@ export default async function UserProfilePage({ params }: Props) {
     githubUrl,
     services,
     premium,
+    emailContact,
     pageColor,
     pageFont,
   } = JSON.parse(userData);
@@ -50,7 +51,7 @@ export default async function UserProfilePage({ params }: Props) {
             {name && <Name {...{ name }} />}
             {description && <Description {...{ description }} />}
             {location && <Location {...{ location }} />}
-            <SocialLinks {...{ twitterUrl, instagramUrl, linkedinUrl, githubUrl }} />
+            <SocialLinks {...{ twitterUrl, instagramUrl, linkedinUrl, githubUrl, emailContact }} />
           </div>
           <div className="hidden md:block md:self-start">
             <Avatar {...{ avatar, name, firstLetterName }} />

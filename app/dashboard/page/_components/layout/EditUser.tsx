@@ -7,6 +7,7 @@ import {
   UserLinkedin,
   UserGithub,
   UserAvatar,
+  UserEmail,
 } from '../ui';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 import config from '@/config';
@@ -121,6 +122,7 @@ export function EditUser() {
         <div className="flex text-zinc-400 md:justify-between md:items-center flex-row justify-between">
           <div className="flex gap-4">
             <UserLocation />
+            <UserEmail />
             <UserInstagram />
             <UserTwitter />
             <UserLinkedin />

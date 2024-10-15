@@ -1,24 +1,27 @@
 import React from 'react';
-import { Mail, Phone, Linkedin, Twitter, Github } from 'lucide-react';
+import { Mail, Linkedin, Twitter, Github } from 'lucide-react';
 
 interface SocialLinks {
   twitterUrl: string;
   instagramUrl: string;
   linkedinUrl: string;
   githubUrl: string;
+  emailContact: string;
 }
 
 export const SocialLinks = ({
   twitterUrl,
   instagramUrl,
+  emailContact,
   linkedinUrl,
   githubUrl,
 }: SocialLinks) => {
   const socialLinks = [
-    { icon: Mail, href: "mailto:example@example.com" },
+    emailContact ? {icon: Mail, href: `mailto:${emailContact}`} : {icon: Mail, href: ''},
     { icon: Linkedin, href: linkedinUrl },
     { icon: Twitter, href: twitterUrl },
     { icon: Github, href: githubUrl },
+
   ];
   return (
     <div className="mb-8 space-x-4 mt-4">

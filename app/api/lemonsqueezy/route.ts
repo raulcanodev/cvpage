@@ -33,7 +33,6 @@ export async function POST(req: NextRequest) {
             const email = event.data.attributes.user_email;
             
             await handlePremiumPurchase(email);
-
         }
 
         return NextResponse.json({ message: 'Webhook received and processed' });
