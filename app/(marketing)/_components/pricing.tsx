@@ -37,8 +37,9 @@ export const Pricing = () => {
   }> = ({ title, price, features, buttonText, isPro, subtitle, link}) => (
     <motion.div
       variants={itemVariants}
+      style={isPro ? { borderColor: "#3B82F6" } : {}}
       className={`bg-white dark:bg-zinc-950 rounded-lg shadow-lg p-6 flex flex-col border border-black/30 dark:border-zinc-700 hover:shadow-2xl transition-shadow duration-300 ease-in-out relative ${
-        isPro && 'border-2 border-blue-500 dark:border-blue-500' }`}
+        isPro && 'border-2' }`}
     >
       {isPro && (
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-bold">
