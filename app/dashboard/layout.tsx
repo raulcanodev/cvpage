@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <UserProvider>
       <Toaster position="top-left" />
-      
+
       <div className="min-h-screen pt-16 ">
         {/* Dont have premium buy it banner */}
         {/* <div className="bg-zinc-950 text-white text-center py-2">
