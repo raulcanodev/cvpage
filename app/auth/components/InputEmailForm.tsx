@@ -59,6 +59,7 @@ export function InputEmailForm() {
             id="email"
             type="email"
             name="email"
+            placeholder='Email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required

@@ -81,6 +81,7 @@ export default function ResetPassword() {
             id="password"
             type="password"
             name="password"
+            placeholder='********'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -99,6 +100,7 @@ export default function ResetPassword() {
             id="repeat-password"
             type="password"
             name="repeat-password"
+            placeholder='********'
             value={repeatPassword}
             onChange={(e) => setRepeatPassword(e.target.value)}
             required

@@ -92,6 +92,7 @@ export default function Register() {
             id="email"
             type="email"
             name="email"
+            placeholder='Email'
             required
             autoComplete="on"
             className="mt-1 block w-full dark:bg-zinc-900 dark:border-zinc-700 border-zinc-300 text-black dark:text-white"
@@ -106,6 +107,7 @@ export default function Register() {
             id="password"
             type="password"
             name="password"
+            placeholder='********'
             required
             autoComplete="on"
             className="mt-1 block w-full dark:bg-zinc-900 dark:border-zinc-700 border-zinc-300 text-black dark:text-white"
@@ -119,6 +121,7 @@ export default function Register() {
           <Input
             id="repeat-password"
             type="password"
+            placeholder='********'
             name="repeat-password"
             required
             autoComplete="on"

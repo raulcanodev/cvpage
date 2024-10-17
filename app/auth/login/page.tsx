@@ -93,6 +93,7 @@ export default function Login() {
             id="email"
             type="email"
             name="email"
+            placeholder='Email'
             required
             autoComplete="on"
             className="mt-1 block w-full dark:bg-zinc-900 dark:border-zinc-700 border-zinc-300 text-black dark:text-white"
@@ -107,6 +108,7 @@ export default function Login() {
             id="password"
             type="password"
             name="password"
+            placeholder='********'
             required
             autoComplete="on"
             className="mt-1 block w-full dark:bg-zinc-900 dark:border-zinc-700 border-zinc-300 text-black dark:text-white"
