@@ -4,8 +4,8 @@ import { Link, Zap, Shield } from 'lucide-react';
 export default function KeyFeatures() {
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
-      <div className="container px-4 md:px-6">
+    <section className="py-16">
+      <div className="">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
           Key Features
         </h2>

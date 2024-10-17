@@ -1,5 +1,4 @@
 export { default as Navbar } from './navbar';
-export { default as Testimonials } from './testimonials';
 export { Hero } from './hero';
 export { default as KeyFeatures } from './key-features';
 export { default as Video } from './video';
@@ -13,3 +12,4 @@ export { CVSharingFeature } from './CVSharingFeature';
 export { StatisticsBlock } from './StatisticsBlock';
 export { MinimalFooter } from './MinimalFooter';
 export { RotatingUrl } from './RotatingUrl';
+export { default as Testimonials } from './testimonials';

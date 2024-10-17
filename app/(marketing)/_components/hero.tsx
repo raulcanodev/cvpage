@@ -47,7 +47,7 @@ const TrustIndicator = async () => {
 
 export function Hero() {
   return (
-    <section className="min-h-screen flex items-center mt-14 md:mt-0 p-4 px-10">
+    <section className="min-h-screen flex items-center mt-14 md:mt-0 p-4">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
         <div className="flex-1 text-left">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">

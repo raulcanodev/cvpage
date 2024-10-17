@@ -1,164 +1,231 @@
-'use client';
-
-import { cn } from '@/lib/utils';
-import React, { FC } from 'react';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
+import config from '@/config';
+import { Star } from 'lucide-react';
 
-const testimonials = [
-    {
-        name: 'Daniella Doe',
-        description: "Lorem ipsum dolor sit amet consectetur, adipisicing e quis tempore cupiditate. Sint libero voluptas.",
-        profession: 'Mobile dev',
-        image: '/person/women.jpg',
-        stars: 5,
-    },
-    {
-        name: 'Jane doe',
-        profession: 'Marketing',
-        description: "Lorem ipsum dolor sit amet consectetur, adipisicing e quis tempore cupiditate. Sint libero voluptas.",
-        image: '/person/women.jpg',
-        stars: 5,
-    },
-    {
-        name: 'Yanick Doe',
-        profession: 'Software Engineer',
-        description: "Lorem ipsum dolor sit amet consectetur, adipisicing e quis tempore cupiditate. Sint libero voluptas.",
-        image: '/person/women.jpg',
-        stars: 4,
-    },
-    {
-        name: 'Andy Doe',
-        profession: 'Frontend Developer',
-        description: "Lorem ipsum dolor sit amet consectetur, adipisicing e quis tempore cupiditate. Sint libero voluptas.",
-        image: '/person/women.jpg',
-        stars: 5,
-    },
-    {
-        name: 'Saud',
-        profession: 'Game Developer',
-        description: "Lorem ipsum dolor sit amet consectetur, adipisicing e quis tempore cupiditate. Sint libero voluptas.",
-        image: '/person/women.jpg',
-        stars: 4,
-    },
-    {
-        name: 'Yanndy Doe',
-        profession: 'Mobile dev',
-        description: "Lorem ipsum dolor sit amet consectetur, adipisicing e quis tempore cupiditate. Sint libero voluptas.",
-        image: '/person/women.jpg',
-        stars: 5,
-    },
+type RefType = {
+  id: string;
+  ariaLabel?: string;
+  svg?: React.ReactNode;
+};
+
+type Testimonial = {
+  username?: string;
+  name: string;
+  text: string;
+  type?: RefType;
+  link?: string;
+  img?: string;
+  rating: number;
+  featured?: boolean;
+};
+
+const refTypes: { [key: string]: RefType } = {
+  productHunt: {
+    id: 'product_hunt',
+    ariaLabel: 'See user review on Product Hunt',
+    svg: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 26.245 26.256"
+        className="w-[18px] h-[18px]"
+      >
+        <path
+          d="M26.254 13.128c0 7.253-5.875 13.128-13.128 13.128S-.003 20.382-.003 13.128 5.872 0 13.125 0s13.128 5.875 13.128 13.128"
+          fill="#da552f"
+        />
+        <path
+          d="M14.876 13.128h-3.72V9.2h3.72c1.083 0 1.97.886 1.97 1.97s-.886 1.97-1.97 1.97m0-6.564H8.53v13.128h2.626v-3.938h3.72c2.538 0 4.595-2.057 4.595-4.595s-2.057-4.595-4.595-4.595"
+          fill="#fff"
+        />
+      </svg>
+    ),
+  },
+  twitter: {
+    id: 'twitter',
+    ariaLabel: 'See user post on Twitter',
+    svg: (
+      <svg
+        className="w-5 h-5 fill-[#00aCee]"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <path d="M19.633 7.997c.013.175.013.349.013.523 0 5.325-4.053 11.461-11.46 11.461-2.282 0-4.402-.661-6.186-1.809.324.037.636.05.973.05a8.07 8.07 0 0 0 5.001-1.721 4.036 4.036 0 0 1-3.767-2.793c.249.037.499.062.761.062.361 0 .724-.05 1.061-.137a4.027 4.027 0 0 1-3.23-3.953v-.05c.537.299 1.16.486 1.82.511a4.022 4.022 0 0 1-1.796-3.354c0-.748.199-1.434.548-2.032a11.457 11.457 0 0 0 8.306 4.215c-.062-.3-.1-.611-.1-.923a4.026 4.026 0 0 1 4.028-4.028c1.16 0 2.207.486 2.943 1.272a7.957 7.957 0 0 0 2.556-.973 4.02 4.02 0 0 1-1.771 2.22 8.073 8.073 0 0 0 2.319-.624 8.645 8.645 0 0 1-2.019 2.083z"></path>
+      </svg>
+    ),
+  },
+  instagram: {
+    id: 'instagram',
+    ariaLabel: 'See user post on Instagram',
+    svg: (
+      <svg
+        className="w-5 h-5 fill-[#E4405F]"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 448 512"
+      >
+        <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
+      </svg>
+    ),
+  },
+  whatsapp: {
+    id: 'whatsapp',
+    ariaLabel: 'See user post on WhatsApp',
+    svg: (
+      <svg xmlns="http://www.w3.org/2000/svg" 
+      viewBox="0 0 448 512" 
+      className="w-5 h-5 fill-[#25D366]"
+      >
+        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
+      </svg>
+    ),
+  },
+
+  other: { id: 'other' },
+};
+
+const list: Testimonial[] = [
+  {
+    username: 'emma7328',
+    name: 'Emma Jones',
+    text: "The best platform I've used to create my online CV! The custom domain feature is a game changer. It’s so much better than sending a PDF.",
+    type: refTypes.whatsapp,
+    link: 'https://twitter.com/emma_jones',
+    img: '',
+    rating: 5,
+  },
+  {
+    username: 'john_tech',
+    name: 'John Smith',
+    text: 'Honestly, it took me less than 30 minutes to set up my page, and it looks amazing. The style customizations are simple but powerful!',
+    type: refTypes.productHunt,
+    link: 'https://www.producthunt.com/products/cvpage/reviews',
+    img: '',
+    rating: 5,
+  },
+  {
+    username: 'anna_',
+    name: 'Anna Lee',
+    text: 'I loved how easy it was to use! I can showcase my projects and skills in a way that’s much more professional than a regular resume. ',
+    type: refTypes.instagram,
+    link: 'https://twitter.com/anna_l',
+    img: '',
+    rating: 4,
+  },
+  {
+    username: 'dev_mark',
+    name: 'Mark Williams',
+    text: 'I’ve tried other CV platforms, but cvpage.to is by far the most straightforward. The one-time payment is a huge plus, and I love the custom blocks.',
+    type: refTypes.productHunt,
+    link: 'https://www.producthunt.com/users/dev_mark',
+    img: '',
+    rating: 5,
+  },
+  {
+    username: 'tcsara44',
+    name: 'Sara Ahmed',
+    text: 'Super intuitive! The ability to tweak and update my CV anytime is great. It’s perfect for someone like me who’s always working on new projects.',
+    type: refTypes.instagram,
+    link: 'https://twitter.com/techgirl_sara',
+    img: '',
+    rating: 5,
+    featured: true,
+  },
+
 ];
 
-const FADE_DOWN_ANIMATION_VARIANTS = {
-    hidden: { opacity: 0, y: -10 },
-    show: { opacity: 1, y: 0, transition: { duration: 1, type: "spring" } },
-};
-
-const Testimonials: FC = () => {
-    return (
-        <section id="reviews" className="w-full py-16 scroll-mt-28">
-            <motion.div
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                variants={{
-                    hidden: {},
-                    show: { transition: { staggerChildren: 0.3 } },
-                }}
-                className='flex flex-col items-center'
+const TestimonialCard: React.FC<{ testimonial: Testimonial}> = ({
+  testimonial,
+}) => (
+  <li className={testimonial.featured ? 'md:col-span-2' : 'border rounded-lg'}>
+    <figure className={`relative h-full p-6 bg-base-100 rounded-lg ${testimonial.featured  ? 'md:p-8' : ''}`}>
+      <blockquote className="relative">
+        <p className={`text-base-content/80 text-zinc-700 dark:text-zinc-300 ${testimonial.featured  ? 'md:text-lg' : 'text-sm'}`}>
+          {testimonial.text}
+        </p>
+      </blockquote>
+      <figcaption className="relative flex items-center justify-start gap-4 pt-4 mt-4 border-t border-base-content/5">
+        <div className="overflow-hidden rounded-full bg-base-300 shrink-0">
+          {testimonial.img ? (
+            <Image
+              className={`rounded-full object-cover ${testimonial.featured  ? 'md:w-12 md:h-12' : 'w-10 h-10'}`}
+              src={testimonial.img}
+              alt={`${testimonial.name}'s testimonial for ${config.appName}`}
+              width={testimonial.featured  ? 48 : 40}
+              height={testimonial.featured  ? 48 : 40}
+            />
+          ) : (
+            <span
+              className={`rounded-full flex justify-center items-center text-lg font-medium bg-base-300 ${
+                testimonial.featured  ? 'md:w-12 md:h-12' : 'w-10 h-10'
+              }`}
             >
-            
-                <motion.h2
-                    variants={FADE_DOWN_ANIMATION_VARIANTS}
-                    className="text-2xl md:text-4xl font-bold text-center"
-                >
-                    What Our Users Say
-                </motion.h2>
-                {/* <motion.h2
-                    variants={FADE_DOWN_ANIMATION_VARIANTS}
-                    className="pt-6 pb-8 md:text-base max-w-2xl text-center text-sm m-auto md:px-0 px-7"
-                >
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, quod? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, quod?
-                </motion.h2> */}
-            </motion.div>
-            <div className="mx-auto w-full px-4 md:px-8">
-                <div
-                    className="group relative mt-6 flex gap-6 overflow-hidden p-5"
-                    style={{
-                        maskImage: 'linear-gradient(to left, transparent 0%, black 20%, black 80%, transparent 95%)',
-                    }}
-                >
-                    {Array(6).fill(null).map((_, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ translateX: 0 }}
-                            animate={{ translateX: 'calc(-100% - 3rem)' }}
-                            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                            className="flex shrink-0 flex-row justify-around gap-6"
-                        >
-                            {testimonials.map((testimonial, i) => (
-                                <div key={i} className="flex flex-row justify-center">
-                                    <TestimonialCard key={testimonial.name} {...testimonial} />
-                                </div>
-                            ))}
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-};
-
-interface TestimonialCardProps {
-    name: string;
-    description: string;
-    image: string;
-    profession: string;
-    stars: number;
-}
-
-const TestimonialCard: FC<TestimonialCardProps> = ({
-    name,
-    description,
-    image,
-    profession,
-    stars
-}) => {
-    return (
-        <div
-            className={`card-shadow shadow-lg bg-white dark:bg-black dark:shadow-inner dark:shadow-white/30 p-5 dark:border-neutral-90 relative flex h-auto max-w-[16rem] select-none flex-col items-baseline py-5 justify-center overflow-hidden rounded-2xl border transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-5`}
-        >
-            <p className="mt-3 text-left text-sm font-light text-gray-600 md:text-base dark:text-gray-400">
-                {description}
-            </p>
-            <div className='w-full mt-4 flex justify-between'>
-                <Image
-                    className="block h-7 w-7 rounded-full object-cover"
-                    src={`${image}`}
-                    alt={image}
-                    width={120}
-                    height={80}
-                />
-                <span className='w-[1px] mx-1 bg-gradient-to-t from-transparent dark:via-gray-500 via-gray-800 to-transparent'></span>
-                <div className='flex -translate-x-1 mb-0 justify-start items-center'>
-                    {Array(5).fill(0).map((_, index) => (
-                        <svg key={index} className={cn("w-3 h-3 ms-1", index + 1 <= stars ? "text-yellow-300" : "text-gray-300 dark:text-gray-500")} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                        </svg>
-                    ))}
-                </div>
-            </div>
-            <div className="mb-0 mt-3 flex w-full justify-between">
-                <h3 className="m-0 text-sm font-semibold text-gray-900 dark:text-gray-100">
-                    {name}
-                </h3>
-                <p className="font-regular m-0 text-center text-sm text-gray-600 dark:text-gray-400">
-                    {profession}
-                </p>
-            </div>
+              {testimonial.name.charAt(0)}
+            </span>
+          )}
         </div>
-    );
+        <div className="w-full flex items-end justify-between gap-2">
+          <div>
+            <div className={`font-medium text-base-content ${testimonial.featured  ? 'md:text-lg' : 'text-sm'}`}>
+              {testimonial.name}
+            </div>
+            {testimonial.username && (
+              <div
+                className={`text-base-content/80 ${testimonial.featured  ? 'md:text-base' : 'mt-0.5 text-sm'}`}
+              >
+                @{testimonial.username}
+              </div>
+            )}
+            <div className="flex items-center mt-1">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className={`w-4 h-4 ${
+                    i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+          {testimonial.link && testimonial.type?.svg && (
+            <a
+              href={testimonial.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0"
+              aria-label={testimonial.type?.ariaLabel}
+            >
+              {testimonial.type?.svg}
+            </a>
+          )}
+        </div>
+      </figcaption>
+    </figure>
+  </li>
+);
+
+const Testimonials: React.FC = () => {
+  return (
+    <section className="bg-base-200" id="testimonials">
+      <div className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col text-center w-full mb-20">
+          <h2 className="sm:text-5xl text-4xl font-extrabold text-base-content mb-4">
+            What People Say
+          </h2>
+          <p className="lg:w-2/3 mx-auto text-xl text-base-content/80">
+            Don&apos;t take our word for it. Here&apos;s what they have to say about {config.appName}.
+          </p>
+        </div>
+
+        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {list.map((testimonial, index) => (
+            <TestimonialCard
+              key={index}
+              testimonial={testimonial}
+            />
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
 };
 
 export default Testimonials;

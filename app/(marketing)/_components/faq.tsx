@@ -3,33 +3,27 @@ import { cn } from "@/lib/utils";
 import React, { useState, ReactElement } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Define FAQ item type
 interface FaqItem {
   title: string;
   answer: string;
 }
 
-// Sample FAQ data
 const faqList: FaqItem[] = [
   {
     title: "How do I create my online CV?",
-    answer:
-      "Creating your CV is very simple, just write your sections blocks and arrange them however you like. Then you can share it with a simple link like this: cvpage.to/raul"
+    answer: "Creating your CV is very simple, just write your sections blocks and arrange them however you like. Then you can share it with a simple link like this: cvpage.to/raul"
   },
   {
     title: "Can I update my CV after it's created?",
-    answer:
-      "Yes, you can update your CV anytime. Whether you want to add more experience, update your skills, or change your personal details, you can make edits at any time and your CV will automatically be updated online.",
+    answer: "Yes, you can update your CV anytime. Whether you want to add more experience, update your skills, or change your personal details, you can make edits at any time and your CV will automatically be updated online.",
   },
   {
     title: "How does sharing my online CV work?",
-    answer:
-      "Once your online CV is ready, you can easily share it by generating a unique link. You can send this link to employers or add it to your resume applications. This makes your CV easily accessible and ensures you always have an up-to-date version ready to share.",
+    answer: "Once your online CV is ready, you can easily share it by generating a unique link. You can send this link to employers or add it to your resume applications. This makes your CV easily accessible and ensures you always have an up-to-date version ready to share.",
   },
   {
     title: "Do I have to pay to create my CV?",
-    answer:
-      "To use 100% of the features, a one-time payment is required, priced like a dinner. You are not tied to any subscription, we are against that model. It will always be yours. However, you can always use the free version to see how it works."
+    answer: "To use 100% of the features, a one-time payment is required, priced like a dinner. You are not tied to any subscription, we are against that model. It will always be yours. However, you can always use the free version to see how it works."
   }
 ];
 
@@ -40,17 +34,14 @@ const FAQSection: React.FC = () => {
         <p className="text-2xl md:text-4xl font-semibold">
           Any Questions?
         </p>
-        {/* <p className="text-wrap text-center text-sm sm:text-base">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem reiciendis placeat possimus error officia quis, rem nihil dolor molestias illo!
-        </p> */}
       </div>
-      <Accordion className="max-w-2xl">
+      <Accordion className="max-w-2xl w-full">
         {faqList.map((item, index) => (
           <AccordionItem
-            className="shadow-md"
             title={item.title}
             answer={item.answer}
             key={index}
+            isLast={index === faqList.length - 1}
           />
         ))}
       </Accordion>
@@ -59,7 +50,7 @@ const FAQSection: React.FC = () => {
 };
 
 const Accordion: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className }) => {
-  return <div className={cn("flex w-full flex-col gap-4", className)}>{children}</div>;
+  return <div className={cn("flex w-full flex-col", className)}>{children}</div>;
 };
 
 interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -68,12 +59,14 @@ interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
   rotation?: string;
   icon?: ReactElement;
+  isLast?: boolean;
 }
 
 const AccordionItem: React.FC<AccordionItemProps> = ({
   title,
   answer,
   className,
+  isLast,
   ...props
 }) => {
   const [accordionOpen, setAccordionOpen] = useState<boolean>(false);
@@ -81,15 +74,15 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
   return (
     <div
       className={cn(
-        "relative flex w-full flex-col overflow-hidden rounded-2xl border opacity-70 hover:opacity-100 hover:shadow-md border-black/50 dark:border-white/50 dark:bg-white/5 hover:dark:bg-white/10 bg-white dark:bg-black",
-        accordionOpen && "shadow-md opacity-100",
+        "relative flex w-full flex-col overflow-hidden",
+        !isLast && "border-b border-gray-200 dark:border-gray-700",
         className
       )}
       {...props}
     >
       <button
         onClick={() => setAccordionOpen(prev => !prev)}
-        className="flex w-full items-center justify-between px-5 py-3 rounded-2xl"
+        className="flex w-full items-center justify-between px-5 py-4"
       >
         <span className="text-lg font-medium">{title}</span>
         <motion.span
@@ -127,7 +120,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
             transition={{ ease: "easeInOut", duration: 0.5 }}
             className="overflow-hidden text-wrap"
           >
-            <p className="m-5 opacity-80">{answer}</p>
+            <p className="px-5 pb-4 opacity-80">{answer}</p>
           </motion.div>
         )}
       </AnimatePresence>

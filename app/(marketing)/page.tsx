@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar></Navbar>
-      <main className="flex flex-col min-h-screen ">
+      <main className="flex flex-col min-h-screen">
         <Hero />
         <div className="w-full flex justify-center">
           <div className="max-w-screen-lg w-full px-4">
@@ -28,7 +28,7 @@ export default function Home() {
           </div>
         </div>
         <Testimonials />
-        <div className="container">
+        <div className="p-4">
           <FAQSection />
           <Pricing />
           <ProfileCard />
