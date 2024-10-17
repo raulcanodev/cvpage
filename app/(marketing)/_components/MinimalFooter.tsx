@@ -3,9 +3,15 @@ import { motion } from 'framer-motion';
 import { Github, Linkedin, Twitter, File } from 'lucide-react';
 import Link from 'next/link';
 import config from '@/config';
+import cvpageBlack from '@/public/cvpage-black.png';
+import cvpageWhite from '@/public/cvpage-white.png'
+import Image from 'next/image';
+import { useTheme } from 'next-themes';
+
 
 export const MinimalFooter: React.FC = () => {
   const currentYear = new Date().getFullYear();
+  const { theme } = useTheme();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -39,9 +45,17 @@ export const MinimalFooter: React.FC = () => {
       >
         <div className="flex flex-col md:flex-row justify-between items-center">
           <motion.div variants={itemVariants} className="mb-4 md:mb-0">
+
           <Link href="/" className="text-xl font-normal flex items-center">
-          <File strokeWidth={1.3}/> <span className='lowercase'>{config.appName}</span>
+            <div className="flex items-center space-x-2">
+            {theme === 'dark' ? (
+                <Image src={cvpageWhite} alt="Logo" width={100} height={100} />
+              ) : (
+                <Image src={cvpageBlack} alt="Logo" width={100} height={100} />
+              )}
+            </div>
           </Link>
+
           </motion.div>
           <motion.nav variants={itemVariants} className="mb-4 md:mb-0">
             <ul className="flex space-x-4">

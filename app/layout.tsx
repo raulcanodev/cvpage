@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: config.appName,
   description: config.appDescription,
+  icons: {
+    icon: "/icon.png",
+  }
 };
 
 
@@ -17,6 +20,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en">
       <body className={inter.className} suppressHydrationWarning={true}>
+      <link rel="icon" href="/icon.png" sizes="any" />
         <Provider>{children}</Provider>
       </body>
     </html>

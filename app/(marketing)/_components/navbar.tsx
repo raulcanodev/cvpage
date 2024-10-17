@@ -8,11 +8,16 @@ import { Button } from '@/components/ui';
 import { useRouter } from 'next/navigation';
 import config from '@/config';
 import { File } from 'lucide-react';
+import Image from 'next/image';
+import cvpageBlack from '@/public/cvpage-black.png';
+import cvpageWhite from '@/public/cvpage-white.png';
+import { useTheme } from 'next-themes';
 
 //* Add to the layout >
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  const { theme } = useTheme();
 
   return (
     <nav className="fixed w-full z-50 dark:bg-zinc-950 bg-zinc-50">
@@ -20,12 +25,19 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="text-xl font-normal flex items-center">
-          <File strokeWidth={1.3}/> <span className='lowercase'>{config.appName}</span>
+            {/* Logo */}
+            <div className="flex items-center space-x-2">
+              {theme === 'dark' ? (
+                <Image src={cvpageWhite} alt="Logo" width={100} height={100} />
+              ) : (
+                <Image src={cvpageBlack} alt="Logo" width={100} height={100} />
+              )}
+            </div>
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 items-center">
-          <Link href="#pricing">
+            <Link href="#pricing">
               <div className="flex items-center space-x-2 transition-colors">
                 <span className="text-sm">Pricing</span>
               </div>
@@ -35,7 +47,7 @@ export default function Navbar() {
                 <span className="text-sm">Reviews</span>
               </div>
             </Link>
-           
+
             <Link href="#faq">
               <div className="flex items-center space-x-2 transition-colors">
                 <span className="text-sm">FAQs</span>
@@ -45,9 +57,14 @@ export default function Navbar() {
             {/* Log in with white background */}
             <div className="flex items-center space-x-4">
               <Link href="/auth/register">
-                <Button variant="ghost" className="dark:bg-blue-600 bg-blue-600 dark:text-white text-white hover:dark:text-white hover:dark:bg-black">Sign Up</Button>
+                <Button
+                  variant="ghost"
+                  className="dark:bg-blue-600 bg-blue-600 dark:text-white text-white hover:dark:text-white hover:dark:bg-black"
+                >
+                  Sign Up
+                </Button>
               </Link>
-              
+
               {/* ThemeSwitcher for desktop */}
               <ThemeSwitcher />
             </div>
@@ -92,7 +109,7 @@ export default function Navbar() {
                     <span>FAQs</span>
                   </div>
                 </Link>
-                
+
                 {/* Log in in mobile with white background */}
                 <Link href="/auth/register" onClick={() => setIsOpen(false)}>
                   <div className="flex dark:bg-blue-600 bg-blue-600 dark:text-white text-white items-center space-x-3 p-2 rounded transition-colors">

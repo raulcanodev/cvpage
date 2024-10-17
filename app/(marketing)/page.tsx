@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import {
   Navbar,
   Testimonials,
@@ -14,7 +14,6 @@ import {
 } from './_components';
 
 export default function Home() {
-  const sectionClasses = '';
 
   return (
     <div className="flex flex-col min-h-screen">
