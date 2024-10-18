@@ -26,7 +26,7 @@ export const BottomCTA: React.FC = () => {
   };
 
   return (
-    <section className="py-16 bg-blue-500">
+    <section className="py-16 bg-blue-500 rounded-lg">
       <motion.div
         className="container mx-auto px-4"
         initial="hidden"
