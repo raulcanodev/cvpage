@@ -49,17 +49,16 @@ export function Hero() {
       <div className="md:container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-12">
           <div className="flex-1 text-center sm:text-left max-w-2xl mx-auto lg:mx-0">
+            
             <h1 className="text-5xl sm:text-5xl md:text-6xl font-extrabold mb-6 hero-font">
               Build your{' '}
               <span className="relative inline-block">
                 <span className="relative z-10 px-2 hero-font text-zinc-50">online CV</span>
-                <span
-                  className="absolute inset-0 bg-blue-500 -rotate-1 transform origin-center"
-                  aria-hidden="true"
-                ></span>
+                <span className="absolute inset-0 bg-blue-500 -rotate-1 transform origin-center" aria-hidden="true"></span>
               </span>{' '}
               in minutes
             </h1>
+
             <p className="max-w-lg mb-8 text-gray-600 dark:text-zinc-200">
               Don&apos;t be like the others and try to stand out. Sending a PDF is fine, but having an
               online presence is even better.

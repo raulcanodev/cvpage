@@ -8,7 +8,6 @@ const sharingPlatforms = [
   { name: 'InfoJobs', logo: '/social-logos/infojobs-logo.png' },
   { name: 'Indeed', logo: '/social-logos/indeed-logo.webp' },
 ];
-// "Track views and interactions",
 
 const features = [
   "Shareable link for easy access",
@@ -30,8 +29,8 @@ export function CVSharingFeature() {
             </p>
             <ul className="space-y-4 mb-8">
               {features.map((feature, index) => (
-                <li key={index} className="flex items-center space-x-3">
-                  <CheckCircle className="h-6 w-6 text-green-500" />
+                <li key={index} className="flex items-start space-x-3">
+                  <CheckCircle className="h-6 w-6 flex-shrink-0 text-green-500 mt-0.5" />
                   <span className="text-gray-700 dark:text-gray-200">{feature}</span>
                 </li>
               ))}
@@ -43,7 +42,6 @@ export function CVSharingFeature() {
             </h3>
             <div className="grid grid-cols-2 gap-6">
               {sharingPlatforms.map((platform) => (
-                <>
                 <div key={platform.name} className="flex flex-col items-center">
                   <div className="w-16 h-16 relative mb-2">
                     <Image
@@ -55,15 +53,12 @@ export function CVSharingFeature() {
                   </div>
                   <span className="text-sm text-gray-600 dark:text-gray-300">{platform.name}</span>
                 </div>
-                </>
               ))}
-              
             </div>
             <div className="text-center mt-8">
                 <span className="text-xs text-zinc-400">And many more!</span>
             </div>
           </div>
-          
         </div>
     </section>
   );
