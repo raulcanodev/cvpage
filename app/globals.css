@@ -70,3 +70,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.hero-font {
+  font-family: var(--font-rum_raisin);
+  letter-spacing: -0.03em;
+}

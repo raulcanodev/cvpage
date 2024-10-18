@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Caveat_Brush, Bricolage_Grotesque
+} from 'next/font/google';
 import './globals.css';
 import config from '@/config';
 
 import { Provider } from './context/Provider';
 
 const inter = Inter({ subsets: ['latin'] });
+
+const heroFont = Bricolage_Grotesque({ subsets: ['latin'], weight: '800', variable: '--font-rum_raisin' });
 
 export const metadata: Metadata = {
   title: config.appName,
@@ -19,7 +22,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={inter.className} suppressHydrationWarning={true}>
+      <body className={`${inter.className} ${heroFont.variable}`} suppressHydrationWarning={true}>
       <link rel="icon" href="/icon.png" sizes="any" />
         <Provider>{children}</Provider>
       </body>

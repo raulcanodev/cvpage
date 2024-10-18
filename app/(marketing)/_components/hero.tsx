@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Star } from 'lucide-react';
-import { handleUserCount } from '@/actions/';
 
 const trustData = {
   users: [
@@ -17,10 +16,9 @@ const trustData = {
   text: 'cvpagers trust us',
 };
 
-const TrustIndicator = async () => {
-
+const TrustIndicator = () => {
   return (
-    <div className="flex items-center gap-4 rounded-lg max-w-sm">
+    <div className="flex items-center gap-4 rounded-lg justify-center sm:justify-start">
       <div className="flex -space-x-2 overflow-hidden">
         {trustData.users.map((user) => (
           <img
@@ -47,51 +45,62 @@ const TrustIndicator = async () => {
 
 export function Hero() {
   return (
-    <section className="min-h-screen flex items-center mt-14 md:mt-0 p-4">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
-        <div className="flex-1 text-left">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="text-blue-600">Stand Out From The Crowd </span> and Build Your Online
-            CV
-          </h1>
-          <p className="text-lg md:text-xl mb-8 text-gray-600 dark:text-zinc-200">
-            Don&apos;t be like the others and try to stand out. Sending a PDF is fine, but having an
-            online presence is even better.
-          </p>
-
-          <Button
-            className="text-lg md:text-xl py-6 px-7 hover:bg-blue-600 relative
-                    bg-blue-500 text-white font-bold
-                      rounded-lg
-                      transition-all duration-150 ease-in-out
-                      shadow-[0_8px_0_0_#2563eb,0_15px_0_0_#1e40af]
-                      hover:shadow-[0_4px_0_0_#2563eb,0_7px_0_0_#1e40af]
-                      active:shadow-[0_0_0_0_#2563eb,0_0_0_0_#1e40af]
-                      hover:translate-y-1
-                      active:translate-y-2"
-          >
-            <Link href="/auth/register">
-              Get Started for Free<span className="ml-3">🚀</span>
-            </Link>
-          </Button>
-
-          <div className="mt-6 ml-2 text-zinc-500 dark:text-zinc-400 text-sm">
-            <p>
-              <span className="font-semibold">No credit card required.</span> Try it out for free.
+    <section className="min-h-screen flex items-center mt-20 md:mt-0">
+      <div className="md:container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center gap-12">
+          <div className="flex-1 text-center sm:text-left max-w-2xl mx-auto lg:mx-0">
+            <h1 className="text-5xl sm:text-5xl md:text-6xl font-extrabold mb-6 hero-font">
+              Build Your{' '}
+              <span className="relative inline-block">
+                <span className="relative z-10 px-2 hero-font text-zinc-50">Online CV</span>
+                <span
+                  className="absolute inset-0 bg-blue-500 -rotate-1 transform origin-center"
+                  aria-hidden="true"
+                ></span>
+              </span>{' '}
+              In Minutes
+            </h1>
+            <p className="text-xl sm:text-lg md:text-xl mb-8 text-gray-600 dark:text-zinc-200">
+              Don&apos;t be like the others and try to stand out. Sending a PDF is fine, but having an
+              online presence is even better.
             </p>
-            <div className="mt-6">
-              <TrustIndicator />
+
+            <div className="flex justify-center sm:justify-start">
+              <Button
+                className="text-xl sm:text-lg md:text-xl py-6 px-7 hover:bg-blue-600 relative
+                        bg-blue-500 text-white font-bold
+                          rounded-lg
+                          transition-all duration-150 ease-in-out
+                          shadow-[0_8px_0_0_#2563eb,0_15px_0_0_#1e40af]
+                          hover:shadow-[0_4px_0_0_#2563eb,0_7px_0_0_#1e40af]
+                          active:shadow-[0_0_0_0_#2563eb,0_0_0_0_#1e40af]
+                          hover:translate-y-1
+                          active:translate-y-2"
+              >
+                <Link href="/auth/register">
+                  Get Started for Free<span className="ml-3">🚀</span>
+                </Link>
+              </Button>
+            </div>
+
+            <div className="mt-6 text-zinc-500 dark:text-zinc-400 text-base sm:text-sm">
+              <p className="text-center sm:text-left">
+                <span className="font-semibold">No credit card required.</span> Try it out for free.
+              </p>
+              <div className="mt-6">
+                <TrustIndicator />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="flex-1 relative w-full aspect-[4/3]">
-          <Image
-            src="/hero.png"
-            alt="hitme.to interface preview"
-            layout="fill"
-            objectFit="cover"
-            className="rounded-lg shadow-2xl"
-          />
+          <div className="flex-1 relative w-full aspect-[4/3] max-w-2xl lg:max-w-none">
+            <Image
+              src="/hero.png"
+              alt="hitme.to interface preview"
+              layout="fill"
+              objectFit="cover"
+              className="rounded-lg shadow-2xl"
+            />
+          </div>
         </div>
       </div>
     </section>

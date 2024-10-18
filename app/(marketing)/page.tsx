@@ -17,8 +17,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar></Navbar>
-      <main className="flex flex-col min-h-screen">
+      <Navbar/>
+      <main className="container flex flex-col min-h-screen">
         <Hero />
         <div className="w-full flex justify-center">
           <div className="max-w-screen-lg w-full px-4">
