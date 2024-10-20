@@ -1,22 +1,28 @@
-'use client'
-import { useRef, useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
-import { AcceptConditions, GoogleSignInButton, GithubSignInButton, EmailSignIn } from '../components'
-import { LineWave } from 'react-loader-spinner'
-import { toast } from 'sonner'
-import config from '@/config'
+'use client';
+import { useRef, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import {
+  AcceptConditions,
+  GoogleSignInButton,
+  GithubSignInButton,
+  EmailSignIn,
+} from '../components';
+import { LineWave } from 'react-loader-spinner';
+import Logo from '@/app/favicon.png';
+import config from '@/config';
+import Image from 'next/image';
 
 export default function SignIn() {
-  const router = useRouter()
-  const ref = useRef<HTMLFormElement>(null)
-  const { data: session, status } = useSession()
+  const router = useRouter();
+  const ref = useRef<HTMLFormElement>(null);
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     if (status === 'authenticated') {
-      router.push(`/dashboard/page/`)
+      router.push(`/dashboard/page/`);
     }
-  }, [status, router])
+  }, [status, router]);
 
   if (status === 'loading') {
     return (
@@ -36,21 +42,28 @@ export default function SignIn() {
           />
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <>
-      <h2 className="mt-6 text-2xl font-extrabold text-zinc-950 dark:text-white">
-        Welcome to {config.appName}
-      </h2>
+      <div>
+        {/* <div className="flex items-center justify-center">
+          <Image src={Logo} alt="Logo" width={40} height={40} />
+        </div> */}
+
+        <h2 className="mt-6 text-2xl text-center mb-10 font-bold text-zinc-950 dark:text-white">
+          Sign in to {config.appName}
+        </h2>
         <div className="mt-6">
           <GithubSignInButton />
           <GoogleSignInButton />
-          <EmailSignIn/>
+          <EmailSignIn />
         </div>
-
-      <AcceptConditions />
+        <div className="px-2">
+          <AcceptConditions />
+        </div>
+      </div>
     </>
-  )
+  );
 }
