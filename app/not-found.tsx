@@ -13,7 +13,7 @@ export default function NotFoundPage() {
         </div>
 
         <div className="mt-6">
-          <Link href="/auth/register" className="font-medium">
+          <Link href="/auth/signin" className="font-medium">
             <Button type="submit" className="w-full text-white bg-zinc-950 hover:bg-zinc-700">
               Create your {config.appName}
             </Button>

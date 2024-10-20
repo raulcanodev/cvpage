@@ -2,6 +2,7 @@ import { signIn } from 'next-auth/react';
 import { Button } from '@/components/ui';
 import { GoogleIcon, GitHubIcon } from '@/components/assets/svg';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export function GoogleSignInButton() {
   return (
@@ -42,13 +43,15 @@ export function EmailSignIn() {
           }).then((res) => {
             if (res?.ok && !res?.error) {
               setEmail("");
-              setMessage("Email sent - check your inbox!");
+              toast.success("Email sent, check your inbox!");
+              // setMessage("Email sent, check your inbox!");
             } else {
-              setError("Error sending email - try again?");
+              // setError("Error sending email, try again?");
+              toast.error("Error sending email, try again?");
             }
           });
         }}
-        className="flex flex-col space-y-3"
+        className="flex flex-col space-y-3 mt-4"
       >
         {showEmailOption && (
           <div>
@@ -57,7 +60,7 @@ export function EmailSignIn() {
               name="email"
               autoFocus={true}
               type="email"
-              placeholder="partytime@thedis.co"
+              placeholder="email@email.com"
               autoComplete="email"
               required
               value={email}
@@ -77,8 +80,8 @@ export function EmailSignIn() {
             },
           })}
         >Continue with Email</button>
-        {error && (<p className="text-center text-sm text-red-500">{error}</p>)}
-        {message && (<p className="text-center text-sm text-green-500">{message}</p>)}
+        {/* {error && (<p className="text-center text-sm text-red-500">{error}</p>)} */}
+        {/* {message && (<p className="text-center text-sm text-green-500">{message}</p>)} */}
       </form>
   )
 }

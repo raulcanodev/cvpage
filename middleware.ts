@@ -22,7 +22,7 @@ export async function middleware(req: NextRequest) {
   }
 
   if (isProtectedRoute && !isAuthenticated) {
-    return NextResponse.redirect(new URL('/auth/register', req.url));
+    return NextResponse.redirect(new URL('/auth/signin', req.url));
   }
 
   return NextResponse.next();

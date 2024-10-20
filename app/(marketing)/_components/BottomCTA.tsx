@@ -48,7 +48,7 @@ export const BottomCTA: React.FC = () => {
           </motion.p>
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
             <a
-              href="/auth/register"
+              href="/auth/signin"
               className="bg-zinc-50 text-blue-500 hover:bg-zinc-200 shadow-lg px-8 py-3 rounded-full font-bold text-lg transition duration-300 flex items-center"
             >
               Get Started

@@ -56,7 +56,7 @@ export default function Navbar() {
 
             {/* Log in with white background */}
             <div className="flex items-center space-x-4">
-              <Link href="/auth/register">
+              <Link href="/auth/signin">
                 <Button
                   variant="ghost"
                   className="dark:bg-blue-600 bg-blue-600 dark:text-white text-white hover:dark:text-white hover:dark:bg-black"
@@ -111,7 +111,7 @@ export default function Navbar() {
                 </Link>
 
                 {/* Log in in mobile with white background */}
-                <Link href="/auth/register" onClick={() => setIsOpen(false)}>
+                <Link href="/auth/signin" onClick={() => setIsOpen(false)}>
                   <div className="flex dark:bg-blue-600 bg-blue-600 dark:text-white text-white items-center space-x-3 p-2 rounded transition-colors">
                     <span>Sign Up</span>
                   </div>

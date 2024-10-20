@@ -8,7 +8,7 @@ export function Logout() {
 
   const handleLogout = () => {
     signOut({ redirect: false }).then(() => {
-      router.push("/auth/login");
+      router.push("/auth/signin");
     });
   }
 

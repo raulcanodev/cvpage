@@ -76,7 +76,7 @@ export function Hero() {
                           hover:translate-y-1
                           active:translate-y-2"
               >
-                <Link href="/auth/register">
+                <Link href="/auth/signin">
                   Get Started for Free<span className="ml-3">🚀</span>
                 </Link>
               </Button>

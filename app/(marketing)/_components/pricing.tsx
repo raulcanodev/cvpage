@@ -90,7 +90,7 @@ export const Pricing = () => {
           <PricingCard
             title="Free"
             subtitle="Try it out for free"
-            link="/auth/register"
+            link="/auth/signin"
             price="0€"
             features={[
               'Landing page',

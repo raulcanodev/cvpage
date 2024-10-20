@@ -24,6 +24,9 @@ const config = {
   },
   email: {
     noreply: 'Cvpage <noreply@cvpage.to>',
+    subject: {
+      login: 'Login Link to your Cvpage Account',
+    },
   }
 };
 
