@@ -30,12 +30,12 @@ export const authOptions: NextAuthOptionsExtended = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      allowDangerousEmailAccountLinking: true,
+      // allowDangerousEmailAccountLinking: true,
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-      authorization: { params: { scope: "read:user user:email" } },
+      allowDangerousEmailAccountLinking: true,
     }),
     EmailProvider({
       from: config.email.noreply,
@@ -69,6 +69,26 @@ export const authOptions: NextAuthOptionsExtended = {
     strategy: 'jwt',
   },
   callbacks: {
+
+    async signIn(user) {
+      try {
+        await connectDB();
+        let userExists = await User.findOne({ email: user.email });
+        if (!userExists) {
+          await User.create({
+            email: user.email,
+            name: user.name,
+            image: user.image,
+          });
+        }
+        return true;
+    }
+    catch (error) {
+      console.log({ error });
+      return false;
+    }
+    },
+
     async jwt({ token, user }) {
       // If the user is authenticated, store the user's id in the token
       if (user) {
