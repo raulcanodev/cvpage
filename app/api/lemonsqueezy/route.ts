@@ -31,7 +31,6 @@ export async function POST(req: NextRequest) {
 
         if (eventType === 'order_created') {
             const email = event.data.attributes.user_email;
-            
             await handlePremiumPurchase(email);
         }
 

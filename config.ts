@@ -22,6 +22,9 @@ const config = {
     email: '',
     twitter: 'https://x.com/raulcanodev',
   },
+  email: {
+    noreply: 'Cvpage <noreply@cvpage.to>',
+  }
 };
 
 export default config;

@@ -5,6 +5,9 @@ import GoogleProvider from 'next-auth/providers/google';
 import GitHubProvider from "next-auth/providers/github";
 import bcrypt from 'bcryptjs';
 import type { NextAuthOptions } from 'next-auth';
+import EmailProvider from 'next-auth/providers/email';
+import { sendVerificationRequest } from '@/utils/resend';
+import config from '@/config';
 
 interface UserType {
   id: string; 
@@ -52,7 +55,11 @@ export const authOptions: NextAuthOptions = {
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-    })
+    }),
+    EmailProvider({
+      from: config.email.noreply,
+      sendVerificationRequest,
+    }),
   ],
 
   session: {
@@ -61,7 +68,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({user, account}): Promise<any> {
 
-      if(account?.provider === 'google' || account?.provider === 'github') {
+      if(account?.provider === 'google' || account?.provider === 'github'){ {
         const { email, name, image } = user;
 
         try {

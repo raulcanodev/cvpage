@@ -4,6 +4,7 @@ import config from '@/config';
 import Link from 'next/link';
 
 export const Pricing = () => {
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -103,8 +104,8 @@ export const Pricing = () => {
           <PricingCard
             title="Pro"
             subtitle="Most popular, one-time payment"
-            link={config.lemonsqueezy.productLink}
-            price={config.lemonsqueezy.price}
+            link={`${config.lemonsqueezy.productLink}`}
+            price={`${config.lemonsqueezy.price}`}
             features={[
               'Landing page',
               'Domain name',

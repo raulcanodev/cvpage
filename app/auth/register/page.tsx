@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { Button, Input, Label } from '@/components/ui/'
-import { AcceptConditions, GoogleSignInButton, GithubSignInButton } from '../components'
+import { AcceptConditions, GoogleSignInButton, GithubSignInButton, EmailSignIn } from '../components'
 import { register } from '@/actions'
 import { LineWave } from 'react-loader-spinner'
 import { toast } from 'sonner'
@@ -149,6 +149,7 @@ export default function Register() {
         <div className="mt-6">
           <GithubSignInButton />
           <GoogleSignInButton />
+          <EmailSignIn/>
         </div>
       </div>
       <AcceptConditions />
