@@ -25,20 +25,17 @@ interface NextAuthOptionsExtended extends NextAuthOptions {
 export const authOptions: NextAuthOptionsExtended = {
   adapter: MongoDBAdapter(client),
 
-  pages: {
-    signIn: '/dashboard/page',
-    signOut: '/auth/signin',
-    error: '/auth/signin',
-  },
 
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      allowDangerousEmailAccountLinking: true,
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      authorization: { params: { scope: "read:user user:email" } },
     }),
     EmailProvider({
       from: config.email.noreply,
@@ -72,28 +69,6 @@ export const authOptions: NextAuthOptionsExtended = {
     strategy: 'jwt',
   },
   callbacks: {
-    async signIn({user, account}): Promise<any> {
-
-      if(account?.provider === 'google' || account?.provider === 'github') {
-        const { email, name, image } = user;
-
-        try {
-          await connectDB();
-          let userExist = await User.findOne({ email });
-          
-          if(!userExist){
-            userExist = await User.create({ name, email, avatar: image });
-          }
-
-          user.id = userExist?._id.toString(); 
-
-        } catch(error) {
-          console.error(error);
-        }
-      }
-
-      return true;
-    },
     async jwt({ token, user }) {
       // If the user is authenticated, store the user's id in the token
       if (user) {
@@ -102,7 +77,7 @@ export const authOptions: NextAuthOptionsExtended = {
       return token;
     },
     async session({ session, token }: any) {
-      // Transfer the user id from the token to the session
+
       if (token?.id) {
         if (!session.user) {
           session.user = {};
