@@ -7,7 +7,7 @@ export async function middleware(req: NextRequest) {
   const isAuthenticated = !!token;
 
   const protectedPaths = ['/dashboard'];
-  const publicPaths = ['/auth/login', '/auth/register'];
+  const publicPaths = ['/auth/signin'];
 
   const isProtectedRoute = protectedPaths.some((path) =>
     req.nextUrl.pathname.startsWith(path)

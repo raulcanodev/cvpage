@@ -25,6 +25,12 @@ interface NextAuthOptionsExtended extends NextAuthOptions {
 export const authOptions: NextAuthOptionsExtended = {
   adapter: MongoDBAdapter(client),
 
+  pages: {
+    signIn: '/dashboard/page',
+    signOut: '/auth/signin',
+    error: '/auth/signin',
+  },
+
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -88,8 +94,6 @@ export const authOptions: NextAuthOptionsExtended = {
 
       return true;
     },
-
-
     async jwt({ token, user }) {
       // If the user is authenticated, store the user's id in the token
       if (user) {
@@ -104,7 +108,8 @@ export const authOptions: NextAuthOptionsExtended = {
           session.user = {};
         }
         // This is the path to the user id
-        session.user._id = token.id; 
+        session.user._id = token.id;
+        
       }
       return session;
     },
