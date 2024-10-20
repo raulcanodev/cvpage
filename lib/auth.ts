@@ -35,7 +35,7 @@ export const authOptions: NextAuthOptionsExtended = {
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-      allowDangerousEmailAccountLinking: true,
+      // allowDangerousEmailAccountLinking: true,
     }),
     EmailProvider({
       from: config.email.noreply,
@@ -70,25 +70,27 @@ export const authOptions: NextAuthOptionsExtended = {
   },
   callbacks: {
 
-    async signIn(user) {
-      try {
-        await connectDB();
-        let userExists = await User.findOne({ email: user.email });
-        if (!userExists) {
-          await User.create({
-            email: user.email,
-            name: user.name,
-            image: user.image,
-          });
-        }
-        return true;
-    }
-    catch (error) {
-      console.log({ error });
-      return false;
-    }
-    },
+    async signIn({user, account}): Promise<any> {
 
+      if(account?.provider === 'google' || account?.provider === 'github' || account?.provider === 'email') {
+        const { email, name, image } = user;
+
+        try {
+          await connectDB();
+          let userExist = await User.findOne({ email });
+          
+          if(!userExist){
+            userExist = await User.create({ name, email, avatar: image });
+          }
+
+          user.id = userExist?._id.toString(); 
+
+        } catch(error) {
+          console.error(error);
+        }
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       // If the user is authenticated, store the user's id in the token
       if (user) {
