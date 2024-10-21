@@ -6,6 +6,7 @@ import EmailProvider, { SendVerificationRequestParams } from 'next-auth/provider
 import { Resend } from 'resend';
 import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import client from '@/lib/mongoclient';
+import { SignInEmail } from '@/email-template/emails/signin-email';
 
 if (
   !process.env.GITHUB_CLIENT_ID ||
@@ -51,26 +52,8 @@ export const authOptions: NextAuthOptionsExtended = {
           await resend.emails.send({
             from: provider.from,
             to: identifier,
-            subject: config.email.subject.login,
-            html:
-              '<html><body>\
-              <h2>Your Login Link</h2>\
-              <p>Welcome to StreakUp!</p>\
-              <p>Please click the magic link below to sign in to your account.</p>\
-              <p><a href="' +
-              url +
-              '"><b>Sign in</b></a></p>\
-              <p>or copy and paste this URL into your browser:</p>\
-              <p><a href="' +
-              url +
-              '">' +
-              url +
-              '</a></p>\
-              <br /><br /><hr />\
-              <p><i>This email was intended for ' +
-              identifier +
-              '. If you were not expecting this email, you can ignore this email.</i></p>\
-              </body></html>',
+            subject: config.email.signin.subject,
+            react: SignInEmail({ url, identifier }),
           });
         } catch (error) {
           console.log({ error });
@@ -83,45 +66,23 @@ export const authOptions: NextAuthOptionsExtended = {
     strategy: 'jwt',
   },
   callbacks: {
-    // async signIn({ user, account }): Promise<any> {
-    //   if (
-    //     account?.provider === 'google' ||
-    //     account?.provider === 'github' ||
-    //     account?.provider === 'email'
-    //   ) {
-    //     const { email, name, image } = user;
-
-    //     try {
-    //       await connectDB();
-    //       let userExist = await User.findOne({ email });
-
-    //       if (!userExist) {
-    //         userExist = await User.create({ name, email, avatar: image });
-    //       }
-
-    //       user.id = userExist?._id.toString();
-    //     } catch (error) {
-    //       console.error(error);
-    //     }
-    //   }
-    //   return true;
-    // },
     async jwt({ token, user }) {
-      // If the user is authenticated, store the user's id in the token
       if (user) {
-        token.id = user.id;
+        return {
+          ...token,
+          id: user.id,
+        }
       }
       return token;
     },
-    async session({ session, token }: any) {
-      if (token?.id) {
-        if (!session.user) {
-          session.user = {};
-        }
-        // This is the path to the user id
-        session.user._id = token.id;
+    async session({ session, token }) {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          _id: token.id,
+        },
       }
-      return session;
-    },
+    }
   },
 };

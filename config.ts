@@ -1,3 +1,6 @@
+import { sub } from "date-fns";
+import { head } from "framer-motion/client";
+
 const config = {
   appName: 'Cvpage',
   appDescription: 'Create your own personal page with Cvpage and share it with the world',
@@ -23,10 +26,14 @@ const config = {
     twitter: 'https://x.com/raulcanodev',
   },
   email: {
+    // @/email-template/emails/signin-email.tsx
     noreply: 'Cvpage <noreply@cvpage.to>',
-    subject: {
-      login: 'Login Link to your Cvpage Account',
-    },
+    signin: {
+      subject: 'Login Link to your Cvpage Account.',
+      content: 'Please click the magic button below to sign in to your account.',
+      buttonColor: '#000',
+      logo: 'icon.png',
+    }
   }
 };
 
