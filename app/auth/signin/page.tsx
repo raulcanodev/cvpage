@@ -1,32 +1,12 @@
 'use client';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import {
   AcceptConditions,
   GoogleSignInButton,
   GithubSignInButton,
   EmailSignIn,
 } from '../components';
-import { LineWave } from 'react-loader-spinner';
-import config from '@/config';
 
 export default function SignIn() {
-  const { data: session, status } = useSession();
-
-  if (status === 'loading') {
-    return (
-      <div className="flex justify-center">
-        <LineWave
-          visible={true}
-          height="100"
-          width="100"
-          color="gray"
-          ariaLabel="line-wave-loading"
-        />
-      </div>
-    );
-  }
 
   return (
     <>

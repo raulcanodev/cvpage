@@ -14,7 +14,7 @@ export default function AuthError() {
     verification: "The verification process failed.",
   };
 
-  const errorMessage = error ? errorMessages[error] || errorMessages.default : errorMessages.default;
+  const errorMessage = error ? errorMessages[error] || errorMessages.default : errorMessages.default; 
 
   return (
     <div className="text-center">
