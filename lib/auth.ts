@@ -26,10 +26,12 @@ export const authOptions: NextAuthOptionsExtended = {
 
   pages: {
     signIn: '/auth/signin',
+    verifyRequest: '/auth/verify-request',
     signOut: '/auth/signout',
-    error: '/auth/error',
-    verifyRequest: '/auth/verify-request'
+    error: '/auth/error'
   },
+
+  
 
   providers: [
     GoogleProvider({
@@ -90,6 +92,12 @@ export const authOptions: NextAuthOptionsExtended = {
           _id: token.id,
         },
       }
-    }
+    },
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith(baseUrl)) {
+        return `${config.domainUrl}/auth/error`;
+      }
+      return baseUrl;
+    }  
   },
 };

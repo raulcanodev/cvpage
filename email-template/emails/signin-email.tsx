@@ -13,7 +13,6 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 import config from "@/config";
-import CvpageLogo from "@/public/cvpage-black.png";
 
 interface SignInEmailProps {
   userFirstname?: string;
@@ -54,7 +53,7 @@ const baseUrl = process.env.VERCEL_URL
           {url}
         </Link>
         <Text style={paragraph}>
-          If you didn't request this email, you can safely ignore it.
+          If you didn&apos;t request this email, you can safely ignore it.
         </Text>
         <Text style={paragraph}>
           Best regards,

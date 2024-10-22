@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -13,14 +12,7 @@ import { LineWave } from 'react-loader-spinner';
 import config from '@/config';
 
 export default function SignIn() {
-  const router = useRouter();
   const { data: session, status } = useSession();
-
-  useEffect(() => {
-    if (status === 'authenticated') {
-      router.push(`/dashboard/page/`);
-    }
-  }, [status, router]);
 
   if (status === 'loading') {
     return (
@@ -45,8 +37,6 @@ export default function SignIn() {
         <GithubSignInButton />
         <GoogleSignInButton />
         <EmailSignIn />
-      </div>
-      <div className="mt-6">
         <AcceptConditions />
       </div>
     </>

@@ -9,7 +9,7 @@ export default function VerifyRequest() {
         A sign in link has been sent to your email address. Please check your inbox and click the link to continue.
       </p>
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-        If you don't see the email, check your spam folder.
+        If you don&apos;t see the email, check your spam folder.
       </p>
       <Link href="/auth/signin" className="text-blue-600 hover:underline">
         Return to sign in

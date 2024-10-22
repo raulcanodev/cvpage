@@ -1,7 +1,7 @@
 import { signIn } from 'next-auth/react';
 import { Button } from '@/components/ui';
 import { GoogleIcon, GitHubIcon } from '@/components/assets/svg';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
 
 export function GoogleSignInButton() {
@@ -31,24 +31,32 @@ export function GithubSignInButton() {
 export function EmailSignIn() {
   const [showEmailOption, setShowEmailOption] = useState(false);
   const [email, setEmail] = useState("");
+  const [isPending, startTransition] = useTransition();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      startTransition(async()=>{
+        const res = await signIn("email", {
+          email,
+        })
+        if (res?.ok && !res?.error) {
+          setEmail("");
+          toast.success("Email sent, check your inbox!");
+        } else {
+          toast.error("Error sending email, try again?");
+        }
+      })
+      
+    } catch (error) {
+      toast.error("Error sending email, try again?");
+    }
+  };
 
   return (
     <form
-      onSubmit={async (e) => {
-        e.preventDefault();
-        signIn("email", {
-          email,
-          // callbackUrl: '/auth/verify-request', <-- It redirects after click the magic link not before
-          redirect: false,
-        }).then((res) => {
-          if (res?.ok && !res?.error) {
-            setEmail("");
-            toast.success("Email sent, check your inbox!");
-          } else {
-            toast.error("Error sending email, try again?");
-          }
-        });
-      }}
+      onSubmit={handleSubmit}
       className="flex flex-col space-y-3 mt-4"
     >
       {showEmailOption && (
@@ -62,9 +70,8 @@ export function EmailSignIn() {
             autoComplete="email"
             required
             value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            disabled={isPending}
+            onChange={(e) => {setEmail(e.target.value)}}
             className="mt-1 block w-full appearance-none rounded-lg border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm transition-all duration-200"
           />
         </div>
@@ -75,6 +82,7 @@ export function EmailSignIn() {
             ? 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' 
             : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:shadow-md focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700'}`
         }
+        disabled={isPending}
         {...(!showEmailOption && {
           type: "button",
           onClick: (e) => {
@@ -83,7 +91,12 @@ export function EmailSignIn() {
           },
         })}
       >
-        {showEmailOption ? 'Send Magic Link' : 'Continue with Email'}
+        {isPending
+          ? 'Sending...'
+          : showEmailOption 
+            ? 'Send Magic Link' 
+            : 'Continue with Email'
+        }
       </Button>
     </form>
   )

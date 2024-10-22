@@ -10,9 +10,9 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
         <div className="flex flex-col items-center">
           <Image src={cvpageWhite} alt={config.appName} width={50} height={50} />
-          <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-white">
+          {/* <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-white">
             {config.appName}
-          </h2>
+          </h2> */}
         </div>
         {children}
       </div>
