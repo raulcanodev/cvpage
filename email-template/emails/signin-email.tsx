@@ -59,7 +59,7 @@ const baseUrl = process.env.VERCEL_URL
         <Text style={paragraph}>
           Best regards,
           <br />
-          The {config.appName} Team
+          The {config.appName} team
         </Text>
         <Hr style={hr} />
         <Text style={footer}>

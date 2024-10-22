@@ -1,6 +1,3 @@
-import { sub } from "date-fns";
-import { head } from "framer-motion/client";
-
 const config = {
   appName: 'Cvpage',
   appDescription: 'Create your own personal page with Cvpage and share it with the world',

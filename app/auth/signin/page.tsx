@@ -1,5 +1,6 @@
 'use client';
-import { useRef, useState, useEffect } from 'react';
+
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import {
@@ -9,13 +10,10 @@ import {
   EmailSignIn,
 } from '../components';
 import { LineWave } from 'react-loader-spinner';
-import Logo from '@/app/favicon.png';
 import config from '@/config';
-import Image from 'next/image';
 
 export default function SignIn() {
   const router = useRouter();
-  const ref = useRef<HTMLFormElement>(null);
   const { data: session, status } = useSession();
 
   useEffect(() => {
@@ -26,43 +24,30 @@ export default function SignIn() {
 
   if (status === 'loading') {
     return (
-      <div className="flex-1 flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-20 xl:px-24">
-        <div className="m-auto">
-          <LineWave
-            visible={true}
-            height="100"
-            width="100"
-            color="gray"
-            ariaLabel="line-wave-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            firstLineColor=""
-            middleLineColor=""
-            lastLineColor=""
-          />
-        </div>
+      <div className="flex justify-center">
+        <LineWave
+          visible={true}
+          height="100"
+          width="100"
+          color="gray"
+          ariaLabel="line-wave-loading"
+        />
       </div>
     );
   }
 
   return (
     <>
-      <div>
-        {/* <div className="flex items-center justify-center">
-          <Image src={Logo} alt="Logo" width={40} height={40} />
-        </div> */}
-
-        <h2 className="mt-6 text-2xl text-center mb-10 font-bold text-zinc-950 dark:text-white">
-          Sign in to {config.appName}
-        </h2>
-        <div className="mt-6">
-          <GithubSignInButton />
-          <GoogleSignInButton />
-          <EmailSignIn />
-        </div>
-        <div className="px-2">
-          <AcceptConditions />
-        </div>
+      <h2 className="mt-6 text-2xl text-center mb-10 font-bold text-gray-900 dark:text-white">
+        Sign in to continue
+      </h2>
+      <div className="mt-6 space-y-3">
+        <GithubSignInButton />
+        <GoogleSignInButton />
+        <EmailSignIn />
+      </div>
+      <div className="mt-6">
+        <AcceptConditions />
       </div>
     </>
   );

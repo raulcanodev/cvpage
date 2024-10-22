@@ -24,6 +24,13 @@ interface NextAuthOptionsExtended extends NextAuthOptions {
 export const authOptions: NextAuthOptionsExtended = {
   adapter: MongoDBAdapter(client),
 
+  pages: {
+    signIn: '/auth/signin',
+    signOut: '/auth/signout',
+    error: '/auth/error',
+    verifyRequest: '/auth/verify-request'
+  },
+
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,

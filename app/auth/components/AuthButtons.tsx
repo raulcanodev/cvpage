@@ -6,8 +6,11 @@ import { toast } from 'sonner';
 
 export function GoogleSignInButton() {
   return (
-    <Button onClick={() => signIn('google')} className="w-full mt-4 bg-white text-zinc-950 border hover:bg-zinc-100">
-      <GoogleIcon width={25} height={25} className='mr-2' />
+    <Button 
+      onClick={() => signIn('google')} 
+      className="w-full mt-4 bg-white text-gray-700 border border-gray-300 hover:shadow-md hover:border-gray-400 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-6 text-center inline-flex items-center justify-center transition-all duration-200 dark:bg-white dark:text-gray-700 hover:text-white hover:dark:text-black dark:border-gray-300 dark:hover:border-gray-400 dark:focus:ring-gray-100"
+    >
+      <GoogleIcon width={20} height={20} className='mr-2' />
       Sign in with Google
     </Button>
   );
@@ -16,10 +19,10 @@ export function GoogleSignInButton() {
 export function GithubSignInButton() {
   return (
     <Button
-    onClick={() => signIn('github')}
-    className="w-full mt-4 bg-zinc-900 text-white hover:bg-zinc-800 flex items-center justify-center"
+      onClick={() => signIn('github')}
+      className="w-full mt-4 bg-black text-white hover:bg-gray-950 focus:ring-4 focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-6 text-center inline-flex items-center justify-center dark:hover:bg-gray-950 dark:focus:ring-gray-500 transition-all duration-200"
     >
-    <GitHubIcon width={25} height={25} fill="white" className='mr-2' />
+      <GitHubIcon width={20} height={20} fill="white" className='mr-2' />
       Sign in with GitHub
     </Button>
   );
@@ -28,60 +31,60 @@ export function GithubSignInButton() {
 export function EmailSignIn() {
   const [showEmailOption, setShowEmailOption] = useState(false);
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
 
   return (
     <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          setMessage("");
-          setError("");
-          signIn("email", {
-            email,
-            redirect: false,
-          }).then((res) => {
-            if (res?.ok && !res?.error) {
-              setEmail("");
-              toast.success("Email sent, check your inbox!");
-              // setMessage("Email sent, check your inbox!");
-            } else {
-              // setError("Error sending email, try again?");
-              toast.error("Error sending email, try again?");
-            }
-          });
-        }}
-        className="flex flex-col space-y-3 mt-4"
+      onSubmit={async (e) => {
+        e.preventDefault();
+        signIn("email", {
+          email,
+          // callbackUrl: '/auth/verify-request', <-- It redirects after click the magic link not before
+          redirect: false,
+        }).then((res) => {
+          if (res?.ok && !res?.error) {
+            setEmail("");
+            toast.success("Email sent, check your inbox!");
+          } else {
+            toast.error("Error sending email, try again?");
+          }
+        });
+      }}
+      className="flex flex-col space-y-3 mt-4"
+    >
+      {showEmailOption && (
+        <div>
+          <input
+            id="email"
+            name="email"
+            autoFocus={true}
+            type="email"
+            placeholder="email@email.com"
+            autoComplete="email"
+            required
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            className="mt-1 block w-full appearance-none rounded-lg border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm transition-all duration-200"
+          />
+        </div>
+      )}
+      <Button 
+        className={`w-full font-medium rounded-lg text-sm px-5 py-6 text-center transition-all duration-200 
+          ${showEmailOption 
+            ? 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' 
+            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:shadow-md focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700'}`
+        }
+        {...(!showEmailOption && {
+          type: "button",
+          onClick: (e) => {
+            e.preventDefault();
+            setShowEmailOption(true);
+          },
+        })}
       >
-        {showEmailOption && (
-          <div>
-            <input
-              id="email"
-              name="email"
-              autoFocus={true}
-              type="email"
-              placeholder="email@email.com"
-              autoComplete="email"
-              required
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              className="mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm"
-            />
-          </div>
-        )}
-        <button className="h-10 w-full items-center justify-center space-x-2 rounded-md border px-4 text-sm transition-all focus:outline-none border-gray hover:border-black"
-          {...(!showEmailOption && {
-            type: "button",
-            onClick: (e) => {
-              e.preventDefault();
-              setShowEmailOption(true);
-            },
-          })}
-        >Continue with Email</button>
-        {/* {error && (<p className="text-center text-sm text-red-500">{error}</p>)} */}
-        {/* {message && (<p className="text-center text-sm text-green-500">{message}</p>)} */}
-      </form>
+        {showEmailOption ? 'Send Magic Link' : 'Continue with Email'}
+      </Button>
+    </form>
   )
 }
