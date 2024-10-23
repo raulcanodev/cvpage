@@ -95,7 +95,7 @@ export const authOptions: NextAuthOptionsExtended = {
     },
     async redirect({ url, baseUrl }) {
       if (url.startsWith(baseUrl)) {
-        return `${config.domainUrl}/auth/error`;
+        return `${config.domainUrl}/dashboard/page`;
       }
       return baseUrl;
     }  

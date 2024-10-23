@@ -16,7 +16,33 @@ export default function SettingsPage() {
   const [username, setUsername] = useState('raulcano')
   const [domain, setDomain] = useState('')
   const { userData, updateUserDomain } = useUserContext()
-  const { premium, customDomain, email } = userData
+  const { premium, customDomain, email, _id } = userData
+  
+  const route = useRouter()
+
+  const handleCheckout = async () => {
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, user_id: _id }),
+      })
+
+      if (res.ok) {
+        const data = await res.json()
+        console.log("data", data.checkoutUrl);
+        
+        route.push(data.checkoutUrl)
+      } else {
+        const data = await res.json()
+        toast.error(data.message)
+      }
+    }catch (error) {
+      console.error('Error creating checkout:', error)
+  }
+}
 
   const handleUpdateDomain = (e: any) => {
     e.preventDefault()
@@ -38,6 +64,9 @@ export default function SettingsPage() {
 
   return (
     <div className="p-4 md:p-8 text-black  dark:text-white">
+      <Button
+      onClick={() => handleCheckout()}
+      >Test</Button>
       <div className="max-w-3xl mx-auto">
         <Tabs defaultValue="account" className="w-full">
           

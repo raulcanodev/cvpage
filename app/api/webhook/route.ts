@@ -30,7 +30,8 @@ export async function POST(req: NextRequest) {
         const eventType = event.meta.event_name;
 
         if (eventType === 'order_created') {
-            const email = event.data.attributes.user_email;
+            const email = event.meta.custom_data.email;
+
             await handlePremiumPurchase(email);
         }
 
