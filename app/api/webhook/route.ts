@@ -6,7 +6,7 @@ const verifySignature = (rawBody: Buffer, signature: string, secret: string): bo
     const hmac = crypto.createHmac('sha256', secret);
     const digest = Buffer.from(hmac.update(rawBody).digest('hex'), 'utf8');
     const receivedSignature = Buffer.from(signature, 'utf8');
-
+    
     return crypto.timingSafeEqual(digest, receivedSignature);
 };
 

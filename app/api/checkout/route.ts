@@ -17,12 +17,12 @@ export async function POST(req: NextResponse) {
 
     // if (!productId) {
     //   console.error("Product ID is missing");
-    //   return NextResponse.json({ message: "Product ID is required" }, { status: 400 });
+    //   return NextResponse.json({ message: "Refresh the page and try again" }, { status: 400 });
     // }
 
     if (!email) {
       console.error("Email is missing");
-      return NextResponse.json({ message: "Email is required" }, { status: 400 });
+      return NextResponse.json({ message: "Refresh the page and try again"}, { status: 400 });
     }
 
     const response = await fetch(LEMONSQUEEZY_ENDPOINT, {
@@ -36,8 +36,12 @@ export async function POST(req: NextResponse) {
         data: {
           type: "checkouts",
           attributes: {
+            product_options: {
+                redirect_url: `${config.domainUrl}/dashboard/settings`, // Redirect URL after successful purchase
+            },
             checkout_data: {
               custom: {
+                // Data that will be sent back to the webhook
                 email: email,
                 user_id: user_id,
               },
@@ -53,7 +57,7 @@ export async function POST(req: NextResponse) {
             variant: {
               data: {
                 type: "variants",
-                id: '527806'
+                id: config.lemonsqueezy.productID,
               },
             },
           },
