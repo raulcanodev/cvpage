@@ -104,7 +104,7 @@ export const Pricing = () => {
           <PricingCard
             title="Pro"
             subtitle="Most popular, one-time payment"
-            link={`${config.lemonsqueezy.productLink}`}
+            link={`auth/signin`}
             price={`${config.lemonsqueezy.price}`}
             features={[
               'Landing page',

@@ -1,18 +1,16 @@
+"use client";
 import React from 'react';
-import Link from 'next/link';
-import Section from '../_components/Section';
+import { BackButton, Section } from '../_components/';
 import config from '@/config';
 
-const PrivacyPolicy: React.FC = () => {
+const PrivacyPolicy = () => {
   const { appName } = config;
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto  overflow-hidden">
         <div className="mt-8 text-center">
-          <Link href="/" className="font-bold">
-            ⬅️ BACK
-          </Link>
+          <BackButton/>
         </div>
         <div className="px-4 py-5 sm:p-6">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Privacy Policy</h1>

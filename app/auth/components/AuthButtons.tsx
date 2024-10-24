@@ -22,7 +22,7 @@ export function GithubSignInButton() {
       onClick={() => signIn('github')}
       className="w-full mt-4 bg-black text-white hover:bg-gray-950 focus:ring-4 focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-6 text-center inline-flex items-center justify-center dark:hover:bg-gray-950 dark:focus:ring-gray-500 transition-all duration-200"
     >
-      <GitHubIcon width={20} height={20} fill="white" className='mr-2' />
+      <GitHubIcon width={21} height={21} fill="white" className='mr-2' />
       Sign in with GitHub
     </Button>
   );

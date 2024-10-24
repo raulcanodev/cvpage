@@ -5,7 +5,7 @@ interface SectionProps {
   children: React.ReactNode;
 }
 
-const Section: React.FC<SectionProps> = ({ title, children }) => {
+export const Section = ({ title, children }: SectionProps) => {
   return (
     <section className="mb-8">
       <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">{title}</h2>
@@ -15,5 +15,3 @@ const Section: React.FC<SectionProps> = ({ title, children }) => {
     </section>
   );
 };
-
-export default Section;
