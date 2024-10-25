@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui';
 import { Plus } from 'lucide-react';
@@ -75,22 +75,26 @@ export function EditUserServices() {
     );
   };
 
-  const handleUpdateService = useCallback(async (serviceId: string, updatedService: Partial<Service>) => {
-    setServicesState((prevServices) => 
-      prevServices.map((service) => 
-        service._id === serviceId ? { ...service, ...updatedService } : service
-      )
-    );
-    await updateUserService(serviceId, updatedService);
-  }, [updateUserService]);
+  const handleUpdateService = useCallback(
+    async (serviceId: string, updatedService: Partial<Service>) => {
+      setServicesState((prevServices) =>
+        prevServices.map((service) =>
+          service._id === serviceId ? { ...service, ...updatedService } : service
+        )
+      );
+      await updateUserService(serviceId, updatedService);
+    },
+    [updateUserService]
+  );
 
   return (
     <>
       <Button
-        className="bg-white text-slate-950 w-full rounded-xl border hover:bg-zinc-100 hover:shadow-lg dark:bg-zinc-950 dark:text-white dark:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:shadow-lg transition-all duration-300"
+        className="bg-sky-100 hover:bg-sky-200 text-sky-700 dark:bg-sky-900 dark:hover:bg-sky-800 dark:text-sky-100 border border-sky-200 dark:border-sky-700 transition-colors duration-200 font-medium shadow-sm hover:shadow-md"
         onClick={handleAddService}
+        variant="outline"
       >
-        <Plus className="w-4 h-4 mx-1" /> ADD BLOCK
+        <Plus className="w-4 h-4 mr-2" /> ADD BLOCK
       </Button>
       {servicesState.length > 0 && (
         <Reorder.Group values={servicesState} onReorder={handleReorder}>

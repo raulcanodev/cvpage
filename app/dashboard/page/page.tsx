@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Eye } from 'lucide-react';
 import { useUserContext } from '../context/UserContext';
 import { LineWave } from 'react-loader-spinner';
+import { MinimalFooter } from '@/app/(marketing)/_components';
 
 export default function DashboardEditProfile() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
@@ -31,6 +32,7 @@ export default function DashboardEditProfile() {
   }
 
   return (
+    <>
     <div className="mx-auto py-0 pb-20 lg:pb-8">
       <div className="flex flex-col lg:flex-row justify-between gap-3">
         {/* Left - User */}
@@ -46,6 +48,10 @@ export default function DashboardEditProfile() {
           </div>
         </div>
       </div>
+      <div className='mt-16'>
+      </div>
+        
+
 
       {/* Preview Button (Mobile) */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4">
@@ -64,5 +70,8 @@ export default function DashboardEditProfile() {
         </Dialog>
       </div>
     </div>
+
+    <MinimalFooter />
+    </>
   );
 }

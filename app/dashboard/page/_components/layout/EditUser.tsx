@@ -99,7 +99,7 @@ export function EditUser() {
 
   return (
     <>
-      <div className="bg-zinc-100 dark:bg-zinc-900 p-6 rounded-2xl border">
+      <div className="bg-white dark:bg-zinc-900 p-6 rounded-2xl border">
         <div className="flex items-center space-x-2 mb-4">
           <UserAvatar />
           <div>

@@ -48,7 +48,7 @@ export function BlockCard({
 
   return (
     <Reorder.Item value={service} id={serviceId} dragListener={false} dragControls={dragControls}>
-      <Card className={`border overflow-hidden rounded-2xl mb-2 dark:bg-zinc-900 bg-zinc-100`}>
+      <Card className={`border overflow-hidden rounded-2xl mb-2 dark:bg-zinc-900 bg-white`}>
         <CardContent className="p-4">
           <div className="flex items-center space-x-3">
             <ReorderIcon dragControls={dragControls} />
@@ -166,72 +166,6 @@ export function ProjectCard({ serviceId, title, description, active, link, onDel
 
       <div className="flex items-center justify-between text-zinc-400">
         <div className="flex gap-1 align-center">
-          <LinkBlockDialog serviceId={serviceId} serviceLink={link || ''} />
-        </div>
-        <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />
-      </div>
-    </>
-  );
-}
-
-export function ServiceCard({
-  serviceId,
-  title,
-  description,
-  active,
-  link,
-  price,
-  onDelete,
-  onUpdate,
-}: ServiceCardProps) {
-  const [titleText, setTitleText] = useState(title || '');
-  const [descriptionText, setDescriptionText] = useState(description || '');
-
-  const [debouncedTitle] = useDebounce(titleText, 500); // 500ms debounce for title
-  const [debouncedDescription] = useDebounce(descriptionText, 500); // 500ms debounce for description
-
-  // Update the title only when debouncedTitle changes
-  useEffect(() => {
-    if (debouncedTitle !== title) {
-      onUpdate(serviceId, { title: debouncedTitle });
-    }
-  }, [debouncedTitle, title, serviceId, onUpdate]);
-
-  // Update the description only when debouncedDescription changes
-  useEffect(() => {
-    if (debouncedDescription !== description) {
-      onUpdate(serviceId, { description: debouncedDescription });
-    }
-  }, [debouncedDescription, description, serviceId, onUpdate]);
-
-  return (
-    <>
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center space-x-3">
-          <Input
-            className="font-semibold bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto w-full"
-            placeholder="Service"
-            value={titleText}
-            onChange={(e) => setTitleText(e.target.value)}
-          />
-        </div>
-        <Switch
-          className="data-[state=checked]:bg-slate-300"
-          checked={active}
-          onCheckedChange={(e) => onUpdate(serviceId, { active: e })}
-        />
-      </div>
-
-      <Textarea
-        className="bg-transparent text-gray-900 dark:text-white border-none focus:ring-0 mb-4 w-full h-auto"
-        placeholder="Description"
-        value={descriptionText}
-        onChange={(e) => setDescriptionText(e.target.value)}
-      />
-
-      <div className="flex items-center justify-between text-zinc-400">
-        <div className="flex gap-1 align-center">
-          <ServicePriceDialog serviceId={serviceId} servicePrice={price || ''} />
           <LinkBlockDialog serviceId={serviceId} serviceLink={link || ''} />
         </div>
         <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />

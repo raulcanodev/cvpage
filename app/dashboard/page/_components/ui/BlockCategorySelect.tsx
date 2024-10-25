@@ -20,7 +20,6 @@ const categories = [
   { value: 'image', label: 'Image', premium: true },
   { value: 'textarea', label: 'Description', premium: false },
   { value: 'project', label: 'Project', premium: true },
-  { value: 'service', label: 'Service', premium: true },
   { value: 'title', label: 'Title', premium: false },
   { value: 'workexperience', label: 'Work Experience', premium: true },
 ];

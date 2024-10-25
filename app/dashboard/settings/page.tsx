@@ -51,14 +51,14 @@ export default function SettingsPage() {
     <div className="p-4 md:p-8 text-black dark:text-white">
       <div className="max-w-3xl mx-auto">
         <Tabs defaultValue="account" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8 bg-zinc-200 dark:bg-zinc-800">
-            <TabsTrigger value="account" className="data-[state=active]:bg-zinc-300 data-[state=active]:text-black dark:data-[state=active]:bg-zinc-700 dark:data-[state=active]:text-white">ACCOUNT</TabsTrigger>
-            <TabsTrigger value="billing" className="data-[state=active]:bg-zinc-300 data-[state=active]:text-black dark:data-[state=active]:bg-zinc-700 dark:data-[state=active]:text-white">BILLING</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 mb-8 bg-white dark:bg-zinc-900">
+            <TabsTrigger value="account" className="data-[state=active]:bg-gray-200 data-[state=active]:text-black dark:data-[state=active]:bg-zinc-800 dark:data-[state=active]:text-white">ACCOUNT</TabsTrigger>
+            <TabsTrigger value="billing" className="data-[state=active]:bg-gray-200 data-[state=active]:text-black dark:data-[state=active]:bg-zinc-800 dark:data-[state=active]:text-white">BILLING</TabsTrigger>
           </TabsList>
           
           <TabsContent value="account" className="space-y-6">
             {email && (
-              <div className="bg-zinc-100 dark:bg-zinc-800 p-6 rounded-lg">
+              <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-sm">
                 <h2 className="text-xl font-semibold mb-4">Email Account</h2>
                 <div className="flex space-x-2">
                   <p className='text-black dark:text-white'>{email}</p>
@@ -66,7 +66,7 @@ export default function SettingsPage() {
               </div>
             )}
 
-            <div className="bg-zinc-100 dark:bg-zinc-800 p-6 rounded-lg">
+            <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-sm">
               <h2 className="text-xl font-semibold mb-4">{config.domainName} domain</h2>
               <div className="flex justify-between items-center">
                 <span className="text-zinc-600 dark:text-zinc-400">{config.domainName}/{customDomain}</span>
@@ -79,7 +79,7 @@ export default function SettingsPage() {
               </div>
             </div>
 
-            <div className="bg-zinc-100 dark:bg-zinc-800 p-6 rounded-lg">
+            <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-sm">
               <h2 className="text-xl font-semibold mb-4">
                 {customDomain ? 'Update' : 'Add'} custom domain
               </h2>
@@ -87,11 +87,11 @@ export default function SettingsPage() {
                 <Input
                   placeholder={customDomain || ''}
                   onChange={(e) => setDomain(e.target.value)}
-                  className="bg-transparent border-zinc-300 text-black dark:border-zinc-700 dark:text-white flex-grow"
+                  className="bg-gray-50 dark:bg-zinc-800 border-zinc-300 text-black dark:border-zinc-700 dark:text-white flex-grow"
                 />
                 <Button 
                   type="submit"
-                  className="border-none"
+                  className="border-none bg-gray-200 hover:bg-gray-300 dark:bg-zinc-800 dark:hover:bg-zinc-700"
                   variant="outline"
                 >
                   SAVE
@@ -105,7 +105,7 @@ export default function SettingsPage() {
           </TabsContent>
 
           <TabsContent value="billing">
-            <div className="bg-zinc-100 dark:bg-zinc-800 p-6 rounded-lg">
+            <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-sm">
               <h2 className="text-xl font-semibold mb-4">Billing</h2>
               {premium ? (
                 <div className='space-y-3'>
