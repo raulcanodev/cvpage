@@ -254,10 +254,9 @@ export function TitleCard({ serviceId, title, onDelete, onUpdate }: ServiceCardP
     <div className="flex items-center w-full">
       <Input
         className="font-semibold bg-transparent border-none text-gray-900 dark:text-white focus:ring-0 h-auto w-full"
-        placeholder="Service title..."
         value={titleText}
         onChange={(e) => setTitleText(e.target.value)}
-        aria-label="Service title"
+        aria-label="Block title"
       />
       
       <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />

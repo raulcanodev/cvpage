@@ -28,7 +28,7 @@ export function EditUserServices() {
 
   const handleAddService = async () => {
     if (servicesState.length >= maxServices) {
-      toast.error(`You can only have up to ${maxServices} blocks.`);
+      toast.error(`Upgrade to Premium to add up to 100 blocks`);
       return;
     }
 
@@ -89,7 +89,6 @@ export function EditUserServices() {
       <Button
         className="bg-white text-slate-950 w-full rounded-xl border hover:bg-zinc-100 hover:shadow-lg dark:bg-zinc-950 dark:text-white dark:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:shadow-lg transition-all duration-300"
         onClick={handleAddService}
-        disabled={isButtonDisabled}
       >
         <Plus className="w-4 h-4 mx-1" /> ADD BLOCK
       </Button>
