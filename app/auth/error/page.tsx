@@ -2,6 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 export default function AuthError() {
   const searchParams = useSearchParams();
@@ -17,12 +18,14 @@ export default function AuthError() {
   const errorMessage = error ? errorMessages[error] || errorMessages.default : errorMessages.default; 
 
   return (
-    <div className="text-center">
-      <h2 className="text-2xl font-bold text-red-600 mb-4">Authentication Error</h2>
-      <p className="text-gray-700 dark:text-gray-300 mb-6">{errorMessage}</p>
-      <Link href="/auth/signin" className="text-blue-600 hover:underline">
-        Try signing in again
-      </Link>
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-red-600 mb-4">Authentication Error</h2>
+        <p className="text-gray-700 dark:text-gray-300 mb-6">{errorMessage}</p>
+        <Link href="/auth/signin" className="text-blue-600 hover:underline">
+          Try signing in again
+        </Link>
+      </div>
+    </Suspense>
   );
 }
