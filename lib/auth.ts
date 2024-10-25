@@ -28,7 +28,8 @@ export const authOptions: NextAuthOptionsExtended = {
     signIn: '/auth/signin',
     verifyRequest: '/auth/verify-request',
     signOut: '/auth/signout',
-    error: '/auth/error'
+    error: '/auth/error',
+    newUser: '/dashboard/page',
   },
 
   
