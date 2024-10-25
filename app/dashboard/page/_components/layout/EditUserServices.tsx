@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 
 export function EditUserServices() {
   const [servicesState, setServicesState] = useState<Service[]>([]);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isAddingService, setIsAddingService] = useState(false);
   const { userData, updateUserData, updateUserService } = useUserContext();
   const { premium, _id, services } = userData;
 
@@ -23,16 +23,16 @@ export function EditUserServices() {
     if (services && !hasUserReordered.current) {
       setServicesState(services);
     }
-    setIsButtonDisabled(services.length >= maxServices);
   }, [services, premium, maxServices]);
 
   const handleAddService = async () => {
+    if (isAddingService) return;
     if (servicesState.length >= maxServices) {
       toast.error(`Upgrade to Premium to add up to 100 blocks`);
       return;
     }
 
-    setIsButtonDisabled(true);
+    setIsAddingService(true);
 
     toast.promise(createNewService(), {
       loading: 'Adding block...',
@@ -42,13 +42,12 @@ export function EditUserServices() {
           updateUserData(_id, { services: updatedServices });
           return updatedServices;
         });
+        setIsAddingService(false);
         return 'Block added successfully 🎉';
       },
       error: (err) => {
+        setIsAddingService(false);
         return err.message || 'An error occurred while creating block';
-      },
-      finally: () => {
-        setIsButtonDisabled(servicesState.length + 1 >= maxServices);
       },
     });
   };
@@ -65,7 +64,6 @@ export function EditUserServices() {
         const updatedServices = servicesState.filter((service) => service._id !== serviceId);
         setServicesState(updatedServices);
         await updateUserData(_id, { services: updatedServices });
-        setIsButtonDisabled(updatedServices.length >= maxServices);
       })(),
       {
         loading: 'Deleting block...',
@@ -93,8 +91,9 @@ export function EditUserServices() {
         className="bg-sky-100 hover:bg-sky-200 text-sky-700 dark:bg-sky-900 dark:hover:bg-sky-800 dark:text-sky-100 border border-sky-200 dark:border-sky-700 transition-colors duration-200 font-medium shadow-sm hover:shadow-md"
         onClick={handleAddService}
         variant="outline"
+        disabled={isAddingService}
       >
-        <Plus className="w-4 h-4 mr-2" /> ADD BLOCK
+        <Plus className="w-4 h-4 mr-2" /> {isAddingService ? 'ADDING...' : 'ADD BLOCK'}
       </Button>
       {servicesState.length > 0 && (
         <Reorder.Group values={servicesState} onReorder={handleReorder}>

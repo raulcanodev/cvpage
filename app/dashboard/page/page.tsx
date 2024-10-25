@@ -12,24 +12,24 @@ export default function DashboardEditProfile() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const { isLoading } = useUserContext();
 
-  if (isLoading) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center">
-        <LineWave
-          visible={true}
-          height="100"
-          width="100"
-          color="gray"
-          ariaLabel="line-wave-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          firstLineColor=""
-          middleLineColor=""
-          lastLineColor=""
-        />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="fixed inset-0 flex items-center justify-center">
+  //       <LineWave
+  //         visible={true}
+  //         height="100"
+  //         width="100"
+  //         color="gray"
+  //         ariaLabel="line-wave-loading"
+  //         wrapperStyle={{}}
+  //         wrapperClass=""
+  //         firstLineColor=""
+  //         middleLineColor=""
+  //         lastLineColor=""
+  //       />
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
@@ -70,8 +70,11 @@ export default function DashboardEditProfile() {
         </Dialog>
       </div>
     </div>
-
+    <div className='mb-8 md:mb-0'>
     <MinimalFooter />
+
+    </div>
+
     </>
   );
 }
