@@ -4,7 +4,7 @@ import config from '@/config';
 
 export const dynamic = "force-dynamic";
 
-export async function POST(req: NextResponse) {
+export async function POST(req: Request) {
   const LEMONSQUEEZY_ENDPOINT = "https://api.lemonsqueezy.com/v1/checkouts";
   const STORE_ID = process.env.LEMONSQUEEZY_STORE_ID?.toString();
   const API_KEY = process.env.LEMONSQUEEZY_API_KEY;
