@@ -67,18 +67,6 @@ export function BlockCard({
                   onUpdate={onUpdate}
                 />
               )}
-              {category === 'service' && (
-                <ServiceCard
-                  serviceId={serviceId}
-                  title={title}
-                  description={description}
-                  active={active}
-                  link={link}
-                  price={price}
-                  onDelete={onDelete}
-                  onUpdate={onUpdate}
-                />
-              )}
               {category === 'textarea' && (
                 <TextAreaCard serviceId={serviceId} description={description} onDelete={onDelete} onUpdate={onUpdate} />
               )}
@@ -227,7 +215,6 @@ export function WorkExperience({
   title,
   subtitle,
   description,
-  active,
   location,
   date,
   dateEnd,
@@ -295,6 +282,8 @@ export function WorkExperience({
 
       <div className="flex items-center justify-between text-zinc-400 mt-4 flex-col md:flex-row">
         <BlockDate serviceId={serviceId} date={date} dateEnd={dateEnd} />
+      </div>
+      <div className='text-end'>
         <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />
       </div>
     </>
@@ -306,7 +295,6 @@ export function Education({
   title,
   subtitle,
   description,
-  active,
   location,
   date,
   dateEnd,
@@ -373,8 +361,10 @@ export function Education({
         onChange={(e) => setDescriptionText(e.target.value)}
       />
 
-      <div className="flex items-center justify-between text-zinc-400 mt-4 flex-col md:flex-row">
+      <div className="flex items-center justify-between text-zinc-400 mt-4 flex-row md:flex-row">
         <BlockDate serviceId={serviceId} date={date} dateEnd={dateEnd} />
+      </div>
+      <div className='text-end'>
         <ConfirmDeleteService serviceId={serviceId} onDelete={onDelete} />
       </div>
     </>
