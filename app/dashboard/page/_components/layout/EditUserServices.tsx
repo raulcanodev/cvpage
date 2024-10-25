@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 export function EditUserServices() {
   const [servicesState, setServicesState] = useState<Service[]>([]);
   const [isAddingService, setIsAddingService] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { userData, updateUserData, updateUserService } = useUserContext();
   const { premium, _id, services } = userData;
 
@@ -22,13 +23,15 @@ export function EditUserServices() {
   useEffect(() => {
     if (services && !hasUserReordered.current) {
       setServicesState(services);
+      setIsLoading(false);
     }
   }, [services, premium, maxServices]);
 
   const handleAddService = async () => {
-    if (isAddingService) return;
-    if (servicesState.length >= maxServices) {
-      toast.error(`Upgrade to Premium to add up to 100 blocks`);
+    if (isAddingService || servicesState.length >= maxServices) {
+      if (servicesState.length >= maxServices) {
+        toast.error(`Upgrade to Premium to add up to 100 blocks`);
+      }
       return;
     }
 
@@ -85,16 +88,23 @@ export function EditUserServices() {
     [updateUserService]
   );
 
+  if (isLoading) {
+    return <div
+    className='flex items-center justify-center
+    animate-pulse text-gray-900 dark:text-gray-100'>Loading...</div>;
+  }
+
   return (
     <>
       <Button
         className="bg-sky-100 hover:bg-sky-200 text-sky-700 dark:bg-sky-900 dark:hover:bg-sky-800 dark:text-sky-100 border border-sky-200 dark:border-sky-700 transition-colors duration-200 font-medium shadow-sm hover:shadow-md"
         onClick={handleAddService}
         variant="outline"
-        disabled={isAddingService}
+        disabled={isAddingService || servicesState.length >= maxServices}
       >
         <Plus className="w-4 h-4 mr-2" /> {isAddingService ? 'ADDING...' : 'ADD BLOCK'}
       </Button>
+      
       {servicesState.length > 0 && (
         <Reorder.Group values={servicesState} onReorder={handleReorder}>
           {servicesState
