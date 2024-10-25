@@ -7,7 +7,7 @@ export async function middleware(req: NextRequest) {
   const token = await getToken({ req });
   const isAuthenticated = !!token;
 
-  const protectedPaths = ['/dashboard'];
+  const protectedPaths = ['/dashboard/page', '/dashboard/settings', '/dashboard/style'];
   const authPaths = ['/auth/signin', '/auth/signup', '/auth/verify-request'];
 
   const isProtectedRoute = protectedPaths.some((path) =>
