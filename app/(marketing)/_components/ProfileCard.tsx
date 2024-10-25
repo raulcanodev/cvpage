@@ -30,7 +30,7 @@ export const ProfileCard: React.FC = () => {
   return (
     <section className="py-16">
       <motion.div
-        className="container mx-auto px-4 flex justify-center items-center"
+        className="container mx-auto flex justify-center items-center"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
@@ -52,7 +52,7 @@ export const ProfileCard: React.FC = () => {
             <div className="w-full md:w-2/3 flex flex-col items-center md:items-start">
               <motion.h3 
                 variants={itemVariants} 
-                className="text-3xl font-bold mb-4 text-gray-800 dark:text-white"
+                className="sm:text-5xl text-4xl font-bold mb-4 text-gray-800 dark:text-white"
               >
                 Hey, {config.personal.name} here!
               </motion.h3>

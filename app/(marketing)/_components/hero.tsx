@@ -46,7 +46,7 @@ const TrustIndicator = () => {
 export function Hero() {
   return (
     <section className="min-h-screen flex items-center mt-20 md:mt-0">
-      <div className="md:container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="md:container mx-auto sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-12">
           <div className="flex-1 text-center sm:text-left max-w-2xl mx-auto lg:mx-0">
             

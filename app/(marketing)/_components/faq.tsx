@@ -31,7 +31,7 @@ const FAQSection: React.FC = () => {
   return (
     <section id="faq" className="scroll-mt-28 flex w-full flex-col gap-5 items-center py-10">
       <div className="flex flex-col items-center mb-4 gap-4 max-w-xl">
-        <p className="text-2xl md:text-4xl font-semibold">
+        <p className="sm:text-5xl text-4xl font-semibold">
           Any Questions?
         </p>
       </div>

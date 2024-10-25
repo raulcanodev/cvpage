@@ -82,7 +82,7 @@ export const Pricing = () => {
       >
         <motion.h2
           variants={itemVariants}
-          className="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-white"
+          className="sm:text-5xl text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white"
         >
           Pricing
         </motion.h2>

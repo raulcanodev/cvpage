@@ -10,7 +10,7 @@ export const StatisticsBlock = () => {
       <div className="mx-auto">
         <div className=" mx-auto text-center">
           
-          <h2 className="text-3xl font-bold mb-8">
+          <h2 className="sm:text-5xl text-4xl font-bold mb-8">
             <span className="text-blue-600">95% of Workers</span> Are Either Looking for or Planning
             to Look for a New Job in {currentYear}
           </h2>

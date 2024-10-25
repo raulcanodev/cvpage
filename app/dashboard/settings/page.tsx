@@ -70,7 +70,7 @@ export default function SettingsPage() {
               <h2 className="text-xl font-semibold mb-4">{config.domainName} domain</h2>
               <div className="flex justify-between items-center">
                 <span className="text-zinc-600 dark:text-zinc-400">{config.domainName}/{customDomain}</span>
-                <Button variant="outline" size="sm" onClick={() => {
+                <Button variant="outline" className='border-none' size="sm" onClick={() => {
                   navigator.clipboard.writeText(`${config.domainName}/${customDomain}`)
                 }}>
                   <Copy className="h-4 w-4 mr-2" />
@@ -91,7 +91,8 @@ export default function SettingsPage() {
                 />
                 <Button 
                   type="submit"
-                  className="bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500"
+                  className="border-none"
+                  variant="outline"
                 >
                   SAVE
                 </Button>
@@ -117,9 +118,9 @@ export default function SettingsPage() {
                   <p>
                     Upgrade to 
                       <span className="text-blue-600 dark:text-blue-500 cursor-pointer" onClick={handlePremiumUpgrade}> Premium </span>
-                    to unlock all features.
+                    to unlock all features. 🚀
                   </p>
-                  <p className='text-xs'>Only {config.lemonsqueezy.price}€. No subscription, keep it forever 🚀</p>
+                  <p className='text-xs'>Only {config.lemonsqueezy.price}. No subscription, keep it forever</p>
                 </div>
               )}
             </div>

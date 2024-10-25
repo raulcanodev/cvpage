@@ -5,9 +5,27 @@ import { X } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
 import config from '@/config'
+import { handleCheckout } from '@/utils/checkout'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
-export function PremiumBanner() {
+interface PremiumPopupProps {
+  email: string
+  userId: string
+}
+
+export function PremiumBanner({ email, userId }: PremiumPopupProps) {
   const [isVisible, setIsVisible] = useState(true)
+  const router = useRouter()
+
+  const handlePremiumUpgrade = async () => {
+    const checkoutUrl = await handleCheckout(email, userId)
+    if (checkoutUrl) {
+      router.push(checkoutUrl)
+    } else {
+      toast.error('Failed to initiate checkout. Please try again.')
+    }
+  }
 
   useEffect(() => {
     const bannerDismissed = localStorage.getItem('premiumBannerDismissed')
@@ -29,17 +47,16 @@ export function PremiumBanner() {
         <div className="flex-grow" /> 
         <div className="flex items-center space-x-4 flex-grow">
           <p className="text-sm font-medium">
-            Upgrade to Premium
+            Unlock all features
           </p>
-          <Link href={config.lemonsqueezy.productLink} passHref>
-            <Button 
+            <Button
+             onClick={handlePremiumUpgrade} 
               size="sm"
               variant="secondary"
               className="bg-white text-blue-600 hover:bg-blue-100 whitespace-nowrap"
             >
               Upgrade Now
             </Button>
-          </Link>
         </div>
         {/* <button 
           onClick={handleClose} 

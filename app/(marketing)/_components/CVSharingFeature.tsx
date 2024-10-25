@@ -21,7 +21,7 @@ export function CVSharingFeature() {
     <section className="flex items-center mt-14 md:mt-0 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">
+            <h2 className="sm:text-5xl text-4xl font-bold mb-6 text-gray-800 dark:text-white">
             Elevate Your Job Search
             </h2>
             <p className="text-lg mb-8 text-gray-600 dark:text-gray-300">

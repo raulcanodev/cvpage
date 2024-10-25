@@ -1,4 +1,5 @@
 "use client";
+import { motion } from 'framer-motion';
 import {
   Navbar,
   Testimonials,
@@ -13,28 +14,62 @@ import {
   RotatingUrl,
 } from './_components';
 
-export default function Home() {
+interface AnimatedSectionProps {
+  children: React.ReactNode;
+  className?: string;
+}
 
+const AnimatedSection = ({ children, className = '' }: AnimatedSectionProps) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.8 }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar/>
       <main className="container flex flex-col min-h-screen">
-        <Hero />
+        <AnimatedSection>
+          <Hero />
+        </AnimatedSection>
         <div className="w-full flex justify-center">
-          <div className="max-w-screen-lg w-full px-4">
+          <div className="max-w-screen-lg w-full">
             {/* <RotatingUrl /> */}
-            <CVSharingFeature />
-            <StatisticsBlock />
+            <AnimatedSection>
+              <CVSharingFeature />
+            </AnimatedSection>
+            <AnimatedSection>
+              <StatisticsBlock />
+            </AnimatedSection>
           </div>
         </div>
-        <Testimonials />
-        <div className="p-4">
-          <FAQSection />
-          <Pricing />
-          <ProfileCard />
+        <AnimatedSection>
+          <Testimonials />
+        </AnimatedSection>
+        <div className="">
+          <AnimatedSection>
+            <FAQSection />
+          </AnimatedSection>
+          <AnimatedSection>
+            <Pricing />
+          </AnimatedSection>
+          <AnimatedSection>
+            <ProfileCard />
+          </AnimatedSection>
         </div>
-        <BottomCTA />
-        <MinimalFooter />
+        <AnimatedSection>
+          <BottomCTA />
+        </AnimatedSection>
+          <MinimalFooter />
       </main>
     </div>
   );

@@ -26,7 +26,7 @@ export const BottomCTA: React.FC = () => {
   };
 
   return (
-    <section className="py-16 bg-blue-500 rounded-lg">
+    <section className="py-16 bg-blue-500 rounded-lg mb-8">
       <motion.div
         className="container mx-auto px-4"
         initial="hidden"
@@ -36,7 +36,7 @@ export const BottomCTA: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
             variants={itemVariants}
-            className="text-3xl md:text-4xl font-bold mb-6 text-white"
+            className="sm:text-5xl text-4xl font-bold mb-6 text-white"
           >
             Ready to Boost Your Career?
           </motion.h2>

@@ -135,7 +135,7 @@ const list: Testimonial[] = [
 const TestimonialCard: React.FC<{ testimonial: Testimonial}> = ({
   testimonial,
 }) => (
-  <li className={testimonial.featured ? 'md:col-span-2' : 'border rounded-lg'}>
+  <li className={testimonial.featured ? 'md:col-span-2 border rounded-lg bg-white dark:bg-gray-950 shadow-md' : 'border rounded-lg bg-white dark:bg-gray-950 shadow-md'}>
     <figure className={`relative h-full p-6 bg-base-100 rounded-lg ${testimonial.featured  ? 'md:p-8' : ''}`}>
       <blockquote className="relative">
         <p className={`text-base-content/80 text-zinc-700 dark:text-zinc-300 ${testimonial.featured  ? 'md:text-lg' : 'text-sm'}`}>
@@ -205,7 +205,7 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial}> = ({
 const Testimonials: React.FC = () => {
   return (
     <section className="bg-base-200" id="testimonials">
-      <div className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div className="py-24 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
           <h2 className="sm:text-5xl text-4xl font-extrabold text-base-content mb-4">
             What People Say
