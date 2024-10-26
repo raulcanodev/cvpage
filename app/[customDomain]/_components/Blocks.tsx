@@ -32,8 +32,6 @@ export const Blocks = ({ filteredServices, pageColor, pageFont }: BlocksProps) =
         return <WorkExperienceBlock service={service} />;
       case 'project':
         return <ProjectBlock service={service}/>;
-      case 'service':
-        return <ServiceBlock service={service}/>;
       case 'education':
         return <EducationBlock service={service}/>;
       default:

@@ -76,7 +76,7 @@
   letter-spacing: -0.03em;
 }
 
-
+/* Avoid zoom on input focus on mobile */
 input[type="color"],
 input[type="date"],
 input[type="datetime"],
