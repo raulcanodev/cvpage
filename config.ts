@@ -1,6 +1,6 @@
 const config = {
   appName: 'Cvpage',
-  appDescription: 'Create your own personal page with Cvpage and share it with the world',
+  appDescription: 'The first CV builder that helps you stand out in your job search, or simply create a minimal portfolio.',
   domainName: 'cvpage.to',
   domainUrl: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://cvpage.to',
   social: {
@@ -17,7 +17,7 @@ const config = {
     name: 'Raúl',
     title: 'Founder of Cvpage & Web Developer',
     description:
-      "Having an online CV won’t guarantee you a job, but it will catch recruiters' attention for sure :)",
+      "I'm a web developer based in Lisbon and the founder of Cvpage. After seeing many people struggle to stand out in their job search, I decided to create Cvpage to make it easier. Don’t hesitate to reach out if you have any questions!",
     github: 'https://github.com/raulcanodev',
     linkedin: 'https://www.linkedin.com/in/raulcano-in/',
     email: '',

@@ -44,7 +44,10 @@ export function PremiumPopup({ email, userId }: PremiumPopupProps) {
           </button>
         </div>
         <p className="text-zinc-600 dark:text-zinc-300 mb-6">
-          Unlock all features and take your experience to the next level with our Premium plan!
+          Dive into the full experience! Get access to every feature and make the most out of our Premium plan.
+          <br />
+          <br />
+          Pay once and enjoy lifetime access to all the features.
         </p>
         <div className="space-y-4">
           <Button onClick={handlePremiumUpgrade} className="w-full py-6 bg-blue-600 hover:bg-blue-700 text-white">

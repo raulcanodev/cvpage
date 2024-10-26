@@ -58,7 +58,7 @@ export const Pricing = () => {
       <p className="text-4xl font-bold text-gray-900 dark:text-gray-100">
         {price}
         {isPro && (
-          <span className="text-xl ml-2 font-normal text-gray-600 dark:text-gray-300 line-through">
+          <span className="text-xl ml-2 font-normal text-gray-500 dark:text-gray-400 line-through">
             24€
           </span>
         )}
@@ -123,7 +123,7 @@ export const Pricing = () => {
             features={[
               'Landing page',
               'Domain name',
-              'Access to 7 section blocks',
+              'Access to 6 section blocks',
               '4 Style customizations',
               '100 Block limit',
               'All future updates',

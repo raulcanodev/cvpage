@@ -1,35 +1,13 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { EditUser, EditUserServices, Preview } from './_components/layout';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Eye } from 'lucide-react';
-import { useUserContext } from '../context/UserContext';
-import { LineWave } from 'react-loader-spinner';
 import { MinimalFooter } from '@/app/(marketing)/_components';
 
 export default function DashboardEditProfile() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const { isLoading } = useUserContext();
-
-  // if (isLoading) {
-  //   return (
-  //     <div className="fixed inset-0 flex items-center justify-center">
-  //       <LineWave
-  //         visible={true}
-  //         height="100"
-  //         width="100"
-  //         color="gray"
-  //         ariaLabel="line-wave-loading"
-  //         wrapperStyle={{}}
-  //         wrapperClass=""
-  //         firstLineColor=""
-  //         middleLineColor=""
-  //         lastLineColor=""
-  //       />
-  //     </div>
-  //   );
-  // }
 
   return (
     <>
@@ -50,8 +28,6 @@ export default function DashboardEditProfile() {
       </div>
       <div className='mt-16'>
       </div>
-        
-
 
       {/* Preview Button (Mobile) */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4">

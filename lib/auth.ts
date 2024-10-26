@@ -95,10 +95,12 @@ export const authOptions: NextAuthOptionsExtended = {
       }
     },
     async redirect({ url, baseUrl }) {
+      console.log("baseUrl", baseUrl);
+      
       if (url.startsWith(baseUrl)) {
         return `${config.domainUrl}/dashboard/page`;
       }
       return baseUrl;
-    }  
+    }
   },
 };
