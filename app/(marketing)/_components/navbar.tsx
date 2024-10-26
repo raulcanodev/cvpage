@@ -5,17 +5,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { ThemeSwitcher } from '@/components/layout';
 import { Button } from '@/components/ui';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import cvpageBlack from '@/public/cvpage-black.png';
 import cvpageWhite from '@/public/cvpage-white.png';
 import { useTheme } from 'next-themes';
 
-//* Add to the layout >
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { theme } = useTheme(); // Don't remove this line
-  const getTheme = localStorage.getItem('theme');
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const logoSrc = mounted ? (resolvedTheme === 'dark' ? cvpageWhite : cvpageBlack) : cvpageBlack;
 
   return (
     <nav className="fixed w-full z-50 dark:bg-zinc-950 bg-gray-100">
@@ -24,10 +28,8 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="flex items-center">
-              {getTheme === 'dark' ? (
-                <Image src={cvpageWhite} alt="Logo" width={100} height={100} />
-              ) : (
-                <Image src={cvpageBlack} alt="Logo" width={100} height={100} />
+              {mounted && (
+                <Image src={logoSrc} alt="Logo" width={100} height={100} />
               )}
             </div>
             <span className="bg-green-100 mt-[1px] text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
@@ -47,7 +49,6 @@ export default function Navbar() {
                 <span className="text-sm">Reviews</span>
               </div>
             </Link>
-
             <Link href="#faq">
               <div className="flex items-center space-x-2 transition-colors">
                 <span className="text-sm">FAQs</span>
