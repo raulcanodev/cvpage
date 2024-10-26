@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Github, Linkedin, Twitter, File } from 'lucide-react';
 import Link from 'next/link';
 import config from '@/config';
@@ -6,10 +6,18 @@ import cvpageBlack from '@/public/cvpage-black.png';
 import cvpageWhite from '@/public/cvpage-white.png'
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
+import { useState, useEffect } from 'react';
 
-export const MinimalFooter: React.FC = () => {
+export const MinimalFooter = () => {
   const currentYear = new Date().getFullYear();
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const logoSrc = mounted ? (theme === 'dark' ? cvpageWhite : cvpageBlack) : cvpageBlack;
 
   return (
     <footer className='mb-4'>
@@ -18,11 +26,11 @@ export const MinimalFooter: React.FC = () => {
           <div className="mb-4 md:mb-0">
             <Link href="/" className="text-xl font-normal flex items-center">
               <div className="flex items-center space-x-2">
-                {theme === 'dark' ? (
-                  <Image src={cvpageWhite} alt="Logo" width={100} height={100} />
-                ) : (
-                  <Image src={cvpageBlack} alt="Logo" width={100} height={100} />
-                )}
+                {
+                  mounted && (
+                    <Image src={logoSrc} alt="Logo" width={100} height={100} />
+                  )
+                }
               </div>
             </Link>
           </div>
