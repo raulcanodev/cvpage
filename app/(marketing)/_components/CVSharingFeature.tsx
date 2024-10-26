@@ -36,7 +36,7 @@ export function CVSharingFeature() {
               ))}
             </ul>
           </div>
-          <div className="bg-white dark:bg-zinc-900 p-5 rounded-lg shadow-lg border border-black/30 dark:border-white/30">
+          <div className="bg-white dark:bg-zinc-900 p-5 rounded-lg shadow-lg border">
             <h3 className="text-xl font-semibold mb-6 text-center text-gray-800 dark:text-white">
               Share Your CV on
             </h3>

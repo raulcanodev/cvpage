@@ -16,13 +16,13 @@ export const StatisticsBlock = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
 
-            <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-md border border-black/30 dark:border-white/30 ">
+            <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-md border ">
               <Users className="w-12 h-12 text-blue-500 mb-4 mx-auto" />
               <p className="text-4xl font-bold mb-2">250M+</p>
               <p className="text-zinc-400">People actively looking for a new job</p>
             </div>
 
-            <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-md border border-black/30 dark:border-white/30">
+            <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-md border">
               <Globe className="w-12 h-12 text-blue-500 mb-4 mx-auto" />
               <p className="text-4xl font-bold mb-2">100+</p>
               <p className="text-zinc-400">Platforms to find a job</p>
