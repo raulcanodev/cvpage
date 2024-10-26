@@ -2,13 +2,15 @@ import { MapPin } from 'lucide-react';
 
 interface LocationProps {
   location: string;
+  pageColor: string;
 }
 
-export const Location = ({ location }: LocationProps) => {
+export const Location = ({ location, pageColor }: LocationProps) => {
+  const textColor = pageColor === 'monochrome' ? 'text-zinc-500' : 'text-gray-300';
   return (
-    <div className="text-zinc-500 mb-4 inline-flex items-center space-x-1">
-      <MapPin className="w-4 h-4" />
-      <span className="text-sm">{location}</span>
+    <div className={`flex items-center ${textColor} my-3`}>
+      <MapPin className="w-4 h-4 mr-1" />
+      <span>{location}</span>
     </div>
-  );
-};
+  )
+}

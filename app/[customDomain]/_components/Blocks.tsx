@@ -1,49 +1,21 @@
-import { ImageBlock, TitleBlock, DescriptionBlock, WorkExperienceBlock, ProjectBlock, ServiceBlock, EducationBlock } from './BlocksComponents';
-
-interface Service {
-  title?: string;
-  subtitle?: string;
-  price?: string;
-  description?: string;
-  category?: string;
-  link?: string;
-  data?: string;
-  location?: string;
-  image?: string;
-  active?: boolean;
-}
+import { ImageBlock, TitleBlock, DescriptionBlock, WorkExperienceBlock, ProjectBlock, EducationBlock } from './BlocksComponents';
 
 interface BlocksProps {
-  filteredServices: Service[];
+  filteredServices: any[];
   pageColor: string;
-  pageFont: string;
 }
 
-export const Blocks = ({ filteredServices, pageColor, pageFont }: BlocksProps) => {
-  const renderServiceBlock = (service: Service) => {
-    switch (service.category) {
-      case 'image':
-        return <ImageBlock service={service} />;
-      case 'title':
-        return <TitleBlock service={service} />;
-      case 'textarea':
-        return <DescriptionBlock service={service} />;
-      case 'workexperience':
-        return <WorkExperienceBlock service={service} />;
-      case 'project':
-        return <ProjectBlock service={service}/>;
-      case 'education':
-        return <EducationBlock service={service}/>;
-      default:
-        return null;
-    }
-  };
-
+export const Blocks = ({ filteredServices, pageColor }: BlocksProps) => {
   return (
-    <div className="flex flex-col">
+    <div className="space-y-4">
       {filteredServices.map((service, index) => (
-        <div key={index}>
-          {renderServiceBlock(service)}
+        <div key={index} className="rounded-lg">
+          {service.category === 'image' && <ImageBlock service={service} />}
+          {service.category === 'title' && <TitleBlock service={service} pageColor={pageColor} />}
+          {service.category === 'textarea' && <DescriptionBlock service={service} pageColor={pageColor} />}
+          {service.category === 'workexperience' && <WorkExperienceBlock service={service} pageColor={pageColor} />}
+          {service.category === 'project' && <ProjectBlock service={service} pageColor={pageColor} />}
+          {service.category === 'education' && <EducationBlock service={service} pageColor={pageColor} />}
         </div>
       ))}
     </div>

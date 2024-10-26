@@ -24,13 +24,12 @@ export function PageStyle() {
     updateUserData(_id, { pageFont: font });
   };
 
-  const fonts = ['sans', 'serif', 'mono'];
+  const fonts = ['cvpage', 'montserrat', 'mono', 'lora'];
 
   const colors = [
     { label: 'monochrome', premiumOnly: false },
-    { label: 'midnight', premiumOnly: true },
-    { label: '2000', premiumOnly: true },
-    { label: 'electric purple', premiumOnly: true },
+    // { label: 'midnight', premiumOnly: true },
+    { label: 'plain dark', premiumOnly: true },
   ];
 
   return (

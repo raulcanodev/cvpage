@@ -76,6 +76,14 @@
   letter-spacing: -0.03em;
 }
 
+.montserrat-font {
+  font-family: var(--font-montserrat);
+}
+
+.lora-font {
+  font-family: var(--font-lora);
+}
+
 /* Avoid zoom on input focus on mobile */
 input[type="color"],
 input[type="date"],

@@ -1,37 +1,13 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Preview } from '../page/_components/layout';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Eye } from 'lucide-react';
-import { useUserContext } from '../context/UserContext';
-import { LineWave } from 'react-loader-spinner';
 import { PageStyle } from './_components/layout/PageStyle';
 
 export default function DashboardEditProfile() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const { isLoading } = useUserContext(); 
-
-  if (isLoading) {
-    return (
-      <>
-      <div className="fixed inset-0 flex items-center justify-center">
-        <LineWave
-          visible={true}
-          height="100"
-          width="100"
-          color="black"
-          ariaLabel="line-wave-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          firstLineColor=""
-          middleLineColor=""
-          lastLineColor=""
-        />
-      </div>
-      </>
-    );
-  }
 
   return (
     <div className="mx-auto py-0 pb-20 lg:pb-8">

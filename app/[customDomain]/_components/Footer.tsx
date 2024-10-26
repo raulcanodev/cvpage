@@ -1,5 +1,10 @@
 import config from '@/config';
-export const Footer = () => {
+
+interface FooterProps {
+  pageColor: string;
+}
+
+export const Footer = ({pageColor}: FooterProps) => {
   const year = new Date().getFullYear();
 
   return (

@@ -17,15 +17,57 @@ interface Service {
   active?: boolean;
 }
 
-const containerStyle = 'my-2';
-const titleStyle = 'text-2xl font-bold text-gray-900 mb-2 mt-8';
-const subtitleStyle = 'text-xl font-semibold text-gray-800 mb-1';
-const descriptionStyle = 'text-base text-gray-600 whitespace-pre-wrap mb-2';
-const dateStyle = 'text-sm text-gray-500 mb-2';
-const linkButtonStyle = 'inline-flex items-center text-gray-600 hover:underline mt-2';
+interface BlockProps {
+  service: Service;
+  pageColor: string;
+}
+
+const getStyles = (pageColor: string) => {
+  const baseStyles = {
+    title: 'text-3xl font-bold mt-10',
+    subtitle: 'text-lg font-medium mb-1',
+    description: 'whitespace-pre-wrap mb-2',
+    date: 'text-xs mb-2',
+    link: 'inline-flex items-center text-sm hover:underline mt-2',
+    container: 'flex flex-col sm:flex-row justify-between items-start gap-2 my-4',
+    content: 'flex-1',
+  };
+
+  switch (pageColor) {
+    case 'monochrome':
+      return {
+        ...baseStyles,
+        title: `${baseStyles.title} text-gray-900`,
+        subtitle: `${baseStyles.subtitle} text-gray-700`,
+        description: `${baseStyles.description} text-gray-600`,
+        date: `${baseStyles.date} text-gray-500`,
+        link: `${baseStyles.link} text-gray-600`,
+      };
+    case 'midnight':
+      return {
+        ...baseStyles,
+        title: `${baseStyles.title} text-white`,
+        subtitle: `${baseStyles.subtitle} text-gray-50`,
+        description: `${baseStyles.description} text-gray-300`,
+        date: `${baseStyles.date} text-gray-300`,
+        link: `${baseStyles.link} text-gray-300`,
+      };
+    case 'plain dark':
+      return {
+        ...baseStyles,
+        title: `${baseStyles.title} text-white`,
+        subtitle: `${baseStyles.subtitle} text-gray-50`,
+        description: `${baseStyles.description} text-gray-300`,
+        date: `${baseStyles.date} text-gray-400`,
+        link: `${baseStyles.link} text-gray-200`,
+      };
+    default:
+      return baseStyles;
+  }
+};
 
 export const ImageBlock = ({ service }: { service: Service }) => (
-  <div className={containerStyle}>
+  <div className="my-2">
     {service.image && (
       <Image
         src={service.image}
@@ -38,82 +80,74 @@ export const ImageBlock = ({ service }: { service: Service }) => (
   </div>
 );
 
-export const TitleBlock = ({ service }: { service: Service }) => (
-  <h2 className={titleStyle}>{service.title}</h2>
-);
+export const TitleBlock = ({ service, pageColor }: BlockProps) => {
+  const styles = getStyles(pageColor);
+  return <h2 className={styles.title}>{service.title}</h2>;
+};
 
-export const DescriptionBlock = ({ service }: { service: Service }) => (
-  <p className={descriptionStyle}>{service.description}</p>
-);
+export const DescriptionBlock = ({ service, pageColor }: BlockProps) => {
+  const styles = getStyles(pageColor);
+  return <p className={styles.description}>{service.description}</p>;
+};
 
-export const WorkExperienceBlock = ({ service }: { service: Service }) => (
-  <div className={containerStyle}>
-    <h3 className={subtitleStyle}>{service.title}</h3>
-    {service.subtitle && (
-      <p className="text-lg font-medium text-gray-700 mb-1">{service.subtitle}</p>
-    )}
-    {(service.date || service.dateEnd) && (
-      <p className={dateStyle}>
-        {service.date}
-        {service.date && service.dateEnd && ' - '}
-        {service.dateEnd}
-      </p>
-    )}
-    <p className={descriptionStyle}>{service.description}</p>
-    {service.link && (
-      <Link href={service.link} target="_blank" className={linkButtonStyle}>
-        Learn More <ExternalLink className="ml-2 h-4 w-4" />
-      </Link>
-    )}
-  </div>
-);
-
-export const ProjectBlock = ({ service }: { service: Service }) => (
-  <div className={containerStyle}>
-    <div className='flex justify-between items-center mb-2'>
-      <h3 className={subtitleStyle}>{service.title}</h3>
-      {service.category && <Badge>{service.category}</Badge>}
-    </div>
-    <p className={descriptionStyle}>{service.description}</p>
-    {service.link && (
-      <Link href={service.link} target="_blank" className={linkButtonStyle}>
-        Visit Project <ExternalLink className="ml-2 h-4 w-4" />
-      </Link>
-    )}
-  </div>
-);
-
-export const ServiceBlock = ({ service }: { service: Service }) => (
-  <div className={containerStyle}>
-    <div className='flex justify-between items-center mb-2'>
-      <h3 className={subtitleStyle}>{service.title}</h3>
-      {service.category && <Badge variant="secondary">{service.category}</Badge>}
-    </div>
-    <p className={descriptionStyle}>{service.description}</p>
-    <div className="flex justify-between items-center mt-4">
-      {service.price && <Badge variant="outline">Price: {service.price}</Badge>}
+export const ProjectBlock = ({ service, pageColor }: BlockProps) => {
+  const styles = getStyles(pageColor);
+  return (
+    <div className="my-2">
+      <div className='flex justify-between items-center mb-2'>
+        <h3 className={styles.subtitle}>{service.title}</h3>
+        {service.category && <Badge>{service.category}</Badge>}
+      </div>
+      <p className={styles.description}>{service.description}</p>
       {service.link && (
-        <Link href={service.link} target="_blank" className={linkButtonStyle}>
-          I&apos;m interested <ExternalLink className="ml-2 h-4 w-4" />
+        <Link href={service.link} target="_blank" className={styles.link}>
+          Visit Project <ExternalLink className="ml-2 h-4 w-4" />
         </Link>
       )}
     </div>
-  </div>
-);
+  );
+};
 
-export const EducationBlock = ({ service }: { service: Service }) => (
-  <div className={containerStyle}>
-    <h3 className={subtitleStyle}>{service.title}</h3>
-    {service.subtitle && (
-      <p className="text-lg font-medium text-gray-700 mb-1">{service.subtitle}</p>
-    )}
-    {(service.date || service.dateEnd) && (
-      <p className={dateStyle}>
-        {service.date}
-        {service.date && service.dateEnd && ' - '}
-        {service.dateEnd}
-      </p>
-    )}
-    <p className={descriptionStyle}>{service.description}</p>
-  </div>
-);
+export const EducationBlock = ({ service, pageColor }: BlockProps) => {
+  const styles = getStyles(pageColor);
+  return (
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <h3 className={styles.subtitle}>{service.title}</h3>
+        {service.subtitle && (
+          <p className={`${styles.subtitle} font-medium mb-2`}>{service.subtitle}</p>
+        )}
+        <p className={styles.description}>{service.description}</p>
+      </div>
+      {(service.date || service.dateEnd) && (
+        <p className={`${styles.date} text-right sm:text-left sm:whitespace-nowrap`}>
+          {service.date}
+          {service.date && service.dateEnd && ' - '}
+          {service.dateEnd}
+        </p>
+      )}
+    </div>
+  );
+};
+
+export const WorkExperienceBlock = ({ service, pageColor }: BlockProps) => {
+  const styles = getStyles(pageColor);
+  return (
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <h3 className={styles.subtitle}>{service.title}</h3>
+        {service.subtitle && (
+          <p className={`${styles.subtitle} font-medium mb-2`}>{service.subtitle}</p>
+        )}
+        <p className={styles.description}>{service.description}</p>
+      </div>
+      {(service.date || service.dateEnd) && (
+        <p className={`${styles.date} text-right sm:text-left sm:whitespace-nowrap`}>
+          {service.date}
+          {service.date && service.dateEnd && ' - '}
+          {service.dateEnd}
+        </p>
+      )}
+    </div>
+  );
+};
