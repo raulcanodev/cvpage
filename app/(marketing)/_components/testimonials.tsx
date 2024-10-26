@@ -204,7 +204,7 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial}> = ({
 
 const Testimonials: React.FC = () => {
   return (
-    <section className="bg-base-200" id="testimonials">
+    <section className="bg-base-200" id="reviews">
       <div className="py-24 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
           <h2 className="sm:text-5xl text-4xl font-extrabold text-base-content mb-4">
