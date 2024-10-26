@@ -38,32 +38,39 @@ export const ThemeSwitcher = () => {
 };
 
 export const OptionThemeSwitcher = () => {
-
+  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
-  const handleChangeTheme = (theme: string) => {
-    setTheme(theme);
-    if (theme === 'light') {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleChangeTheme = (newTheme: string) => {
+    setTheme(newTheme);
+    if (newTheme === 'light') {
       toast.success('Noo! My eyes 🥺');
     } else {
       toast.success('Much better! 😎');
     }
   };
 
+  if (!mounted) {
+    return null; // Prevent hydration mismatch
+  }
+
   return (
-    <RadioGroup defaultValue={theme}>
-      {['light', 'dark'].map((theme) => (
-        <div key={theme} className="flex items-center space-x-2">
+    <RadioGroup value={theme} onValueChange={handleChangeTheme}>
+      {['light', 'dark'].map((themeOption) => (
+        <div key={themeOption} className="flex items-center space-x-2">
           <RadioGroupItem
-            value={theme}
-            id={`theme-${theme}`}
-            onClick={() => handleChangeTheme(theme)}
+            value={themeOption}
+            id={`theme-${themeOption}`}
           />
-          <Label htmlFor={`theme-${theme}`} className="capitalize">
-            {theme}
+          <Label htmlFor={`theme-${themeOption}`} className="capitalize">
+            {themeOption}
           </Label>
         </div>
       ))}
     </RadioGroup>
   );
-}
+};

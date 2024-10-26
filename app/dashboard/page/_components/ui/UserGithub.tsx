@@ -12,18 +12,23 @@ import {
   DialogClose,
 } from '@/components/ui';
 import { Github } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 
 export function UserGithub() {
   const { userData, updateUserData } = useUserContext();
-  const [githubUrl, setGithubUrl] = useState(userData.githubUrl || '');
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    setUsername(userData.githubUrl ? userData.githubUrl.split('/').pop() || '' : '');
+  }, [userData.githubUrl]);
 
   const handleSaveChanges = async () => {
     try {
+      const githubUrl = username ? `https://github.com/${username}` : '';
       await updateUserData(userData._id, { githubUrl });
     } catch (error) {
-      console.error('Failed to update Instagram URL:', error);
+      console.error('Failed to update GitHub URL:', error);
     }
   };
 
@@ -37,19 +42,15 @@ export function UserGithub() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Github URL</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you are done.
-            </DialogDescription>
+            <DialogTitle>Github Username</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Input
-                id="instagramUrl"
-                placeholder="https://github.com/username"
+                placeholder="username"
                 className="col-span-4"
-                defaultValue={userData.githubUrl}
-                onChange={(e) => setGithubUrl(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
           </div>

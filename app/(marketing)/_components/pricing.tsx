@@ -124,7 +124,7 @@ export const Pricing = () => {
               'Landing page',
               'Domain name',
               'Access to 6 section blocks',
-              '4 Style customizations',
+              '2 Style customizations',
               '100 Block limit',
               'All future updates',
             ]}

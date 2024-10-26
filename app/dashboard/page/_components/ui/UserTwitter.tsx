@@ -12,18 +12,23 @@ import {
   DialogClose,
 } from '@/components/ui';
 import { Twitter } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 
 export function UserTwitter() {
   const { userData, updateUserData } = useUserContext();
-  const [twitterUrl, setTwitterUrl] = useState(userData.twitterUrl || '');
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    setUsername(userData.twitterUrl ? userData.twitterUrl.split('/').pop() || '' : '');
+  }, [userData.twitterUrl]);
 
   const handleSaveChanges = async () => {
     try {
+      const twitterUrl = username ? `https://twitter.com/${username}` : '';
       await updateUserData(userData._id, { twitterUrl });
     } catch (error) {
-      console.error('Failed to update Instagram URL:', error);
+      console.error('Failed to update Twitter URL:', error);
     }
   };
 
@@ -37,19 +42,15 @@ export function UserTwitter() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Twitter URL</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you are done.
-            </DialogDescription>
+            <DialogTitle>Twitter Username</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Input
-                id="instagramUrl"
-                placeholder="https://x.com/username"
+                placeholder="username"
                 className="col-span-4"
-                defaultValue={userData.twitterUrl}
-                onChange={(e) => setTwitterUrl(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
           </div>

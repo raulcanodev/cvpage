@@ -115,7 +115,7 @@ export function EditUser() {
         <Textarea
           className="bg-transparent text-gray-900 dark:text-white border-none my-7 focus:ring-0"
           value={descriptionInput}
-          placeholder="I enjoy the purple cats that dance under the moonlight while eating ice cream"
+          placeholder="Tell us about yourself"
           onChange={handleDescriptionChange}
         />
 

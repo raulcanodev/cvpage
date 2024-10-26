@@ -20,7 +20,7 @@ const config = {
       "I'm a web developer based in Lisbon and the founder of Cvpage. After seeing many people struggle to stand out in their job search, I decided to create Cvpage to make it easier. Don’t hesitate to reach out if you have any questions!",
     github: 'https://github.com/raulcanodev',
     linkedin: 'https://www.linkedin.com/in/raulcano-in/',
-    email: '',
+    email: 'rawraul@outlook.com',
     twitter: 'https://x.com/raulcanodev',
   },
   email: {

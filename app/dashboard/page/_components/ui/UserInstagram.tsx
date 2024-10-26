@@ -12,15 +12,20 @@ import {
   DialogClose,
 } from '@/components/ui';
 import { Instagram } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
 
 export function UserInstagram() {
   const { userData, updateUserData } = useUserContext();
-  const [instagramUrl, setInstagramUrl] = useState(userData.instagramUrl || '');
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    setUsername(userData.instagramUrl ? userData.instagramUrl.split('/').pop() || '' : '');
+  }, [userData.instagramUrl]);
 
   const handleSaveChanges = async () => {
     try {
+      const instagramUrl = username ? `https://www.instagram.com/${username}` : '';
       await updateUserData(userData._id, { instagramUrl });
     } catch (error) {
       console.error('Failed to update Instagram URL:', error);
@@ -37,19 +42,16 @@ export function UserInstagram() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Instagram URL</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you are done.
-            </DialogDescription>
+            <DialogTitle>Instagram Username</DialogTitle>
+       
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Input
-                id="instagramUrl"
-                placeholder="https://www.instagram.com/username"
+                placeholder="username"
                 className="col-span-4"
-                defaultValue={userData.instagramUrl}
-                onChange={(e) => setInstagramUrl(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
           </div>

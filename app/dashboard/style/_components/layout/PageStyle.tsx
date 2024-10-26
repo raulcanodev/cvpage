@@ -2,13 +2,23 @@
 import { RadioGroup, RadioGroupItem, Label } from '@/components/ui/';
 import { OptionThemeSwitcher } from '@/components/layout';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
+import { useTheme } from 'next-themes';
 import { toast } from 'sonner';
+import { useEffect, useState } from 'react';
 
 export function PageStyle() {
   const { updateUserData, userData } = useUserContext();
   const { _id } = userData;
+  const { theme } = useTheme();
 
-  const { pageColor, pageFont, premium } = userData;
+  const [pageColor, setPageColor] = useState('monochrome');
+  const [pageFont, setPageFont] = useState('cvpage');
+  const { premium } = userData;
+
+  useEffect(() => {
+    setPageColor(userData.pageColor || 'monochrome');
+    setPageFont(userData.pageFont || 'cvpage');
+  }, [userData.pageColor, userData.pageFont]);
 
   const handleChangeColor = (color: string) => {
     if (!premium && (color === '2000' || color === 'electric purple')) {
@@ -16,11 +26,13 @@ export function PageStyle() {
       return;
     }
     toast.success(`Theme changed to ${color.charAt(0).toUpperCase() + color.slice(1)} 🎉`);
+    setPageColor(color);
     updateUserData(_id, { pageColor: color });
   };
 
   const handleChangeFont = (font: string) => {
     toast.success(`Font changed to ${font.charAt(0).toUpperCase() + font.slice(1)} 🎉`);
+    setPageFont(font);
     updateUserData(_id, { pageFont: font });
   };
 
@@ -28,7 +40,6 @@ export function PageStyle() {
 
   const colors = [
     { label: 'monochrome', premiumOnly: false },
-    // { label: 'midnight', premiumOnly: true },
     { label: 'plain dark', premiumOnly: true },
   ];
 
@@ -37,13 +48,12 @@ export function PageStyle() {
       <div className="max-w-md space-y-6">
         <div>
           <h2 className="text-sm font-semibold mb-2">FONT</h2>
-          <RadioGroup defaultValue={pageFont}>
+          <RadioGroup value={pageFont} onValueChange={handleChangeFont}>
             {fonts.map((font) => (
               <div key={font} className="flex items-center space-x-2">
                 <RadioGroupItem
                   value={font}
                   id={`font-${font}`}
-                  onClick={() => handleChangeFont(font)}
                 />
                 <Label htmlFor={`font-${font}`} className="capitalize">
                   {font}
@@ -54,14 +64,13 @@ export function PageStyle() {
         </div>
         <div>
           <h2 className="text-sm font-semibold mb-2">THEME</h2>
-          <RadioGroup defaultValue={pageColor}>
+          <RadioGroup value={pageColor} onValueChange={handleChangeColor}>
             {colors.map(({ label, premiumOnly }) => (
               <div key={label} className="flex items-center space-x-2">
                 <RadioGroupItem
                   value={label}
                   id={`color-${label}`}
                   disabled={!premium && premiumOnly}
-                  onClick={() => handleChangeColor(label)}
                 />
                 <Label
                   htmlFor={`color-${label}`}
