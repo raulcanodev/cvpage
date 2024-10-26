@@ -135,7 +135,7 @@ const list: Testimonial[] = [
 const TestimonialCard: React.FC<{ testimonial: Testimonial}> = ({
   testimonial,
 }) => (
-  <li className={testimonial.featured ? 'md:col-span-2 border rounded-lg bg-white dark:bg-gray-950 shadow-md' : 'border rounded-lg bg-white dark:bg-gray-950 shadow-md'}>
+  <li className={testimonial.featured ? 'md:col-span-2 border rounded-lg bg-white dark:bg-zinc-900 shadow-md' : 'border rounded-lg bg-white dark:bg-zinc-900 shadow-md'}>
     <figure className={`relative h-full p-6 bg-base-100 rounded-lg ${testimonial.featured  ? 'md:p-8' : ''}`}>
       <blockquote className="relative">
         <p className={`text-base-content/80 text-zinc-700 dark:text-zinc-300 ${testimonial.featured  ? 'md:text-lg' : 'text-sm'}`}>

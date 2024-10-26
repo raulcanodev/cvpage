@@ -18,7 +18,7 @@ const features = [
 
 export function CVSharingFeature() {
   return (
-    <section className="flex items-center mt-14 md:mt-0 py-16">
+    <section className="flex items-center mt-14 md:mt-0 py-16 ">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="sm:text-5xl text-4xl font-bold mb-6 text-gray-800 dark:text-white">
@@ -36,7 +36,7 @@ export function CVSharingFeature() {
               ))}
             </ul>
           </div>
-          <div className="bg-white dark:bg-zinc-950 p-5 rounded-lg shadow-lg border border-black/30 dark:border-white/30">
+          <div className="bg-white dark:bg-zinc-900 p-5 rounded-lg shadow-lg border border-black/30 dark:border-white/30">
             <h3 className="text-xl font-semibold mb-6 text-center text-gray-800 dark:text-white">
               Share Your CV on
             </h3>

@@ -1,13 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { ThemeSwitcher } from '@/components/layout';
 import { Button } from '@/components/ui';
 import { useRouter } from 'next/navigation';
-import config from '@/config';
-import { File } from 'lucide-react';
 import Image from 'next/image';
 import cvpageBlack from '@/public/cvpage-black.png';
 import cvpageWhite from '@/public/cvpage-white.png';
@@ -16,23 +14,25 @@ import { useTheme } from 'next-themes';
 //* Add to the layout >
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
-  const { theme } = useTheme();
+  const { theme } = useTheme(); // Don't remove this line
+  const getTheme = localStorage.getItem('theme');
 
   return (
-    <nav className="fixed w-full z-50 dark:bg-zinc-950 bg-zinc-50">
+    <nav className="fixed w-full z-50 dark:bg-zinc-950 bg-gray-100">
       <div className="container mx-auto py-3">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="text-xl font-normal flex items-center">
-            {/* Logo */}
-            <div className="flex items-center space-x-2">
-              {theme === 'dark' ? (
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="flex items-center">
+              {getTheme === 'dark' ? (
                 <Image src={cvpageWhite} alt="Logo" width={100} height={100} />
               ) : (
                 <Image src={cvpageBlack} alt="Logo" width={100} height={100} />
               )}
             </div>
+            <span className="bg-green-100 mt-[1px] text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+              Beta
+            </span>
           </Link>
 
           {/* Desktop Menu */}

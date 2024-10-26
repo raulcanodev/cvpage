@@ -35,7 +35,7 @@ const AnimatedSection = ({ children, className = '' }: AnimatedSectionProps) => 
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-zinc-950">
       <Navbar/>
       <main className="container flex flex-col min-h-screen">
         <AnimatedSection>

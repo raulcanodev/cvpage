@@ -14,7 +14,7 @@ export default function SignIn() {
         Sign in to continue
       </h2>
     
-      <hr></hr>
+      <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"/>
       <div className="mt-6 space-y-3">
         <GithubSignInButton />
         <GoogleSignInButton />

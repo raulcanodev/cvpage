@@ -4,7 +4,6 @@ import config from '@/config';
 import Link from 'next/link';
 
 export const Pricing = () => {
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -35,20 +34,35 @@ export const Pricing = () => {
     buttonText: string;
     isPro?: boolean;
     link: string;
-  }> = ({ title, price, features, buttonText, isPro, subtitle, link}) => (
+  }> = ({ title, price, features, buttonText, isPro, subtitle, link }) => (
     <motion.div
       variants={itemVariants}
-      style={isPro ? { borderColor: "#3B82F6" } : {}}
-      className={`bg-white dark:bg-zinc-950 rounded-lg shadow-lg p-6 flex flex-col border border-black/30 dark:border-zinc-700 hover:shadow-2xl transition-shadow duration-300 ease-in-out relative ${
-        isPro && 'border-2' }`}
+      style={isPro ? { borderColor: '#3B82F6' } : {}}
+      className={`bg-white dark:bg-zinc-900 rounded-lg shadow-lg p-6 flex flex-col border border-black/30 dark:border-zinc-700 hover:shadow-2xl transition-shadow duration-300 ease-in-out relative ${
+        isPro && 'border-2'
+      }`}
     >
       {isPro && (
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-bold">
           Most Popular
         </div>
       )}
-      <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">{title}</h3>
-      <p className="text-4xl font-bold text-gray-900 dark:text-gray-100">{price}</p>
+      <h3 className="flex items-center gap-2 text-2xl font-bold mb-4 text-gray-800 dark:text-white">
+        <span>{title}</span>
+        {isPro && (
+          <span className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+            Limited time offer
+          </span>
+        )}
+      </h3>
+      <p className="text-4xl font-bold text-gray-900 dark:text-gray-100">
+        {price}
+        {isPro && (
+          <span className="text-xl ml-2 font-normal text-gray-600 dark:text-gray-300 line-through">
+            24€
+          </span>
+        )}
+      </p>
       <span className="text-sm mb-6 text-zinc-400">{subtitle}</span>
       <ul className="mb-6 flex-grow">
         {features.map((feature, index) => (
@@ -102,8 +116,8 @@ export const Pricing = () => {
             buttonText="Get Started"
           />
           <PricingCard
-            title="Pro"
-            subtitle="Most popular, one-time payment"
+            title="Premium"
+            subtitle="Beta price, one-time payment"
             link={`auth/signin`}
             price={`${config.lemonsqueezy.price}`}
             features={[
