@@ -4,6 +4,7 @@ import { CreativeNavbar } from './components/layout';
 import { UserProvider, useUserContext } from './context/UserContext';
 import { Toaster } from 'sonner';
 import { PremiumBanner, PremiumPopup } from './components/layout';
+import { MinimalFooter } from '@/app/(marketing)/_components';
 
 function DashboardContent({ children }: { children: React.ReactNode }) {
   const { userData } = useUserContext();
@@ -22,7 +23,12 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </div>
-        <div className={`container mx-auto max-w-[75rem] px-2 py-8 ${!premium && "mt-8"}`}>{children}</div>
+        <div className={`container mx-auto max-w-[75rem] px-2 py-8 ${!premium && 'mt-8'}`}>
+          {children}
+        </div>
+      </div>
+      <div className="mb-8 md:mb-3">
+        <MinimalFooter />
       </div>
 
       {!premium && <PremiumPopup email={email} userId={_id} />}

@@ -138,11 +138,6 @@ export function ProjectCard({ serviceId, title, description, active, link, onDel
             onChange={(e) => setTitleText(e.target.value)}
           />
         </div>
-        {/* <Switch
-          className="data-[state=checked]:bg-slate-300"
-          checked={active}
-          onCheckedChange={(e) => onUpdate(serviceId, { active: e })}
-        /> */}
       </div>
 
       <Input

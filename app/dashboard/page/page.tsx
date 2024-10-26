@@ -4,7 +4,6 @@ import { EditUser, EditUserServices, Preview } from './_components/layout';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Eye } from 'lucide-react';
-import { MinimalFooter } from '@/app/(marketing)/_components';
 
 export default function DashboardEditProfile() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
@@ -46,11 +45,6 @@ export default function DashboardEditProfile() {
         </Dialog>
       </div>
     </div>
-    <div className='mb-8 md:mb-0'>
-    <MinimalFooter />
-
-    </div>
-
     </>
   );
 }
