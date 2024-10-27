@@ -11,9 +11,6 @@ const verifySignature = (rawBody: Buffer, signature: string, secret: string): bo
 };
 
 export async function POST(req: NextRequest) {
-    console.log('webhook request:', req);
-    console.log('webhook headers:', req.headers);
-    console.log('webhook body:', req.body);
     try {
         if (req.method !== 'POST') {
             return NextResponse.json({ message: 'Method Not Allowed' }, { status: 405 });
@@ -34,8 +31,6 @@ export async function POST(req: NextRequest) {
 
         if (eventType === 'order_created') {
             const email = event.meta.custom_data.email;
-
-            console.log('webhook email:', email);
 
             await handlePremiumPurchase(email);
         }
