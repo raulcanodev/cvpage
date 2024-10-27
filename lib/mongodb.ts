@@ -210,6 +210,8 @@ export const updateCustomDomain = async (id: string, domain: string) => {
  * @returns The updated user data.
  */
 export const updateUserPremium = async (email: string, premium: boolean) => {
+  console.log(" updateUserPremium email mongo", email);
+  
   await connectDB();
   return User.findOneAndUpdate(
     { email },
