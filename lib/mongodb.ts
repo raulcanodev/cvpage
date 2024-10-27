@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 import User, { Service } from '@/models/Schemas';
 
-const { MONGODB_URI } = process.env;
+const MONGODB_URI = process.env.MONGODB_URI;
 
-if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable');
-}
+// if (!MONGODB_URI) {
+//   throw new Error('Please define the MONGODB_URI environment variable');
+// }
 
 /**
  * Connects to the MongoDB database.
