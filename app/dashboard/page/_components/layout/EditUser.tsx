@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Input, Textarea } from '@/components/ui/';
 import {
   UserLocation,
@@ -14,88 +14,62 @@ import config from '@/config';
 import { toast } from 'sonner';
 
 export function EditUser() {
-  const { userData, updateUserData, updateUserDomain } = useUserContext();
+  const { userData, updateUserData } = useUserContext();
   const { name, description, customDomain } = userData;
 
-  // Local state for name, description, and customDomain
+  // Local state for name and description
   const [nameInput, setNameInput] = useState(name);
   const [descriptionInput, setDescriptionInput] = useState(description);
-  const [domainInput, setDomainInput] = useState(customDomain);
 
-  // Track if the component has mounted
-  const hasMounted = useRef(false);
+  // Ref to track if the update is from user input
+  const isUserInput = useRef(false);
 
-  // Set initial values only on mount
+  // Update local state when userData changes
   useEffect(() => {
-    if (!hasMounted.current) {
-      setDescriptionInput(description); // Set description from userData only on first mount
-      hasMounted.current = true; // Mark that the component has mounted
+    if (!isUserInput.current) {
+      setNameInput(name);
+      setDescriptionInput(description);
     }
-  }, [description]); // Only run this effect when description changes
-
-  // Set initial values for name and domain
-  useEffect(() => {
-    setNameInput(name); // Always set name from userData
-  }, [name]);
-
-  useEffect(() => {
-    setDomainInput(customDomain); // Always set domain from userData
-  }, [customDomain]);
-
-  const handleDomainChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDomainInput(e.target.value);
-  };
+  }, [name, description]);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameInput(e.target.value);
+    isUserInput.current = true;
   };
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescriptionInput(e.target.value);
+    isUserInput.current = true;
   };
 
-  // Debounced domain update
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      if (domainInput !== customDomain) {
-        const escapedDomain = domainInput
-          .replace(/[^a-zA-Z0-9-]/g, '')
-          .trim()
-          .toLowerCase(); // Clean domain input
-        updateUserDomain(userData._id, escapedDomain); // Update domain
-      }
-    }, 500);
+  // Debounced update function
+  const debouncedUpdate = useCallback(
+    (field: string, value: string) => {
+      const handler = setTimeout(() => {
+        updateUserData(userData._id, { [field]: value });
+        isUserInput.current = false;
+      }, 500);
 
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [domainInput, customDomain, userData._id, updateUserDomain]);
+      return () => {
+        clearTimeout(handler);
+      };
+    },
+    [userData._id, updateUserData]
+  );
 
   // Debounced name update
   useEffect(() => {
-    const handler = setTimeout(() => {
-      if (nameInput !== name) {
-        updateUserData(userData._id, { name: nameInput });
-      }
-    }, 500);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [nameInput, name, userData._id, updateUserData]);
+    if (isUserInput.current && nameInput !== name) {
+      return debouncedUpdate('name', nameInput);
+    }
+  }, [nameInput, name, debouncedUpdate]);
 
   // Debounced description update
   useEffect(() => {
-    const handler = setTimeout(() => {
-      if (descriptionInput !== description) {
-        updateUserData(userData._id, { description: descriptionInput });
-      }
-    }, 500);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [descriptionInput, description, userData._id, updateUserData]);
+    if (isUserInput.current && descriptionInput !== description) {
+      return debouncedUpdate('description', descriptionInput);
+    }
+  }, [descriptionInput, description, debouncedUpdate]);
 
   return (
     <>
