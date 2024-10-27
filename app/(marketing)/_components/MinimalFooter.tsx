@@ -65,7 +65,7 @@ export const MinimalFooter = () => {
   const logoSrc = mounted ? (theme === 'dark' ? cvpageWhite : cvpageBlack) : cvpageBlack;
 
   return (
-    <footer className='mb-4'>
+    <footer className='mb-4 bg-gray-100 dark:bg-zinc-950'>
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
