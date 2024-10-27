@@ -40,12 +40,15 @@ export const ThemeSwitcher = () => {
 export const OptionThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const [localTheme, setLocalTheme] = useState(theme);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    setLocalTheme(theme);
+  }, [theme]);
 
   const handleChangeTheme = (newTheme: string) => {
+    setLocalTheme(newTheme);
     setTheme(newTheme);
     if (newTheme === 'light') {
       toast.success('Noo! My eyes 🥺');
@@ -59,7 +62,7 @@ export const OptionThemeSwitcher = () => {
   }
 
   return (
-    <RadioGroup value={theme} onValueChange={handleChangeTheme}>
+    <RadioGroup value={localTheme} onValueChange={handleChangeTheme}>
       {['light', 'dark'].map((themeOption) => (
         <div key={themeOption} className="flex items-center space-x-2">
           <RadioGroupItem
