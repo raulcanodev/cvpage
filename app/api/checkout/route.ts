@@ -8,10 +8,14 @@ export async function POST(req: Request) {
   const LEMONSQUEEZY_ENDPOINT = "https://api.lemonsqueezy.com/v1/checkouts";
   const STORE_ID = process.env.LEMONSQUEEZY_STORE_ID?.toString();
   const API_KEY = process.env.LEMONSQUEEZY_API_KEY;
+  // console.log("checkout STORE_ID", STORE_ID);
+  // console.log("checkout API_KEY", API_KEY);
 
   try {
     const reqData = await req.json();
     const { email, productId, user_id } = reqData;
+    // console.log("checkout email", email);
+    // console.log("checkout user_id", user_id);
 
     // Validate the request body before proceeding
 

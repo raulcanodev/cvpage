@@ -9,7 +9,6 @@ const config = {
     linkedin: 'https://linkedin.com',
   },
   lemonsqueezy: {
-    productLink: process.env.NODE_ENV === 'development' ? 'https://cvpage.lemonsqueezy.com/buy/9cb2a0ed-191d-4d81-a9f5-72361c356a43' : 'https://cvpage.lemonsqueezy.com/buy/5f16d591-9854-4e0c-9a4d-edb9eafd8f10',
     price: '9€',
     productID: process.env.NODE_ENV === 'development' ? '527806' : '544997',
   },
