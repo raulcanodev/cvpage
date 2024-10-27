@@ -3,6 +3,10 @@ import User, { Service } from '@/models/Schemas';
 
 const { MONGODB_URI } = process.env;
 
+if (!MONGODB_URI) {
+  throw new Error('Please define the MONGODB_URI environment variable');
+}
+
 /**
  * Connects to the MongoDB database.
  *
