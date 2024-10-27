@@ -30,18 +30,13 @@ export async function POST(req: NextRequest) {
             throw new Error('Invalid signature.');
         }
 
-        console.log('Signature verified');
         const event = JSON.parse(buffer.toString());
-        console.log('Event parsed:', event);
         const eventType = event.meta.event_name;
-        console.log('Event type:', eventType);
 
         if (eventType === 'order_created') {
             const email = event.meta.custom_data.email;
-            console.log('Processing order for email:', email);
 
             await handlePremiumPurchase(email);
-            console.log('Premium purchase handled');
         }
 
         console.log('Webhook processing completed');
