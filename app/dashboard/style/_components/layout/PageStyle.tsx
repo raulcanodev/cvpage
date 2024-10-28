@@ -1,4 +1,5 @@
 'use client';
+
 import { RadioGroup, RadioGroupItem, Label } from '@/components/ui/';
 import { OptionThemeSwitcher } from '@/components/layout';
 import { useUserContext } from '@/app/dashboard/context/UserContext';
@@ -16,9 +17,20 @@ export function PageStyle() {
   const { premium } = userData;
 
   useEffect(() => {
-    setPageColor(userData.pageColor || 'monochrome');
-    setPageFont(userData.pageFont || 'cvpage');
-  }, [userData.pageColor, userData.pageFont]);
+    const defaultColor = 'monochrome';
+    const defaultFont = 'cvpage';
+
+    setPageColor(userData.pageColor || defaultColor);
+    setPageFont(userData.pageFont || defaultFont);
+
+    if (!userData.pageColor) {
+      updateUserData(_id, { pageColor: defaultColor });
+    }
+
+    if (!userData.pageFont) {
+      updateUserData(_id, { pageFont: defaultFont });
+    }
+  }, [userData, _id, updateUserData]);
 
   const handleChangeColor = (color: string) => {
     if (!premium && (color === '2000' || color === 'electric purple')) {
