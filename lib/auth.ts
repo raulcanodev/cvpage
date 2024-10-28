@@ -95,6 +95,7 @@ export const authOptions: NextAuthOptionsExtended = {
     async redirect({ url, baseUrl }) {
       console.log("Redirect callback - URL:", url);
       console.log("Redirect callback - Base URL:", baseUrl);
+      console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
       
       if (url.startsWith(baseUrl)) {
         return `${baseUrl}/dashboard/page`;
