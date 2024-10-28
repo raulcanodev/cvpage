@@ -32,8 +32,6 @@ export const authOptions: NextAuthOptionsExtended = {
     newUser: '/dashboard/page',
   },
 
-  
-
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
