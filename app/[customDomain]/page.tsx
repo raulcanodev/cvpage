@@ -1,6 +1,5 @@
 import { getUserByCustomDomain, getServiceById } from '@/actions';
 import { SocialLinks, Avatar, Footer, Location, Description, Blocks, Name } from './_components';
-import { ThemeProvider } from 'next-themes';
 
 interface Props {
   params: {
@@ -68,7 +67,6 @@ export default async function UserProfilePage({ params }: Props) {
   const fontStyle = getFontStyle(pageFont);
 
   return (
-    <ThemeProvider attribute="class" defaultTheme={pageColor === 'plain dark' ? 'dark' : 'light'} enableSystem={false}>
       <div className={`min-h-screen relative ${backgroundStyle} ${fontStyle}`}>
         <div className="max-w-[700px] mx-auto px-4 py-20">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
@@ -91,6 +89,5 @@ export default async function UserProfilePage({ params }: Props) {
           {!premium && <Footer pageColor={pageColor} />}
         </div>
       </div>
-    </ThemeProvider>
   );
 }
