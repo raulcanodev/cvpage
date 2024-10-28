@@ -93,10 +93,11 @@ export const authOptions: NextAuthOptionsExtended = {
       }
     },
     async redirect({ url, baseUrl }) {
-      console.log("baseUrl", baseUrl);
+      console.log("Redirect callback - URL:", url);
+      console.log("Redirect callback - Base URL:", baseUrl);
       
       if (url.startsWith(baseUrl)) {
-        return `${config.domainUrl}/dashboard/page`;
+        return `${baseUrl}/dashboard/page`;
       }
       return baseUrl;
     }
