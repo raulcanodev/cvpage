@@ -70,7 +70,7 @@ export default async function UserProfilePage({ params }: Props) {
   const fontStyle = getFontStyle(pageFont);
 
   return (
-    <ThemeProvider attribute="class" forcedTheme={pageColor === 'plain dark' ? 'dark' : 'dark'} enableSystem={false}>
+    <ThemeProvider attribute="class" defaultTheme={pageColor === 'plain dark' ? 'dark' : 'light'} enableSystem={false}>
       <div className={`min-h-screen relative ${backgroundStyle} ${fontStyle}`}>
         <div className="max-w-[700px] mx-auto px-4 py-20">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
