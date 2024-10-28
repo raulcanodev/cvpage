@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
-import { Inter, Caveat_Brush, Bricolage_Grotesque, Montserrat, Lora
-} from 'next/font/google';
+import { Inter, Caveat_Brush, Bricolage_Grotesque, Montserrat, Lora } from 'next/font/google';
 import './globals.css';
 import config from '@/config';
 import PlausibleProvider from 'next-plausible'
-
 import { Provider } from './context/Provider';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -17,21 +15,41 @@ export const metadata: Metadata = {
   description: config.appDescription,
   icons: {
     icon: "/icon.png",
-  }
+  },
+  openGraph: {
+    type: 'website',
+    url: `https://${config.domainName}`,
+    title: config.appName,
+    description: config.appDescription,
+    siteName: config.appName,
+    images: [
+      {
+        url: `https://${config.domainName}/icon.png`,
+        width: 1200,
+        height: 630,
+        alt: config.appName,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: config.appName,
+    description: config.appDescription,
+    images: [`https://${config.domainName}/icon.png`],
+  },
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-       <head>
+      <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         <link rel="icon" href="/icon.png" sizes="any" />
       </head>
       <body className={`${inter.className} ${heroFont.variable} ${montserrat.variable} ${lora.variable}`} suppressHydrationWarning={true}>
-      <link rel="icon" href="/icon.png" sizes="any" />
-      <PlausibleProvider domain={config.domainName}>
-        <Provider>{children}</Provider>
-      </PlausibleProvider>
+        <PlausibleProvider domain={config.domainName}>
+          <Provider>{children}</Provider>
+        </PlausibleProvider>
       </body>
     </html>
   );
