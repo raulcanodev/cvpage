@@ -37,29 +37,29 @@ const getStyles = (pageColor: string) => {
     case 'monochrome':
       return {
         ...baseStyles,
-        title: `${baseStyles.title} text-gray-900 dark:text-gray-900`,
-        subtitle: `${baseStyles.subtitle} text-gray-700 dark:text-gray-700`,
-        description: `${baseStyles.description} text-gray-600 dark:text-gray-600`,
-        date: `${baseStyles.date} text-gray-500 dark:text-gray-500`,
-        link: `${baseStyles.link} text-gray-600 dark:text-gray-600`,
+        title: `${baseStyles.title} text-gray-900`,
+        subtitle: `${baseStyles.subtitle} text-gray-700`,
+        description: `${baseStyles.description} text-gray-600`,
+        date: `${baseStyles.date} text-gray-500`,
+        link: `${baseStyles.link} text-gray-600`,
       };
     case 'midnight':
       return {
         ...baseStyles,
-        title: `${baseStyles.title} text-white dark:text-gray-50`,
-        subtitle: `${baseStyles.subtitle} text-gray-50 dark:text-gray-50`,
-        description: `${baseStyles.description} text-gray-300 dark:text-gray-300`,
-        date: `${baseStyles.date} text-gray-300 dark:text-gray-300`,
-        link: `${baseStyles.link} text-gray-300 dark:text-gray-300`,
+        title: `${baseStyles.title} text-white`,
+        subtitle: `${baseStyles.subtitle} text-gray-50`,
+        description: `${baseStyles.description} text-gray-300`,
+        date: `${baseStyles.date} text-gray-300`,
+        link: `${baseStyles.link} text-gray-300`,
       };
     case 'plain dark':
       return {
         ...baseStyles,
-        title: `${baseStyles.title} text-white dark:text-gray-50`,
-        subtitle: `${baseStyles.subtitle} text-gray-50 dark:text-gray-50`,
-        description: `${baseStyles.description} text-gray-300 dark:text-gray-300`,
-        date: `${baseStyles.date} text-gray-400 dark:text-gray-400`,
-        link: `${baseStyles.link} text-gray-200 dark:text-gray-200`,
+        title: `${baseStyles.title} text-white`,
+        subtitle: `${baseStyles.subtitle} text-gray-50`,
+        description: `${baseStyles.description} text-gray-300`,
+        date: `${baseStyles.date} text-gray-400`,
+        link: `${baseStyles.link} text-gray-200`,
       };
     default:
       return baseStyles;

@@ -38,19 +38,12 @@ export function EmailSignIn() {
 
     try {
       startTransition(async()=>{
-        const res = await signIn("email", {
+        await signIn("email", {
           email,
         })
-        if (res?.ok && !res?.error) {
-          setEmail("");
-          toast.success("Email sent, check your inbox!");
-        } else {
-          toast.error("Error sending email, try again?");
-        }
       })
-      
     } catch (error) {
-      toast.error("Error sending email, try again?");
+      toast.error("Error sending email, try again");
     }
   };
 
