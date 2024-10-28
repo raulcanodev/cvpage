@@ -124,9 +124,9 @@ export default function SettingsPage() {
                 </div>
               )}
             </div>
-            <p className='mt-4 text-sm'>
+            {/* <p className='mt-4 text-sm'>
               Contact us at <a href="mailto:email@email.com" className="text-blue-600 dark:text-blue-500">email@email.com</a> for any billing inquiries.
-            </p>
+            </p> */}
           </TabsContent>
         </Tabs>
       </div>
