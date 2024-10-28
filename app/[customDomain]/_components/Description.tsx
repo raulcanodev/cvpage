@@ -6,6 +6,6 @@ interface DescriptionProps {
 export const Description = ({ description, pageColor }: DescriptionProps) => {
   const textColor = pageColor === 'monochrome' ? 'text-zinc-600' : 'text-gray-200';
   return (
-    <p className={`text-lg ${textColor} mb-2 px-2 md:px-0`}>{description}</p>
+    <p className={`text-lg ${textColor} mb-2 px-2 md:px-0 md:pr-2`}>{description}</p>
   )
 }
