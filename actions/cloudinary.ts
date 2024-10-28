@@ -24,7 +24,7 @@ const uploadProfileImageToCloud = async (
 
   return new Promise((resolve, reject) => {
     const stream = cloud.uploader.upload_stream({ 
-      folder: 'hitmeto-profile',
+      folder: 'cvpage-profile',
       ...options 
     }, (error, result) => {
       
@@ -64,7 +64,7 @@ const uploadBlockImageToCloud = async (
 
   return new Promise((resolve, reject) => {
     const stream = cloud.uploader.upload_stream({ 
-      folder: 'hitmeto-block-image',
+      folder: 'cvpage-block-image',
       ...options 
     }, (error, result) => {
       
