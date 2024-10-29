@@ -79,7 +79,8 @@ export const RotatingUrl: React.FC = () => {
                     src={previewData[currentIndex].image}
                     alt={previewData[currentIndex].title}
                     fill
-                    className="object-cover bg-white dark:bg-gray-800"
+                    className="object-contain bg-white dark:bg-gray-800"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority
                   />
                 </div>
