@@ -107,7 +107,7 @@ export const Pricing = () => {
             link="/auth/signin"
             price="0€"
             features={[
-              'Landing page',
+              'CV page',
               'Domain name',
               'Access to 2 section blocks',
               '1 Style customizations',
@@ -121,7 +121,7 @@ export const Pricing = () => {
             link={`auth/signin`}
             price={`${config.lemonsqueezy.price}`}
             features={[
-              'Landing page',
+              'CV page',
               'Domain name',
               'Access to 6 section blocks',
               '2 Style customizations',
