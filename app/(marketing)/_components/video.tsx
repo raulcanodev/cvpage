@@ -71,7 +71,7 @@ export default function Video({
                 {/* Play button overlay */}
                 <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
                   <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-white/90 group-hover:bg-white flex items-center justify-center group-hover:scale-105 transition-transform">
-                    <Play className="w-8 h-8 md:w-12 md:h-12 text-primary fill-primary translate-x-0.5" />
+                    <Play className="w-8 h-8 md:w-12 md:h-12 text-primary fill-zinc-800 stroke-zinc-800 translate-x-0.5" />
                   </div>
                 </div>
               </div>
