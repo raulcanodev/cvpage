@@ -11,7 +11,7 @@ import {
   CVSharingFeature,
   StatisticsBlock,
   MinimalFooter,
-  RotatingUrl,
+  Video
 } from './_components';
 
 interface AnimatedSectionProps {
@@ -43,9 +43,12 @@ export default function Home() {
         </AnimatedSection>
         <div className="w-full flex justify-center">
           <div className="max-w-screen-lg w-full">
-            {/* <RotatingUrl /> */}
+          
             <AnimatedSection>
               <CVSharingFeature />
+            </AnimatedSection>
+            <AnimatedSection>
+              <Video videoId='lKsU3h8VXkc' />
             </AnimatedSection>
             <AnimatedSection>
               <StatisticsBlock />

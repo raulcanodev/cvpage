@@ -1,25 +1,93 @@
-import { Button } from "@/components/ui/button"
-import {  Play } from "lucide-react"
-// import OptimizedYouTubeEmbed from "./OptimizedYouTubeEmbed"
+'use client'
 
-export default function Video() {
+import { useState, useEffect } from "react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
+import { Play } from "lucide-react"
+import Image from "next/image"
+
+interface VideoSectionProps {
+  videoId: string
+  title?: string
+  thumbnailQuality?: 'default' | 'hq' | 'maxres'
+}
+
+export default function Video({
+  videoId,
+  title = "Featured Video",
+  thumbnailQuality = 'maxres'
+}: VideoSectionProps) {
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [thumbnailError, setThumbnailError] = useState(false)
+
+  // Get YouTube thumbnail URL
+  const getThumbnailUrl = (quality: string) => {
+    return `https://img.youtube.com/vi/${videoId}/${quality}default.jpg`
+  }
+
+  // https://www.youtube.com/watch?v=lKsU3h8VXkc
+
+  // Handle thumbnail loading error by falling back to lower quality
+  const handleThumbnailError = () => {
+    if (thumbnailQuality === 'maxres') {
+      setThumbnailError(true)
+    }
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [])
 
   return (
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">See hitme.to in Action</h2>
-            {/* <OptimizedYouTubeEmbed 
-              videoId="dQw4w9WgXcQ"
-              title="hitme.to Demo Video"
-            /> */}
-            <div className="mt-8 text-center">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                <Play className="w-4 h-4 mr-2" />
-                Watch Full Demo
-              </Button>
-            </div>
+    <section className="w-full max-w-5xl mx-auto md:py-24">
+      <Card className="overflow-hidden bg-transparent shadow-none">
+        <CardContent className="p-0">
+          <div className="relative aspect-video rounded-xl overflow-hidden bg-muted">
+            {isLoading && (
+              <div className="absolute inset-0 z-20">
+                <Skeleton className="w-full h-full" />
+              </div>
+            )}
+            
+            {!isPlaying ? (
+              // Thumbnail and play button
+              <div className="relative w-full h-full group cursor-pointer" onClick={() => setIsPlaying(true)}>
+                {/* Thumbnail */}
+                <Image
+                  src={getThumbnailUrl(thumbnailError ? '' : thumbnailQuality)}
+                  alt={title}
+                  className="w-full h-full object-cover"
+                  onError={handleThumbnailError}
+                  loading="lazy"
+                  width={1280}
+                  height={720}
+                />
+                
+                {/* Play button overlay */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
+                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-white/90 group-hover:bg-white flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <Play className="w-8 h-8 md:w-12 md:h-12 text-primary fill-primary translate-x-0.5" />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              // YouTube iframe
+              <iframe
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+                title={title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute top-0 left-0 w-full h-full border-0"
+              />
+            )}
           </div>
-        </section>
-        
+        </CardContent>
+      </Card>
+    </section>
   )
 }

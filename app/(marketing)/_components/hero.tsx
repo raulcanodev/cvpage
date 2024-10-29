@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Star } from 'lucide-react';
+import { RotatingUrl } from './RotatingUrl';
 
 const trustData = {
   users: [
@@ -92,13 +92,7 @@ export function Hero() {
             </div>
           </div>
           <div className="flex-1 relative w-full aspect-[4/3] max-w-2xl lg:max-w-none">
-            <Image
-              src="/hero.png"
-              alt="hitme.to interface preview"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-lg shadow-2xl"
-            />
+          <RotatingUrl />
           </div>
         </div>
       </div>
