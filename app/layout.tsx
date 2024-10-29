@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon.png",
   },
+  
   openGraph: {
     type: 'website',
     url: `https://${config.domainName}`,
