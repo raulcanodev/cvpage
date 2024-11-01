@@ -1,4 +1,4 @@
-## Folder structure
+# CVPAGE
 
 ## Frontend
 - Tailwind
