@@ -91,7 +91,7 @@ export function Hero() {
               </div>
             </div>
           </div>
-          <div className="flex-1 relative w-full aspect-[4/3] max-w-2xl lg:max-w-none">
+          <div className="flex-1 relative w-full aspect-[4/3] max-w-2xl lg:max-w-none md:mt-16">
           <RotatingUrl />
           </div>
         </div>
