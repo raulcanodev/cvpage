@@ -36,10 +36,10 @@ export function ConfirmDeleteService({ serviceId, onDelete }: ConfirmDeleteServi
       <DialogContent className="sm:max-w-[425px] p-6 rounded-lg shadow-lg bg-white dark:bg-zinc-900">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold text-zinc-900 dark:text-white">
-            Delete Service
+            Delete block
           </DialogTitle>
           <DialogDescription className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-            This action cannot be undone. This will permanently delete the service from your
+            This action cannot be undone. This will permanently delete the block from your
             profile.
           </DialogDescription>
         </DialogHeader>
@@ -58,7 +58,7 @@ export function ConfirmDeleteService({ serviceId, onDelete }: ConfirmDeleteServi
               className="w-full sm:w-auto bg-red-600 hover:bg-red-800 text-white"
               onClick={handleDelete}
             >
-              Delete Service
+              Delete block
             </Button>
           </DialogClose>
         </div>
