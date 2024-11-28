@@ -1,5 +1,5 @@
 # CVPAGE
-![cvpage.to](https://cvpage.to)
+[cvpage.to](https://cvpage.to)
 
 ## Frontend
 - Tailwind
